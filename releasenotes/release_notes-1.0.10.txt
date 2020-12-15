@@ -1,0 +1,6 @@
+Release notes Databene Formats 1.0.10
+-------------------------------------
+
+Bug Fixes
+------------
+- CSVLineIterator returns null for empty lines

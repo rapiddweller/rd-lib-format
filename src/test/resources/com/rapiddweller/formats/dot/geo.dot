@@ -1,0 +1,11 @@
+digraph geo {
+	graph [charset=UTF-8, rankdir=BT];
+	node [shape=record, fontsize=12, style=filled, fillcolor=yellow];
+	edge [arrowhead=open];
+	country [label="CNTY\l|DE\lFR\lIT\l"];
+	state [label="STATE\l"];
+	city;
+	state -> country;
+	city -> state;
+	city -> country [style=dotted];
+}

@@ -1,0 +1,11 @@
+Release notes Databene Formats 1.0.13
+-------------------------------------
+
+Changes
+-------
+- Using generic Consumer class in XLSBeanPersistor
+- Using XPath expressions to locate the elements which can be assigned a key
+
+Bug Fixes
+---------
+- Supporting different locators on elements that have moved with toleration but are different

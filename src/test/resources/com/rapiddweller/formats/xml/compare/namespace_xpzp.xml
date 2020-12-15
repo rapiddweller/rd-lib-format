@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root 	xmlns:xp="http://databene.org/formats/xml/compare/xx"
+		xmlns:zp="http://databene.org/formats/xml/compare/zz">
+	<xp:node>text1</xp:node>
+	<zp:node>text2</zp:node>
+</root>

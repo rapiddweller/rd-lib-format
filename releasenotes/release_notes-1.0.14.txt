@@ -1,0 +1,6 @@
+Release notes Databene Formats 1.0.14
+-------------------------------------
+
+Bug Fixes
+---------
+- Defined equals() and hashCode methods in class KeyExpression

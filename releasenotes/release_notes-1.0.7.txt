@@ -1,0 +1,19 @@
+release notes Databene Formats 1.0.7
+------------------------------------
+
+Enhancements
+------------
+- Using Databene Commons 1.0.7
+- HTML2XML: Automatic recognition of character encoding in parseHtmlAsXml(url, ...) 
+- New classes for rendering data: Styled*Format and PropFormat
+- Created classes for storing Java bean (graph) data to XLS files: BeanXLSWriter and XLSBeanPersistor
+- XLSJavaBeanIterator: Additional parseAll() method which makes use of a ClassProvider
+
+Changes
+-------
+- Introduced Locale in AbbreviatedNumberFormat
+- XLSJavaBeanIterator: removed generic class parameter
+
+Bug Fixes
+---------
+- CSVToJavaBeanMapper breaks on empty files

@@ -1,0 +1,17 @@
+Release notes Databene Formats 1.0.12
+-------------------------------------
+
+Enhancements
+------------
+- Extended XML comparison test suite
+- Created XMLComparisonSettingsSerializer
+
+
+Changes
+-------
+- Introduced KeyExpression class
+
+
+Bug Fixes
+---------
+- Fixed XPath determination for tree comparison

@@ -1,0 +1,15 @@
+release notes Databene Formats 1.0.2
+------------------------------------
+
+Enhancements
+------------
+- Improved handling of null and empty values (and their respective markers) in XLS(X) documents
+
+
+Changes
+-------
+
+
+
+Bug Fixes
+---------

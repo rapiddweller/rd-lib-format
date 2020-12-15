@@ -1,0 +1,6 @@
+Release notes Databene Formats 1.0.11
+-------------------------------------
+
+Changes
+------------
+- CSVLineIterator does not interpret CRLF at file end as empty row any more

@@ -1,0 +1,16 @@
+release notes Databene Formats 1.0.3
+------------------------------------
+
+Enhancements
+------------
+
+
+
+Changes
+-------
+
+
+
+Bug Fixes
+---------
+- Trailing empty header columns cause exception in XLSJavaBeanIterator

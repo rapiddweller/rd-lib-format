@@ -1,0 +1,6 @@
+release notes Databene Formats 1.0.6
+------------------------------------
+
+Changes
+-------
+- Changed interface of the DiffDetail class
