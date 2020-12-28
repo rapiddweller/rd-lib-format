@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class NameNormalizerTest {
 	
-	private NameNormalizer normalizer = new NameNormalizer();
+	private final NameNormalizer normalizer = new NameNormalizer();
 
 	@Test
 	public void test() {

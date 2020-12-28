@@ -34,7 +34,7 @@ public class ScriptedDocumentWriterTest {
 
     private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static String RESULT =
+    private static final String RESULT =
             "header" + SEP + "row" + SEP + "footer";
 
     @Test

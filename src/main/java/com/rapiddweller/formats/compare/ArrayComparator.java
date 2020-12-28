@@ -36,14 +36,14 @@ public class ArrayComparator {
 		return new ArrayComparator(array1, array2, model, parentLocator1, parentLocator2, diffFactory).compare();
 	}
 	
-	private String parentLocator1;
-	private String parentLocator2;
-	private Object[] array1;
-	private Object[] array2;
-	private ComparisonModel model;
-	private Match[] matches1;
-	private Match[] matches2;
-	private DiffFactory diffFactory;
+	private final String parentLocator1;
+	private final String parentLocator2;
+	private final Object[] array1;
+	private final Object[] array2;
+	private final ComparisonModel model;
+	private final Match[] matches1;
+	private final Match[] matches2;
+	private final DiffFactory diffFactory;
 		
 	private ArrayComparator(Object[] array1, Object[] array2, ComparisonModel model, String parentLocator1, String parentLocator2, DiffFactory diffFactory) {
 		this.array1 = array1;
@@ -114,7 +114,9 @@ public class ArrayComparator {
 				match2.consume();
 				i2 = nextUnconsumed(matches2, i2);
 			} else {
+				assert match1 != null;
 				Assert.notNull(match1, "match1");
+				assert match2 != null;
 				Assert.notNull(match2, "match2");
 				switch (match1.type) {
 					case CHANGED: 	Object changedObject = array1[match1.i1];

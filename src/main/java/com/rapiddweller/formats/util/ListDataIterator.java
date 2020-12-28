@@ -30,8 +30,8 @@ import com.rapiddweller.formats.DataIterator;
  */
 public class ListDataIterator<E> implements DataIterator<E> {
 	
-	private Class<E> type;
-	private List<E> data;
+	private final Class<E> type;
+	private final List<E> data;
 	private int cursor;
 
 	public ListDataIterator(Class<E> type, E... data) {

@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class Sequence implements RegexPart {
 	
     /** The represented sequence of regular expression factors */
-    private RegexPart[] factors;
+    private final RegexPart[] factors;
     
     // constructors ----------------------------------------------------------------------------------------------------
     

@@ -34,7 +34,7 @@ import com.rapiddweller.commons.SystemInfo;
 public class MultiTypeArrayFixedWidthWriter implements Closeable {
 	
 	private final Writer out;
-	private Map<String, FixedWidthRowTypeDescriptor> rowDescriptors;
+	private final Map<String, FixedWidthRowTypeDescriptor> rowDescriptors;
 	
 	public MultiTypeArrayFixedWidthWriter(Writer out) {
 		this(out, null);

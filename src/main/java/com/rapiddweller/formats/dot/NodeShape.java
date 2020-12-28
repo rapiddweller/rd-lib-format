@@ -26,5 +26,5 @@ public enum NodeShape {
 	circle, polygon,
 	point, egg, triangle, plaintext, diamond, trapezium, parallelogram, house, pentagon, hexagon, septagon, octagon,
 	doublecircle, doubleoctagon, tripleoctagon, invtriangle, invtrapezium, invhouse, Mdiamond, Msquare, Mcircle,
-	note, tab, folder, box3d, component;
+	note, tab, folder, box3d, component
 }

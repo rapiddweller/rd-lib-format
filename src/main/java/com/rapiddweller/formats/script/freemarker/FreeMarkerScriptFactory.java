@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import com.rapiddweller.commons.IOUtil;
@@ -36,7 +37,7 @@ import freemarker.template.Template;
  */
 public class FreeMarkerScriptFactory implements ScriptFactory {
 
-    private Configuration config;
+    private final Configuration config;
     
     public FreeMarkerScriptFactory() {
         this(Locale.getDefault());
@@ -63,7 +64,7 @@ public class FreeMarkerScriptFactory implements ScriptFactory {
 
     @Override
 	public Script readFile(String uri) throws IOException {
-    	InputStreamReader reader = new InputStreamReader(IOUtil.getInputStreamForURI(uri), Charset.forName("UTF-8"));
+    	InputStreamReader reader = new InputStreamReader(IOUtil.getInputStreamForURI(uri), StandardCharsets.UTF_8);
         Template template = new Template(null, reader, config);
         return new FreeMarkerScript(template);
     }

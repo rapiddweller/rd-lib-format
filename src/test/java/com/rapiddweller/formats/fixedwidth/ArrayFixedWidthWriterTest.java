@@ -35,7 +35,7 @@ public class ArrayFixedWidthWriterTest {
 
     private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static String RESULT =
+    private static final String RESULT =
             "header" + SEP + "1   23" + SEP + "14 156" + SEP + "footer";
 
     @Test

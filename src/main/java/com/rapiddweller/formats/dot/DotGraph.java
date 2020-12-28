@@ -28,7 +28,7 @@ import com.rapiddweller.commons.collection.OrderedNameMap;
 
 public class DotGraph implements Named {
 	
-	private String name;
+	private final String name;
 	private final boolean directed;
 	private RankDir rankDir;
 	
@@ -40,7 +40,7 @@ public class DotGraph implements Named {
 	private EdgeStyle edgeStyle;
 	private ArrowShape edgeArrowHead;
 	private ArrowShape edgeArrowTail;
-	private OrderedNameMap<DotNode> nodes;
+	private final OrderedNameMap<DotNode> nodes;
 	
 	private DotGraph(String name, boolean directed) {
 		this.name = name;

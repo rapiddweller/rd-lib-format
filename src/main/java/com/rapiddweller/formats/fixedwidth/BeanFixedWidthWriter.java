@@ -41,7 +41,7 @@ import java.io.Writer;
 public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
 
     public BeanFixedWidthWriter(Writer out, FixedWidthColumnDescriptor ... descriptors) {
-        this(out, (Script)null, (Script)null, descriptors);
+        this(out, null, (Script)null, descriptors);
     }
 
     public BeanFixedWidthWriter(Writer out, String headerScriptUrl, String footerScriptUrl,
@@ -64,7 +64,7 @@ public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
 
     private static class BeanFixedWidthScript extends AbstractScript {
 
-        private Converter<Object, String[]> converter;
+        private final Converter<Object, String[]> converter;
 
         @SuppressWarnings({ "unchecked", "rawtypes" })
         public BeanFixedWidthScript(FixedWidthColumnDescriptor[] descriptors) {

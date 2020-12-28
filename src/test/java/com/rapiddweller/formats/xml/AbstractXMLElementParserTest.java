@@ -42,8 +42,8 @@ public class AbstractXMLElementParserTest {
 	static class MyXMLElementParser extends AbstractXMLElementParser<Object> {
 
 		public MyXMLElementParser() {
-			super("elem", CollectionUtil.<String, String>toSortedSet("req1", "req2"), 
-					CollectionUtil.<String, String>toSortedSet("opt1", "opt2"));
+			super("elem", CollectionUtil.toSortedSet("req1", "req2"),
+					CollectionUtil.toSortedSet("opt1", "opt2"));
 		}
 
 		@Override

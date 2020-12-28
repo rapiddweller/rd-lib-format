@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class ArrayComparatorTest {
 	
-	private DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
+	private final DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
 	
 	@Test
 	public void testIdenticalLists() {

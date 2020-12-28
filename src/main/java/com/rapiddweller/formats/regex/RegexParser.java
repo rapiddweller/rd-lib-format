@@ -47,7 +47,7 @@ public class RegexParser {
 	
 	private static final Logger LOGGER = LogManager.getLogger(RegexParser.class);
 
-    private Locale locale;
+    private final Locale locale;
 
     // constructors ----------------------------------------------------------------------------------------------------
 
@@ -192,7 +192,7 @@ public class RegexParser {
     	List<RegexPart> children = new ArrayList<RegexPart>();
     	if (childNodes != null)
 	    	for (CommonTree child : childNodes)
-	    		children.add(convertRegexPart((CommonTree) child));
+	    		children.add(convertRegexPart(child));
     	return new Sequence(CollectionUtil.toArray(children, RegexPart.class));
     }
 

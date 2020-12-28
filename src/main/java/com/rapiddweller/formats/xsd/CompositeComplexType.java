@@ -29,7 +29,7 @@ import com.rapiddweller.commons.collection.OrderedNameMap;
 
 public class CompositeComplexType extends ComplexType {
 	
-	private Map<String, ComplexMember> members;
+	private final Map<String, ComplexMember> members;
 	
 	public CompositeComplexType(String name) {
 		super(name);

@@ -33,7 +33,7 @@ public class CSVSingleColumIterator extends DataIteratorAdapter<String[], String
 
 	private static final char DEFAULT_SEPARATOR = ',';
 	
-	private int columnIndex;
+	private final int columnIndex;
 	ThreadLocalDataContainer<String[]> rowContainer = new ThreadLocalDataContainer<String[]>();
 	
 	public CSVSingleColumIterator(String uri, int columnIndex) throws IOException {

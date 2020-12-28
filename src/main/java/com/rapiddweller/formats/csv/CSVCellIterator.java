@@ -29,9 +29,9 @@ import java.io.IOException;
 public class CSVCellIterator implements DataIterator<String> {
 
     /** The source uri */
-    private String uri;
+    private final String uri;
 
-    private char separator;
+    private final char separator;
 
     /** The tokenizer for CSV file access */
     private CSVTokenizer tokenizer;

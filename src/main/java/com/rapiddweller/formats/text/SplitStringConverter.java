@@ -26,7 +26,7 @@ import com.rapiddweller.commons.converter.ThreadSafeConverter;
  */
 public class SplitStringConverter extends ThreadSafeConverter<String, String[]> {
 
-    private char separator;
+    private final char separator;
 
     public SplitStringConverter(char separator) {
     	super(String.class, String[].class);

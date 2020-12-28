@@ -4,7 +4,7 @@
 
 	<groupId>com.rapiddweller</groupId>
 	<artifactId>rd-lib-format</artifactId>
-	<version>--project-version--</version>
+	<version>1.1.0+jdk-11</version>
 	<packaging>jar</packaging>
 
 	<name>rapiddweller Format</name>
@@ -17,10 +17,11 @@
 	<inceptionYear>2006</inceptionYear>
 
 	<properties>
-		<common_version>1.0.13+jdk-8</common_version>
+		<common_version>1.1.0+jdk-11</common_version>
+		<graalvm.version>20.3.0</graalvm.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java_source_version>1.8</java_source_version>
-		<java_target_version>1.8</java_target_version>
+		<java_source_version>11</java_source_version>
+		<java_target_version>11</java_target_version>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 	</properties>
 
@@ -144,7 +145,22 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.graalvm.sdk</groupId>
+			<artifactId>graal-sdk</artifactId>
+			<version>${graalvm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.js</groupId>
+			<artifactId>js</artifactId>
+			<version>${graalvm.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.js</groupId>
+			<artifactId>js-scriptengine</artifactId>
+			<version>${graalvm.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

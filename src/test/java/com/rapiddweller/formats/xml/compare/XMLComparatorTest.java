@@ -52,7 +52,7 @@ public class XMLComparatorTest {
     private static final String NS_ZX_PATH = RESOURCE_PATH + "namespace_zx.xml";
     private static final String NS_NONE_PATH = RESOURCE_PATH + "namespace_none.xml";
 
-	private DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
+	private final DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
 	
     @Test
     public void testDiff_identical() throws Exception {

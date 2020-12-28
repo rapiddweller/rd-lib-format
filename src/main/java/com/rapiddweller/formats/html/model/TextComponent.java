@@ -25,7 +25,7 @@ import com.rapiddweller.formats.html.util.HTMLUtil;
 
 public class TextComponent extends HtmlComponent {
 	
-	private String text;
+	private final String text;
 	
 	public TextComponent(String text) {
 		this(text, true, false);

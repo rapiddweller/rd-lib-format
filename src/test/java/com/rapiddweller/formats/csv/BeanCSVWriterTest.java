@@ -37,7 +37,7 @@ public class BeanCSVWriterTest {
 
     private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static String RESULT =
+    private static final String RESULT =
             "header" + SEP + "Carl;48" + SEP + "Carl;48" + SEP + "footer";
 
     @Test
@@ -45,7 +45,7 @@ public class BeanCSVWriterTest {
         StringWriter out = new StringWriter();
         DocumentWriter<TP> writer = new BeanCSVWriter<TP>(out, ';',
                 new ConstantScript("header" + SEP), new ConstantScript("footer"),
-                new String[] { "name", "age" });
+                "name", "age");
         TP person = new TP();
         writer.writeElement(person);
         writer.writeElement(person);

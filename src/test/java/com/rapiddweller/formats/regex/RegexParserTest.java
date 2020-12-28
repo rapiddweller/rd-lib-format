@@ -45,7 +45,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class RegexParserTest {
 
-	private static Logger logger = LogManager.getLogger(RegexParserTest.class);
+	private static final Logger logger = LogManager.getLogger(RegexParserTest.class);
     
 	@Test
     public void testEmpty() throws Exception {

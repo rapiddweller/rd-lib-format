@@ -46,8 +46,8 @@ public class BeanXLSWriter<E> implements Closeable {
     // attributes ------------------------------------------------------------------------------------------------------
 
     private final OutputStream out;
-    private String sheetName;
-	private List<PropFormat> beanProperties;
+    private final String sheetName;
+	private final List<PropFormat> beanProperties;
     
     private HSSFWorkbook workbook;
 

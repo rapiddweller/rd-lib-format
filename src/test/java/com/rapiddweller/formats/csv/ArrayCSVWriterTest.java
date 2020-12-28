@@ -36,7 +36,7 @@ public class ArrayCSVWriterTest {
 
     private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static String RESULT =
+    private static final String RESULT =
             "header" + SEP + "1;2;3" + SEP + "4;5;6" + SEP + "footer";
 
     @Test

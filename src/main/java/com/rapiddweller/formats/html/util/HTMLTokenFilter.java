@@ -25,8 +25,8 @@ import com.rapiddweller.formats.html.parser.HTMLTokenizer;
  */
 public class HTMLTokenFilter implements Filter<HTMLTokenizer> {
 
-    private int tokenType;
-    private String name;
+    private final int tokenType;
+    private final String name;
 
     public HTMLTokenFilter(int tokenType, String name) {
         this.tokenType = tokenType;

@@ -26,11 +26,11 @@ import com.rapiddweller.formats.util.OrthogonalArrayIterator;
  */
 public class XLSSource implements DataSource<Object[]> {
 
-	private String uri;
-	private boolean formatted;
-	private String emptyMarker;
-	private String nullMarker;
-	private boolean rowBased;
+	private final String uri;
+	private final boolean formatted;
+	private final String emptyMarker;
+	private final String nullMarker;
+	private final boolean rowBased;
 	
 	public XLSSource(String uri, boolean formatted, String emptyMarker, String nullMarker, boolean rowBased) {
 		this.uri = uri;

@@ -36,7 +36,7 @@ public class ParseContext<E> implements Context {
 	
 	protected XMLElementParserFactory<E> factory;
 	protected Class<E> pathComponentType;
-	private Context context;
+	private final Context context;
 	
 	public ParseContext(Class<E> pathComponentType) {
 		this(pathComponentType, new XMLElementParserFactory<E>());

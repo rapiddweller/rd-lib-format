@@ -40,7 +40,7 @@ public class CSVTokenizer implements Closeable {
     private PushbackReader reader;
 
     /** the actual separator */
-    private char separator;
+    private final char separator;
 
     /** The token at the cursor position */
     public CSVTokenType ttype;

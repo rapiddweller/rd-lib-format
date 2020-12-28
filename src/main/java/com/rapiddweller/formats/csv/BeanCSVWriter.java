@@ -71,8 +71,8 @@ public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
 
     private static class BeanCSVScript extends AbstractScript {
 
-        private char separator;
-        private Converter<Object, String[]> converter;
+        private final char separator;
+        private final Converter<Object, String[]> converter;
 
         @SuppressWarnings({ "unchecked", "rawtypes" })
         public BeanCSVScript(String[] propertyNames, char separator) {

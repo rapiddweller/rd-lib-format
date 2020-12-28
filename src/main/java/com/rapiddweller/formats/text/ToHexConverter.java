@@ -30,9 +30,9 @@ import com.rapiddweller.commons.converter.ThreadSafeConverter;
  */
 public class ToHexConverter extends ThreadSafeConverter<Object, String> {
 	
-	private boolean upperCase;
-	private String pattern;
-	private int length;
+	private final boolean upperCase;
+	private final String pattern;
+	private final int length;
 
 	public ToHexConverter() {
 	    this(false);

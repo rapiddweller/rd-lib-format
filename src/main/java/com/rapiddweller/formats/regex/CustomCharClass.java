@@ -29,8 +29,8 @@ import com.rapiddweller.commons.CharSet;
 
 public class CustomCharClass extends RegexCharClass {
 	
-	private List<RegexCharClass> inclusions;
-	private List<RegexCharClass> exclusions;
+	private final List<RegexCharClass> inclusions;
+	private final List<RegexCharClass> exclusions;
 	
 	// constructors ----------------------------------------------------------------------------------------------------
 	

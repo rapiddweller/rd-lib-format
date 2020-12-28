@@ -40,7 +40,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
     
     private NamedMutator[] mutators;
     private int classIndex;
-    private ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
+    private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
 
 
     // constructors ----------------------------------------------------------------------------------------------------

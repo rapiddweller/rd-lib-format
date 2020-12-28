@@ -33,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class DefaultHTMLTokenizer implements HTMLTokenizer {
 
-	private static Logger logger = LogManager.getLogger(DefaultHTMLTokenizer.class);
+	private static final Logger logger = LogManager.getLogger(DefaultHTMLTokenizer.class);
 
     private static final int TEXT_BUFFER_SIZE = 500000;
 	private static final int ATTRIBUT_BUFFER_SIZE = 256;
@@ -42,7 +42,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     private static final CharSet ATTR_NAME_CHARS = new CharSet('A','Z').addRange('a', 'z').addRange('0', '9').add('_').add('-').add(':');
 
     // parser state
-    private PushbackReader reader;
+    private final PushbackReader reader;
     private boolean script;
 
     // token state
@@ -59,11 +59,11 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     private Map<String, String> attributeMap;
 
     // buffers
-    private char[] textBuffer;
-    private int[] attribNameFrom;
-    private int[] attribNameUntil;
-    private int[] attribValueFrom;
-    private int[] attribValueUntil;
+    private final char[] textBuffer;
+    private final int[] attribNameFrom;
+    private final int[] attribNameUntil;
+    private final int[] attribValueFrom;
+    private final int[] attribValueUntil;
 
     public DefaultHTMLTokenizer(Reader reader) {
         // create buffers

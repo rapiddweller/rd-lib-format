@@ -45,7 +45,7 @@ public class CSVLineIterator implements DataIterator<String[]> {
 
     private String[] nextLine;
 
-    private boolean ignoreEmptyLines;
+    private final boolean ignoreEmptyLines;
 
     private int lineCount;
     

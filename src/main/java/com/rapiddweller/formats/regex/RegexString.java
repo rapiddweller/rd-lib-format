@@ -25,7 +25,7 @@ import com.rapiddweller.commons.Assert;
 
 public class RegexString implements RegexPart {
 	
-	private String string;
+	private final String string;
 	
 	public RegexString(String string) {
 		Assert.notNull(string, "string");

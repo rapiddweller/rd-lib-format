@@ -14,26 +14,17 @@
  */
 package com.rapiddweller.formats.script;
 
+import com.rapiddweller.commons.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.graalvm.polyglot.Engine;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-
-import com.rapiddweller.commons.BeanUtil;
-import com.rapiddweller.commons.ConfigurationError;
-import com.rapiddweller.commons.Context;
-import com.rapiddweller.commons.FileUtil;
-import com.rapiddweller.commons.IOUtil;
-import com.rapiddweller.commons.LogCategories;
-import com.rapiddweller.commons.StringUtil;
-import com.rapiddweller.formats.script.jsr223.Jsr223ScriptFactory;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * Utility class for scripting.
@@ -101,7 +92,7 @@ public class ScriptUtil {
     
 	// static factory methods ------------------------------------------------------------------------------------------
 
-    private static Map<String, Script> scriptsByName = new WeakHashMap<String, Script>();
+    private static final Map<String, Script> scriptsByName = new WeakHashMap<String, Script>();
 
     public static Script readFile(String uri) throws IOException {
         Script script = scriptsByName.get(uri);
@@ -218,30 +209,18 @@ public class ScriptUtil {
 	}
     
     private static void parseConfigFile() {
-        String className = null;
+        String className;
         try {
-            factories = new HashMap<String, ScriptFactory>();
-            
-            try {
-	            // check installed JSR 223 script engines
-	            ScriptEngineManager mgr = new ScriptEngineManager();
-	            for (ScriptEngineFactory engineFactory : mgr.getEngineFactories()) {
-	        		Jsr223ScriptFactory factory = new Jsr223ScriptFactory(engineFactory.getScriptEngine());
-	            	List<String> names = engineFactory.getNames();
-					for (String name : names)
-						addFactory(name, factory);
-	            }
-            } catch (NoClassDefFoundError e) {
-            	CONFIG_LOGGER.error("Java 6/JSR 223 script engines not available, deactivating script engine support.");
-            }
-
+            factories = new HashMap<>();
+            org.graalvm.polyglot.Engine graalVMEngine = Engine.newBuilder().build();
+            CONFIG_LOGGER.info("supported script languages GraalVM : " + graalVMEngine.getLanguages().keySet());
             // read config file
             SCRIPTUTIL_LOGGER.debug("Initializing Script mapping from file " + SETUP_FILE_NAME);
             Map<String, String> properties = IOUtil.readProperties(SETUP_FILE_NAME);
             for (Map.Entry<String, String> entry : properties.entrySet()) {
-                className = entry.getValue().toString();
+                className = entry.getValue();
                 ScriptFactory factory = (ScriptFactory) BeanUtil.newInstance(className);
-                addFactory(entry.getKey().toString(), factory);
+                addFactory(entry.getKey(), factory);
             }
         } catch (FileNotFoundException e) {
             throw new ConfigurationError("Setup file not found: " + SETUP_FILE_NAME, e);

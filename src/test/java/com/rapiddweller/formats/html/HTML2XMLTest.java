@@ -33,8 +33,8 @@ import com.rapiddweller.formats.html.HTML2XML;
  */
 public class HTML2XMLTest {
 
-    private static String SEP = SystemInfo.getLineSeparator();
-    private static String XML_HEADER_ROW = 
+    private static final String SEP = SystemInfo.getLineSeparator();
+    private static final String XML_HEADER_ROW =
     	"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + SEP;
 
     private static final String HTML1 = "<html>" + SEP +

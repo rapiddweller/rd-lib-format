@@ -42,7 +42,7 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
     }
 
     public ArrayCSVWriter(Writer out, char separator) {
-        this(out, separator, (Script)null, (Script)null);
+        this(out, separator, null, (Script)null);
     }
 
     public ArrayCSVWriter(Writer out, char separator, String ... columnHeads) {
@@ -71,8 +71,8 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
 
     private static class ArrayCSVScript extends AbstractScript {
 
-        private Converter<Object, String> converter;
-        private char separator;
+        private final Converter<Object, String> converter;
+        private final char separator;
 
         public ArrayCSVScript(char separator) {
             this.separator = separator;

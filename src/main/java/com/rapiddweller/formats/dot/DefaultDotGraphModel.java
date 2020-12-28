@@ -26,7 +26,7 @@ import java.util.Collection;
 
 public class DefaultDotGraphModel implements DotGraphModel {
 	
-	private DotGraph graph;
+	private final DotGraph graph;
 	
 	public DefaultDotGraphModel(DotGraph graph) {
 		this.graph = graph;

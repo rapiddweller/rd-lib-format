@@ -29,7 +29,7 @@ import com.rapiddweller.formats.DataIterator;
 public abstract class DataIteratorAdapter<S, T> implements DataIterator<T> {
 
     protected DataIterator<S> source;
-    private ThreadLocalDataContainer<S> sourceContainerProvider;
+    private final ThreadLocalDataContainer<S> sourceContainerProvider;
 
     public DataIteratorAdapter(DataIterator<S> source) {
         this.source = source;

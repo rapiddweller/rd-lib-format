@@ -28,12 +28,12 @@ import com.rapiddweller.commons.Named;
 
 public class DotNode implements Named {
 	
-	private String name;
-	private boolean vertical;
+	private final String name;
+	private final boolean vertical;
 	private NodeStyle style;
-	private String fillColor;
-	private List<String> segments;
-	private List<DotEdge> edges;
+	private final String fillColor;
+	private final List<String> segments;
+	private final List<DotEdge> edges;
 
 	public DotNode(String name) {
 		this.name = name;

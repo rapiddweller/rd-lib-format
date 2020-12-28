@@ -27,7 +27,7 @@ import com.rapiddweller.commons.format.PadFormat;
  */
 public class FixedWidthLineParser {
 
-	private PadFormat[] formats;
+	private final PadFormat[] formats;
 
     public FixedWidthLineParser(PadFormat[] formats) {
 	    this.formats = formats.clone();

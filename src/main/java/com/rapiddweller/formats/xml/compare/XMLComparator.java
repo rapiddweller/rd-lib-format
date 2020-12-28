@@ -55,8 +55,8 @@ import org.w3c.dom.Text;
 
 public class XMLComparator {
 
-	private XMLComparisonSettings settings;
-	private DiffFactory diffFactory;
+	private final XMLComparisonSettings settings;
+	private final DiffFactory diffFactory;
 
 	public XMLComparator() {
 		this(new XMLComparisonSettings());

@@ -45,7 +45,7 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 	private String emptyMarker;
 	private String nullMarker;
 	private boolean formatted;
-	private Converter<String, ?> stringPreprocessor;
+	private final Converter<String, ?> stringPreprocessor;
 	
 	private String[] headers;
 	private Iterator<Row> rowIterator;

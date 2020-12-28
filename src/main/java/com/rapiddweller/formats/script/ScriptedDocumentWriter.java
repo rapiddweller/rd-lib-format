@@ -31,11 +31,11 @@ import java.util.HashMap;
  */
 public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
 
-    private Writer out;
-    private Map<String, Object> vars;
+    private final Writer out;
+    private final Map<String, Object> vars;
 
     private Script headerScript;
-    private Script bodyPartScript;
+    private final Script bodyPartScript;
     private Script footerScript;
 
     private boolean writeHeader;
@@ -54,7 +54,7 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
         this.headerScript = headerScript;
         this.bodyPartScript = bodyPartScript;
         this.footerScript = footerScript;
-        this.vars = new HashMap<String, Object>();
+        this.vars = new HashMap<>();
         this.writeHeader = true;
     }
 

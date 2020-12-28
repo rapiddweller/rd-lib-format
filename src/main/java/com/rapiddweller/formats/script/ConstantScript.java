@@ -27,7 +27,7 @@ import com.rapiddweller.commons.Context;
  */
 public class ConstantScript extends AbstractScript {
 
-    private String text;
+    private final String text;
 
     public ConstantScript(String text) {
         this.text = text;

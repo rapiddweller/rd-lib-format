@@ -21,7 +21,7 @@ package com.rapiddweller.formats.regex;
 public class Group implements RegexPart {
 	
     /** The regular sub expression */
-    private RegexPart regex;
+    private final RegexPart regex;
     
     /** Constructor that takes a sub expression 
      * @param regex the regular expression for the group */

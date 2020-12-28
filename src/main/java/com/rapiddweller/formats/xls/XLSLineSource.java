@@ -29,9 +29,9 @@ import com.rapiddweller.formats.xls.XLSLineIterator;
  */
 public class XLSLineSource extends AbstractDataSource<Object[]> {
 	
-	private String uri;
-	private String sheetName;
-	private boolean formatted;
+	private final String uri;
+	private final String sheetName;
+	private final boolean formatted;
 
 	public XLSLineSource(String uri) {
 		this(uri, null, false);

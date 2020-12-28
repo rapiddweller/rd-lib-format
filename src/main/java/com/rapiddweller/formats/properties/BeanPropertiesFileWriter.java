@@ -46,7 +46,7 @@ import java.beans.PropertyDescriptor;
 public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
 
     public BeanPropertiesFileWriter(Writer out, String ... propertyNames) {
-        this(out, null, (Script)null, (Script)null, propertyNames);
+        this(out, null, null, (Script)null, propertyNames);
     }
 
     public BeanPropertiesFileWriter(Writer out, String prefixPattern, String headerScriptUrl, String footerScriptUrl,
@@ -89,12 +89,12 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
 
         private static final String LINE_SEPARATOR = SystemInfo.getLineSeparator();
 
-        private MessageFormat prefixFormat;
-        private String[] propertyNames;
-        private Converter<Object, String[]> converter;
+        private final MessageFormat prefixFormat;
+        private final String[] propertyNames;
+        private final Converter<Object, String[]> converter;
 
         private int elementCount;
-        private StringBuffer buffer;
+        private final StringBuffer buffer;
         FieldPosition pos0 = new FieldPosition(0);
 
         @SuppressWarnings({ "unchecked", "rawtypes" })

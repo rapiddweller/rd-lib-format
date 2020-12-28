@@ -23,6 +23,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Map;
 import java.util.Set;
@@ -83,12 +84,12 @@ public class HTML2XML {
     }
     
 	public static Document parseHtmlAsXml(String url, boolean namespaceAware) 
-			throws IOException, ParseException, UnsupportedEncodingException {
+			throws IOException, ParseException {
 		String htmlText = downloadHtml(url);
 		return parseHtmlTextAsXml(htmlText, namespaceAware);
 	}
 
-	public static String downloadHtml(String url) throws IOException, UnsupportedEncodingException {
+	public static String downloadHtml(String url) throws IOException {
 		byte[] bytes = IOUtil.getBinaryContentOfUri(url);
 		String encoding = getEncoding(bytes);
 		if (StringUtil.isEmpty(encoding))
@@ -97,7 +98,7 @@ public class HTML2XML {
 	}
 
 	private static String getEncoding(byte[] bytes) throws UnsupportedEncodingException {
-		String tmp = new String(bytes, Encodings.ISO_8859_1);
+		String tmp = new String(bytes, StandardCharsets.ISO_8859_1);
 		int startIndex = tmp.indexOf("charset=");
 		if (startIndex < 0)
 			return null;
@@ -111,10 +112,9 @@ public class HTML2XML {
 		return builder.toString();
 	}
 
-	public static Document parseHtmlTextAsXml(String html, boolean namespaceAware) throws ParseException, IOException,
-			UnsupportedEncodingException {
+	public static Document parseHtmlTextAsXml(String html, boolean namespaceAware) throws ParseException, IOException {
 		String xml = convert(html);
-		ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(Encodings.UTF_8));
+		ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
 		return XMLUtil.parse(in, namespaceAware, null, null, null, null);
 	}
 

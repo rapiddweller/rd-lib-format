@@ -33,9 +33,9 @@ import com.rapiddweller.commons.mutator.AnyMutator;
 
 public class FixedWidthRowTypeDescriptor {
 	
-	private String name;
-	private FixedWidthColumnDescriptor[] columnDescriptors;
-	private int rowLength;
+	private final String name;
+	private final FixedWidthColumnDescriptor[] columnDescriptors;
+	private final int rowLength;
 	
 	public FixedWidthRowTypeDescriptor(String name, FixedWidthColumnDescriptor[] columnDescriptors) {
 		this.name = name;

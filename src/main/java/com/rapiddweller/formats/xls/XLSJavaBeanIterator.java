@@ -50,8 +50,8 @@ import com.rapiddweller.formats.util.ConvertingDataIterator;
 
 public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> {
 	
-	private String uri;
-	private boolean formatted;
+	private final String uri;
+	private final boolean formatted;
 	
 	public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, Class<?> beanClass) throws IOException, InvalidFormatException {
 		this(uri, sheetName, formatted, null, "", new ConstantClassProvider<Object>(beanClass));

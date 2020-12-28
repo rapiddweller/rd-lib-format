@@ -26,12 +26,12 @@ import com.rapiddweller.formats.html.model.HtmlComponent;
  */
 public class HtmlEntity extends HtmlComponent {
 	
-	private static HashMap<String, HtmlEntity> HTML_CODES = new HashMap<String, HtmlEntity>();
-	private static HashMap<Integer, HtmlEntity> NUMBERS = new HashMap<Integer, HtmlEntity>();
+	private static final HashMap<String, HtmlEntity> HTML_CODES = new HashMap<String, HtmlEntity>();
+	private static final HashMap<Integer, HtmlEntity> NUMBERS = new HashMap<Integer, HtmlEntity>();
 	
 	public static final HtmlEntity NBSP = new HtmlEntity("nbsp",   160);
 	
-	private static HtmlEntity[] ENTITIES = {
+	private static final HtmlEntity[] ENTITIES = {
 	    NBSP,
 	    new HtmlEntity("iexcl",  161),
 	    new HtmlEntity("cent",   162),
@@ -307,7 +307,7 @@ public class HtmlEntity extends HtmlComponent {
     	if (semIndex < 0)
     		return null;
     	boolean num = (s.charAt(position + 1) == '#');
-    	boolean hex = (num ? s.charAt(position + 2) == 'x' : false);
+    	boolean hex = (num && s.charAt(position + 2) == 'x');
     	if (hex)
     		return findByNumber(Integer.parseInt(s.substring(position + 3, semIndex), 16));
     	else if (num)

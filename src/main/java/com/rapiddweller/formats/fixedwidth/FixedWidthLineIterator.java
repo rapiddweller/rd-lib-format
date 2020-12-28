@@ -35,12 +35,12 @@ import java.util.regex.Pattern;
  */
 public class FixedWidthLineIterator implements DataIterator<String[]> {
 
-    private boolean ignoreEmptyLines;
+    private final boolean ignoreEmptyLines;
 
     private ReaderLineIterator lineIterator;
-    private FixedWidthLineParser parser;
+    private final FixedWidthLineParser parser;
     private int lineCount;
-    private Pattern lineFilter;
+    private final Pattern lineFilter;
 
     // constructors ----------------------------------------------------------------------------------------------------
 

@@ -25,7 +25,7 @@ import java.util.Arrays;
 public class Choice implements RegexPart {
 	
     /** The alternatives */
-    private RegexPart[] alternatives;
+    private final RegexPart[] alternatives;
     
     
     // constructors ----------------------------------------------------------------------------------------------------

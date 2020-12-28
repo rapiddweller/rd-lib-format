@@ -30,7 +30,7 @@ import com.rapiddweller.formats.DataIterator;
  */
 public class OrthogonalArrayIterator<E> implements DataIterator<E[]> {
 
-	private DataIterator<E[]> source;
+	private final DataIterator<E[]> source;
 	
 	private List<E[]> rows;
 	private int columnIndex;

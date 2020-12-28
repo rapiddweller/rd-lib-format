@@ -51,8 +51,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
 			Set<String> optionalAttributes, 
 			Class<?>... supportedParentTypes) {
 		this.elementName = elementName;
-		this.requiredAttributes = (requiredAttributes != null ? requiredAttributes : Collections.<String>emptySet());
-		this.optionalAttributes = (optionalAttributes != null ? optionalAttributes : Collections.<String>emptySet());
+		this.requiredAttributes = (requiredAttributes != null ? requiredAttributes : Collections.emptySet());
+		this.optionalAttributes = (optionalAttributes != null ? optionalAttributes : Collections.emptySet());
 		this.supportedParentTypes = CollectionUtil.toSet(supportedParentTypes);
 	}
 

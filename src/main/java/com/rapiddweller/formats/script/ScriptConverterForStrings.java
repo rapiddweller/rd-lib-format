@@ -26,7 +26,7 @@ import com.rapiddweller.commons.converter.ThreadSafeConverter;
  */
 public class ScriptConverterForStrings extends ThreadSafeConverter<String, Object> {
 
-    private Context context;
+    private final Context context;
     
     public ScriptConverterForStrings(Context context) {
     	super(String.class, Object.class);
@@ -36,7 +36,7 @@ public class ScriptConverterForStrings extends ThreadSafeConverter<String, Objec
 	@Override
 	public Object convert(String sourceValue) throws ConversionException {
 		if (sourceValue != null)
-			return ScriptUtil.evaluate((String) sourceValue, context);
+			return ScriptUtil.evaluate(sourceValue, context);
 		else
 			return null;
 	}

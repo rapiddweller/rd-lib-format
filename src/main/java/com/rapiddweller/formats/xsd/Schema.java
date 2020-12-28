@@ -29,8 +29,8 @@ import com.rapiddweller.commons.collection.OrderedNameMap;
 
 public class Schema extends SchemaElement implements Named {
 	
-	private Map<String, SimpleType> simpleTypes;
-	private Map<String, ComplexType> complexTypes;
+	private final Map<String, SimpleType> simpleTypes;
+	private final Map<String, ComplexType> complexTypes;
 	private ComplexMember member;
 	
 	public Schema() {

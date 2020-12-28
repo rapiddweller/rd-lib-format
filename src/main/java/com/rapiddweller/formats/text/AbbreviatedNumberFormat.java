@@ -40,36 +40,32 @@ public class AbbreviatedNumberFormat extends NumberFormat {
 
 	static {
 		ABBREVIATIONS = new HashMap<Locale, List<AbbreviatedScale>>();
-		createAbbreviation("Mrd",  new Double(1E9), Locale.GERMAN);
-        createAbbreviation("Mrd.", new Double(1E9), Locale.GERMAN);
-        createAbbreviation("Mio",  new Double(1E6), Locale.GERMAN);
-        createAbbreviation("Mio.", new Double(1E6), Locale.GERMAN);
-        createAbbreviation("Tsd",  new Double(1E3), Locale.GERMAN);
-        createAbbreviation("Tsd.", new Double(1E3), Locale.GERMAN);
-        createAbbreviation("T",    new Double(1E3), Locale.GERMAN);
+		createAbbreviation("Mrd", 1E9, Locale.GERMAN);
+        createAbbreviation("Mrd.", 1E9, Locale.GERMAN);
+        createAbbreviation("Mio", 1E6, Locale.GERMAN);
+        createAbbreviation("Mio.", 1E6, Locale.GERMAN);
+        createAbbreviation("Tsd", 1E3, Locale.GERMAN);
+        createAbbreviation("Tsd.", 1E3, Locale.GERMAN);
+        createAbbreviation("T", 1E3, Locale.GERMAN);
         
-        createAbbreviation("Tsd", new Double(1E3),  Locale.ENGLISH); // Thousand
-        createAbbreviation("T",   new Double(1E12), Locale.ENGLISH); // Trillion
-        createAbbreviation("B",   new Double(1E9 ), Locale.ENGLISH); // Billion
-        createAbbreviation("M",   new Double(1E6 ), Locale.ENGLISH); // Million
-        createAbbreviation("K",   new Double(1E3 ), Locale.ENGLISH); // Kilo
-        createAbbreviation("k",   new Double(1E3 ), Locale.ENGLISH); // kilo
-	};
-	
+        createAbbreviation("Tsd", 1E3,  Locale.ENGLISH); // Thousand
+        createAbbreviation("T", 1E12, Locale.ENGLISH); // Trillion
+        createAbbreviation("B", 1E9, Locale.ENGLISH); // Billion
+        createAbbreviation("M", 1E6, Locale.ENGLISH); // Million
+        createAbbreviation("K", 1E3, Locale.ENGLISH); // Kilo
+        createAbbreviation("k", 1E3, Locale.ENGLISH); // kilo
+	}
+
     private static void createAbbreviation(String abbreviation, Double factor, Locale locale) {
-		List<AbbreviatedScale> localAbbrevs = ABBREVIATIONS.get(locale);
-		if (localAbbrevs == null) {
-			localAbbrevs = new ArrayList<AbbreviatedScale>();
-			ABBREVIATIONS.put(locale, localAbbrevs);
-		}
-		AbbreviatedScale entry = new AbbreviatedScale(abbreviation, factor);
+        List<AbbreviatedScale> localAbbrevs = ABBREVIATIONS.computeIfAbsent(locale, k -> new ArrayList<AbbreviatedScale>());
+        AbbreviatedScale entry = new AbbreviatedScale(abbreviation, factor);
 		localAbbrevs.add(entry);
 	}
 
     private String defaultScaleId;
-    private double defaultScale;
-    private List<AbbreviatedScale> abbreviations;
-    private NumberFormat snf;
+    private final double defaultScale;
+    private final List<AbbreviatedScale> abbreviations;
+    private final NumberFormat snf;
 
     public AbbreviatedNumberFormat() {
         this(1);
@@ -87,10 +83,9 @@ public class AbbreviatedNumberFormat extends NumberFormat {
     	abbreviations = abbreviationsForLocale(locale);
         defaultScale = scale;
         defaultScaleId = "";
-        for (int i = 0; i < abbreviations.size(); i++) {
-        	AbbreviatedScale abbScale = abbreviations.get(i);
+        for (AbbreviatedScale abbScale : abbreviations) {
             if (abbScale.factor == scale) {
-                defaultScaleId = (String) abbScale.code;
+                defaultScaleId = abbScale.code;
                 break;
             }
         }
@@ -119,10 +114,10 @@ public class AbbreviatedNumberFormat extends NumberFormat {
 
     private StringBuffer formatFree(double number, StringBuffer toAppendTo, FieldPosition pos) {
         String selectedPrefix = "";
-        for (int i = 0; i < abbreviations.size(); i++) {
-            double scale = ((Double) abbreviations.get(i).factor).doubleValue();
+        for (AbbreviatedScale abbreviation : abbreviations) {
+            double scale = abbreviation.factor;
             if (number >= scale) {
-                selectedPrefix = (String) abbreviations.get(i).code;
+                selectedPrefix = abbreviation.code;
                 number /= scale;
                 snf.format(number, toAppendTo, pos);
                 toAppendTo.append(' ');
@@ -144,10 +139,10 @@ public class AbbreviatedNumberFormat extends NumberFormat {
         int start = ParseUtil.nextNonWhitespaceIndex(source, pos.getIndex());
         if (start == -1)
             return value;
-        for (int i = 0; i < abbreviations.size(); i++) {
-            String prefix = (String) abbreviations.get(i).code;
-            if (source.substring(start).startsWith(prefix))  {
-                value = new Double(value.doubleValue() * ((Double) abbreviations.get(i).factor).doubleValue());
+        for (AbbreviatedScale abbreviation : abbreviations) {
+            String prefix = abbreviation.code;
+            if (source.substring(start).startsWith(prefix)) {
+                value = value.doubleValue() * abbreviation.factor;
                 pos.setIndex(start + prefix.length());
                 break;
             }

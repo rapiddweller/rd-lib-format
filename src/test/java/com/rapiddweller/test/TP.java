@@ -21,7 +21,7 @@ package com.rapiddweller.test;
  */
 public final class TP {
 
-    private String name;
+    private final String name;
 
     public TP() {
         this("Carl");

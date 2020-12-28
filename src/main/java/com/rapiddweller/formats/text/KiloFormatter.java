@@ -33,8 +33,8 @@ public class KiloFormatter {
 	public static final int DEFAULT_BASE = BASE_1000;
 	public static final String[] SYMBOLS = { "", "K", "M", "G", "T", "E" };
 	
-	private int base;
-	private char decimalSeparator;
+	private final int base;
+	private final char decimalSeparator;
 
 	public KiloFormatter(int base) {
 		this(base, Locale.getDefault());

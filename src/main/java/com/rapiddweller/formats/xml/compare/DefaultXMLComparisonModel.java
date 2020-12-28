@@ -46,8 +46,8 @@ import org.w3c.dom.Text;
 
 public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
 	
-	private List<KeyExpression> keyExpressions;
-	private Map<Element, String> keys;
+	private final List<KeyExpression> keyExpressions;
+	private final Map<Element, String> keys;
 	private boolean initialized;
 	
 	public DefaultXMLComparisonModel() {
@@ -233,9 +233,7 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
 		} else if (ln2 != null) {
 			return false;
 		}
-		if (namespaceRelevant && !NullSafeComparator.equals(e1.getNamespaceURI(), e2.getNamespaceURI()))
-			return false;
-		return true;
+		return !namespaceRelevant || NullSafeComparator.equals(e1.getNamespaceURI(), e2.getNamespaceURI());
 	}
 	
 	private static String name(Node node) {

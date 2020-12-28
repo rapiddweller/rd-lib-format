@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ArrayComparisonResult {
 	
-	private List<DiffDetail> diffs;
+	private final List<DiffDetail> diffs;
 	
 	public ArrayComparisonResult() {
 		this.diffs = new ArrayList<DiffDetail>();

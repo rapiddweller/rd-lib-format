@@ -23,8 +23,8 @@ package com.rapiddweller.formats.dot;
 
 public class DotEdge {
 	
-	private DotNode from;
-	private DotNode to;
+	private final DotNode from;
+	private final DotNode to;
 	private ArrowShape arrowHead;
 	private String headLabel;
 	private ArrowShape arrowTail;

@@ -26,7 +26,7 @@ import com.rapiddweller.commons.converter.ToStringConverter;
 
 public class DiffFactory {
 	
-	private Converter<Object, String> formatter;
+	private final Converter<Object, String> formatter;
 	
 	public DiffFactory() {
 		this(new ToStringConverter());

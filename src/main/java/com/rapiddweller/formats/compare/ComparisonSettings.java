@@ -28,7 +28,7 @@ import java.util.Set;
 public class ComparisonSettings {
 
 	protected ComparisonModel model;
-	private Set<LocalDiffType> toleratedDiffs;
+	private final Set<LocalDiffType> toleratedDiffs;
 
 	public ComparisonSettings(ComparisonModel model) {
 		this.model = model;

@@ -25,9 +25,9 @@ import com.rapiddweller.commons.CharSet;
 
 public class CharRange extends RegexCharClass {
 	
-	private String name;
-	private char first;
-	private char last;
+	private final String name;
+	private final char first;
+	private final char last;
 	
 	public CharRange(String name, char first, char last) {
 		this.name = name;

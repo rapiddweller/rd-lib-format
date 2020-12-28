@@ -29,16 +29,16 @@ import com.rapiddweller.commons.SystemInfo;
 
 public class AggregateDiff {
 	
-	private Object expected;
-	private Object actual;
-	private ComparisonSettings comparisonSettings;
-	private List<DiffDetail> details;
+	private final Object expected;
+	private final Object actual;
+	private final ComparisonSettings comparisonSettings;
+	private final List<DiffDetail> details;
 	
 	public AggregateDiff(Object expected, Object actual, ComparisonSettings comparisonSettings) {
 		this.expected = expected;
 		this.actual = actual;
 		this.comparisonSettings = comparisonSettings;
-		this.details = new ArrayList<DiffDetail>();
+		this.details = new ArrayList<>();
 	}
 	
 	public Object getExpected() {

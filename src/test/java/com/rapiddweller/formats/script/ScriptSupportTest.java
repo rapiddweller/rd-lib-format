@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.formats.script;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.commons.Context;
 import com.rapiddweller.commons.context.DefaultContext;
-import com.rapiddweller.formats.script.ScriptUtil;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.graalvm.polyglot.Value;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test the ScriptSupport class.
@@ -36,6 +36,38 @@ public class ScriptSupportTest {
         context.set("var", "!!!");
         assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{xyz${var}xyz}", context));
         assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{ftl:xyz${var}xyz}", context));
+    }
+
+    @Test
+    public void GraalJsTest() {
+        Context context = new DefaultContext();
+        context.set("i", 5);
+        assertEquals(14, ScriptUtil.evaluate("{js:4+5+i}", context));
+        assertEquals("The number is 0\n" +
+                "The number is 1\n" +
+                "The number is 2\n" +
+                "The number is 3\n" +
+                "The number is 4\n", ScriptUtil.evaluate("{js:var text = \"\";\n" +
+                "var a;\n" +
+                "for (a = 0; a < 5; a++) {\n" +
+                "  text += \"The number is \" + a + \"\\n\";\n" +
+                "}}", context));
+    }
+
+    @Ignore
+    @Test
+    public void GraalPythonTest() {
+        Context context = new DefaultContext();
+        context.set("i", 5);
+
+        System.out.println("Evaluate Python calc ...");
+        Integer IntResultExpected = 14;
+        assertEquals(IntResultExpected, ScriptUtil.evaluate("{py:4+5+i}", context));
+
+        String StringResultExpected = "this is my number 5 ...";
+        System.out.println("Evaluate Python fstring ...");
+        ScriptUtil.evaluate("{py: ", context);
+        assertEquals(StringResultExpected, ScriptUtil.evaluate("{py:f'this is my number {i} ...'}", context));
     }
 	
 }

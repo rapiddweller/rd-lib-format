@@ -37,7 +37,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class DefaultHTMLTokenizerTest {
 
-    private Logger logger = LogManager.getLogger(DefaultHTMLTokenizerTest.class);
+    private final Logger logger = LogManager.getLogger(DefaultHTMLTokenizerTest.class);
 
     private static final TestSetup DOCUMENT_TYPE = new TestSetup(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">",
@@ -109,7 +109,7 @@ public class DefaultHTMLTokenizerTest {
             new HT(HTMLTokenizer.TEXT, "< a >")
         );
 
-    private static String SEP = SystemInfo.getLineSeparator();
+    private static final String SEP = SystemInfo.getLineSeparator();
 
     private static final TestSetup MIXED = new TestSetup(
             "<html>" + SEP +

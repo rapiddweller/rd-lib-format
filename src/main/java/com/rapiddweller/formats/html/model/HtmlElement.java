@@ -31,10 +31,10 @@ import com.rapiddweller.commons.collection.OrderedNameMap;
 
 public class HtmlElement<E extends HtmlElement<?>> extends HtmlComponent {
 	
-	private String tagName;
+	private final String tagName;
 	protected boolean inline;
 	protected OrderedNameMap<String> attributes;
-	private List<HtmlComponent> components;
+	private final List<HtmlComponent> components;
 	
 	public HtmlElement(String tagName, boolean inline) {
 		this.tagName = tagName;

@@ -32,10 +32,9 @@ import com.rapiddweller.formats.util.DataIteratorAdapter;
  */
 public class FixedWidthBeanIterator<E> extends DataIteratorAdapter<String[], E> {
 
-	private Class<E> beanClass;
-	private FixedWidthColumnDescriptor[] columnDescriptors;
-	private Locale locale;
-	
+	private final Class<E> beanClass;
+	private final FixedWidthColumnDescriptor[] columnDescriptors;
+
 	public FixedWidthBeanIterator(String uri, String encoding, Class<E> beanClass, String columnFormats) 
 			throws IOException, ParseException {
 		this(uri, encoding, beanClass, columnFormats, "");
@@ -44,7 +43,7 @@ public class FixedWidthBeanIterator<E> extends DataIteratorAdapter<String[], E> 
 	public FixedWidthBeanIterator(String uri, String encoding, Class<E> beanClass, String columnFormats, String nullString) 
 			throws IOException, ParseException {
 		super(null);
-		this.locale = Locale.US;
+		Locale locale = Locale.US;
 		this.beanClass = beanClass;
 		FixedWidthRowTypeDescriptor rowDescriptor = FixedWidthUtil.parseBeanColumnsSpec(columnFormats, beanClass.getSimpleName(), nullString, locale);
 		this.columnDescriptors = rowDescriptor.getColumnDescriptors();

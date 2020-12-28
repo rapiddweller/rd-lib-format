@@ -22,8 +22,8 @@ package com.rapiddweller.formats.script;
  */
 public class ScriptVariable {
 
-    private String name;
-    private Object value;
+    private final String name;
+    private final Object value;
 
     public ScriptVariable(String name, Object value) {
         this.name = name;

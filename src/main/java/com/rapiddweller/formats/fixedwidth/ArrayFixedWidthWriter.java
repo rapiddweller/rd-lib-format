@@ -35,7 +35,7 @@ import java.io.Writer;
 public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
 
     public ArrayFixedWidthWriter(Writer out, FixedWidthRowTypeDescriptor descriptor) {
-        this(out, (Script) null, (Script) null, descriptor);
+        this(out, null, (Script) null, descriptor);
     }
 
     public ArrayFixedWidthWriter(Writer out, String headerScriptUrl, String footerScriptUrl, FixedWidthRowTypeDescriptor descriptor)
@@ -61,7 +61,7 @@ public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
 
     private static class ArrayFixedWidthScript extends AbstractScript {
 
-        private FixedWidthRowTypeDescriptor descriptor;
+        private final FixedWidthRowTypeDescriptor descriptor;
 
         public ArrayFixedWidthScript(FixedWidthRowTypeDescriptor descriptor) {
             this.descriptor = descriptor;

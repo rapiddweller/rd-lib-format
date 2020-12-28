@@ -47,10 +47,10 @@ public class HTMLUtil {
 			// On JDK 1.6+, I can use java.awt.Desktop.getDesktop().browse().
 			// On older Java versions, this would not compile. Thus the reflection based invocation
 			Class<?> desktopClass = Class.forName("java.awt.Desktop"); 
-			Method browseMethod = desktopClass.getDeclaredMethod("browse", new Class[] { URI.class });
+			Method browseMethod = desktopClass.getDeclaredMethod("browse", URI.class);
 			Method getDesktopMethod = desktopClass.getDeclaredMethod("getDesktop");
 			Object desktop = getDesktopMethod.invoke(null);
-			browseMethod.invoke(desktop, new Object[] { URI.create(url) }); 
+			browseMethod.invoke(desktop, URI.create(url));
 		} catch (Exception ignore) { 
 			// older JVM version or invocation failed
 			// try invoking the browser in OS specific ways
@@ -58,8 +58,8 @@ public class HTMLUtil {
 				if (SystemInfo.isMacOsx()) { 
 					// On Mac OS X, use FileManager.openURL(url)
 					Class<?> fileManager = Class.forName("com.apple.eio.FileManager");
-					Method openUrlMethod = fileManager.getDeclaredMethod( "openURL", new Class[] { String.class });
-					openUrlMethod.invoke(null, new Object[] { url }); 
+					Method openUrlMethod = fileManager.getDeclaredMethod( "openURL", String.class);
+					openUrlMethod.invoke(null, url);
 				} else if (SystemInfo.isWindows()) { 
 					// On Windows, call rundll32 url.dll,FileProtocolHandler <url>
 					Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " + url); 
@@ -91,7 +91,7 @@ public class HTMLUtil {
         while ((i = text.indexOf('&')) >= 0) {
             HtmlEntity entity = HtmlEntity.getEntity(text, i);
             if (entity != null) {
-                result.append(text.substring(0, i));
+                result.append(text, 0, i);
                 if ("nbsp".equals(entity.htmlCode))
                 	result.append(' ');
                 else if ("ndash".equals(entity.htmlCode))
@@ -100,7 +100,7 @@ public class HTMLUtil {
                 	result.append(entity.character);
                 text = text.substring(i + entity.htmlCode.length() + 2);
             } else {
-                result.append(text.substring(0, i));
+                result.append(text, 0, i);
                 result.append("&");
                 text = text.substring(i + 1);
             }
@@ -170,7 +170,7 @@ public class HTMLUtil {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < lines.size(); i++) {
 			if (i > 0)
-				builder.append("").append(LF);
+				builder.append(LF);
 			builder.append(lines.get(i));
 		}
 		return builder.toString();

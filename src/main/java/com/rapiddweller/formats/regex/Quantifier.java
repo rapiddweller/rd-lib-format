@@ -21,10 +21,10 @@ package com.rapiddweller.formats.regex;
 public class Quantifier {
 
     /** minimum length */
-    private int min;
+    private final int min;
 
     /** maximum length */
-    private Integer max;
+    private final Integer max;
 
     /** Complete constructor that takes values for all attributes 
      * @param min the minimum quantity

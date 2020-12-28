@@ -34,8 +34,8 @@ public class CSVWriter implements Closeable {
 	
 	private static final String LF = SystemInfo.getLineSeparator();
 	
-	private Writer out;
-	private char separator;
+	private final Writer out;
+	private final char separator;
 	
 	public static CSVWriter forFile(File file, char separator, boolean append, String ... columnHeaders) throws IOException {
 		boolean exists = (file.exists() && file.length() > 0);

@@ -25,8 +25,8 @@ import com.rapiddweller.commons.CharSet;
 
 public class RegexChar extends RegexCharClass {
 	
-	private char c;
-	private CharSet charSet;
+	private final char c;
+	private final CharSet charSet;
 
 	public RegexChar(char c) {
 		this.c = c;

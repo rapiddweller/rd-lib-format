@@ -27,8 +27,8 @@ import com.rapiddweller.commons.CharSet;
 
 public class SimpleCharSet extends RegexCharClass {
 	
-	private String name;
-	private CharSet chars;
+	private final String name;
+	private final CharSet chars;
 	
 	public SimpleCharSet(String name, Set<Character> chars) {
 		this(name, new CharSet(chars));

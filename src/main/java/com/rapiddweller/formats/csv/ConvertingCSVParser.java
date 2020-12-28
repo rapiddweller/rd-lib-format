@@ -33,9 +33,9 @@ import com.rapiddweller.formats.util.ThreadLocalDataContainer;
  */
 public class ConvertingCSVParser<E> implements DataIterator<E>{
 	
-	private Converter<String[], E> rowConverter;
-	private CSVLineIterator source;
-	private ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
+	private final Converter<String[], E> rowConverter;
+	private final CSVLineIterator source;
+	private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
 	
 	public ConvertingCSVParser(String uri, Converter<String[], E> rowConverter) throws IOException {
 		this.source = new CSVLineIterator(uri);

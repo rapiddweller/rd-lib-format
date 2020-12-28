@@ -28,11 +28,11 @@ import java.io.IOException;
  */
 public class FixedWidthLineSource extends AbstractDataSource<String[]> {
 
-    private String uri;
-    private PadFormat[] formats;
-    private boolean ignoreEmptyLines;
-    private String encoding;
-    private String lineFilter;
+    private final String uri;
+    private final PadFormat[] formats;
+    private final boolean ignoreEmptyLines;
+    private final String encoding;
+    private final String lineFilter;
 
     public FixedWidthLineSource(String uri, PadFormat[] formats, boolean ignoreEmptyLines, String encoding, String lineFilter) {
     	super(String[].class);

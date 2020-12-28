@@ -22,10 +22,10 @@ package com.rapiddweller.formats.regex;
 public class Factor implements RegexPart {
 	
     /** The sub pattern */
-    private RegexPart atom;
+    private final RegexPart atom;
     
     /** The quantifier */
-    private Quantifier quantifier;
+    private final Quantifier quantifier;
     
     // constructors ----------------------------------------------------------------------------------------------------
     

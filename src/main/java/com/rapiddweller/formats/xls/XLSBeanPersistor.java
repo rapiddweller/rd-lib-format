@@ -41,8 +41,8 @@ public class XLSBeanPersistor<E> {
 	
 	protected Logger logger = LogManager.getLogger(getClass());
 	
-	private Class<E> beanClass;
-	private List<PropFormat> beanProperties;
+	private final Class<E> beanClass;
+	private final List<PropFormat> beanProperties;
 	
 	public XLSBeanPersistor(Class<E> beanClass, String... propertyNames) {
 		this.beanClass = beanClass;
@@ -57,7 +57,7 @@ public class XLSBeanPersistor<E> {
 		return propFormat;
 	}
 
-	protected void load(File file, Consumer<E> consumer) throws FileNotFoundException, IOException, InvalidFormatException {
+	protected void load(File file, Consumer<E> consumer) throws IOException, InvalidFormatException {
 		XLSJavaBeanIterator<E> mapper = null;
 		try {
 			mapper = new XLSJavaBeanIterator<E>(file.getAbsolutePath(), null, false, beanClass);

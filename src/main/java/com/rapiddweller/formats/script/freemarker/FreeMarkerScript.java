@@ -34,7 +34,7 @@ import com.rapiddweller.formats.script.ScriptException;
  */
 public class FreeMarkerScript extends AbstractScript {
     
-    private Template template;
+    private final Template template;
 
     // constructors ----------------------------------------------------------------------------------------------------
     

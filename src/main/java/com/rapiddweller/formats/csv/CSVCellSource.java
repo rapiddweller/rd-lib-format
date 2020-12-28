@@ -28,8 +28,8 @@ import com.rapiddweller.formats.util.AbstractDataSource;
 public class CSVCellSource extends AbstractDataSource<String> {
 
     private String uri;
-    private char separator;
-    private String encoding;
+    private final char separator;
+    private final String encoding;
 
     public CSVCellSource() {
         this(null, ',');

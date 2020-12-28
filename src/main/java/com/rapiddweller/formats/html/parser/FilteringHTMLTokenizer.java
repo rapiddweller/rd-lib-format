@@ -28,8 +28,8 @@ import java.util.Map;
  */
 public class FilteringHTMLTokenizer implements HTMLTokenizer{
 
-    private HTMLTokenizer source;
-    private Filter<HTMLTokenizer> filter;
+    private final HTMLTokenizer source;
+    private final Filter<HTMLTokenizer> filter;
 
     public FilteringHTMLTokenizer(HTMLTokenizer source, Filter<HTMLTokenizer> filter) {
         this.source = source;

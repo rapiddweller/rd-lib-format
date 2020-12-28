@@ -24,7 +24,7 @@ package com.rapiddweller.formats.xls;
 
 public class PropFormat {
 
-	private String name;
+	private final String name;
 	private String pattern;
 	
 	public PropFormat(String name) {

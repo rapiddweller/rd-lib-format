@@ -37,7 +37,7 @@ public class CSVSource implements DataSource<String[]> {
     protected String encoding;
     protected boolean ignoreEmptyLines;
 
-	private boolean rowBased;
+	private final boolean rowBased;
 	
     // constructors ----------------------------------------------------------------------------------------------------
 

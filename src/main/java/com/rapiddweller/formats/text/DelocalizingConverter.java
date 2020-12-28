@@ -41,7 +41,7 @@ public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
     private static final String CONFIG_FILENAME = "com/rapiddweller/formats/text/DelocalizingConverter.csv";
 
 	/** The logger */
-    private static Logger logger = LogManager.getLogger(DelocalizingConverter.class);
+    private static final Logger logger = LogManager.getLogger(DelocalizingConverter.class);
 
     /** a Map of replacements. The key indicates the character to replace,
      * the value the character to use for replacement*/
