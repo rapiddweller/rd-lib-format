@@ -4,7 +4,7 @@
 
 	<groupId>com.rapiddweller</groupId>
 	<artifactId>rd-lib-format</artifactId>
-	<version>1.1.0+jdk-11</version>
+	<version>1.1.0+jdk-11-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rapiddweller Format</name>
@@ -17,7 +17,7 @@
 	<inceptionYear>2006</inceptionYear>
 
 	<properties>
-		<common_version>1.1.0+jdk-11</common_version>
+		<common_version>1.1.0+jdk-11-SNAPSHOT</common_version>
 		<graalvm.version>20.3.0</graalvm.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java_source_version>11</java_source_version>
@@ -145,6 +145,9 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- GraalVM dependencies -->
+
 		<dependency>
 			<groupId>org.graalvm.sdk</groupId>
 			<artifactId>graal-sdk</artifactId>
@@ -383,10 +386,14 @@
 	</profiles>
 
 	<repositories>
-		<repository>
-			<id>gitlab-maven</id>
-			<url>${env.CI_SERVER_URL}/api/v4/groups/${CI_PROJECT_GROUP_ID}/-/packages/maven</url>
-		</repository>
+		        <repository>
+            <id>gitlab-maven</id>
+            <url>${env.CI_SERVER_URL}/api/v4/groups/${env.CI_PROJECT_GROUP_ID}/-/packages/maven</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
 	</repositories>
 	<distributionManagement>
 		<repository>
