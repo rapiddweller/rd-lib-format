@@ -15,6 +15,7 @@
 package com.rapiddweller.formats.script.graalpy;
 
 import com.rapiddweller.commons.IOUtil;
+import com.rapiddweller.formats.script.GraalScript;
 import com.rapiddweller.formats.script.Script;
 import com.rapiddweller.formats.script.ScriptFactory;
 import com.rapiddweller.formats.script.ScriptUtil;
@@ -26,14 +27,16 @@ import java.io.IOException;
 
 /**
  * Creates {@link GraalPyScript}s.
- * 
- * Created at 23.12.2008 07:35:08
- * @since 0.4.7
- * @author Volker Bergmann
+ *
+ * Created at 30.12.2020
+ *
+ * @author Alexander Kell
+ * @since 1.1.0
  */
 
 public class GraalPyScriptFactory implements ScriptFactory {
 
+	private static final String LANGUAGE = "python";
 	private final Engine pythonEngine;
 
 	public GraalPyScriptFactory() {
@@ -54,11 +57,11 @@ public class GraalPyScriptFactory implements ScriptFactory {
 
 	private static Script parseText(String text, Engine generalEngine) {
 		if (!generalEngine.getLanguages().containsKey("python")) {
-			throw new IllegalStateException("A language with id 'python' is not installed");
+			throw new IllegalStateException(String.format("A language with id '%s' is not installed", LANGUAGE));
 		}
 		else
 		{
-			return new GraalPyScript(text, generalEngine);
+			return new GraalScript(text, generalEngine, LANGUAGE);
 		}
 	}
 

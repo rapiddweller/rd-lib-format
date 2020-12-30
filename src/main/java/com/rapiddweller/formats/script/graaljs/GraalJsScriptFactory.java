@@ -15,54 +15,50 @@
 package com.rapiddweller.formats.script.graaljs;
 
 import com.rapiddweller.commons.IOUtil;
+import com.rapiddweller.formats.script.GraalScript;
 import com.rapiddweller.formats.script.Script;
 import com.rapiddweller.formats.script.ScriptFactory;
-import com.rapiddweller.formats.script.ScriptUtil;
-import com.rapiddweller.formats.script.graalpy.GraalPyScript;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.graalvm.polyglot.Engine;
 
 import java.io.IOException;
-import java.util.logging.ConsoleHandler;
 
 /**
- * Creates {@link GraalJsScript}s.
- * 
- * Created at 23.12.2008 07:35:08
- * @since 0.4.7
- * @author Volker Bergmann
+ * Creates {@link GraalScript}s.
+ * Created at 30.12.2020
+ *
+ * @author Alexander Kell
+ * @since 1.1.0
  */
 
 public class GraalJsScriptFactory implements ScriptFactory {
 
-	private final Engine jsEngine;
 
-	public GraalJsScriptFactory() {
-		this.jsEngine = Engine.newBuilder().build();
-	}
+    private static final String LANGUAGE = "js";
+    private final Engine jsEngine;
+
+    public GraalJsScriptFactory() {
+        this.jsEngine = Engine.newBuilder().build();
+    }
 
 
-	@Override
-	public Script parseText(String text) {
-		return parseText(text, jsEngine);
-	}
+    @Override
+    public Script parseText(String text) {
+        return parseText(text, jsEngine);
+    }
 
-	@Override
-	public Script readFile(String uri) throws IOException {
-		String text = IOUtil.getContentOfURI(uri);
-		return parseText(text);
-	}
+    @Override
+    public Script readFile(String uri) throws IOException {
+        String text = IOUtil.getContentOfURI(uri);
+        return parseText(text);
+    }
 
-	private static Script parseText(String text, Engine generalEngine) {
-		if (!generalEngine.getLanguages().containsKey("js")) {
-			throw new IllegalStateException("A language with id 'js' is not installed");
-		}
-		else
-		{
-			return new GraalJsScript(text, generalEngine);
-		}
+    private static Script parseText(String text, Engine generalEngine) {
+        if (!generalEngine.getLanguages().containsKey(LANGUAGE)) {
+            throw new IllegalStateException(String.format("A language with id '%s' is not installed", LANGUAGE));
+        } else {
+            return new GraalScript(text, generalEngine, LANGUAGE);
+        }
 
-	}
+    }
 
 }
