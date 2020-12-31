@@ -128,7 +128,7 @@ public class CSVTokenizer implements Closeable {
         if (c == separator) {
         	unread(c);
             return setState(CELL, null);
-        } else if (c == '\r') { // handle \r\n or \r
+        } else if (c == '\r') { // handle \n or \r
             if ((c = read()) != '\n')
                 unread(c);
             return setState(EOL, null);

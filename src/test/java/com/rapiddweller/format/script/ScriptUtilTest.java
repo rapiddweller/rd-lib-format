@@ -57,9 +57,9 @@ public class ScriptUtilTest {
 	
 	@Test
 	public void testGetCommonScriptEngine() {
-		assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\r\n"));
-		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("alpha", "{ftl:${n}}", "\r\n"));
-		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\r\n}"));
+		assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\n"));
+		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("alpha", "{ftl:${n}}", "\n"));
+		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\n}"));
 	}
 	
 	@Test

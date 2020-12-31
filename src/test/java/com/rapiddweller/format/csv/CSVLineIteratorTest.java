@@ -46,10 +46,10 @@ public class CSVLineIteratorTest {
     public void testIncludingEmptyLines() throws IOException {
         CSVLineIterator iterator = new CSVLineIterator("file://com/rapiddweller/format/csv/names.csv", ',', false);
         DataContainer<String[]> container = new DataContainer<String[]>();
-        assertTrue(Arrays.equals(new String[] { "Alice", "Bob" },               iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] { "Charly" },                     iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] { },                              iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] { "Dieter", "Indiana\nJones" }, iterator.next(container).getData()));
+        assertArrayEquals(new String[]{"Alice", "Bob"}, iterator.next(container).getData());
+        assertArrayEquals(new String[]{"Charly"}, iterator.next(container).getData());
+        assertArrayEquals(new String[]{}, iterator.next(container).getData());
+        assertArrayEquals(new String[]{"Dieter", "Indiana\nJones"}, iterator.next(container).getData());
         assertNull(iterator.next(container));
         iterator.close();
     }

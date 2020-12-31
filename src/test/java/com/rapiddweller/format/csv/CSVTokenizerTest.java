@@ -88,7 +88,7 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testABL() throws IOException {
-    	CSVTokenizer tokenizer = createTokenizer("A,B\r\n");
+    	CSVTokenizer tokenizer = createTokenizer("A,B\n");
         assertNextToken(tokenizer, CELL, "A");
         assertNextToken(tokenizer, CELL, "B");
         assertNextToken(tokenizer, EOL, null);
@@ -98,7 +98,7 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testABLC() throws IOException {
-    	CSVTokenizer tokenizer = createTokenizer("A,B\r\nC");
+    	CSVTokenizer tokenizer = createTokenizer("A,B\nC");
         assertNextToken(tokenizer, CELL, "A");
         assertNextToken(tokenizer, CELL, "B");
         assertNextToken(tokenizer, EOL, null);
@@ -109,7 +109,7 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testABLCL() throws IOException {
-    	CSVTokenizer tokenizer = createTokenizer("A,B\r\nC\r\n");
+    	CSVTokenizer tokenizer = createTokenizer("A,B\nC\n");
         assertNextToken(tokenizer, CELL, "A");
         assertNextToken(tokenizer, CELL, "B");
         assertNextToken(tokenizer, EOL, null);
@@ -121,7 +121,7 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testQuotes() throws IOException {
-    	CSVTokenizer tokenizer = createTokenizer("\"A\",B\r\n\"C\"\r\n");
+    	CSVTokenizer tokenizer = createTokenizer("\"A\",B\n\"C\"\n");
         assertNextToken(tokenizer, CELL, "A");
         assertNextToken(tokenizer, CELL, "B");
         assertNextToken(tokenizer, EOL, null);
@@ -133,8 +133,8 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testQuoteEscaping() throws IOException {
-    	CSVTokenizer tokenizer = createTokenizer("\"A\"\"A\",\"\"\"B\"\" is B\"\r\n" +
-                "\"C was \"\"C\"\"\",\"\"\"D\"\" is \"\"D\"\"\"\r\n");
+    	CSVTokenizer tokenizer = createTokenizer("\"A\"\"A\",\"\"\"B\"\" is B\"\n" +
+                "\"C was \"\"C\"\"\",\"\"\"D\"\" is \"\"D\"\"\"\n");
         assertNextToken(tokenizer, CELL, "A\"A");
         assertNextToken(tokenizer, CELL, "\"B\" is B");
         assertNextToken(tokenizer, EOL, null);
@@ -156,8 +156,8 @@ public class CSVTokenizerTest {
 
 	@Test
     public void testLFInQuote() throws IOException {
-        CSVTokenizer tokenizer = createTokenizer("\"A\r\nB\"");
-        assertNextToken(tokenizer, CELL, "A\r\nB");
+        CSVTokenizer tokenizer = createTokenizer("\"A\nB\"");
+        assertNextToken(tokenizer, CELL, "A\nB");
         assertNextToken(tokenizer, EOF, null);
         assertNextToken(tokenizer, EOF, null);
     }
@@ -172,7 +172,7 @@ public class CSVTokenizerTest {
         assertNextToken(tokenizer, EOL, null);
         assertNextToken(tokenizer, EOL, null);
         assertNextToken(tokenizer, CELL, "Dieter");
-        assertNextToken(tokenizer, CELL, "Indiana\r\nJones");
+        assertNextToken(tokenizer, CELL, "Indiana\nJones");
         assertNextToken(tokenizer, EOL, null);
         assertNextToken(tokenizer, EOF, null);
         assertNextToken(tokenizer, EOF, null);
@@ -186,11 +186,11 @@ public class CSVTokenizerTest {
         assertNextToken(tokenizer, CELL, "2");
         assertNextToken(tokenizer, EOF, null);
     	// testing \n
-    	tokenizer = createTokenizer("1\r\n2");
+    	tokenizer = createTokenizer("1\n2");
         tokenizer.skipLine();
         assertNextToken(tokenizer, CELL, "2");
         assertNextToken(tokenizer, EOF, null);
-    	// testing \r\n
+    	// testing \n
     	tokenizer = createTokenizer("1\n2");
         tokenizer.skipLine();
         assertNextToken(tokenizer, CELL, "2");
