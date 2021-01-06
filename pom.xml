@@ -16,38 +16,36 @@
     <inceptionYear>2006</inceptionYear>
 
     <properties>
-        <antlr-runtime.version>3.3</antlr-runtime.version>
-        <common_version>1.1.0+jdk-11-SNAPSHOT</common_version>
+        <_rd_common_version>1.1.0+jdk-11-SNAPSHOT</_rd_common_version>
+        <dependency_antlr-runtime.version>3.3</dependency_antlr-runtime.version>
+        <dependency_freemarker.version>2.3.20</dependency_freemarker.version>
+        <dependency_graalvm.version>20.3.0</dependency_graalvm.version>
+        <dependency_junit.version>4.13.1</dependency_junit.version>
+        <dependency_log4j-api.version>2.14.0</dependency_log4j-api.version>
+        <dependency_log4j-core.version>2.14.0</dependency_log4j-core.version>
+        <dependency_log4j-slf4j-impl.version>2.14.0</dependency_log4j-slf4j-impl.version>
+        <dependency_poi.version>3.9</dependency_poi.version>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <freemarker.version>2.3.20</freemarker.version>
-        <graalvm.version>20.3.0</graalvm.version>
-        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java_source_version>11</java_source_version>
         <java_target_version>11</java_target_version>
-        <junit.version>4.13.1</junit.version>
-        <log4j-api.version>2.14.0</log4j-api.version>
-        <log4j-core.version>2.14.0</log4j-core.version>
-        <log4j-slf4j-impl.version>2.14.0</log4j-slf4j-impl.version>
-        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
-        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
-        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-        <poi-ooxml-schemas.version>3.9</poi-ooxml-schemas.version>
-        <poi-ooxml.version>3.9</poi-ooxml.version>
-        <poi.version>3.9</poi.version>
+        <plugin_jacoco-maven-plugin.version>0.8.6</plugin_jacoco-maven-plugin.version>
+        <plugin_maven-assembly-plugin.version>3.3.0</plugin_maven-assembly-plugin.version>
+        <plugin_maven-compiler-plugin.version>3.8.1</plugin_maven-compiler-plugin.version>
+        <plugin_maven-gpg-plugin.version>1.6</plugin_maven-gpg-plugin.version>
+        <plugin_maven-javadoc-plugin.version>3.2.0</plugin_maven-javadoc-plugin.version>
+        <plugin_maven-jxr-plugin.version>3.0.0</plugin_maven-jxr-plugin.version>
+        <plugin_maven-pmd-plugin.version>3.14.0</plugin_maven-pmd-plugin.version>
+        <plugin_maven-project-info-reports-plugin.version>3.1.1</plugin_maven-project-info-reports-plugin.version>
+        <plugin_maven-resources-plugin.version>2.6</plugin_maven-resources-plugin.version>
+        <plugin_maven-site-plugin.version>3.9.1</plugin_maven-site-plugin.version>
+        <plugin_maven-source-plugin.version>3.2.1</plugin_maven-source-plugin.version>
+        <plugin_maven-surefire-plugin.version>3.0.0-M5</plugin_maven-surefire-plugin.version>
+        <plugin_maven-surefire-report-plugin.version>3.0.0-M5</plugin_maven-surefire-report-plugin.version>
+        <plugin_nexus-staging-maven-plugin.version>1.6.8</plugin_nexus-staging-maven-plugin.version>
+        <plugin_surefire-api.version>3.0.0-M5</plugin_surefire-api.version>
+        <plugin_surefire-junit4.version>3.0.0-M5</plugin_surefire-junit4.version>
+        <plugin_versions-maven-plugin.version>2.8.1</plugin_versions-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <surefire-api.version>3.0.0-M5</surefire-api.version>
-        <surefire-junit4.version>3.0.0-M5</surefire-junit4.version>
-        <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
     </properties>
 
     <licenses>
@@ -105,73 +103,73 @@
         <dependency>
             <groupId>com.rapiddweller</groupId>
             <artifactId>rd-lib-common</artifactId>
-            <version>${common_version}</version>
+            <version>${_rd_common_version}</version>
         </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>${dependency_junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr-runtime</artifactId>
-            <version>${antlr-runtime.version}</version>
+            <version>${dependency_antlr-runtime.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${log4j-api.version}</version>
+            <version>${dependency_log4j-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j-core.version}</version>
+            <version>${dependency_log4j-core.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j-slf4j-impl.version}</version>
+            <version>${dependency_log4j-slf4j-impl.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
-            <version>${poi-ooxml-schemas.version}</version>
+            <version>${dependency_poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${poi-ooxml.version}</version>
+            <version>${dependency_poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>${poi.version}</version>
+            <version>${dependency_poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>${freemarker.version}</version>
+            <version>${dependency_freemarker.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.graalvm.js</groupId>
             <artifactId>js-scriptengine</artifactId>
-            <version>${graalvm.version}</version>
+            <version>${dependency_graalvm.version}</version>
         </dependency>
         <dependency>
             <groupId>org.graalvm.js</groupId>
             <artifactId>js</artifactId>
-            <version>${graalvm.version}</version>
+            <version>${dependency_graalvm.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
-            <version>${graalvm.version}</version>
+            <version>${dependency_graalvm.version}</version>
         </dependency>
     </dependencies>
 
@@ -220,7 +218,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven-assembly-plugin.version}</version>
+                <version>${plugin_maven-assembly-plugin.version}</version>
                 <configuration>
                     <descriptors>
                         <descriptor>src/main/assembly/dist-assembly.xml</descriptor>
@@ -230,12 +228,12 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin.version}</version>
+                <version>${plugin_maven-resources-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <version>${plugin_maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java_source_version}</source>
                     <target>${java_target_version}</target>
@@ -244,7 +242,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
+                <version>${plugin_maven-javadoc-plugin.version}</version>
                 <configuration>
                     <doclint>none</doclint>
                     <source>${java_source_version}</source>
@@ -262,7 +260,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>${maven-site-plugin.version}</version>
+                <version>${plugin_maven-site-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>create-site</id>
@@ -275,7 +273,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>${plugin_maven-surefire-plugin.version}</version>
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
@@ -283,24 +281,24 @@
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
                         <artifactId>surefire-junit4</artifactId>
-                        <version>${surefire-junit4.version}</version>
+                        <version>${plugin_surefire-junit4.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
                         <artifactId>surefire-api</artifactId>
-                        <version>${surefire-api.version}</version>
+                        <version>${plugin_surefire-api.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
+                <version>${plugin_versions-maven-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
+                <version>${plugin_jacoco-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>com/rapiddweller/format/xml/**/*</exclude>
@@ -331,22 +329,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven-surefire-report-plugin.version}</version>
+                <version>${plugin_maven-surefire-report-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>${maven-pmd-plugin.version}</version>
+                <version>${plugin_maven-pmd-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>${maven-jxr-plugin.version}</version>
+                <version>${plugin_maven-jxr-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
+                <version>${plugin_maven-javadoc-plugin.version}</version>
                 <configuration>
                     <doclint>none</doclint>
                     <source>${java_source_version}</source>
@@ -368,7 +366,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
+                <version>${plugin_maven-project-info-reports-plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -392,7 +390,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
+                        <version>${plugin_maven-source-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -405,7 +403,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
+                        <version>${plugin_maven-javadoc-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -418,7 +416,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
+                        <version>${plugin_maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -438,7 +436,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <version>${plugin_nexus-staging-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
