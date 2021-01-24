@@ -16,7 +16,7 @@
     <inceptionYear>2006</inceptionYear>
 
     <properties>
-        <_rd_common_version>1.1.0+jdk-11-SNAPSHOT</_rd_common_version>
+        <_rd_common_version>1.1.0-jdk-11-SNAPSHOT</_rd_common_version>
         <dependency_antlr-runtime.version>3.3</dependency_antlr-runtime.version>
         <dependency_freemarker.version>2.3.20</dependency_freemarker.version>
         <dependency_graalvm.version>20.3.0</dependency_graalvm.version>
@@ -457,25 +457,22 @@
 
     <repositories>
         <repository>
-            <id>gitlab-maven</id>
-            <url>${env.CI_SERVER_URL}/api/v4/groups/${env.CI_PROJECT_GROUP_ID}/-/packages/maven</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/rapiddweller</url>
         </repository>
     </repositories>
 
     <distributionManagement>
         <repository>
-            <id>gitlab-maven</id>
-            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven/</url>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/rapiddweller/rd-lib-format</url>
         </repository>
-        <snapshotRepository>
-            <id>gitlab-maven</id>
-            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven/</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <scm>
-        <url>${env.CI_PROJECT_URL}</url>
-        <connection>scm:git:${env.CI_REPOSITORY_URL}</connection>
-        <developerConnection>scm:git:${env.CI_REPOSITORY_URL}</developerConnection>
+        <url>https://github.com/rapiddweller/rd-lib-format</url>
+        <connection>scm:git:github.com/rapiddweller/rd-lib-format</connection>
+        <developerConnection>scm:git:github.com/rapiddweller/rd-lib-format</developerConnection>
     </scm>
 </project>
