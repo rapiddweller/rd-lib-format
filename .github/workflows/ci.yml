@@ -115,6 +115,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - run: eval $SET_VERSION
         shell: bash
+      - run: mvn help:effective-settings
       - name: Publish package
         run: mvn --batch-mode deploy --settings .m2/settings.xml -Dmaven.test.skip=true -Dmaven.install.skip=true
         env:
