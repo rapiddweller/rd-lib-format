@@ -15,6 +15,10 @@
 package com.rapiddweller.format.csv;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.Writer;
 
 import org.junit.Test;
 
@@ -27,10 +31,11 @@ import com.rapiddweller.common.SystemInfo;
 
 /**
  * Tests the {@link ArrayCSVWriter}.
- * 
+ * <p>
  * Created: 16.06.2007 06:07:52
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class ArrayCSVWriterTest {
 
@@ -44,10 +49,31 @@ public class ArrayCSVWriterTest {
         StringWriter out = new StringWriter();
         ArrayCSVWriter writer = new ArrayCSVWriter(out, ';',
                 new ConstantScript("header" + SEP), new ConstantScript("footer"));
-        writer.writeElement(new Integer[] { 1, 2, 3 });
-        writer.writeElement(new Integer[] { 4, 5, 6 });
+        writer.writeElement(new Integer[]{1, 2, 3});
+        writer.writeElement(new Integer[]{4, 5, 6});
         writer.close();
         assertEquals(RESULT, out.toString());
     }
-    
+
+    @Test
+    public void testConstructor() {
+        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter());
+        assertNull(actualArrayCSVWriter.getFooterScript());
+        assertNull(actualArrayCSVWriter.getHeaderScript());
+    }
+
+    @Test
+    public void testConstructor2() {
+        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A');
+        assertNull(actualArrayCSVWriter.getFooterScript());
+        assertNull(actualArrayCSVWriter.getHeaderScript());
+    }
+
+    @Test
+    public void testConstructor3() {
+        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A', "foo", "foo", "foo");
+        assertNull(actualArrayCSVWriter.getFooterScript());
+        assertTrue(actualArrayCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
+    }
+
 }

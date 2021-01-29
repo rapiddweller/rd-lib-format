@@ -167,26 +167,18 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 	// helper methods --------------------------------------------------------------------------------------------------
 	
     private static Sheet sheet(String uri, String sheetName) throws IOException, ParseException {
-		try {
-			Workbook workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
-			Sheet sheet = sheetName != null ? workbook.getSheet(sheetName) : workbook.getSheetAt(0);
-			if (sheet == null)
-				throw new IllegalArgumentException("Sheet '" + sheetName + "' not found in file " + uri);
-			return sheet;
-		} catch (InvalidFormatException e) {
-			throw new ParseException("Error parsing sheet '" + sheetName + "' of " + uri, null);
-		}
-    }
+		Workbook workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
+		Sheet sheet = sheetName != null ? workbook.getSheet(sheetName) : workbook.getSheetAt(0);
+		if (sheet == null)
+			throw new IllegalArgumentException("Sheet '" + sheetName + "' not found in file " + uri);
+		return sheet;
+	}
 
     private static Sheet sheet(String uri, int sheetIndex) throws IOException {
 		Workbook workbook;
-		try {
-			workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
-			return workbook.getSheetAt(sheetIndex);
-		} catch (InvalidFormatException e) {
-			throw new ParseException("Error parsing sheet " + sheetIndex + " of " + uri, e, null, -1, -1);
-		}
-    }
+		workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
+		return workbook.getSheetAt(sheetIndex);
+	}
 
     private void parseHeaders() {
     	DataContainer<Object[]> wrapper = new DataContainer<Object[]>();

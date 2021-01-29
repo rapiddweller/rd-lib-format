@@ -16,7 +16,6 @@ package com.rapiddweller.format.xls;
 
 import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
@@ -29,6 +28,8 @@ import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.MathUtil;
 import com.rapiddweller.common.converter.ToStringConverter;
+
+import static org.apache.poi.ss.usermodel.CellType.*;
 
 /**
  * Provides utility methods for HSSF (POI).
@@ -50,28 +51,28 @@ public class XLSUtil {
 		if (cell == null)
 			return null;
 		switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_STRING: return convertString(cell, emptyMarker, nullMarker, stringPreprocessor);
-			case Cell.CELL_TYPE_NUMERIC: 
+			case STRING: return convertString(cell, emptyMarker, nullMarker, stringPreprocessor);
+			case NUMERIC:
 				if (HSSFDateUtil.isCellDateFormatted(cell))
 					return cell.getDateCellValue();
 				else
 					return mapNumberType(cell.getNumericCellValue());
-			case Cell.CELL_TYPE_BOOLEAN: return cell.getBooleanCellValue();
-			case Cell.CELL_TYPE_BLANK: 
-			case Cell.CELL_TYPE_ERROR: return cell.getRichStringCellValue().getString();
-			case Cell.CELL_TYPE_FORMULA:
+			case BOOLEAN: return cell.getBooleanCellValue();
+			case BLANK:
+			case ERROR: return cell.getRichStringCellValue().getString();
+			case FORMULA:
 				FormulaEvaluator evaluator = createFormulaEvaluator(cell); 
 				CellValue cellValue = evaluator.evaluate(cell);
 				switch (cellValue.getCellType()) {
-					case HSSFCell.CELL_TYPE_STRING: return convertString(cellValue, emptyMarker, stringPreprocessor);
-				    case HSSFCell.CELL_TYPE_NUMERIC:
+					case STRING: return convertString(cellValue, emptyMarker, stringPreprocessor);
+				    case NUMERIC:
 				    	if (HSSFDateUtil.isCellDateFormatted(cell))
 				    		return HSSFDateUtil.getJavaDate(cellValue.getNumberValue());
 				    	else
 				    		return mapNumberType(cellValue.getNumberValue());
-				    case Cell.CELL_TYPE_BOOLEAN: return cellValue.getBooleanValue();
-				    case HSSFCell.CELL_TYPE_BLANK:
-				    case HSSFCell.CELL_TYPE_ERROR: return null;
+				    case BOOLEAN: return cellValue.getBooleanValue();
+				    case BLANK:
+				    case ERROR: return null;
 				    default: throw new IllegalStateException("Unexpected cell type: " + cellValue.getCellType());
 				    	// CELL_TYPE_FORMULA is not supposed to be encountered here
 				}	
@@ -95,7 +96,7 @@ public class XLSUtil {
 	public static String resolveCellValueAsString(Cell cell, String emptyMarker, String nullMarker, Converter<String, ?> stringPreprocessor) {
 		if (cell == null)
 			return null;
-		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+		if (cell.getCellType() == STRING) {
 	    	String content = cell.getRichStringCellValue().getString();
 	    	if (content != null) {
 		    	if (content.equals(emptyMarker) || content.equals("'"))
@@ -108,7 +109,7 @@ public class XLSUtil {
 	    	return content;
 		} else {
 			DataFormatter formatter = new DataFormatter();
-			if (cell.getCellType() == Cell.CELL_TYPE_FORMULA)
+			if (cell.getCellType() == FORMULA)
 				return formatter.formatCellValue(cell, createFormulaEvaluator(cell));
 			else
 				return formatter.formatCellValue(cell);
@@ -140,9 +141,9 @@ public class XLSUtil {
 	public static boolean isEmpty(Cell cell) {
 		if (cell == null)
 			return true;
-		if (cell.getCellType() == HSSFCell.CELL_TYPE_BLANK)
+		if (cell.getCellType() == BLANK)
 			return true;
-		if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+		if (cell.getCellType() == STRING)
 			return cell.getStringCellValue().isEmpty();
 		return false;
 	}
