@@ -14,6 +14,7 @@ public class StyledNumberFormatTest {
     @Test
     public void testConstructor() {
         assertEquals(Alignment.RIGHT, (new StyledNumberFormat("Pattern", true)).getAlignment());
+        assertEquals(Alignment.RIGHT, (new StyledNumberFormat("Pattern", true)).getAlignment());
     }
 
     @Test
@@ -21,10 +22,19 @@ public class StyledNumberFormatTest {
         assertNull((new StyledNumberFormat("Pattern", true)).getForegroundColor("value", true));
         assertNull((new StyledNumberFormat("Pattern", false)).getForegroundColor("value", true));
         assertNull((new StyledNumberFormat("Pattern", true)).getForegroundColor(42, true));
+        assertNull((new StyledNumberFormat("Pattern", true)).getForegroundColor("value", true));
+        assertNull((new StyledNumberFormat("Pattern", false)).getForegroundColor("value", true));
+        assertNull((new StyledNumberFormat("Pattern", true)).getForegroundColor(42, true));
     }
 
     @Test
     public void testGetForegroundColor2() {
+        Color actualForegroundColor = (new StyledNumberFormat("Pattern", true)).getForegroundColor(-1, true);
+        assertSame(actualForegroundColor.red, actualForegroundColor);
+    }
+
+    @Test
+    public void testGetForegroundColor3() {
         Color actualForegroundColor = (new StyledNumberFormat("Pattern", true)).getForegroundColor(-1, true);
         assertSame(actualForegroundColor.red, actualForegroundColor);
     }

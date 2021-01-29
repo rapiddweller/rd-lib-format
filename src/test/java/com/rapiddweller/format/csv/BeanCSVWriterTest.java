@@ -15,6 +15,10 @@
 package com.rapiddweller.format.csv;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.Writer;
 
 import org.junit.Test;
 
@@ -30,8 +34,9 @@ import com.rapiddweller.test.TP;
 /**
  * Tests the {@link BeanCSVWriter}.
  * Created: 16.06.2007 06:07:52
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class BeanCSVWriterTest {
 
@@ -51,6 +56,38 @@ public class BeanCSVWriterTest {
         writer.writeElement(person);
         writer.close();
         assertEquals(RESULT, out.toString());
+    }
+
+    @Test
+    public void testConstructor() {
+        Writer out = Writer.nullWriter();
+        BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(out, 'A', Object.class);
+        assertNull(actualBeanCSVWriter.getFooterScript());
+        assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
+    }
+
+    @Test
+    public void testConstructor2() {
+        BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', true, "foo", "foo",
+                "foo");
+        assertNull(actualBeanCSVWriter.getFooterScript());
+        assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
+    }
+
+    @Test
+    public void testConstructor3() {
+        BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', false, "foo", "foo",
+                "foo");
+        assertNull(actualBeanCSVWriter.getFooterScript());
+        assertNull(actualBeanCSVWriter.getHeaderScript());
+    }
+
+    @Test
+    public void testConstructor4() {
+        BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', "foo", "foo",
+                "foo");
+        assertNull(actualBeanCSVWriter.getFooterScript());
+        assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
     }
 
 }

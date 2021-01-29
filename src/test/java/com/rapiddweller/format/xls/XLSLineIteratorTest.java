@@ -47,6 +47,7 @@ public class XLSLineIteratorTest extends DataIteratorTestCase {
     private static final String ALTERNATIVE_EMPTY_FILENAME = "com/rapiddweller/format/xls/alternative_empty.xls";
     private static final String NULL_AND_EMPTY_FILENAME = "com/rapiddweller/format/xls/null_and_empty.xls";
 
+
     @Test
     public void testSetHeaders() throws IOException {
         SXSSFSheet sheet = new SXSSFSheet(new SXSSFWorkbook(), null);
@@ -122,7 +123,7 @@ public class XLSLineIteratorTest extends DataIteratorTestCase {
         try {
             // check headers
             Object[] expectedHeaders = new Object[]{
-                    "text", "emptyText", "null", "numberAsText", "number", "date"};
+                    "text", "emptyText", "null", "numberAsText", "number", "date", "formular", "formular2"};
             assertArrayEquals(expectedHeaders, iterator.next(new DataContainer<Object[]>()).getData());
             // check data
             Object[] data = iterator.next(new DataContainer<Object[]>()).getData();
@@ -133,6 +134,8 @@ public class XLSLineIteratorTest extends DataIteratorTestCase {
             assertEquals("123", data[3]);
             assertEquals(42L, data[4]);
             assertEquals(TimeUtil.date(2011, 1, 1), data[5]);
+            assertEquals(4200L, data[6]);
+            assertEquals(null, data[7]);
             // check end of sheet
             expectUnavailable(iterator);
         } finally {
