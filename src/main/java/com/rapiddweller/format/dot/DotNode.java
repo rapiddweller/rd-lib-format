@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.dot;
 
+import com.rapiddweller.common.Named;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.rapiddweller.common.Named;
 
 /**
  * Represents a node in a Dot graph.

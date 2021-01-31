@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.script;
 
+import com.rapiddweller.common.Context;
+import com.rapiddweller.common.converter.ToStringConverter;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-
-import com.rapiddweller.common.Context;
-import com.rapiddweller.common.converter.ToStringConverter;
 
 /**
  * Abstract implementation of the Script interface. 

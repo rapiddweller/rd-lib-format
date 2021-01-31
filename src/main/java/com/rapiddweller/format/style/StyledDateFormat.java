@@ -15,13 +15,13 @@
 
 package com.rapiddweller.format.style;
 
-import java.awt.Color;
+import com.rapiddweller.common.format.Alignment;
+import com.rapiddweller.common.format.NullSafeFormat;
+
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import com.rapiddweller.common.format.Alignment;
-import com.rapiddweller.common.format.NullSafeFormat;
 
 /**
  * Provides style information for rendering date objects.

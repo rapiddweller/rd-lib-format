@@ -14,19 +14,19 @@
  */
 package com.rapiddweller.format.text;
 
-import com.rapiddweller.format.DataContainer;
-import com.rapiddweller.format.csv.CSVLineIterator;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.converter.ThreadSafeConverter;
-import org.apache.logging.log4j.Logger;
+import com.rapiddweller.format.DataContainer;
+import com.rapiddweller.format.csv.CSVLineIterator;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Delocalizes a String bye replacing local characters by international latin characters.

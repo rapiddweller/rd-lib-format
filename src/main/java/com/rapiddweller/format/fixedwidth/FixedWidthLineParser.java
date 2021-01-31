@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import java.text.ParseException;
-
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.format.PadFormat;
+
+import java.text.ParseException;
 
 /**
  * Parses a line of a flat file.

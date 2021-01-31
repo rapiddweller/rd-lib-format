@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.util;
 
-import java.util.HashSet;
-
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.util.HashSet;
 
 /**
  * Abstract parent class for tests that check {@link DataIterator}.

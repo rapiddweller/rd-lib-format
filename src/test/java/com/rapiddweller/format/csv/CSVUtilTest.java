@@ -14,22 +14,16 @@
  */
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
 import com.rapiddweller.common.ConfigurationError;
+import com.rapiddweller.common.SystemInfo;
+import org.junit.Test;
 
 import java.io.IOException;
-
 import java.io.StringWriter;
-
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.format.csv.CSVUtil;
-
 import java.io.Writer;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 /**
  * Tests the {@link CSVUtil} class.

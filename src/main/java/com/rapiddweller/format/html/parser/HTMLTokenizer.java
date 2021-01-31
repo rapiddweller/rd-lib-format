@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.html.parser;
 
-import java.util.Map;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Map;
 
 /**
  * Abstraction of an HTML tokenizer.

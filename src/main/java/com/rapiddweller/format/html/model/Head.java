@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.html.model;
 
-import java.io.IOException;
-
 import com.rapiddweller.common.IOUtil;
+
+import java.io.IOException;
 
 /**
  * Represents an HTML &lt;head&gt;.

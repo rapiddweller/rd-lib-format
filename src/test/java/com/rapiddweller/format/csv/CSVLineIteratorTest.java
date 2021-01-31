@@ -14,21 +14,15 @@
  */
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
 import com.rapiddweller.format.DataContainer;
-import com.rapiddweller.format.csv.CSVLineIterator;
-
-import java.io.Reader;
-import java.io.StringReader;
-
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests the {@link CSVLineIterator}.

@@ -14,18 +14,14 @@
  */
 package com.rapiddweller.format.text;
 
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import com.rapiddweller.common.LocaleUtil;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
+
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.*;
 
 /**
  * Formats and parses numbers with abbreviations, e.g. 5Mio for 5,000,000.

@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.regex;
 
-import java.util.Set;
-
 import com.rapiddweller.common.CharSet;
+
+import java.util.Set;
 
 /**
  * Represents a character from a simple character set.

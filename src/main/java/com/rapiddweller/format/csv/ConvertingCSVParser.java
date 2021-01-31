@@ -14,15 +14,15 @@
  */
 package com.rapiddweller.format.csv;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.ThreadLocalDataContainer;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parses CSV files and converts the row to the desired target type.

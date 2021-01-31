@@ -15,11 +15,11 @@
 
 package com.rapiddweller.format.style;
 
-import java.awt.Color;
-import java.text.DecimalFormat;
-
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.NullSafeFormat;
+
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * Provides style information for rendering numbers.

@@ -14,8 +14,8 @@
  */
 package com.rapiddweller.format.regex;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents an alternative expression part of a regular expression, e.g. '(yes|no)'.

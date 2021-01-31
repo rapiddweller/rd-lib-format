@@ -14,6 +14,17 @@
  */
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.*;
+import com.rapiddweller.common.context.DefaultContext;
+import com.rapiddweller.common.converter.PropertyArray2JavaBeanConverter;
+import com.rapiddweller.common.converter.util.ClassProvider;
+import com.rapiddweller.common.converter.util.ConstantClassProvider;
+import com.rapiddweller.common.converter.util.ReferenceResolver;
+import com.rapiddweller.format.DataContainer;
+import com.rapiddweller.format.script.ScriptConverterForStrings;
+import com.rapiddweller.format.util.ConvertingDataIterator;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -23,23 +34,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import com.rapiddweller.common.ArrayUtil;
-import com.rapiddweller.common.Assert;
-import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.ConfigurationError;
-import com.rapiddweller.common.Converter;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.context.DefaultContext;
-import com.rapiddweller.common.converter.PropertyArray2JavaBeanConverter;
-import com.rapiddweller.common.converter.util.ClassProvider;
-import com.rapiddweller.common.converter.util.ConstantClassProvider;
-import com.rapiddweller.common.converter.util.ReferenceResolver;
-import com.rapiddweller.format.DataContainer;
-import com.rapiddweller.format.script.ScriptConverterForStrings;
-import com.rapiddweller.format.util.ConvertingDataIterator;
 
 /**
  * Iterates XLS sheets and provides each row as JavaBean instance.

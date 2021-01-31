@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.xsd;
 
-import java.util.Map;
-
 import com.rapiddweller.common.Named;
 import com.rapiddweller.common.Visitor;
 import com.rapiddweller.common.collection.OrderedNameMap;
+
+import java.util.Map;
 
 /**
  * Represents an XML schema.

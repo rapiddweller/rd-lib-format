@@ -23,15 +23,11 @@ import com.rapiddweller.common.bean.BeanToPropertyArrayConverter;
 import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.ToStringConverter;
-import com.rapiddweller.format.script.AbstractScript;
-import com.rapiddweller.format.script.ConstantScript;
-import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
-import com.rapiddweller.format.script.ScriptedDocumentWriter;
+import com.rapiddweller.format.script.*;
 
 import java.beans.PropertyDescriptor;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Writes JavaBeans as CSV rows.

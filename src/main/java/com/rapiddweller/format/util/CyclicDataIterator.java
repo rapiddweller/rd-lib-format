@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.util;
 
-import java.io.IOException;
-
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.io.IOException;
 
 /**
  * Allows repeated iteration through a {@link DataIterator}.

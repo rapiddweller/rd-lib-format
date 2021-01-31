@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Uses a {@link DataIterator} which provides data rows and forwards its data in form of columns.

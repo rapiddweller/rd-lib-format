@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.html;
 
-import java.util.HashMap;
-
 import com.rapiddweller.format.html.model.HtmlComponent;
+
+import java.util.HashMap;
 
 /**
  * Entity enumeration.

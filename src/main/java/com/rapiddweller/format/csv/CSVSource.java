@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.csv;
 
-import java.io.IOException;
-
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.DataSource;
 import com.rapiddweller.format.util.OrthogonalArrayIterator;
+
+import java.io.IOException;
 
 /**
  * {@link DataSource} implementation that provides for 

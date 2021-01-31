@@ -14,14 +14,14 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Locale;
-
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.format.PadFormat;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.util.DataIteratorAdapter;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  * Iterates fixed-width column files.

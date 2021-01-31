@@ -1,17 +1,14 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.format.DataContainer;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class CSVToJavaBeanMapperTest {
     @Test

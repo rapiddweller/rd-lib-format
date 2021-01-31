@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.html;
 
+import com.rapiddweller.common.FileUtil;
+
 import java.io.File;
 import java.io.IOException;
-
-import com.rapiddweller.common.FileUtil;
 
 /**
  * {@link Anchor} implementation which relates to a {@link File} 

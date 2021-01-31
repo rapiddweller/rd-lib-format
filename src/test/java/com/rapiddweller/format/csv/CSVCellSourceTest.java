@@ -1,11 +1,9 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-
 import com.rapiddweller.common.ConfigurationError;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class CSVCellSourceTest {
     @Test

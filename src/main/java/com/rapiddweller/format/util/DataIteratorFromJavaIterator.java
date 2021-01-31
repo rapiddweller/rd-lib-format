@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.util;
 
-import java.io.Closeable;
-import java.util.Iterator;
-
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.io.Closeable;
+import java.util.Iterator;
 
 /**
  * Provides {@link DataIterator}-style access to a Java {@link Iterator}.

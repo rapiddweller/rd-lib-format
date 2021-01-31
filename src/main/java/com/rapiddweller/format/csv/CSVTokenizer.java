@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.csv;
 
-import static com.rapiddweller.format.csv.CSVTokenType.*;
-
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
 
 import java.io.*;
+
+import static com.rapiddweller.format.csv.CSVTokenType.*;
 
 /**
  * Parses a CSV file token by token as specified in RFC 4180.

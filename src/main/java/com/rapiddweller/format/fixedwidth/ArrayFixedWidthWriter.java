@@ -17,11 +17,7 @@ package com.rapiddweller.format.fixedwidth;
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.format.script.AbstractScript;
-import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
-import com.rapiddweller.format.script.ScriptUtil;
-import com.rapiddweller.format.script.ScriptedDocumentWriter;
+import com.rapiddweller.format.script.*;
 
 import java.io.IOException;
 import java.io.Writer;

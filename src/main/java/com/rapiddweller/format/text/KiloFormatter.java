@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.text;
 
+import com.rapiddweller.common.ArrayUtil;
+
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-
-import com.rapiddweller.common.ArrayUtil;
 
 /**
  * Renders a numerical value applying quantitative Symbols like 5 K for 5000.

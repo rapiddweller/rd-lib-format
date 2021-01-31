@@ -14,14 +14,14 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import java.text.ParseException;
-import java.text.ParsePosition;
-
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.SyntaxError;
 import com.rapiddweller.common.accessor.GraphAccessor;
 import com.rapiddweller.common.mutator.AnyMutator;
+
+import java.text.ParseException;
+import java.text.ParsePosition;
 
 /**
  * Row type support for fixed-width files: formatting, parsing and verification 

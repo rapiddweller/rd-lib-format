@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.script;
 
-import java.io.Writer;
-import java.io.IOException;
-
 import com.rapiddweller.common.Context;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Script implementation that evaluates to a String constant.

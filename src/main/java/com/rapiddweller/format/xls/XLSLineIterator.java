@@ -14,23 +14,18 @@
  */
 package com.rapiddweller.format.xls;
 
-import java.io.IOException;
-import java.util.Iterator;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import com.rapiddweller.common.Converter;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.ObjectNotFoundException;
-import com.rapiddweller.common.ParseException;
-import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.*;
 import com.rapiddweller.common.converter.ArrayTypeConverter;
 import com.rapiddweller.common.converter.NoOpConverter;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Iterates the lines of a sheet in an Excel document.

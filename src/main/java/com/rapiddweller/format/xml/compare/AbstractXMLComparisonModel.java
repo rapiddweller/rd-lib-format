@@ -14,11 +14,7 @@
  */
 package com.rapiddweller.format.xml.compare;
 
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
+import org.w3c.dom.*;
 
 /**
  * Abstract implementation of the {@link XMLComparisonModel} interface.

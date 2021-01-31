@@ -15,36 +15,19 @@
 
 package com.rapiddweller.format.xml.compare;
 
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.ATTRIBUTE;
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.DOCUMENT_ENCODING;
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.ELEMENT_NAME;
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.ELEMENT_NAMESPACE;
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.ELEMENT_TEXT;
-import static com.rapiddweller.format.xml.compare.XMLComparisonModel.PROCESSING_INSTRUCTION;
-
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.xml.xpath.XPathExpressionException;
-
 import com.rapiddweller.common.NullSafeComparator;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.converter.XMLNode2StringConverter;
 import com.rapiddweller.common.xml.XMLUtil;
-import com.rapiddweller.format.compare.AggregateDiff;
-import com.rapiddweller.format.compare.ArrayComparator;
-import com.rapiddweller.format.compare.ArrayComparisonResult;
-import com.rapiddweller.format.compare.DiffDetail;
-import com.rapiddweller.format.compare.DiffDetailType;
-import com.rapiddweller.format.compare.DiffFactory;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
+import com.rapiddweller.format.compare.*;
+import org.w3c.dom.*;
+
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.util.Iterator;
+
+import static com.rapiddweller.format.xml.compare.XMLComparisonModel.*;
 
 /**
  * Compares two XML documents.

@@ -14,17 +14,16 @@
  */
 package com.rapiddweller.format.script.freemarker;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-
-import java.io.Writer;
-import java.io.IOException;
-
 import com.rapiddweller.common.Context;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.Script;
 import com.rapiddweller.format.script.ScriptException;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * {@link Script} implementation that uses the FreeMarker engine.

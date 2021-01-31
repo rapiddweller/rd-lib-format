@@ -15,14 +15,9 @@
 
 package com.rapiddweller.format.csv;
 
-import java.io.BufferedWriter;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-
 import com.rapiddweller.common.SystemInfo;
+
+import java.io.*;
 
 /**
  * Writes String arrays to a CSV file.

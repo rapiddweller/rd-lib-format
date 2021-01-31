@@ -14,16 +14,16 @@
  */
 package com.rapiddweller.format.dot;
 
+import com.rapiddweller.common.Encodings;
+import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.collection.OrderedNameMap;
+
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-
-import com.rapiddweller.common.Encodings;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.collection.OrderedNameMap;
 
 /**
  * Writes Dot files.

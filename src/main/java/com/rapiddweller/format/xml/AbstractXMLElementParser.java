@@ -14,21 +14,15 @@
  */
 package com.rapiddweller.format.xml;
 
+import com.rapiddweller.common.*;
+import com.rapiddweller.common.xml.XMLUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Element;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-
-import com.rapiddweller.common.ArrayFormat;
-import com.rapiddweller.common.ArrayUtil;
-import com.rapiddweller.common.CollectionUtil;
-import com.rapiddweller.common.ConfigurationError;
-import com.rapiddweller.common.ParseUtil;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
-import com.rapiddweller.common.xml.XMLUtil;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.w3c.dom.Element;
 
 /**
  * Abstract implementation of the {@link XMLElementParser} interface.

@@ -14,14 +14,14 @@
  */
 package com.rapiddweller.format.csv;
 
-import java.io.IOException;
-
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.HeavyweightIterator;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.util.DataIteratorAdapter;
 import com.rapiddweller.format.util.ThreadLocalDataContainer;
+
+import java.io.IOException;
 
 /**
  * {@link HeavyweightIterator} that iterates through all cells of a single CSV column.

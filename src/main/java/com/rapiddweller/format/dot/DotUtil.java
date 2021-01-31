@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.dot;
 
-import java.util.Collection;
-
 import com.rapiddweller.common.StringUtil;
+
+import java.util.Collection;
 
 /**
  * Provides utility methods for formatting Fot files.

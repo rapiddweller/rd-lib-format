@@ -14,16 +14,16 @@
  */
 package com.rapiddweller.format.xml;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Map.Entry;
-
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.context.DefaultContext;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Provides context informations and operations for XML parsing.

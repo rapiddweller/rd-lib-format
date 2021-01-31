@@ -14,13 +14,6 @@
  */
 package com.rapiddweller.format.xml.compare;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.xpath.XPathExpressionException;
-
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.NullSafeComparator;
@@ -28,14 +21,13 @@ import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.common.xml.XPathUtil;
 import com.rapiddweller.format.compare.KeyExpression;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
+import org.w3c.dom.*;
+
+import javax.xml.xpath.XPathExpressionException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * XML comparison model based on element names.

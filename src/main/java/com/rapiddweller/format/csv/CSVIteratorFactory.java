@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.csv;
 
-import java.io.IOException;
-
 import com.rapiddweller.format.DataIterator;
+
+import java.io.IOException;
 
 /**
  * Factory for all kinds of CSV iterators.

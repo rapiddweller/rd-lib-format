@@ -15,21 +15,20 @@
 
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.Assert;
+import com.rapiddweller.common.Consumer;
+import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.format.DataContainer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import com.rapiddweller.common.Assert;
-import com.rapiddweller.common.Consumer;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.format.DataContainer;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * Loads and saves JavaBeans from and in Excel documents.<br>
