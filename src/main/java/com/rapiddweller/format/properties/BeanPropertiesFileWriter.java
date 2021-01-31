@@ -14,28 +14,19 @@
  */
 package com.rapiddweller.format.properties;
 
-import com.rapiddweller.common.Context;
-import com.rapiddweller.common.ConversionException;
-import com.rapiddweller.common.Converter;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.common.BeanUtil;
+import com.rapiddweller.common.*;
 import com.rapiddweller.common.bean.BeanToPropertyArrayConverter;
 import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.ToStringConverter;
-import com.rapiddweller.format.script.AbstractScript;
-import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
-import com.rapiddweller.format.script.ScriptUtil;
-import com.rapiddweller.format.script.ScriptedDocumentWriter;
+import com.rapiddweller.format.script.*;
 
+import java.beans.PropertyDescriptor;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.io.FileWriter;
-import java.text.MessageFormat;
 import java.text.FieldPosition;
-import java.beans.PropertyDescriptor;
+import java.text.MessageFormat;
 
 /**
  * Writes JavaBeans to property files.

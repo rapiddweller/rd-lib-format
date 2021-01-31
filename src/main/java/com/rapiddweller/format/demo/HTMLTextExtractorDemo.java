@@ -14,15 +14,15 @@
  */
 package com.rapiddweller.format.demo;
 
-import com.rapiddweller.format.html.HTML2XML;
-import com.rapiddweller.format.text.SplitStringConverter;
-import com.rapiddweller.format.xslt.XSLTTransformer;
 import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.format.html.HTML2XML;
+import com.rapiddweller.format.text.SplitStringConverter;
+import com.rapiddweller.format.xslt.XSLTTransformer;
 
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
 
 /**

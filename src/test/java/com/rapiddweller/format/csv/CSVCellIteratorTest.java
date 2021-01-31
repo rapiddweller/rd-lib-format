@@ -1,13 +1,12 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
 import com.rapiddweller.format.DataContainer;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class CSVCellIteratorTest {
 

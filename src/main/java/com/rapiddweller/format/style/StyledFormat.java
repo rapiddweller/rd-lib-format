@@ -15,12 +15,12 @@
 
 package com.rapiddweller.format.style;
 
-import java.awt.Color;
+import com.rapiddweller.common.format.Alignment;
+
+import java.awt.*;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
-
-import com.rapiddweller.common.format.Alignment;
 
 /**
  * Provides style information for rendering data.

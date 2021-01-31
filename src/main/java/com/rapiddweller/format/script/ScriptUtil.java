@@ -17,7 +17,6 @@ package com.rapiddweller.format.script;
 import com.rapiddweller.common.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.graalvm.polyglot.Engine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,7 +32,7 @@ import java.util.WeakHashMap;
  */
 public class ScriptUtil {
     
-    private static final Logger CONFIG_LOGGER = LogManager.getLogger(LogCategories.CONFIG);
+    private static final Logger CONFIG_LOGGER = LogManager.getLogger(LogCategoriesConstants.CONFIG);
     private static final Logger SCRIPTUTIL_LOGGER = LogManager.getLogger(ScriptUtil.class);
 
     // extension mapping -----------------------------------------------------------------------------------------------
@@ -212,8 +211,8 @@ public class ScriptUtil {
         String className;
         try {
             factories = new HashMap<>();
-            org.graalvm.polyglot.Engine graalVMEngine = Engine.newBuilder().build();
-            CONFIG_LOGGER.info("supported script languages GraalVM : " + graalVMEngine.getLanguages().keySet());
+//            org.graalvm.polyglot.Engine graalVMEngine = Engine.newBuilder().build();
+//            CONFIG_LOGGER.info("supported script languages GraalVM : " + graalVMEngine.getLanguages().keySet());
             // read config file
             SCRIPTUTIL_LOGGER.debug("Initializing Script mapping from file " + SETUP_FILE_NAME);
             Map<String, String> properties = IOUtil.readProperties(SETUP_FILE_NAME);

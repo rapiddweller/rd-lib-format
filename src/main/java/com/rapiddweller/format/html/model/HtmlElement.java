@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.html.model;
 
+import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.collection.OrderedNameMap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.common.collection.OrderedNameMap;
 
 /**
  * Parent class for HTML element classes.

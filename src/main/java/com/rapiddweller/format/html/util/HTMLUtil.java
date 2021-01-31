@@ -19,7 +19,7 @@ import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.html.HtmlEntity;
 
-import java.awt.Color;
+import java.awt.*;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.HashMap;

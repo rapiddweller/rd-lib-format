@@ -18,10 +18,10 @@ import com.rapiddweller.common.Context;
 import com.rapiddweller.common.DocumentWriter;
 import com.rapiddweller.common.context.DefaultContext;
 
-import java.io.Writer;
 import java.io.IOException;
-import java.util.Map;
+import java.io.Writer;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A DocumentWriter that uses {@link Script}s for rendering head, body parts and footer.

@@ -1,17 +1,14 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 import com.rapiddweller.common.converter.ToArrayConverter;
 import com.rapiddweller.format.DataContainer;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ConvertingCSVParserTest {
     @Test

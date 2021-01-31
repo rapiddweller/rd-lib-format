@@ -1,10 +1,10 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
 import com.rapiddweller.format.DataIterator;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class CSVSourceTest {
 

@@ -14,27 +14,18 @@
  */
 package com.rapiddweller.format.regex;
 
+import com.rapiddweller.common.*;
+import com.rapiddweller.format.regex.antlr.RegexLexer;
+import org.antlr.runtime.*;
+import org.antlr.runtime.tree.CommonTree;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import org.antlr.runtime.ANTLRReaderStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.ParserRuleReturnScope;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
-import com.rapiddweller.common.Assert;
-import com.rapiddweller.common.CharSet;
-import com.rapiddweller.common.CollectionUtil;
-import com.rapiddweller.common.LocaleUtil;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
-import com.rapiddweller.format.regex.antlr.RegexLexer;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * Parses a regular expression into an object model.

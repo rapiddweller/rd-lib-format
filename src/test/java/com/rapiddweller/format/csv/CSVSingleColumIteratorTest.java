@@ -1,11 +1,11 @@
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 
 public class CSVSingleColumIteratorTest {
 

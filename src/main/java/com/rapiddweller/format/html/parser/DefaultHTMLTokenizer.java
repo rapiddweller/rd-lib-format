@@ -14,16 +14,16 @@
  */
 package com.rapiddweller.format.html.parser;
 
+import com.rapiddweller.common.CharSet;
+import com.rapiddweller.common.OrderedMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.text.ParseException;
 import java.util.Map;
-
-import com.rapiddweller.common.CharSet;
-import com.rapiddweller.common.OrderedMap;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * Default implementation of an {@link HTMLTokenizer}.

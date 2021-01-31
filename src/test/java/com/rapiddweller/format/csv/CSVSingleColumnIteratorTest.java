@@ -14,13 +14,12 @@
  */
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.format.DataContainer;
-import com.rapiddweller.format.csv.CSVSingleColumIterator;
 import com.rapiddweller.format.util.DataIteratorTestCase;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests the {@link CSVSingleColumIterator}.

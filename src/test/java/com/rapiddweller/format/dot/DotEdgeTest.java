@@ -1,9 +1,9 @@
 package com.rapiddweller.format.dot;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-
-import org.junit.Test;
 
 public class DotEdgeTest {
     @Test

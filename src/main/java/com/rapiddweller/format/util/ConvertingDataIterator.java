@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.util;
 
-import java.io.Closeable;
-
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.io.Closeable;
 
 /**
  * {@link DataIterator} proxy which applies a {@link Converter} to the data provided by its source.

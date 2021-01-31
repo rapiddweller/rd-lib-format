@@ -14,12 +14,6 @@
  */
 package com.rapiddweller.format.xml.compare;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.xpath.XPathExpressionException;
-
 import com.rapiddweller.common.NullSafeComparator;
 import com.rapiddweller.common.ProgrammerError;
 import com.rapiddweller.common.xml.XPathUtil;
@@ -27,6 +21,11 @@ import com.rapiddweller.format.compare.DiffDetailType;
 import com.rapiddweller.format.compare.LocalDiffType;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import javax.xml.xpath.XPathExpressionException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Holds the information which diff types are accepted at which XPaths 

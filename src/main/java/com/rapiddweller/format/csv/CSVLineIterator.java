@@ -14,18 +14,21 @@
  */
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.CollectionUtil;
+import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
-import static com.rapiddweller.format.csv.CSVTokenType.*;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
+
+import static com.rapiddweller.format.csv.CSVTokenType.CELL;
+import static com.rapiddweller.format.csv.CSVTokenType.EOF;
 
 /**
  * Gives access to content of a CSV file by String arrays

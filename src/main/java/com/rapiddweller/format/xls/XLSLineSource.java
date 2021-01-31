@@ -14,11 +14,10 @@
  */
 package com.rapiddweller.format.xls;
 
-import java.util.Iterator;
-
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
-import com.rapiddweller.format.xls.XLSLineIterator;
+
+import java.util.Iterator;
 
 /**
  * {@link Iterable} implementation which creates {@link Iterator}s 

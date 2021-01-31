@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.script;
 
-import java.io.IOException;
-
 import com.rapiddweller.common.ParseException;
+
+import java.io.IOException;
 
 /**
  * Factory class for {@link Script} objects.

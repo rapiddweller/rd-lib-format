@@ -15,11 +15,14 @@
 package com.rapiddweller.format.xslt;
 
 import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.util.Map;
+import javax.xml.transform.stream.StreamSource;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Performs XSL transformations on XML strings and streams.

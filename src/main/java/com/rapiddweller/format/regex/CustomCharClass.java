@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.regex;
 
+import com.rapiddweller.common.CharSet;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.rapiddweller.common.CharSet;
 
 /**
  * Represents a custom character class with inclusions and exclusions.

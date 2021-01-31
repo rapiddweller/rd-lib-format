@@ -14,9 +14,9 @@
  */
 package com.rapiddweller.format.dot;
 
-import java.util.Collection;
-
 import com.rapiddweller.common.StringUtil;
+
+import java.util.Collection;
 
 /**
  * Provides utility methods for formatting Fot files.
@@ -28,7 +28,7 @@ import com.rapiddweller.common.StringUtil;
 public class DotUtil {
 
 	public static String normalizeId(String id) {
-		if (id.startsWith("\"") && id.startsWith("\""))
+		if (id.startsWith("\""))
 			return id;
 		else if (id.contains(" ") || id.contains("-"))
 			return '"' + id + '"';

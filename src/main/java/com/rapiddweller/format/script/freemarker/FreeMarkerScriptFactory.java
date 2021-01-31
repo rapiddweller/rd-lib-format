@@ -14,20 +14,18 @@
  */
 package com.rapiddweller.format.script.freemarker;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.script.Script;
 import com.rapiddweller.format.script.ScriptFactory;
-
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Creates {@link FreeMarkerScript}s.

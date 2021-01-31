@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.demo;
 
+import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.FilteringHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
 import com.rapiddweller.format.html.util.HTMLTokenFilter;
-import com.rapiddweller.common.IOUtil;
 
 import java.io.IOException;
 import java.io.Reader;

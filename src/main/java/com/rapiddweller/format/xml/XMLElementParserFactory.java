@@ -14,13 +14,13 @@
  */
 package com.rapiddweller.format.xml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.ParseException;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory method which provides {@link XMLElementParser}s.

@@ -15,12 +15,6 @@
 
 package com.rapiddweller.format.xml.compare;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.IOUtil;
@@ -34,6 +28,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Loads and saves {@link XMLComparisonSettings}.

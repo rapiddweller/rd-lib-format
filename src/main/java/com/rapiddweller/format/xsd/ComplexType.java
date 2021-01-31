@@ -14,10 +14,10 @@
  */
 package com.rapiddweller.format.xsd;
 
+import com.rapiddweller.common.collection.OrderedNameMap;
+
 import java.util.Collection;
 import java.util.Map;
-
-import com.rapiddweller.common.collection.OrderedNameMap;
 
 /**
  * Parent class for schema elements that represent complex types.

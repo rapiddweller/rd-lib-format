@@ -15,24 +15,19 @@
 
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.ConfigurationError;
+import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.bean.PropertyGraphAccessor;
+import com.rapiddweller.common.converter.ToStringConverter;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+
 import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellStyle;
-import com.rapiddweller.common.ConfigurationError;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.bean.PropertyGraphAccessor;
-import com.rapiddweller.common.converter.ToStringConverter;
 
 /**
  * Saves JavaBeans in MS Excel(TM) files.

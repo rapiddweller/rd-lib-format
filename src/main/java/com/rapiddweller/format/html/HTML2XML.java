@@ -14,35 +14,21 @@
  */
 package com.rapiddweller.format.html;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import com.rapiddweller.common.*;
+import com.rapiddweller.common.xml.XMLUtil;
+import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
+import com.rapiddweller.format.html.parser.HTMLTokenizer;
+import com.rapiddweller.format.html.util.HTMLUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Document;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-
-import com.rapiddweller.common.CollectionUtil;
-import com.rapiddweller.common.Encodings;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.ParseUtil;
-import com.rapiddweller.common.StringCharacterIterator;
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.common.xml.XMLUtil;
-import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
-import com.rapiddweller.format.html.parser.HTMLTokenizer;
-import com.rapiddweller.format.html.util.HTMLUtil;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.w3c.dom.Document;
 
 /**
  * Provides utility methods for converting HTML to XML.
@@ -107,7 +93,7 @@ public class HTML2XML {
 		it.skipWhitespace();
 		StringBuilder builder = new StringBuilder();
 		int c;
-		while ((c = it.next()) != -1 && ParseUtil.isNMAfterStartChar((char) c))
+		while ((c = it.next()) >= 0 && ParseUtil.isNMAfterStartChar((char) c))
 			builder.append((char) c);
 		return builder.toString();
 	}

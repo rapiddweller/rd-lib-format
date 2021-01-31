@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.text;
 
-import java.text.MessageFormat;
-
 import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.converter.ThreadSafeConverter;
+
+import java.text.MessageFormat;
 
 /**
  * {@link Converter} that transforms an object into its hexadecimal representation.

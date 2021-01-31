@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link List}-based implementation of the {@link DataIterator} interface.

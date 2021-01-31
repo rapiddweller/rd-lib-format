@@ -14,20 +14,13 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
+import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.SyntaxError;
 import com.rapiddweller.common.format.Alignment;
 
-import java.text.DateFormatSymbols;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.Format;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Locale;
 
 /**

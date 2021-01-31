@@ -14,18 +14,13 @@
  */
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.format.csv.CSVTokenType;
-import com.rapiddweller.format.csv.CSVTokenizer;
-
-import java.io.Reader;
-
 import org.junit.Test;
 
-import java.io.StringReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 import static com.rapiddweller.format.csv.CSVTokenType.*;
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 

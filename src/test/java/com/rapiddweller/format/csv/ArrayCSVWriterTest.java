@@ -14,20 +14,15 @@
  */
 package com.rapiddweller.format.csv;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.Writer;
-
+import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.format.script.ConstantScript;
 import org.junit.Test;
 
-import java.io.StringWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import com.rapiddweller.format.csv.ArrayCSVWriter;
-import com.rapiddweller.format.script.ConstantScript;
-import com.rapiddweller.common.SystemInfo;
+import static org.junit.Assert.*;
 
 /**
  * Tests the {@link ArrayCSVWriter}.

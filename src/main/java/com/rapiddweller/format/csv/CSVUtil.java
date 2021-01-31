@@ -14,19 +14,15 @@
  */
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.common.ArrayBuilder;
-import com.rapiddweller.common.ArrayFormat;
-import com.rapiddweller.common.ConfigurationError;
-import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.*;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.Writer;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility methods for CSV processing.

@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.xsd;
 
-import java.util.Collection;
-import java.util.Map;
-
 import com.rapiddweller.common.Visitor;
 import com.rapiddweller.common.collection.OrderedNameMap;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Represents a {@link ComplexType} which composes other ComplexTypes.

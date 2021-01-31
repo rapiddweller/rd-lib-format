@@ -14,15 +14,15 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
+import com.rapiddweller.common.Assert;
+import com.rapiddweller.common.SystemInfo;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.rapiddweller.common.Assert;
-import com.rapiddweller.common.SystemInfo;
 
 /**
  * Writes JavaBean properties (graphs) to a file with fixed-width columns.

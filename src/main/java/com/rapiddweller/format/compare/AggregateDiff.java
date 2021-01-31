@@ -14,11 +14,11 @@
  */
 package com.rapiddweller.format.compare;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Collects the differences between two data structures.

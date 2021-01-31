@@ -14,30 +14,14 @@
  */
 package com.rapiddweller.format.dot;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-
-import java.io.FileOutputStream;
-
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.format.dot.ArrowShape;
-import com.rapiddweller.format.dot.DefaultDotGraphModel;
-import com.rapiddweller.format.dot.DotGraph;
-import com.rapiddweller.format.dot.DotNode;
-import com.rapiddweller.format.dot.DotWriter;
-import com.rapiddweller.format.dot.EdgeStyle;
-import com.rapiddweller.format.dot.NodeShape;
-import com.rapiddweller.format.dot.NodeStyle;
-import com.rapiddweller.format.dot.RankDir;
+import org.junit.Test;
 
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests the {@link DotWriter}.

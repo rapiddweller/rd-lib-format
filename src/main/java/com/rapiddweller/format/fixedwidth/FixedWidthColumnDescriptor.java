@@ -14,15 +14,15 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
+import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.format.Alignment;
+import com.rapiddweller.common.format.PadFormat;
+
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Date;
-
-import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.format.Alignment;
-import com.rapiddweller.common.format.PadFormat;
 
 /**
  * Describes a column of a flat file.

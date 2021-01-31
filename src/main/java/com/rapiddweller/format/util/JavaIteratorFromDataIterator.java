@@ -14,12 +14,12 @@
  */
 package com.rapiddweller.format.util;
 
-import java.util.Iterator;
-
 import com.rapiddweller.common.HeavyweightIterator;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
+
+import java.util.Iterator;
 
 /**
  * Adapter class that provides Java-SDK-style {@link Iterator} access to a {@link DataIterator}.
