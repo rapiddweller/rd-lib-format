@@ -78,7 +78,7 @@ public class Quantifier {
         if (o == null || getClass() != o.getClass())
             return false;
         final Quantifier that = (Quantifier) o;
-        if (max != that.max)
+        if (!max.equals(that.max))
             return false;
         return min == that.min;
     }

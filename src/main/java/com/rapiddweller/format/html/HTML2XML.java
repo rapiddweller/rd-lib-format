@@ -107,7 +107,7 @@ public class HTML2XML {
 		it.skipWhitespace();
 		StringBuilder builder = new StringBuilder();
 		int c;
-		while ((c = it.next()) != -1 && ParseUtil.isNMAfterStartChar((char) c))
+		while ((c = it.next()) >= 0 && ParseUtil.isNMAfterStartChar((char) c))
 			builder.append((char) c);
 		return builder.toString();
 	}

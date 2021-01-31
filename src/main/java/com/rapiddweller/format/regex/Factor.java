@@ -80,8 +80,7 @@ public class Factor implements RegexPart {
         if (o == null || getClass() != o.getClass())
             return false;
         final Factor that = (Factor) o;
-        return (this.atom.equals(that.atom) && 
-        		that.quantifier.equals(that.quantifier));
+        return (this.atom.equals(that.atom));
     }
     
     /**
