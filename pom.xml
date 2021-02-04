@@ -455,14 +455,28 @@
         <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
     <scm>
         <url>https://github.com/rapiddweller/rd-lib-format</url>
-        <connection>scm:git:github.com/rapiddweller/rd-lib-format</connection>
-        <developerConnection>scm:git:github.com/rapiddweller/rd-lib-format</developerConnection>
+        <connection>scm:git:git://github.com/rapiddweller/rd-lib-format.git</connection>
+        <developerConnection>scm:git:git://github.com/rapiddweller/rd-lib-format.git</developerConnection>
     </scm>
 </project>
