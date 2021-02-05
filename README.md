@@ -1,6 +1,8 @@
 # rd-lib-format
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/69314d732b5647fe839ba3298e047feb)](https://www.codacy.com/gh/rapiddweller/rd-lib-format/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rapiddweller/rd-lib-format&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/69314d732b5647fe839ba3298e047feb)](https://www.codacy.com/gh/rapiddweller/rd-lib-format/dashboard?utm_source=github.com&utm_medium=referral&utm_content=rapiddweller/rd-lib-format&utm_campaign=Badge_Coverage)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.rapiddweller/rd-lib-format/badge.svg)](https://search.maven.org/artifact/com.rapiddweller/rd-lib-format)
+
 
 'rapiddweller Format' is an open source software library
 forked from Databene Formats by Volker Bergmann for supporting
