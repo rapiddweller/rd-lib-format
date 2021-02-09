@@ -17,23 +17,38 @@ package com.rapiddweller.format.fixedwidth;
 /**
  * Helper class for testing.
  * Created: 14.03.2014 16:29:34
- * @since 0.7.2
+ *
  * @author Volker Bergmann
+ * @since 0.7.2
  */
-
 public class FWPet {
 	
 	private String name;
 
-	public FWPet(String name) {
+  /**
+   * Instantiates a new Fw pet.
+   *
+   * @param name the name
+   */
+  public FWPet(String name) {
 		this.name = name;
 	}
 
-	public String getName() {
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
 		this.name = name;
 	}
 	

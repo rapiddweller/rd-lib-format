@@ -12,9 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xslt;
 
-import javax.xml.transform.*;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.Reader;
@@ -26,33 +31,49 @@ import java.util.Map;
 
 /**
  * Performs XSL transformations on XML strings and streams.
- * 
+ * <p>
  * Created: 26.01.2007 08:31:09
  */
 public class XSLTTransformer {
 
-    private static final Map<String, Transformer> transformers = new HashMap<String, Transformer>();
+  private static final Map<String, Transformer> transformers = new HashMap<String, Transformer>();
 
-    private static Transformer getTransformer(String xsltString) throws TransformerConfigurationException {
-        Transformer transformer = transformers.get(xsltString);
-        if (transformer == null) {
-            Source xsltSource = new StreamSource(new StringReader(xsltString));
-            transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
-            transformers.put(xsltString, transformer);
-        }
-        return transformer;
+  private static Transformer getTransformer(String xsltString) throws TransformerConfigurationException {
+    Transformer transformer = transformers.get(xsltString);
+    if (transformer == null) {
+      Source xsltSource = new StreamSource(new StringReader(xsltString));
+      transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
+      transformers.put(xsltString, transformer);
     }
+    return transformer;
+  }
 
-    public static String transform(String xmlString, String xsltString) throws TransformerException {
-        Reader source = new StringReader(xmlString);
-        StringWriter writer = new StringWriter();
-        transform(source, xsltString, writer);
-        return writer.getBuffer().toString();
-    }
+  /**
+   * Transform string.
+   *
+   * @param xmlString  the xml string
+   * @param xsltString the xslt string
+   * @return the string
+   * @throws TransformerException the transformer exception
+   */
+  public static String transform(String xmlString, String xsltString) throws TransformerException {
+    Reader source = new StringReader(xmlString);
+    StringWriter writer = new StringWriter();
+    transform(source, xsltString, writer);
+    return writer.getBuffer().toString();
+  }
 
-    public static void transform(Reader reader, String xsltString, Writer writer) throws TransformerException {
-        Transformer transformer = getTransformer(xsltString);
-        transformer.transform(new StreamSource(reader), new StreamResult(writer));
-    }
+  /**
+   * Transform.
+   *
+   * @param reader     the reader
+   * @param xsltString the xslt string
+   * @param writer     the writer
+   * @throws TransformerException the transformer exception
+   */
+  public static void transform(Reader reader, String xsltString, Writer writer) throws TransformerException {
+    Transformer transformer = getTransformer(xsltString);
+    transformer.transform(new StreamSource(reader), new StreamResult(writer));
+  }
 
 }

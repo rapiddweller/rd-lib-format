@@ -18,7 +18,7 @@ package com.rapiddweller.format.style;
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.NullSafeFormat;
 
-import java.awt.*;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -26,39 +26,53 @@ import java.util.Locale;
 /**
  * Provides style information for rendering date objects.
  * Created: 25.12.2015 10:48:27
- * @since 1.0.7
+ *
  * @author Volker Bergmann
+ * @since 1.0.7
  */
-
 public class StyledDateFormat extends StyledFormat {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public StyledDateFormat() {
-		this(DateFormat.getDateInstance());
-	}
+  /**
+   * Instantiates a new Styled date format.
+   */
+  public StyledDateFormat() {
+    this(DateFormat.getDateInstance());
+  }
 
-	public StyledDateFormat(String pattern, Locale locale) {
-		this(new SimpleDateFormat(pattern, locale));
-	}
+  /**
+   * Instantiates a new Styled date format.
+   *
+   * @param pattern the pattern
+   * @param locale  the locale
+   */
+  public StyledDateFormat(String pattern, Locale locale) {
+    this(new SimpleDateFormat(pattern, locale));
+  }
 
-	public StyledDateFormat(DateFormat format) {
-		super(new NullSafeFormat(format, null));
-	}
+  /**
+   * Instantiates a new Styled date format.
+   *
+   * @param format the format
+   */
+  public StyledDateFormat(DateFormat format) {
+    super(new NullSafeFormat(format, null));
+  }
 
-	@Override
-	public Alignment getAlignment() {
-		return Alignment.RIGHT;
-	}
+  @Override
+  public Alignment getAlignment() {
+    return Alignment.RIGHT;
+  }
 
-	@Override
-	public Color getForegroundColor(Object value, boolean isSelected) {
-		return null;
-	}
+  @Override
+  public Color getForegroundColor(Object value, boolean isSelected) {
+    return null;
+  }
 
-	@Override
-	public Color getBackgroundColor(Object value, boolean isSelected) {
-		return null;
-	}
+  @Override
+  public Color getBackgroundColor(Object value, boolean isSelected) {
+    return null;
+  }
 
 }

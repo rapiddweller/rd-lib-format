@@ -14,11 +14,6 @@
  */
 package com.rapiddweller.format.xml.compare;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
 import com.rapiddweller.common.converter.XMLNode2StringConverter;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.common.xml.XPathUtil;
@@ -34,9 +29,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-/** Tests the {@link XmlContentImpl}
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Tests the {@link XmlContentImpl}
+ *
+ * @author Volker Bergmann
  * @since 1.0.5
- * @author Volker Bergmann 
  */
 @SuppressWarnings("javadoc")
 public class XMLComparatorTest {
@@ -53,16 +55,26 @@ public class XMLComparatorTest {
     private static final String NS_NONE_PATH = RESOURCE_PATH + "namespace_none.xml";
 
 	private final DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
-	
-    @Test
+
+  /**
+   * Test diff identical.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_identical() throws Exception {
         Document doc = parseSimpleXmlUtf8();
         assertTrue(new XMLComparator().compare(doc, doc).isEmpty());
     }
 
     // test encoding -----------------------------------------------------------
-    
-    @Test
+
+  /**
+   * Test diff unexpected encoding.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_unexpectedEncoding() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlIso_8859_1();
@@ -72,8 +84,13 @@ public class XMLComparatorTest {
         assertEquals(1, diff.getDetails().size());
         assertEquals(diffFactory.different("utf-8", "iso-8859-1", "document encoding", "/", "/"), diff.getDetails().get(0));
     }
-    
-    @Test
+
+  /**
+   * Test diff unexpected encoding tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_unexpectedEncodingTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlIso_8859_1();
@@ -82,8 +99,13 @@ public class XMLComparatorTest {
 		AggregateDiff diff = new XMLComparator(settings).compare(expected, actual);
         assertTrue("Unexpected diff", diff.isEmpty());
     }
-    
-    @Test
+
+  /**
+   * Test diff special elements ignored.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_specialElementsIgnored() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = XMLUtil.parse(RESOURCE_PATH + "special.xml");
@@ -93,8 +115,13 @@ public class XMLComparatorTest {
 		AggregateDiff diff = new XMLComparator(settings).compare(expected, actual);
         assertTrue("Unexpected diff", diff.isEmpty());
     }
-    
-    @Test
+
+  /**
+   * Test diff unexpected processing instruction.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_unexpectedProcessingInstruction() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = XMLUtil.parse(RESOURCE_PATH + "special.xml");
@@ -106,8 +133,13 @@ public class XMLComparatorTest {
         assertEquals(1, diff.getDetails().size());
         assertEquals(diffFactory.unexpected(pi, "processing instruction", "/root/?procint"), diff.getDetails().get(0));
     }
-    
-    @Test
+
+  /**
+   * Test diff missing processing instruction.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingProcessingInstruction() throws Exception {
     	Document expected = XMLUtil.parse(RESOURCE_PATH + "special.xml");
         Document actual = parseSimpleXmlUtf8();
@@ -119,8 +151,13 @@ public class XMLComparatorTest {
         assertEquals(1, diff.getDetails().size());
         assertEquals(diffFactory.missing(pi, "processing instruction", "/root/?procint"), diff.getDetails().get(0));
     }
-    
-    @Test
+
+  /**
+   * Test diff cdata relevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_cdataRelevant() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = XMLUtil.parse(RESOURCE_PATH + "special.xml");
@@ -133,8 +170,13 @@ public class XMLComparatorTest {
         assertEquals(1, diff.getDetails().size());
         assertEquals(diffFactory.different(text, cdata, "element text", "/root/node/text()", "/root/node/text()"), diff.getDetails().get(0));
     }
-    
-    @Test
+
+  /**
+   * Test diff cdata irrelevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_cdataIrrelevant() throws Exception {
     	Document expected = XMLUtil.parse(RESOURCE_PATH + "special.xml");
         Document actual = parseSimpleXmlUtf8();
@@ -147,7 +189,12 @@ public class XMLComparatorTest {
     
     // test attribute diffs ----------------------------------------------------
 
-    @Test
+  /**
+   * Test diff same comment.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_sameComment() throws Exception {
         Document expected = parseXmlWithComment();
         Document actual = parseXmlWithComment();
@@ -156,7 +203,12 @@ public class XMLComparatorTest {
         assertEquals(0, diff.getDetails().size());
     }
 
-    @Test
+  /**
+   * Test diff other comment.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherComment() throws Exception {
         Document expected = parseXmlWithComment();
         Node expectedComment = expected.getDocumentElement().getChildNodes().item(1);
@@ -168,7 +220,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.different(expectedComment, actualComment, "comment", "/root/comment()", "/root/comment()"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff other comment irrelevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherCommentIrrelevant() throws Exception {
         Document expected = parseXmlWithComment();
         Document actual = parseXmlWithComment();
@@ -179,7 +236,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff unexpected comment.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_unexpectedComment() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseXmlWithComment();
@@ -189,7 +251,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.unexpected(actualComment, "comment", "/root/comment()"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff unexpected comment irrelevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_UnexpectedCommentIrrelevant() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseXmlWithComment();
@@ -197,7 +264,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff missing comment.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingComment() throws Exception {
         Document expected = parseXmlWithComment();
         Comment comment = (Comment) expected.getDocumentElement().getChildNodes().item(1);
@@ -207,7 +279,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.missing(comment, "comment", "/root/comment()"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff missing comment irrelevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingCommentIrrelevant() throws Exception {
         Document expected = parseXmlWithComment();
         Document actual = parseSimpleXmlUtf8();
@@ -216,8 +293,13 @@ public class XMLComparatorTest {
     }
 
     // comment diffs ------------------------------------------------------
-    
-    @Test
+
+  /**
+   * Test diff other attribute val.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherAttributeVal() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -227,7 +309,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.different("val", "val2", "attribute", "/root/@att", "/root/@att"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff other attribute and text escaped.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherAttributeAndTextEscaped() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = XMLUtil.parse(ESCAPED_XML_PATH);
@@ -243,7 +330,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.different(expectedText, actualText, "element text", "/root/node/text()", "/root/node/text()"), diff.getDetails().get(1));
     }
 
-    @Test
+  /**
+   * Test diff other attribute val tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherAttributeValTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -254,7 +346,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff unexpected attribute.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_unexpectedAttribute() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -264,7 +361,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.unexpected("val2", "attribute", "/root/@att2"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff unexpected attribute tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_UnexpectedAttributeTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -275,7 +377,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff missing attribute.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingAttribute() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -285,7 +392,12 @@ public class XMLComparatorTest {
         assertEquals(diffFactory.missing("val", "attribute", "/root/@att"), diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff missing attribute tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingAttributeTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -300,7 +412,12 @@ public class XMLComparatorTest {
     
     // test element diffs ------------------------------------------------------
 
-    @Test
+  /**
+   * Test diff other element text.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherElementText() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -314,7 +431,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff, diff.getDetails().get(0));
     }
 
-    @Test
+  /**
+   * Test diff other element text tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_otherElementTextTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -325,7 +447,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff: " + diff, diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff missing element.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingElement() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -337,7 +464,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff, actualDiff);
     }
 
-    @Test
+  /**
+   * Test diff missing element tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_missingElementTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -348,7 +480,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff: " + diff, diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff additional element.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_additionalElement() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -361,7 +498,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff, actualDiff);
     }
 
-    @Test
+  /**
+   * Test diff additional element tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_additionalElementTolerated() throws Exception {
         Document expected = parseSimpleXmlUtf8();
         Document actual = parseSimpleXmlUtf8();
@@ -373,7 +515,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff list element moved.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_listElementMoved() throws Exception {
         Document expected = XMLUtil.parse(RESOURCE_PATH + "list_1_alice_2_bob.xml");
         Element alice = XMLUtil.getChildElements(expected.getDocumentElement(), false, "item")[0];
@@ -385,7 +532,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff, actualDiff);
     }
 
-    @Test
+  /**
+   * Test diff list element moved tolerated.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_listElementMovedTolerated() throws Exception {
         Document expected = XMLUtil.parse(RESOURCE_PATH + "list_1_alice_2_bob.xml");
         Document actual = XMLUtil.parse(RESOURCE_PATH + "list_2_bob_1_alice.xml");
@@ -395,7 +547,12 @@ public class XMLComparatorTest {
         assertTrue("Unexpected diff", diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test diff list moved content kept item no.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_listMovedContentKeptItemNo() throws Exception {
         Document expected = XMLUtil.parse(RESOURCE_PATH + "list_1_alice_2_bob.xml");
         Document actual = XMLUtil.parse(RESOURCE_PATH + "list_1_bob_2_alice.xml");
@@ -415,7 +572,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff2, actualDiff2);
     }
 
-    @Test
+  /**
+   * Test diff list moved item no kept content.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_listMovedItemNoKeptContent() throws Exception {
         Document expected = XMLUtil.parse(RESOURCE_PATH + "list_1_alice_2_bob.xml");
         Document actual = XMLUtil.parse(RESOURCE_PATH + "list_2_alice_1_bob.xml");
@@ -429,7 +591,12 @@ public class XMLComparatorTest {
         assertEquals(expectedDiff3, diff.getDetails().get(1));
     }
 
-    @Test
+  /**
+   * Test diff list tolerate moved content ignoring item no.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testDiff_listTolerateMovedContentIgnoringItemNo() throws Exception {
         Document expected = XMLUtil.parse(RESOURCE_PATH + "list_1_alice_2_bob.xml");
         Document actual = XMLUtil.parse(RESOURCE_PATH + "list_1_bob_2_alice.xml");
@@ -440,14 +607,24 @@ public class XMLComparatorTest {
         AggregateDiff diff = new XMLComparator(settings).compare(expected, actual);
         assertTrue("Unexpected diff: " + diff, diff.isEmpty());
     }
-    
-    @Test
+
+  /**
+   * Test entity inclusion.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testEntityInclusion() throws Exception { // TODO implement tests
     	Document doc = XMLUtil.parse(RESOURCE_PATH + "container.xml");
     	System.out.println(XMLUtil.format(doc));
     }
 
-    @Test
+  /**
+   * Test namespace not relevant.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testNamespaceNotRelevant() throws Exception {
     	Document xzDoc = XMLUtil.parse(NS_XZ_PATH);
     	Document zxDoc = XMLUtil.parse(NS_ZX_PATH);
@@ -461,7 +638,12 @@ public class XMLComparatorTest {
 		assertTrue(comparator.compare(zxDoc, simpleDoc).isEmpty());
     }
 
-    @Test
+  /**
+   * Test same namespaces different prefix.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testSameNamespacesDifferentPrefix() throws Exception {
     	Document xzDoc = XMLUtil.parse(NS_XZ_PATH);
     	Document pDoc = XMLUtil.parse(NS_XPZP_PATH);
@@ -472,7 +654,12 @@ public class XMLComparatorTest {
 		assertTrue(diff.isEmpty());
     }
 
-    @Test
+  /**
+   * Test no namespace vs namespace.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testNoNamespaceVsNamespace() throws Exception {
     	Document simpleDoc = XMLUtil.parse(NS_NONE_PATH);
     	Document xzDoc = XMLUtil.parse(NS_XZ_PATH);
@@ -485,7 +672,12 @@ public class XMLComparatorTest {
 		assertEquals(diffFactory.different("none", "http://databene.org/formats/xml/compare/zz", "element namespace", "/root/node[2]", "/root/zz:node"), diff.getDetail(1));
     }
 
-    @Test
+  /**
+   * Test namespaces different.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testNamespacesDifferent() throws Exception {
     	Document xzDoc = XMLUtil.parse(NS_XZ_PATH);
     	Document zxDoc = XMLUtil.parse(NS_ZX_PATH);

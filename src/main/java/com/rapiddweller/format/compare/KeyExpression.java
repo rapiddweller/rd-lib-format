@@ -18,53 +18,71 @@ package com.rapiddweller.format.compare;
 import com.rapiddweller.common.NullSafeComparator;
 
 /**
- * Provides a key definition for an object based on a {@link #locator} expression 
+ * Provides a key definition for an object based on a {@link #locator} expression
  * for the related object and a {@link KeyExpression} to derive a key from the object.
- * The syntax of the locator and the keyExpression depends on the type of the related 
- * object structure and comparator implementation, e.g. XPath expressions for XML. 
+ * The syntax of the locator and the keyExpression depends on the type of the related
+ * object structure and comparator implementation, e.g. XPath expressions for XML.
  * Created: 13.06.2016 18:31:01
- * @since 1.0.11
+ *
  * @author Volker Bergmann
+ * @since 1.0.11
  */
-
 public class KeyExpression {
-	
-	private final String locator;
-	private final String expression;
-	
-	public KeyExpression(String locator, String expression) {
-		this.locator = locator;
-		this.expression = expression;
-	}
-	
-	public String getLocator() {
-		return locator;
-	}
-	
-	public String getExpression() {
-		return expression;
-	}
-	
-	@Override
-	public int hashCode() {
-		return ((expression == null) ? 0 : expression.hashCode()) * 31 
-				+ ((locator == null) ? 0 : locator.hashCode());
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		KeyExpression that = (KeyExpression) obj;
-		return NullSafeComparator.equals(this.expression, that.expression)
-				&& NullSafeComparator.equals(this.locator, that.locator);
-	}
+  private final String locator;
+  private final String expression;
 
-	@Override
-	public String toString() {
-		return locator + " -> " + expression;
-	}
-	
+  /**
+   * Instantiates a new Key expression.
+   *
+   * @param locator    the locator
+   * @param expression the expression
+   */
+  public KeyExpression(String locator, String expression) {
+    this.locator = locator;
+    this.expression = expression;
+  }
+
+  /**
+   * Gets locator.
+   *
+   * @return the locator
+   */
+  public String getLocator() {
+    return locator;
+  }
+
+  /**
+   * Gets expression.
+   *
+   * @return the expression
+   */
+  public String getExpression() {
+    return expression;
+  }
+
+  @Override
+  public int hashCode() {
+    return ((expression == null) ? 0 : expression.hashCode()) * 31
+        + ((locator == null) ? 0 : locator.hashCode());
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    KeyExpression that = (KeyExpression) obj;
+    return NullSafeComparator.equals(this.expression, that.expression)
+        && NullSafeComparator.equals(this.locator, that.locator);
+  }
+
+  @Override
+  public String toString() {
+    return locator + " -> " + expression;
+  }
+
 }

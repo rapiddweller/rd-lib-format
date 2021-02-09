@@ -14,29 +14,34 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.*;
-
+import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.format.Alignment;
+import com.rapiddweller.common.format.PadFormat;
+import com.rapiddweller.format.DataContainer;
 import org.junit.Test;
 
 import java.io.StringReader;
 import java.util.Arrays;
 
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.common.format.Alignment;
-import com.rapiddweller.common.format.PadFormat;
-import com.rapiddweller.format.DataContainer;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link FixedWidthLineIterator}.
- * 
+ * <p>
  * Created: 27.08.2007 07:20:05
+ *
  * @author Volker Bergmann
  */
 public class FixedWidthLineIteratorTest {
 
     private static final String SEP = SystemInfo.getLineSeparator();
 
-    @Test
+  /**
+   * Test processing empty lines.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testProcessingEmptyLines() throws Exception {
         FixedWidthLineIterator iterator = createIterator(true);
         DataContainer<String[]> container = new DataContainer<String[]>();
@@ -46,7 +51,12 @@ public class FixedWidthLineIteratorTest {
         assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
     }
 
-    @Test
+  /**
+   * Test ignoring empty lines.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testIgnoringEmptyLines() throws Exception {
         FixedWidthLineIterator iterator = createIterator(false);
         DataContainer<String[]> container = new DataContainer<String[]>();

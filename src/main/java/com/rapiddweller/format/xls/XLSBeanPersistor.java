@@ -21,7 +21,6 @@ import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,56 +32,92 @@ import java.util.List;
 /**
  * Loads and saves JavaBeans from and in Excel documents.<br>
  * Created: 25.12.2015 14:51:09
- * @since 1.0.7
+ *
+ * @param <E> the type parameter
  * @author Volker Bergmann
+ * @since 1.0.7
  */
 public class XLSBeanPersistor<E> {
-	
-	protected Logger logger = LogManager.getLogger(getClass());
-	
-	private final Class<E> beanClass;
-	private final List<PropFormat> beanProperties;
-	
-	public XLSBeanPersistor(Class<E> beanClass, String... propertyNames) {
-		this.beanClass = beanClass;
-		this.beanProperties = new ArrayList<PropFormat>();
-		for (String propertyName : propertyNames)
-			this.addProperty(propertyName);
-	}
-	
-	protected PropFormat addProperty(String name) {
-		PropFormat propFormat = new PropFormat(name);
-		this.beanProperties.add(propFormat);
-		return propFormat;
-	}
 
-	protected void load(File file, Consumer<E> consumer) throws IOException, InvalidFormatException {
-		XLSJavaBeanIterator<E> mapper = null;
-		try {
-			mapper = new XLSJavaBeanIterator<E>(file.getAbsolutePath(), null, false, beanClass);
-			DataContainer<E> wrapper = new DataContainer<E>();
-			while (mapper.next(wrapper) != null)
-				if (wrapper.getData() != null)
-					consumer.consume(wrapper.getData());
-		} finally {
-			IOUtil.close(mapper);
-		}
-	}
-	
-	protected void save(File file, String sheetName, Iterator<E> beanIterator) throws IOException {
-		// check preconditions
-		Assert.notNull(file, "file");
-		Assert.notNull(sheetName, "sheetName");
-		Assert.notNull(beanIterator, "beanIterator");
-		// save
-		BeanXLSWriter<E> out = null;
-		try {
-			out = new BeanXLSWriter<E>(new FileOutputStream(file), sheetName, beanProperties);
-			while (beanIterator.hasNext())
-				out.save(beanIterator.next());
-		} finally {
-			IOUtil.close(out);
-		}
-	}
-	
+  /**
+   * The Logger.
+   */
+  protected Logger logger = LogManager.getLogger(getClass());
+
+  private final Class<E> beanClass;
+  private final List<PropFormat> beanProperties;
+
+  /**
+   * Instantiates a new Xls bean persistor.
+   *
+   * @param beanClass     the bean class
+   * @param propertyNames the property names
+   */
+  public XLSBeanPersistor(Class<E> beanClass, String... propertyNames) {
+    this.beanClass = beanClass;
+    this.beanProperties = new ArrayList<PropFormat>();
+    for (String propertyName : propertyNames) {
+      this.addProperty(propertyName);
+    }
+  }
+
+  /**
+   * Add property prop format.
+   *
+   * @param name the name
+   * @return the prop format
+   */
+  protected PropFormat addProperty(String name) {
+    PropFormat propFormat = new PropFormat(name);
+    this.beanProperties.add(propFormat);
+    return propFormat;
+  }
+
+  /**
+   * Load.
+   *
+   * @param file     the file
+   * @param consumer the consumer
+   * @throws IOException the io exception
+   */
+  protected void load(File file, Consumer<E> consumer) throws IOException {
+    XLSJavaBeanIterator<E> mapper = null;
+    try {
+      mapper = new XLSJavaBeanIterator<E>(file.getAbsolutePath(), null, false, beanClass);
+      DataContainer<E> wrapper = new DataContainer<E>();
+      while (mapper.next(wrapper) != null) {
+        if (wrapper.getData() != null) {
+          consumer.consume(wrapper.getData());
+        }
+      }
+    } finally {
+      IOUtil.close(mapper);
+    }
+  }
+
+  /**
+   * Save.
+   *
+   * @param file         the file
+   * @param sheetName    the sheet name
+   * @param beanIterator the bean iterator
+   * @throws IOException the io exception
+   */
+  protected void save(File file, String sheetName, Iterator<E> beanIterator) throws IOException {
+    // check preconditions
+    Assert.notNull(file, "file");
+    Assert.notNull(sheetName, "sheetName");
+    Assert.notNull(beanIterator, "beanIterator");
+    // save
+    BeanXLSWriter<E> out = null;
+    try {
+      out = new BeanXLSWriter<E>(new FileOutputStream(file), sheetName, beanProperties);
+      while (beanIterator.hasNext()) {
+        out.save(beanIterator.next());
+      }
+    } finally {
+      IOUtil.close(out);
+    }
+  }
+
 }

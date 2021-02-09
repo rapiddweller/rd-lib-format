@@ -12,19 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an unordered HTML list (&lt;ul&gt;).
  * Created: 09.07.2014 15:09:06
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public class UnorderedList extends List {
 
-	public UnorderedList() {
-		super("ul");
-	}
+  /**
+   * Instantiates a new Unordered list.
+   */
+  public UnorderedList() {
+    super("ul");
+  }
 
 }

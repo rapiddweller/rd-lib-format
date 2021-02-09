@@ -12,21 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 /**
  * Enumeration of the tokens of a CSV file.
- * 
+ * <p>
  * Created: 26.08.2006 17:34:11
  */
 public enum CSVTokenType {
 
-    /** indicates a value from a cell in the CSV source */
-    CELL,
+  /**
+   * indicates a value from a cell in the CSV source
+   */
+  CELL,
 
-    /** Indicates the end of a line */
-    EOL,
+  /**
+   * Indicates the end of a line
+   */
+  EOL,
 
-    /** Indicates the end of the file */
-    EOF
+  /**
+   * Indicates the end of the file
+   */
+  EOF
 }

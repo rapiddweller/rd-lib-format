@@ -17,7 +17,7 @@ package com.rapiddweller.format.style;
 
 import com.rapiddweller.common.format.Alignment;
 
-import java.awt.*;
+import java.awt.Color;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
@@ -25,34 +25,58 @@ import java.text.ParsePosition;
 /**
  * Provides style information for rendering data.
  * Created: 25.12.2015 08:10:16
- * @since 1.0.7
+ *
  * @author Volker Bergmann
+ * @since 1.0.7
  */
-
 public abstract class StyledFormat extends Format {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private final Format realFormat;
-	
-	public StyledFormat(Format realFormat) {
-		this.realFormat = realFormat;
-	}
-	
-	public abstract Alignment getAlignment();
+  private final Format realFormat;
 
-	@Override
-	public StringBuffer format(Object object, StringBuffer toAppendTo, FieldPosition pos) {
-		return realFormat.format(object, toAppendTo, pos);
-	}
+  /**
+   * Instantiates a new Styled format.
+   *
+   * @param realFormat the real format
+   */
+  public StyledFormat(Format realFormat) {
+    this.realFormat = realFormat;
+  }
 
-	@Override
-	public Object parseObject(String source, ParsePosition pos) {
-		return realFormat.parseObject(source, pos);
-	}
+  /**
+   * Gets alignment.
+   *
+   * @return the alignment
+   */
+  public abstract Alignment getAlignment();
 
-	public abstract Color getForegroundColor(Object value, boolean isSelected);
-	
-	public abstract Color getBackgroundColor(Object value, boolean isSelected);
-	
+  @Override
+  public StringBuffer format(Object object, StringBuffer toAppendTo, FieldPosition pos) {
+    return realFormat.format(object, toAppendTo, pos);
+  }
+
+  @Override
+  public Object parseObject(String source, ParsePosition pos) {
+    return realFormat.parseObject(source, pos);
+  }
+
+  /**
+   * Gets foreground color.
+   *
+   * @param value      the value
+   * @param isSelected the is selected
+   * @return the foreground color
+   */
+  public abstract Color getForegroundColor(Object value, boolean isSelected);
+
+  /**
+   * Gets background color.
+   *
+   * @param value      the value
+   * @param isSelected the is selected
+   * @return the background color
+   */
+  public abstract Color getBackgroundColor(Object value, boolean isSelected);
+
 }

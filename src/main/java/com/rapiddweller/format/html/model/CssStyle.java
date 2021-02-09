@@ -12,20 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an inline CSS stylesheet.
  * Created: 10.07.2014 13:43:42
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public class CssStyle extends HtmlElement<CssStyle> {
 
-	public CssStyle() {
-		super("style", false);
-		withAttribute("type", "text/css");
-	}
+  /**
+   * Instantiates a new Css style.
+   */
+  public CssStyle() {
+    super("style", false);
+    withAttribute("type", "text/css");
+  }
 
 }

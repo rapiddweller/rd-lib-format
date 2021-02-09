@@ -18,40 +18,46 @@ package com.rapiddweller.format.style;
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.NullSafeFormat;
 
-import java.awt.*;
+import java.awt.Color;
 import java.text.DecimalFormat;
 
 /**
  * Provides style information for rendering numbers.
  * Created: 25.12.2015 08:18:03
- * @since 1.0.7
+ *
  * @author Volker Bergmann
+ * @since 1.0.7
  */
-
 public class StyledNumberFormat extends StyledFormat {
 
-	private static final long serialVersionUID = 1L;
-	
-	private final boolean negativeRed;
-	
-	public StyledNumberFormat(String pattern, boolean negativeRed) {
-		super(new NullSafeFormat(new DecimalFormat(pattern), ""));
-		this.negativeRed = negativeRed;
-	}
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public Alignment getAlignment() {
-		return Alignment.RIGHT;
-	}
-	
-	@Override
-	public Color getForegroundColor(Object value, boolean isSelected) {
-		return (negativeRed && value instanceof Number && ((Number) value).doubleValue() < 0 ? Color.RED : null);
-	}
+  private final boolean negativeRed;
 
-	@Override
-	public Color getBackgroundColor(Object value, boolean isSelected) {
-		return null;
-	}
+  /**
+   * Instantiates a new Styled number format.
+   *
+   * @param pattern     the pattern
+   * @param negativeRed the negative red
+   */
+  public StyledNumberFormat(String pattern, boolean negativeRed) {
+    super(new NullSafeFormat(new DecimalFormat(pattern), ""));
+    this.negativeRed = negativeRed;
+  }
+
+  @Override
+  public Alignment getAlignment() {
+    return Alignment.RIGHT;
+  }
+
+  @Override
+  public Color getForegroundColor(Object value, boolean isSelected) {
+    return (negativeRed && value instanceof Number && ((Number) value).doubleValue() < 0 ? Color.RED : null);
+  }
+
+  @Override
+  public Color getBackgroundColor(Object value, boolean isSelected) {
+    return null;
+  }
 
 }

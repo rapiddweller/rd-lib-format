@@ -14,26 +14,30 @@
  */
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-import java.io.*;
-import java.text.ParseException;
-import java.util.Map;
-import java.util.HashMap;
-
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link DefaultHTMLTokenizer}.
  * Created: 25.01.2007 13:29:54
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class DefaultHTMLTokenizerTest {
 
@@ -147,13 +151,25 @@ public class DefaultHTMLTokenizerTest {
 
     // testUnprefixed methods ----------------------------------------------------------------------------------------------------
 
-    @Test
+  /**
+   * Test text.
+   *
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  @Test
     public void testText() throws IOException, ParseException {
         for (TestSetup testString : TESTS)
             checkText(testString);
     }
 
-    @Test
+  /**
+   * Test tokens.
+   *
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  @Test
     public void testTokens() throws IOException, ParseException {
         for (TestSetup test : TESTS)
             checkTokens(test);
@@ -176,7 +192,14 @@ public class DefaultHTMLTokenizerTest {
 */
     // private helpers -------------------------------------------------------------------------------------------------
 
-    public void checkText(TestSetup test) throws IOException, ParseException {
+  /**
+   * Check text.
+   *
+   * @param test the test
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  public void checkText(TestSetup test) throws IOException, ParseException {
         Reader in = new StringReader(test.html);
         Writer out = new StringWriter();
         HTMLTokenizer tokenizer = new DefaultHTMLTokenizer(in);
@@ -187,7 +210,14 @@ public class DefaultHTMLTokenizerTest {
         assertEquals(test.html, out.toString());
     }
 
-    public void checkTokens(TestSetup test) throws IOException, ParseException {
+  /**
+   * Check tokens.
+   *
+   * @param test the test
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  public void checkTokens(TestSetup test) throws IOException, ParseException {
         logger.debug("checking: " + test.html);
         Reader in = new StringReader(test.html);
         Writer out = new StringWriter();
@@ -215,10 +245,22 @@ public class DefaultHTMLTokenizerTest {
 */
 
     private static class TestSetup {
-        public String html;
-        public HT[] tokens;
+      /**
+       * The Html.
+       */
+      public String html;
+      /**
+       * The Tokens.
+       */
+      public HT[] tokens;
 
-        public TestSetup(String html, HT ... tokens) {
+      /**
+       * Instantiates a new Test setup.
+       *
+       * @param html   the html
+       * @param tokens the tokens
+       */
+      public TestSetup(String html, HT ... tokens) {
             this.html = html;
             this.tokens = tokens;
         }
@@ -226,12 +268,28 @@ public class DefaultHTMLTokenizerTest {
 
     private static class HT {
 
-        public int type;
-        public String name;
-        public Map<String, String> attributes;
+      /**
+       * The Type.
+       */
+      public int type;
+      /**
+       * The Name.
+       */
+      public String name;
+      /**
+       * The Attributes.
+       */
+      public Map<String, String> attributes;
 //        public String[] attributes;
 
-        public HT(int type, String name, String ... attributes) {
+      /**
+       * Instantiates a new Ht.
+       *
+       * @param type       the type
+       * @param name       the name
+       * @param attributes the attributes
+       */
+      public HT(int type, String name, String ... attributes) {
             this.type = type;
             this.name = name;
             this.attributes = buildMap(attributes);

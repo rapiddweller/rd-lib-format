@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.HeavyweightIterator;
@@ -24,56 +25,64 @@ import java.util.Iterator;
 /**
  * Adapter class that provides Java-SDK-style {@link Iterator} access to a {@link DataIterator}.
  * Created: 03.08.2011 19:04:58
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class JavaIteratorFromDataIterator<E> implements HeavyweightIterator<E> {
-	
-	private DataIterator<E> source;
-	private DataContainer<E> next;
-	private boolean initialized;
-	
-	public JavaIteratorFromDataIterator(DataIterator<E> source) {
-		this.source = source;
-		this.next = new DataContainer<E>();
-		this.initialized = false;
-	}
 
-	@Override
-	public boolean hasNext() {
-		if (!initialized) {
-			next = source.next(next);
-			initialized = true;
-		}
-		return (next != null);
-	}
+  private DataIterator<E> source;
+  private DataContainer<E> next;
+  private boolean initialized;
 
-	@Override
-	public E next() {
-		if (!hasNext())
-			throw new IllegalStateException("Not available. Check hasNext() before calling next()");
-		E result = next.getData();
-		next = source.next(next);
-		if (next == null)
-			close();
-		return result;
-	}
+  /**
+   * Instantiates a new Java iterator from data iterator.
+   *
+   * @param source the source
+   */
+  public JavaIteratorFromDataIterator(DataIterator<E> source) {
+    this.source = source;
+    this.next = new DataContainer<E>();
+    this.initialized = false;
+  }
 
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException("Iterator<E>.remove() is not supported");
-	}
+  @Override
+  public boolean hasNext() {
+    if (!initialized) {
+      next = source.next(next);
+      initialized = true;
+    }
+    return (next != null);
+  }
 
-	@Override
-	public void close() {
-		IOUtil.close(source);
-		source = null;
-	}
-	
-	@Override
-	public String toString() {
-		return source.toString();
-	}
-	
+  @Override
+  public E next() {
+    if (!hasNext()) {
+      throw new IllegalStateException("Not available. Check hasNext() before calling next()");
+    }
+    E result = next.getData();
+    next = source.next(next);
+    if (next == null) {
+      close();
+    }
+    return result;
+  }
+
+  @Override
+  public void remove() {
+    throw new UnsupportedOperationException("Iterator<E>.remove() is not supported");
+  }
+
+  @Override
+  public void close() {
+    IOUtil.close(source);
+    source = null;
+  }
+
+  @Override
+  public String toString() {
+    return source.toString();
+  }
+
 }

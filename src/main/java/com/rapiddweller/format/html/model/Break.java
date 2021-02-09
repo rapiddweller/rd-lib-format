@@ -1,9 +1,15 @@
 package com.rapiddweller.format.html.model;
 
+/**
+ * The type Break.
+ */
 public class Break extends HtmlElement<Break> {
 
-	public Break() {
-		super("br", false);
-	}
+  /**
+   * Instantiates a new Break.
+   */
+  public Break() {
+    super("br", false);
+  }
 
 }

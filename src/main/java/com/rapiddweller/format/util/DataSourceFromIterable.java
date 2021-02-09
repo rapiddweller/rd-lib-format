@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
@@ -23,34 +24,45 @@ import java.io.Closeable;
 /**
  * Provides {@link DataSource}-style access to a Java-SDK-{@link Iterable}.
  * Created: 24.07.2011 11:07:04
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class DataSourceFromIterable<E> extends AbstractDataSource<E> {
-	
-	protected Iterable<E> source;
 
-	public DataSourceFromIterable(Iterable<E> source, Class<E> type) {
-		super(type);
-		this.source = source;
-	}
+  /**
+   * The Source.
+   */
+  protected Iterable<E> source;
 
-	@Override
-	public DataIterator<E> iterator() {
-		return new DataIteratorFromJavaIterator<E>(source.iterator(), type);
-	}
+  /**
+   * Instantiates a new Data source from iterable.
+   *
+   * @param source the source
+   * @param type   the type
+   */
+  public DataSourceFromIterable(Iterable<E> source, Class<E> type) {
+    super(type);
+    this.source = source;
+  }
 
-	@Override
-	public void close() {
-		if (source instanceof Closeable)
-			IOUtil.close((Closeable) source);
-		super.close();
-	}
-	
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "[" + source + "]";
-	}
-	
+  @Override
+  public DataIterator<E> iterator() {
+    return new DataIteratorFromJavaIterator<E>(source.iterator(), type);
+  }
+
+  @Override
+  public void close() {
+    if (source instanceof Closeable) {
+      IOUtil.close((Closeable) source);
+    }
+    super.close();
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "[" + source + "]";
+  }
+
 }

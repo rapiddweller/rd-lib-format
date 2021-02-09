@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script.freemarker;
 
 import com.rapiddweller.common.Context;
@@ -27,56 +28,69 @@ import java.io.Writer;
 
 /**
  * {@link Script} implementation that uses the FreeMarker engine.
- * 
+ * <p>
  * Created: 31.01.2007 19:56:20
+ *
  * @author Volker Bergmann
  */
 public class FreeMarkerScript extends AbstractScript {
-    
-    private final Template template;
 
-    // constructors ----------------------------------------------------------------------------------------------------
-    
-    public FreeMarkerScript(String filename, Configuration cfg) throws IOException {
-        this(cfg.getTemplate(filename));
-    }
+  private final Template template;
 
-    public FreeMarkerScript(Template template) {
-        this.template = template;
-    }
-    
-    // Script interface implementation ---------------------------------------------------------------------------------
+  // constructors ----------------------------------------------------------------------------------------------------
 
-    @Override
-    public void execute(Context context, Writer out) throws IOException, ScriptException {
-        try {
-            template.process(context, out);
-        } catch (TemplateException e) {
-            throw new ScriptException(e);
-        }
-    }
-    
-    // java.lang.Object overrides --------------------------------------------------------------------------------------
-    
-    @Override
-    public String toString() {
-        return template.toString();
-    }
+  /**
+   * Instantiates a new Free marker script.
+   *
+   * @param filename the filename
+   * @param cfg      the cfg
+   * @throws IOException the io exception
+   */
+  public FreeMarkerScript(String filename, Configuration cfg) throws IOException {
+    this(cfg.getTemplate(filename));
+  }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return template.hashCode();
+  /**
+   * Instantiates a new Free marker script.
+   *
+   * @param template the template
+   */
+  public FreeMarkerScript(Template template) {
+    this.template = template;
+  }
+
+  // Script interface implementation ---------------------------------------------------------------------------------
+
+  @Override
+  public void execute(Context context, Writer out) throws IOException, ScriptException {
+    try {
+      template.process(context, out);
+    } catch (TemplateException e) {
+      throw new ScriptException(e);
     }
-    
-    /**
-     * @see java.lang.Object#equals(Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return template.equals(obj);
-    }
-    
+  }
+
+  // java.lang.Object overrides --------------------------------------------------------------------------------------
+
+  @Override
+  public String toString() {
+    return template.toString();
+  }
+
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    return template.hashCode();
+  }
+
+  /**
+   * @see java.lang.Object#equals(Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    return template.equals(obj);
+  }
+
 }

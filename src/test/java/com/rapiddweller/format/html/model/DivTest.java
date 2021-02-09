@@ -1,14 +1,20 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Div test.
+ */
 public class DivTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         Div actualDiv = new Div();
         assertEquals("<div/>\n", actualDiv.toString());
@@ -17,7 +23,10 @@ public class DivTest {
         assertEquals("div", actualDiv.getTagName());
     }
 
-    @Test
+  /**
+   * Test constructor 2.
+   */
+  @Test
     public void testConstructor2() {
         Div actualDiv = new Div(true);
         assertEquals("<div/>", actualDiv.toString());
@@ -26,7 +35,10 @@ public class DivTest {
         assertEquals("div", actualDiv.getTagName());
     }
 
-    @Test
+  /**
+   * Test with title.
+   */
+  @Test
     public void testWithTitle() {
         Div div = new Div();
         assertSame(div, div.withTitle("Dr"));

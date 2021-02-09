@@ -14,21 +14,26 @@
  */
 package com.rapiddweller.format;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.util.ListDataIterator;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * Testing {@link ListDataIterator}.
  * Created: 08.12.2011 14:42:32
- * @since 0.6.5
+ *
  * @author Volker Bergmann
+ * @since 0.6.5
  */
 public class ListDataIteratorTest {
 
-	@Test
+  /**
+   * Test.
+   */
+  @Test
 	public void test() {
 		ListDataIterator<Integer> iterator = new ListDataIterator<Integer>(Integer.class, 3, 5);
 		DataContainer<Integer> container = new DataContainer<Integer>();

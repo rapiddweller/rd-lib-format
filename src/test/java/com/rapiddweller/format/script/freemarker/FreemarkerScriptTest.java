@@ -14,29 +14,34 @@
  */
 package com.rapiddweller.format.script.freemarker;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.StringWriter;
-import java.io.IOException;
-
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.context.DefaultContext;
 import com.rapiddweller.format.script.Script;
 import com.rapiddweller.format.script.ScriptException;
-import com.rapiddweller.format.script.freemarker.FreeMarkerScript;
+import freemarker.template.Configuration;
 import org.junit.Test;
 
-import freemarker.template.Configuration;
+import java.io.IOException;
+import java.io.StringWriter;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link FreeMarkerScript}.
  * Created: 12.06.2007 17:36:30
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class FreemarkerScriptTest {
 
-	@Test
+  /**
+   * Test script get instance.
+   *
+   * @throws IOException     the io exception
+   * @throws ScriptException the script exception
+   */
+  @Test
     public void testScriptGetInstance() throws IOException, ScriptException {
         Script script = new FreeMarkerScript("src/test/resources/com/rapiddweller/format/script/freemarker/test.ftl", new Configuration());
         Context context = new DefaultContext();

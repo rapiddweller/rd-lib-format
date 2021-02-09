@@ -14,25 +14,27 @@
  */
 package com.rapiddweller.format.script;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.common.ParseException;
-import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptDescriptor;
-import com.rapiddweller.format.script.ScriptFactory;
-import com.rapiddweller.format.script.ScriptLevel;
-import com.rapiddweller.format.script.ScriptUtil;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link ScriptUtil} class.
  * Created: 09.08.2010 16:11:36
- * @since 0.5.4
+ *
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public class ScriptUtilTest {
 
-	@Test
+  /**
+   * Test combine scriptable parts.
+   */
+  @Test
 	public void testCombineScriptableParts() {
 		ScriptUtil.addFactory("xyz", new XyzScriptFactory());
 		assertEquals("", ScriptUtil.combineScriptableParts());
@@ -46,31 +48,43 @@ public class ScriptUtilTest {
 		assertEquals("{xyz:'SELECT * FROM TT' + ' WHERE ID = ' + n}", 
 				ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{xyz:' WHERE ID = ' + n}"));
 	}
-	
-	@Test
+
+  /**
+   * Test describe.
+   */
+  @Test
 	public void testDescribe() {
 		ScriptDescriptor[] descriptors = ScriptUtil.describe("alpha", "{ftl:${n}}");
 		assertEquals(2, descriptors.length);
 		checkDescriptor(descriptors[0], null, "alpha", ScriptLevel.NONE);
 		checkDescriptor(descriptors[1], "ftl", "${n}", ScriptLevel.SCRIPT);
 	}
-	
-	@Test
+
+  /**
+   * Test get common script engine.
+   */
+  @Test
 	public void testGetCommonScriptEngine() {
 		assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\n"));
 		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("alpha", "{ftl:${n}}", "\n"));
 		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\n}"));
 	}
-	
-	@Test
+
+  /**
+   * Test is script.
+   */
+  @Test
 	public void testIsScript() {
 		assertTrue(ScriptUtil.isScript("{''}"));
 		assertTrue(ScriptUtil.isScript(" { '' } "));
 		assertFalse(ScriptUtil.isScript("{sdfw"));
 		assertFalse(ScriptUtil.isScript("sdfw}"));
 	}
-	
-    public class XyzScriptFactory implements ScriptFactory {
+
+  /**
+   * The type Xyz script factory.
+   */
+  public class XyzScriptFactory implements ScriptFactory {
 		@Override
 		public Script parseText(String text) throws ParseException { return null; }
 		

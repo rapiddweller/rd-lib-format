@@ -1,11 +1,17 @@
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
+/**
+ * The type String anchor test.
+ */
 public class StringAnchorTest {
-    @Test
+  /**
+   * Test create anchor for new window.
+   */
+  @Test
     public void testCreateAnchorForNewWindow() {
         StringAnchor actualCreateAnchorForNewWindowResult = StringAnchor.createAnchorForNewWindow("Href", "Label");
         assertEquals("Label", actualCreateAnchorForNewWindowResult.label);
@@ -13,7 +19,10 @@ public class StringAnchorTest {
         assertEquals("Href", actualCreateAnchorForNewWindowResult.href);
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         assertEquals("<a href='Href' target='_blank'>Label</a>",
                 StringAnchor.createAnchorForNewWindow("Href", "Label").toString());

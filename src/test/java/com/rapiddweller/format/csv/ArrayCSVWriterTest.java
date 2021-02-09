@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.SystemInfo;
@@ -22,7 +23,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link ArrayCSVWriter}.
@@ -34,41 +37,55 @@ import static org.junit.Assert.*;
  */
 public class ArrayCSVWriterTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String RESULT =
-            "header" + SEP + "1;2;3" + SEP + "4;5;6" + SEP + "footer";
+  private static final String RESULT =
+      "header" + SEP + "1;2;3" + SEP + "4;5;6" + SEP + "footer";
 
-    @Test
-    public void test() throws IOException {
-        StringWriter out = new StringWriter();
-        ArrayCSVWriter writer = new ArrayCSVWriter(out, ';',
-                new ConstantScript("header" + SEP), new ConstantScript("footer"));
-        writer.writeElement(new Integer[]{1, 2, 3});
-        writer.writeElement(new Integer[]{4, 5, 6});
-        writer.close();
-        assertEquals(RESULT, out.toString());
-    }
+  /**
+   * Test.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void test() throws IOException {
+    StringWriter out = new StringWriter();
+    ArrayCSVWriter writer = new ArrayCSVWriter(out, ';',
+        new ConstantScript("header" + SEP), new ConstantScript("footer"));
+    writer.writeElement(new Integer[] {1, 2, 3});
+    writer.writeElement(new Integer[] {4, 5, 6});
+    writer.close();
+    assertEquals(RESULT, out.toString());
+  }
 
-    @Test
-    public void testConstructor() {
-        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter());
-        assertNull(actualArrayCSVWriter.getFooterScript());
-        assertNull(actualArrayCSVWriter.getHeaderScript());
-    }
+  /**
+   * Test constructor.
+   */
+  @Test
+  public void testConstructor() {
+    ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter());
+    assertNull(actualArrayCSVWriter.getFooterScript());
+    assertNull(actualArrayCSVWriter.getHeaderScript());
+  }
 
-    @Test
-    public void testConstructor2() {
-        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A');
-        assertNull(actualArrayCSVWriter.getFooterScript());
-        assertNull(actualArrayCSVWriter.getHeaderScript());
-    }
+  /**
+   * Test constructor 2.
+   */
+  @Test
+  public void testConstructor2() {
+    ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A');
+    assertNull(actualArrayCSVWriter.getFooterScript());
+    assertNull(actualArrayCSVWriter.getHeaderScript());
+  }
 
-    @Test
-    public void testConstructor3() {
-        ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A', "foo", "foo", "foo");
-        assertNull(actualArrayCSVWriter.getFooterScript());
-        assertTrue(actualArrayCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
-    }
+  /**
+   * Test constructor 3.
+   */
+  @Test
+  public void testConstructor3() {
+    ArrayCSVWriter actualArrayCSVWriter = new ArrayCSVWriter(Writer.nullWriter(), 'A', "foo", "foo", "foo");
+    assertNull(actualArrayCSVWriter.getFooterScript());
+    assertTrue(actualArrayCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
+  }
 
 }

@@ -1,14 +1,20 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Table test.
+ */
 public class TableTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         Table actualTable = new Table();
         assertEquals("<table/>\n", actualTable.toString());
@@ -17,13 +23,19 @@ public class TableTest {
         assertEquals("table", actualTable.getTagName());
     }
 
-    @Test
+  /**
+   * Test with cellspacing.
+   */
+  @Test
     public void testWithCellspacing() {
         Table table = new Table();
         assertSame(table, table.withCellspacing("value"));
     }
 
-    @Test
+  /**
+   * Test new table head.
+   */
+  @Test
     public void testNewTableHead() {
         Table table = new Table();
         TableHead actualNewTableHeadResult = table.newTableHead();
@@ -34,7 +46,10 @@ public class TableTest {
         assertEquals("<table>\n<thead/>\n\n</table>\n", table.toString());
     }
 
-    @Test
+  /**
+   * Test new table body.
+   */
+  @Test
     public void testNewTableBody() {
         Table table = new Table();
         TableBody actualNewTableBodyResult = table.newTableBody();
@@ -45,7 +60,10 @@ public class TableTest {
         assertEquals("<table>\n<tbody/>\n\n</table>\n", table.toString());
     }
 
-    @Test
+  /**
+   * Test new table foot.
+   */
+  @Test
     public void testNewTableFoot() {
         Table table = new Table();
         TableFoot actualNewTableFootResult = table.newTableFoot();
@@ -56,13 +74,19 @@ public class TableTest {
         assertEquals("<table>\n<tfoot/>\n\n</table>\n", table.toString());
     }
 
-    @Test
+  /**
+   * Test add row.
+   */
+  @Test
     public void testAddRow() {
         Table table = new Table();
         assertSame(table, table.addRow(new TableRow()));
     }
 
-    @Test
+  /**
+   * Test new row.
+   */
+  @Test
     public void testNewRow() {
         Table table = new Table();
         TableRow actualNewRowResult = table.newRow();

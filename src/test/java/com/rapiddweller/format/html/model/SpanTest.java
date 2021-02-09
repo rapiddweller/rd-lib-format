@@ -1,12 +1,18 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Span test.
+ */
 public class SpanTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         Span actualSpan = new Span();
         assertEquals("<span/>", actualSpan.toString());

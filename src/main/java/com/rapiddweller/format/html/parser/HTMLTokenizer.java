@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.parser;
 
 import java.io.IOException;
@@ -20,25 +21,84 @@ import java.util.Map;
 
 /**
  * Abstraction of an HTML tokenizer.
- * 
+ * <p>
  * Created: 15.06.2007 05:53:19
+ *
  * @author Volker Bergmann
  */
 public interface HTMLTokenizer {
 
-    int END                    = -1;
-    int DOCUMENT_TYPE          =  0;
-    int TEXT                   =  1;
-    int START_TAG              =  2;
-    int END_TAG                =  3;
-    int CLOSED_TAG             =  4;
-    int COMMENT                =  5;
-    int PROCESSING_INSTRUCTION =  6;
-    int SCRIPT                 =  7;
+  /**
+   * The constant END.
+   */
+  int END = -1;
+  /**
+   * The constant DOCUMENT_TYPE.
+   */
+  int DOCUMENT_TYPE = 0;
+  /**
+   * The constant TEXT.
+   */
+  int TEXT = 1;
+  /**
+   * The constant START_TAG.
+   */
+  int START_TAG = 2;
+  /**
+   * The constant END_TAG.
+   */
+  int END_TAG = 3;
+  /**
+   * The constant CLOSED_TAG.
+   */
+  int CLOSED_TAG = 4;
+  /**
+   * The constant COMMENT.
+   */
+  int COMMENT = 5;
+  /**
+   * The constant PROCESSING_INSTRUCTION.
+   */
+  int PROCESSING_INSTRUCTION = 6;
+  /**
+   * The constant SCRIPT.
+   */
+  int SCRIPT = 7;
 
-    int nextToken() throws IOException, ParseException;
-    int tokenType();
-    String name();
-    String text();
-    Map<String, String> attributes();
+  /**
+   * Next token int.
+   *
+   * @return the int
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  int nextToken() throws IOException, ParseException;
+
+  /**
+   * Token type int.
+   *
+   * @return the int
+   */
+  int tokenType();
+
+  /**
+   * Name string.
+   *
+   * @return the string
+   */
+  String name();
+
+  /**
+   * Text string.
+   *
+   * @return the string
+   */
+  String text();
+
+  /**
+   * Attributes map.
+   *
+   * @return the map
+   */
+  Map<String, String> attributes();
 }

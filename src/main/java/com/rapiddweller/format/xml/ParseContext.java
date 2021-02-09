@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
@@ -28,82 +29,135 @@ import java.util.Set;
 /**
  * Provides context informations and operations for XML parsing.
  * Created: 05.12.2010 12:09:54
+ *
  * @param <E> the type of components that constitute the path
- * @since 0.5.4
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public class ParseContext<E> implements Context {
-	
-	protected XMLElementParserFactory<E> factory;
-	protected Class<E> pathComponentType;
-	private final Context context;
-	
-	public ParseContext(Class<E> pathComponentType) {
-		this(pathComponentType, new XMLElementParserFactory<E>());
-	}
 
-	public ParseContext(Class<E> pathComponentType, XMLElementParserFactory<E> factory) {
-		this.pathComponentType = pathComponentType;
-		this.factory = factory;
-		this.context = new DefaultContext();
-	}
+  /**
+   * The Factory.
+   */
+  protected XMLElementParserFactory<E> factory;
+  /**
+   * The Path component type.
+   */
+  protected Class<E> pathComponentType;
+  private final Context context;
 
-	public void addParser(XMLElementParser<E> parser) {
-		factory.addParser(parser);
-	}
+  /**
+   * Instantiates a new Parse context.
+   *
+   * @param pathComponentType the path component type
+   */
+  public ParseContext(Class<E> pathComponentType) {
+    this(pathComponentType, new XMLElementParserFactory<E>());
+  }
 
-	public E parseElement(Element element, E[] parentPath) {
-		XMLElementParser<E> parser = factory.getParser(element, parentPath);
-		return parser.parse(element, parentPath, this);
-	}
-	
-	public List<E> parseChildElementsOf(Element element, E[] currentPath) {
-		List<E> result = new ArrayList<E>();
-		for (Element childElement : XMLUtil.getChildElements(element))
-			result.add(parseChildElement(childElement, currentPath));
-		return result;
-	}
-	
-	public E parseChildElement(Element childElement, E[] currentPath) {
-		return parseElement(childElement, currentPath);
-	}
+  /**
+   * Instantiates a new Parse context.
+   *
+   * @param pathComponentType the path component type
+   * @param factory           the factory
+   */
+  public ParseContext(Class<E> pathComponentType, XMLElementParserFactory<E> factory) {
+    this.pathComponentType = pathComponentType;
+    this.factory = factory;
+    this.context = new DefaultContext();
+  }
 
-	@SuppressWarnings("unchecked")
-	public E[] createSubPath(E[] parentPath, E currentObject) {
-		if (parentPath == null)
-			return ArrayUtil.buildObjectArrayOfType(pathComponentType, currentObject);
-		else
-			return ArrayUtil.append(currentObject, parentPath);
-	}
+  /**
+   * Add parser.
+   *
+   * @param parser the parser
+   */
+  public void addParser(XMLElementParser<E> parser) {
+    factory.addParser(parser);
+  }
 
-	@Override
-	public Object get(String key) {
-		return context.get(key);
-	}
+  /**
+   * Parse element e.
+   *
+   * @param element    the element
+   * @param parentPath the parent path
+   * @return the e
+   */
+  public E parseElement(Element element, E[] parentPath) {
+    XMLElementParser<E> parser = factory.getParser(element, parentPath);
+    return parser.parse(element, parentPath, this);
+  }
 
-	@Override
-	public void set(String key, Object value) {
-		context.set(key, value);
-	}
+  /**
+   * Parse child elements of list.
+   *
+   * @param element     the element
+   * @param currentPath the current path
+   * @return the list
+   */
+  public List<E> parseChildElementsOf(Element element, E[] currentPath) {
+    List<E> result = new ArrayList<E>();
+    for (Element childElement : XMLUtil.getChildElements(element)) {
+      result.add(parseChildElement(childElement, currentPath));
+    }
+    return result;
+  }
 
-	@Override
-	public void remove(String key) {
-		context.remove(key);
-	}
+  /**
+   * Parse child element e.
+   *
+   * @param childElement the child element
+   * @param currentPath  the current path
+   * @return the e
+   */
+  public E parseChildElement(Element childElement, E[] currentPath) {
+    return parseElement(childElement, currentPath);
+  }
 
-	@Override
-	public boolean contains(String key) {
-		return context.contains(key);
-	}
+  /**
+   * Create sub path e [ ].
+   *
+   * @param parentPath    the parent path
+   * @param currentObject the current object
+   * @return the e [ ]
+   */
+  @SuppressWarnings("unchecked")
+  public E[] createSubPath(E[] parentPath, E currentObject) {
+    if (parentPath == null) {
+      return ArrayUtil.buildObjectArrayOfType(pathComponentType, currentObject);
+    } else {
+      return ArrayUtil.append(currentObject, parentPath);
+    }
+  }
 
-	@Override
-	public Set<String> keySet() {
-		return context.keySet();
-	}
+  @Override
+  public Object get(String key) {
+    return context.get(key);
+  }
 
-	@Override
-	public Set<Entry<String, Object>> entrySet() {
-		return context.entrySet();
-	}
+  @Override
+  public void set(String key, Object value) {
+    context.set(key, value);
+  }
+
+  @Override
+  public void remove(String key) {
+    context.remove(key);
+  }
+
+  @Override
+  public boolean contains(String key) {
+    return context.contains(key);
+  }
+
+  @Override
+  public Set<String> keySet() {
+    return context.keySet();
+  }
+
+  @Override
+  public Set<Entry<String, Object>> entrySet() {
+    return context.entrySet();
+  }
 
 }

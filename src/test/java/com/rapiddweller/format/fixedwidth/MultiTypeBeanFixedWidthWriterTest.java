@@ -14,26 +14,33 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.*;
+import com.rapiddweller.common.ReaderLineIterator;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Locale;
 
-import com.rapiddweller.common.ReaderLineIterator;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link MultiTypeBeanFixedWidthWriter}.
  * Created: 14.03.2014 16:26:52
- * @since 0.7.2
+ *
  * @author Volker Bergmann
+ * @since 0.7.2
  */
-
 public class MultiTypeBeanFixedWidthWriterTest {
 
-	@Test
+  /**
+   * Test default formats.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testDefaultFormats() throws Exception {
 		String fileName = "target" + File.separator + getClass().getSimpleName() + ".fcw";
 		FileWriter out = new FileWriter(fileName);

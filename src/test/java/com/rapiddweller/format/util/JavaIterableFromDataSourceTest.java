@@ -1,13 +1,19 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Java iterable from data source test.
+ */
 public class JavaIterableFromDataSourceTest {
-    @Test
+  /**
+   * Test iterator.
+   */
+  @Test
     public void testIterator() {
         ArrayList<Object> source = new ArrayList<Object>();
         assertTrue((new JavaIterableFromDataSource<Object>(new DataSourceProxy(
@@ -15,7 +21,10 @@ public class JavaIterableFromDataSourceTest {
                 .iterator() instanceof JavaIteratorFromDataIterator);
     }
 
-    @Test
+  /**
+   * Test iterator 2.
+   */
+  @Test
     public void testIterator2() {
         ArrayList<Object> objectList = new ArrayList<Object>();
         objectList.add("e");

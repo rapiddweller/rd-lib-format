@@ -1,11 +1,17 @@
 package com.rapiddweller.format.html.model;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
+/**
+ * The type Text component test.
+ */
 public class TextComponentTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         assertEquals("Text", (new TextComponent("Text")).toString());
         assertEquals("Text", (new TextComponent("Text", true, true)).toString());

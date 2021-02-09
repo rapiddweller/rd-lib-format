@@ -14,23 +14,27 @@
  */
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.format.html.util.HTMLUtil;
 import org.junit.Test;
 
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests the {@link HTMLUtil} class.
  * Created: 22.11.2010 08:09:08
- * @since 0.5.4
+ *
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public class HTMLUtilTest {
-	
-	@Test
+
+  /**
+   * Test.
+   */
+  @Test
 	public void test() {
 		@SuppressWarnings("unchecked")
 		Map<String, String> expected = CollectionUtil.buildMap("loc", "60", "f", "test.info");

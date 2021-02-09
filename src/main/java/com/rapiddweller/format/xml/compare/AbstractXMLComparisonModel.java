@@ -12,93 +12,113 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml.compare;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
 
 /**
  * Abstract implementation of the {@link XMLComparisonModel} interface.
  * Created: 20.11.2015 17:12:36
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public abstract class AbstractXMLComparisonModel implements XMLComparisonModel {
 
-    protected boolean namespaceRelevant;
+  /**
+   * The Namespace relevant.
+   */
+  protected boolean namespaceRelevant;
 
-    /** Indicates if white space is relevant. */
-    protected boolean whitespaceRelevant;
+  /**
+   * Indicates if white space is relevant.
+   */
+  protected boolean whitespaceRelevant;
 
-    protected boolean cdataRelevant;
+  /**
+   * The Cdata relevant.
+   */
+  protected boolean cdataRelevant;
 
-    protected boolean processingInstructionRelevant;
+  /**
+   * The Processing instruction relevant.
+   */
+  protected boolean processingInstructionRelevant;
 
-    protected boolean commentRelevant;
-	
-    @Override
-    public boolean isNamespaceRelevant() {
-    	return namespaceRelevant;
+  /**
+   * The Comment relevant.
+   */
+  protected boolean commentRelevant;
+
+  @Override
+  public boolean isNamespaceRelevant() {
+    return namespaceRelevant;
+  }
+
+  @Override
+  public void setNamespaceRelevant(boolean naespaceRelevant) {
+    this.namespaceRelevant = naespaceRelevant;
+  }
+
+  @Override
+  public boolean isWhitespaceRelevant() {
+    return whitespaceRelevant;
+  }
+
+  @Override
+  public void setWhitespaceRelevant(boolean whitespaceRelevant) {
+    this.whitespaceRelevant = whitespaceRelevant;
+  }
+
+  @Override
+  public boolean isCdataRelevant() {
+    return cdataRelevant;
+  }
+
+  @Override
+  public void setCdataRelevant(boolean cdataRelevant) {
+    this.cdataRelevant = cdataRelevant;
+  }
+
+  @Override
+  public boolean isProcessingInstructionRelevant() {
+    return processingInstructionRelevant;
+  }
+
+  @Override
+  public void setProcessingInstructionRelevant(boolean processingInstructionRelevant) {
+    this.processingInstructionRelevant = processingInstructionRelevant;
+  }
+
+  @Override
+  public boolean isCommentRelevant() {
+    return commentRelevant;
+  }
+
+  @Override
+  public void setCommentRelevant(boolean commentRelevant) {
+    this.commentRelevant = commentRelevant;
+  }
+
+  @Override
+  public String classifierOf(Object object) {
+    if (object instanceof Document) {
+      return DOCUMENT;
+    } else if (object instanceof Element) {
+      return ELEMENT;
+    } else if (object instanceof Comment) {
+      return COMMENT;
+    } else if (object instanceof Text) {
+      return TEXT;
+    } else if (object instanceof ProcessingInstruction) {
+      return PROCESSING_INSTRUCTION;
     }
-    
-	@Override
-	public void setNamespaceRelevant(boolean naespaceRelevant) {
-		this.namespaceRelevant = naespaceRelevant;
-	}
-	
-	@Override
-	public boolean isWhitespaceRelevant() {
-		return whitespaceRelevant;
-	}
-
-	@Override
-	public void setWhitespaceRelevant(boolean whitespaceRelevant) {
-		this.whitespaceRelevant = whitespaceRelevant;
-	}
-
-	@Override
-	public boolean isCdataRelevant() {
-		return cdataRelevant;
-	}
-
-	@Override
-	public void setCdataRelevant(boolean cdataRelevant) {
-		this.cdataRelevant = cdataRelevant;
-	}
-
-	@Override
-	public boolean isProcessingInstructionRelevant() {
-		return processingInstructionRelevant;
-	}
-
-	@Override
-	public void setProcessingInstructionRelevant(boolean processingInstructionRelevant) {
-		this.processingInstructionRelevant = processingInstructionRelevant;
-	}
-
-	@Override
-	public boolean isCommentRelevant() {
-		return commentRelevant;
-	}
-
-	@Override
-	public void setCommentRelevant(boolean commentRelevant) {
-		this.commentRelevant = commentRelevant;
-	}
-
-	@Override
-	public String classifierOf(Object object) {
-		if (object instanceof Document)
-			return DOCUMENT;
-		else if (object instanceof Element)
-			return ELEMENT;
-		else if (object instanceof Comment)
-			return COMMENT;
-		else if (object instanceof Text)
-			return TEXT;
-		else if (object instanceof ProcessingInstruction)
-			return PROCESSING_INSTRUCTION;
-		throw new UnsupportedOperationException("Not a supported type: " + object.getClass());
-	}
+    throw new UnsupportedOperationException("Not a supported type: " + object.getClass());
+  }
 
 }

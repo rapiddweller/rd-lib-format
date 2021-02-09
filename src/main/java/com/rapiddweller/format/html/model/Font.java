@@ -12,28 +12,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML font element.
  * Created: 06.01.2014 08:34:32
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Font extends HtmlElement<Font> {
-	
-	public Font(String text) {
-		this(new TextComponent(text));
-	}
-	
-	public Font(HtmlComponent content) {
-		super("font", true);
-		withComponents(content);
-	}
-	
-	public Font withSize(String size) {
-		return this.withAttribute("size", size);
-	}
-	
+
+  /**
+   * Instantiates a new Font.
+   *
+   * @param text the text
+   */
+  public Font(String text) {
+    this(new TextComponent(text));
+  }
+
+  /**
+   * Instantiates a new Font.
+   *
+   * @param content the content
+   */
+  public Font(HtmlComponent content) {
+    super("font", true);
+    withComponents(content);
+  }
+
+  /**
+   * With size font.
+   *
+   * @param size the size
+   * @return the font
+   */
+  public Font withSize(String size) {
+    return this.withAttribute("size", size);
+  }
+
 }

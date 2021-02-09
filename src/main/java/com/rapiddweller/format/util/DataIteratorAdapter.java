@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
@@ -21,32 +22,51 @@ import com.rapiddweller.format.DataIterator;
 /**
  * Adapter for a {@link DataIterator}.
  * Created: 24.07.2011 09:53:49
+ *
  * @param <S> the type of data to iterate from the source
  * @param <T> the type of data to provide to the client
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public abstract class DataIteratorAdapter<S, T> implements DataIterator<T> {
 
-    protected DataIterator<S> source;
-    private final ThreadLocalDataContainer<S> sourceContainerProvider;
+  /**
+   * The Source.
+   */
+  protected DataIterator<S> source;
+  private final ThreadLocalDataContainer<S> sourceContainerProvider;
 
-    public DataIteratorAdapter(DataIterator<S> source) {
-        this.source = source;
-        this.sourceContainerProvider = new ThreadLocalDataContainer<S>();
-    }
-    
-    @Override
-	public void close() {
-        IOUtil.close(source);
-    }
-    
-    protected DataContainer<S> nextOfSource() {
-    	return source.next(getSourceContainer());
-    }
+  /**
+   * Instantiates a new Data iterator adapter.
+   *
+   * @param source the source
+   */
+  public DataIteratorAdapter(DataIterator<S> source) {
+    this.source = source;
+    this.sourceContainerProvider = new ThreadLocalDataContainer<S>();
+  }
 
-    protected DataContainer<S> getSourceContainer() {
-    	return sourceContainerProvider.get();
-    }
+  @Override
+  public void close() {
+    IOUtil.close(source);
+  }
+
+  /**
+   * Next of source data container.
+   *
+   * @return the data container
+   */
+  protected DataContainer<S> nextOfSource() {
+    return source.next(getSourceContainer());
+  }
+
+  /**
+   * Gets source container.
+   *
+   * @return the source container
+   */
+  protected DataContainer<S> getSourceContainer() {
+    return sourceContainerProvider.get();
+  }
 
 }

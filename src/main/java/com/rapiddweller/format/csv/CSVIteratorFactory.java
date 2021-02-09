@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.format.DataIterator;
@@ -21,26 +22,58 @@ import java.io.IOException;
 /**
  * Factory for all kinds of CSV iterators.
  * Created: 14.10.2009 11:40:31
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class CSVIteratorFactory {
 
-	private CSVIteratorFactory() { }
-	
-	public static DataIterator<String> createCSVCellIterator(
-			String uri, char separator, String encoding) throws IOException { 
-		return new CSVCellIterator(uri, separator, encoding);
-	} 
+  private CSVIteratorFactory() {
+  }
 
-	public static DataIterator<String> createCSVVellIteratorForColumn(
-			String uri, int column, char separator, boolean ignoreEmptyLines, String encoding) throws IOException { 
-		return new CSVSingleColumIterator(uri, column, separator, ignoreEmptyLines, encoding);
-	} 
+  /**
+   * Create csv cell iterator data iterator.
+   *
+   * @param uri       the uri
+   * @param separator the separator
+   * @param encoding  the encoding
+   * @return the data iterator
+   * @throws IOException the io exception
+   */
+  public static DataIterator<String> createCSVCellIterator(
+      String uri, char separator, String encoding) throws IOException {
+    return new CSVCellIterator(uri, separator, encoding);
+  }
 
-	public static DataIterator<String[]> createCSVLineIterator(
-			String uri, char separator, boolean ignoreEmptyLines, String encoding) throws IOException { 
-		return new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
-	}
+  /**
+   * Create csv vell iterator for column data iterator.
+   *
+   * @param uri              the uri
+   * @param column           the column
+   * @param separator        the separator
+   * @param ignoreEmptyLines the ignore empty lines
+   * @param encoding         the encoding
+   * @return the data iterator
+   * @throws IOException the io exception
+   */
+  public static DataIterator<String> createCSVVellIteratorForColumn(
+      String uri, int column, char separator, boolean ignoreEmptyLines, String encoding) throws IOException {
+    return new CSVSingleColumIterator(uri, column, separator, ignoreEmptyLines, encoding);
+  }
+
+  /**
+   * Create csv line iterator data iterator.
+   *
+   * @param uri              the uri
+   * @param separator        the separator
+   * @param ignoreEmptyLines the ignore empty lines
+   * @param encoding         the encoding
+   * @return the data iterator
+   * @throws IOException the io exception
+   */
+  public static DataIterator<String[]> createCSVLineIterator(
+      String uri, char separator, boolean ignoreEmptyLines, String encoding) throws IOException {
+    return new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
+  }
 
 }

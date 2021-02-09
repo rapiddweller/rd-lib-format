@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xsd;
 
 import com.rapiddweller.common.Visitor;
@@ -23,42 +24,60 @@ import java.util.Map;
 /**
  * Represents a {@link ComplexType} which composes other ComplexTypes.
  * Created: 16.05.2014 19:59:51
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public class CompositeComplexType extends ComplexType {
-	
-	private final Map<String, ComplexMember> members;
-	
-	public CompositeComplexType(String name) {
-		super(name);
-		this.members = new OrderedNameMap<ComplexMember>();
-	}
-	
-	public void addMember(ComplexMember member) {
-		this.members.put(member.getName(), member);
-	}
-	
-	public Collection<ComplexMember> getMembers() {
-		return members.values();
-	}
-	
-	@Override
-	public void printContent(String indent) {
-		System.out.println(indent + super.toString());
-		indent += "  ";
-		for (Attribute attribute : attributes.values())
-			attribute.printContent(indent);
-		for (ComplexMember member : members.values())
-			member.printContent(indent);
-	}
 
-	@Override
-	public void accept(Visitor<SchemaElement> visitor) {
-		super.accept(visitor);
-		for (ComplexMember type : members.values())
-			type.accept(visitor);
-	}
+  private final Map<String, ComplexMember> members;
+
+  /**
+   * Instantiates a new Composite complex type.
+   *
+   * @param name the name
+   */
+  public CompositeComplexType(String name) {
+    super(name);
+    this.members = new OrderedNameMap<ComplexMember>();
+  }
+
+  /**
+   * Add member.
+   *
+   * @param member the member
+   */
+  public void addMember(ComplexMember member) {
+    this.members.put(member.getName(), member);
+  }
+
+  /**
+   * Gets members.
+   *
+   * @return the members
+   */
+  public Collection<ComplexMember> getMembers() {
+    return members.values();
+  }
+
+  @Override
+  public void printContent(String indent) {
+    System.out.println(indent + super.toString());
+    indent += "  ";
+    for (Attribute attribute : attributes.values()) {
+      attribute.printContent(indent);
+    }
+    for (ComplexMember member : members.values()) {
+      member.printContent(indent);
+    }
+  }
+
+  @Override
+  public void accept(Visitor<SchemaElement> visitor) {
+    super.accept(visitor);
+    for (ComplexMember type : members.values()) {
+      type.accept(visitor);
+    }
+  }
 
 }

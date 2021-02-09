@@ -14,23 +14,25 @@
  */
 package com.rapiddweller.format.xml;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.common.CollectionUtil;
-import com.rapiddweller.format.xml.AbstractXMLElementParser;
-import com.rapiddweller.format.xml.ParseContext;
 import org.junit.Test;
 import org.w3c.dom.Element;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link AbstractXMLElementParser}.
  * Created: 14.12.2012 20:24:54
- * @since 0.6.15
+ *
  * @author Volker Bergmann
+ * @since 0.6.15
  */
 public class AbstractXMLElementParserTest {
-	
-	@Test
+
+  /**
+   * Test render unsupported attributes message.
+   */
+  @Test
 	public void testRenderUnsupportedAttributesMessage() {
 		MyXMLElementParser parser = new MyXMLElementParser();
 		StringBuilder message = parser.renderUnsupportedAttributesMessage("att1");
@@ -38,10 +40,16 @@ public class AbstractXMLElementParserTest {
 				"req1, req2, opt1, opt2";
 		assertEquals(expectedMessage, message.toString());
 	}
-	
-	static class MyXMLElementParser extends AbstractXMLElementParser<Object> {
 
-		public MyXMLElementParser() {
+  /**
+   * The type My xml element parser.
+   */
+  static class MyXMLElementParser extends AbstractXMLElementParser<Object> {
+
+    /**
+     * Instantiates a new My xml element parser.
+     */
+    public MyXMLElementParser() {
 			super("elem", CollectionUtil.toSortedSet("req1", "req2"),
 					CollectionUtil.toSortedSet("opt1", "opt2"));
 		}

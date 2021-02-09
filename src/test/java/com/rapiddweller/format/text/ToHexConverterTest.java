@@ -14,20 +14,23 @@
  */
 package com.rapiddweller.format.text;
 
-import static org.junit.Assert.*;
-
-import com.rapiddweller.format.text.ToHexConverter;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link ToHexConverter}.
  * Created: 29.10.2009 10:26:04
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class ToHexConverterTest {
 
-	@Test
+  /**
+   * Test long.
+   */
+  @Test
 	public void testLong() {
 		check("0", 0L);
 		check("1", 1L);
@@ -36,7 +39,10 @@ public class ToHexConverterTest {
 		check("ffffffffffffffff", -1L);
 	}
 
-	@Test
+  /**
+   * Test int.
+   */
+  @Test
 	public void testInt() {
 		check("0", 0);
 		check("1", 1);
@@ -45,7 +51,10 @@ public class ToHexConverterTest {
 		check("ffffffff", -1);
 	}
 
-	@Test
+  /**
+   * Test short.
+   */
+  @Test
 	public void testShort() {
 		check("0", 0);
 		check("1", 1);
@@ -54,7 +63,10 @@ public class ToHexConverterTest {
 		check("ffff", (short) -1);
 	}
 
-	@Test
+  /**
+   * Test byte.
+   */
+  @Test
 	public void testByte() {
 		check("0", 0);
 		check("1", 1);
@@ -63,36 +75,54 @@ public class ToHexConverterTest {
 		check("ff", (byte) -1);
 	}
 
-	@Test
+  /**
+   * Test char.
+   */
+  @Test
 	public void testChar() {
 		check("30", '0');
 		check("41", 'A');
 		check("0a", '\n');
 	}
 
-	@Test
+  /**
+   * Test string.
+   */
+  @Test
 	public void testString() {
 		check("41300a", "A0\n");
 	}
-	
-	@Test
+
+  /**
+   * Test length.
+   */
+  @Test
 	public void testLength() {
 		checkLength("ff",   0xff, 2);
 		checkLength("00ff", 0xff, 4);
 	}
 
-	@Test
+  /**
+   * Test pattern.
+   */
+  @Test
 	public void testPattern() {
 		checkPattern("ffh",  0xff, "{0}h" );
 		checkPattern("0xff", 0xff, "0x{0}");
 	}
 
-	@Test
+  /**
+   * Test case.
+   */
+  @Test
 	public void testCase() {
 		checkUpperCase("FF", 0xff);
 	}
 
-	@Test
+  /**
+   * Test combined options.
+   */
+  @Test
 	public void testCombinedOptions() {
 	    assertEquals("0x00FF", new ToHexConverter(true, "0x{0}", 4).convert(0xff));
 	}

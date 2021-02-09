@@ -1,16 +1,21 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
 import com.rapiddweller.format.DataIterator;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
+/**
+ * The type Data source from iterable test.
+ */
 public class DataSourceFromIterableTest {
-    @Test
+  /**
+   * Test iterator.
+   */
+  @Test
     public void testIterator() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataIterator<Object> actualIteratorResult = (new DataSourceFromIterable<Object>(source, Object.class)).iterator();
@@ -18,7 +23,10 @@ public class DataSourceFromIterableTest {
         assertSame(expectedType, actualIteratorResult.getType());
     }
 
-    @Test
+  /**
+   * Test close.
+   */
+  @Test
     public void testClose() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -30,7 +38,10 @@ public class DataSourceFromIterableTest {
         (new DataSourceFromIterable<Object>(source, Object.class)).close();
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         ArrayList<Object> source = new ArrayList<Object>();
         assertEquals("DataSourceFromIterable[[]]", (new DataSourceFromIterable<Object>(source, Object.class)).toString());

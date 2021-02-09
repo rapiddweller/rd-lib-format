@@ -12,26 +12,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html;
 
 /**
  * Abstract implementation of an HTML anchor &lt;a&gt; with label and target.
  * Created: 13.06.2011 12:14:52
- * @since 0.5.8
+ *
  * @author Volker Bergmann
+ * @since 0.5.8
  */
 public abstract class Anchor {
-	
-	public final String label;
-	public final String target;
-	
-	public Anchor(String label) {
-		this(label, null);
-	}
-	
-	public Anchor(String label, String target) {
-		this.label = label;
-		this.target = target;
-	}
-	
+
+  /**
+   * The Label.
+   */
+  public final String label;
+  /**
+   * The Target.
+   */
+  public final String target;
+
+  /**
+   * Instantiates a new Anchor.
+   *
+   * @param label the label
+   */
+  public Anchor(String label) {
+    this(label, null);
+  }
+
+  /**
+   * Instantiates a new Anchor.
+   *
+   * @param label  the label
+   * @param target the target
+   */
+  public Anchor(String label, String target) {
+    this.label = label;
+    this.target = target;
+  }
+
 }

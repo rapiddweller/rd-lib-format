@@ -14,24 +14,24 @@
  */
 package com.rapiddweller.format.properties;
 
-import static org.junit.Assert.*;
-
+import com.rapiddweller.common.DocumentWriter;
+import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.format.script.ConstantScript;
+import com.rapiddweller.test.TP;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-import com.rapiddweller.common.DocumentWriter;
-import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.format.script.ConstantScript;
-import com.rapiddweller.test.TP;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the BeanPropertiesFileWriter.
- * 
+ * <p>
  * Created: 16.06.2007 06:07:52
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class BeanPropertiesFileWriterTest {
 
@@ -46,7 +46,12 @@ public class BeanPropertiesFileWriterTest {
             "person2.class=com.rapiddweller.test.TP" + SEP + "person2.name=Carl" + SEP + "person2.age=48" + SEP +
             "# footer";
 
-    @Test
+  /**
+   * Test escaping.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
     public void testEscaping() throws IOException {
         StringWriter out = new StringWriter();
         DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
@@ -58,7 +63,12 @@ public class BeanPropertiesFileWriterTest {
         assertEquals("class=com.rapiddweller.test.TP" + SEP + "name=Al\\\\f" + SEP + "age=48" + SEP, out.toString());
     }
 
-    @Test
+  /**
+   * Test unprefixed.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
     public void testUnprefixed() throws IOException {
         StringWriter out = new StringWriter();
         DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
@@ -73,7 +83,12 @@ public class BeanPropertiesFileWriterTest {
         assertEquals(UNPREFIXED_RESULT, out.toString());
     }
 
-    @Test
+  /**
+   * Test prefixed.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
     public void testPrefixed() throws IOException {
         StringWriter out = new StringWriter();
         DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(

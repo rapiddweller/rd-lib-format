@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import com.rapiddweller.common.ConversionException;
@@ -20,18 +21,21 @@ import com.rapiddweller.common.converter.ThreadSafeConverter;
 
 /**
  * Converter that normalizes white space on strings.
- * 
+ * <p>
  * Created: 19.06.2007 07:36:32
  */
 public class NormalizeSpaceConverter extends ThreadSafeConverter<String, String> {
 
-	public NormalizeSpaceConverter() {
-		super(String.class, String.class);
-	}
+  /**
+   * Instantiates a new Normalize space converter.
+   */
+  public NormalizeSpaceConverter() {
+    super(String.class, String.class);
+  }
 
-	@Override
-	public String convert(String sourceValue) throws ConversionException {
-        return StringUtil.normalizeSpace(sourceValue);
-    }
-	
+  @Override
+  public String convert(String sourceValue) throws ConversionException {
+    return StringUtil.normalizeSpace(sourceValue);
+  }
+
 }

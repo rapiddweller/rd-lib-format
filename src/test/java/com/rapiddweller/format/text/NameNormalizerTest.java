@@ -14,23 +14,25 @@
  */
 package com.rapiddweller.format.text;
 
-import static org.junit.Assert.*;
-
-import com.rapiddweller.format.text.NameNormalizer;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link NameNormalizer}.
  * Created at 20.11.2008 19:43:30
- * @since 0.4.6
+ *
  * @author Volker Bergmann
+ * @since 0.4.6
  */
-
 public class NameNormalizerTest {
 	
 	private final NameNormalizer normalizer = new NameNormalizer();
 
-	@Test
+  /**
+   * Test.
+   */
+  @Test
 	public void test() {
 		assertEquals("Alice", normalizer.convert("alice"));
 		assertEquals("Alice", normalizer.convert("  ALICE  "));

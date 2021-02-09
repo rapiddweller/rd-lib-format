@@ -1,14 +1,20 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Table foot test.
+ */
 public class TableFootTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         TableFoot actualTableFoot = new TableFoot();
         assertEquals("<tfoot/>\n", actualTableFoot.toString());
@@ -17,7 +23,10 @@ public class TableFootTest {
         assertEquals("tfoot", actualTableFoot.getTagName());
     }
 
-    @Test
+  /**
+   * Test new row.
+   */
+  @Test
     public void testNewRow() {
         TableFoot tableFoot = new TableFoot();
         TableRow actualNewRowResult = tableFoot.newRow();
@@ -28,7 +37,10 @@ public class TableFootTest {
         assertEquals("<tfoot>\n<tr/>\n\n</tfoot>\n", tableFoot.toString());
     }
 
-    @Test
+  /**
+   * Test add row.
+   */
+  @Test
     public void testAddRow() {
         TableFoot tableFoot = new TableFoot();
         assertSame(tableFoot, tableFoot.addRow(new TableRow()));

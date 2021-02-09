@@ -1,18 +1,23 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 import com.rapiddweller.common.converter.ToCollectionConverter;
 import com.rapiddweller.format.DataIterator;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Converting data source test.
+ */
 public class ConvertingDataSourceTest {
-    @Test
+  /**
+   * Test get type.
+   */
+  @Test
     public void testGetType() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataSourceProxy source1 = new DataSourceProxy(
@@ -22,7 +27,10 @@ public class ConvertingDataSourceTest {
         assertSame(List.class, actualType);
     }
 
-    @Test
+  /**
+   * Test iterator.
+   */
+  @Test
     public void testIterator() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataSourceProxy dataSourceProxy = new DataSourceProxy(
@@ -38,7 +46,10 @@ public class ConvertingDataSourceTest {
         assertSame(expectedType1, dataIterator.getType());
     }
 
-    @Test
+  /**
+   * Test iterator 2.
+   */
+  @Test
     public void testIterator2() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataSourceProxy source1 = new DataSourceProxy(
@@ -59,7 +70,10 @@ public class ConvertingDataSourceTest {
         assertSame(expectedType1, dataIterator1.getType());
     }
 
-    @Test
+  /**
+   * Test close.
+   */
+  @Test
     public void testClose() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -73,7 +87,10 @@ public class ConvertingDataSourceTest {
         (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).close();
     }
 
-    @Test
+  /**
+   * Test close 2.
+   */
+  @Test
     public void testClose2() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -87,7 +104,10 @@ public class ConvertingDataSourceTest {
         (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).close();
     }
 
-    @Test
+  /**
+   * Test close 3.
+   */
+  @Test
     public void testClose3() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -103,7 +123,10 @@ public class ConvertingDataSourceTest {
         (new ConvertingDataSource<Object, Object>(source2, new ToCollectionConverter())).close();
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -117,7 +140,10 @@ public class ConvertingDataSourceTest {
         (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).toString();
     }
 
-    @Test
+  /**
+   * Test to string 2.
+   */
+  @Test
     public void testToString2() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -132,7 +158,10 @@ public class ConvertingDataSourceTest {
         (new ConvertingDataSource<Object, Object>(source2, new ToCollectionConverter())).toString();
     }
 
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataSourceProxy source1 = new DataSourceProxy(new DataSourceProxy(

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.Context;
@@ -21,24 +22,31 @@ import com.rapiddweller.common.converter.ThreadSafeConverter;
 
 /**
  * {@link Converter} can recognize and resolve script expressions in strings.
- * @since 0.3.0
+ *
  * @author Volker Bergmann
+ * @since 0.3.0
  */
 public class ScriptConverterForStrings extends ThreadSafeConverter<String, Object> {
 
-    private final Context context;
-    
-    public ScriptConverterForStrings(Context context) {
-    	super(String.class, Object.class);
-        this.context = context;
-    }
+  private final Context context;
 
-	@Override
-	public Object convert(String sourceValue) throws ConversionException {
-		if (sourceValue != null)
-			return ScriptUtil.evaluate(sourceValue, context);
-		else
-			return null;
-	}
+  /**
+   * Instantiates a new Script converter for strings.
+   *
+   * @param context the context
+   */
+  public ScriptConverterForStrings(Context context) {
+    super(String.class, Object.class);
+    this.context = context;
+  }
+
+  @Override
+  public Object convert(String sourceValue) throws ConversionException {
+    if (sourceValue != null) {
+      return ScriptUtil.evaluate(sourceValue, context);
+    } else {
+      return null;
+    }
+  }
 
 }

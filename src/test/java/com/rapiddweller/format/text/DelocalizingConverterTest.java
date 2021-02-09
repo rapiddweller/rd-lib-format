@@ -14,21 +14,27 @@
  */
 package com.rapiddweller.format.text;
 
+import org.junit.Test;
+
 import java.io.IOException;
 
-import com.rapiddweller.format.text.DelocalizingConverter;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link DelocalizingConverter}.
  * Created: 03.09.2006 19:29:56
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class DelocalizingConverterTest {
 
-	@Test
+  /**
+   * Test conversion.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
     public void testConversion() throws IOException {
         checkConversion("Abc", "Abc");
         checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");

@@ -17,43 +17,80 @@ package com.rapiddweller.format.fixedwidth;
 /**
  * Helper class for testing.
  * Created: 14.03.2014 16:30:40
- * @since 0.7.2
+ *
  * @author Volker Bergmann
+ * @since 0.7.2
  */
-
 public class FWPerson {
 	
 	private String name;
 	private int age;
 	private FWPet pet;
-	
-	public FWPerson(String name, int age, FWPet pet) {
+
+  /**
+   * Instantiates a new Fw person.
+   *
+   * @param name the name
+   * @param age  the age
+   * @param pet  the pet
+   */
+  public FWPerson(String name, int age, FWPet pet) {
 		this.name = name;
 		this.age = age;
 		this.pet = pet;
 	}
 
-	public String getName() {
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getAge() {
+  /**
+   * Gets age.
+   *
+   * @return the age
+   */
+  public int getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+  /**
+   * Sets age.
+   *
+   * @param age the age
+   */
+  public void setAge(int age) {
 		this.age = age;
 	}
 
-	public FWPet getPet() {
+  /**
+   * Gets pet.
+   *
+   * @return the pet
+   */
+  public FWPet getPet() {
 		return pet;
 	}
 
-	public void setPet(FWPet pet) {
+  /**
+   * Sets pet.
+   *
+   * @param pet the pet
+   */
+  public void setPet(FWPet pet) {
 		this.pet = pet;
 	}
 	

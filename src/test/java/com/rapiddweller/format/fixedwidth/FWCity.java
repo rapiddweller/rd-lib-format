@@ -17,23 +17,38 @@ package com.rapiddweller.format.fixedwidth;
 /**
  * Helper class for testing.
  * Created: 14.03.2014 16:32:45
- * @since 0.7.2
+ *
  * @author Volker Bergmann
+ * @since 0.7.2
  */
-
 public class FWCity {
 	
 	private String name;
 
-	public FWCity(String name) {
+  /**
+   * Instantiates a new Fw city.
+   *
+   * @param name the name
+   */
+  public FWCity(String name) {
 		this.name = name;
 	}
 
-	public String getName() {
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
 		this.name = name;
 	}
 	

@@ -14,23 +14,24 @@
  */
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.FilteringHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
 import com.rapiddweller.format.html.util.HTMLTokenFilter;
 import org.junit.Test;
 
-import java.io.StringReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link FilteringHTMLTokenizer}.
  * Created: 16.06.2007 05:53:50
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class FilteringHTMLTokenizerTest {
 
@@ -39,7 +40,13 @@ public class FilteringHTMLTokenizerTest {
             "<li><a href='http://bergmann-it.de'>Volker Bergmann</a></li>" +
             "</ul></body></html>";
 
-    @Test
+  /**
+   * Test link iteration.
+   *
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  @Test
     public void testLinkIteration() throws IOException, ParseException {
         HTMLTokenizer source = new DefaultHTMLTokenizer(new StringReader(HTML));
         HTMLTokenFilter filter = new HTMLTokenFilter(HTMLTokenizer.START_TAG, "a");

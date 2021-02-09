@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
@@ -23,40 +24,64 @@ import java.io.IOException;
 /**
  * Allows repeated iteration through a {@link DataIterator}.
  * Created: 22.05.2012 08:58:16
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.9
  * @author Volker Bergmann
+ * @since 0.6.9
  */
 public class CyclicDataIterator<E> extends DataIteratorProxy<E> {
-	
-	protected Creator<E> creator;
 
-	public CyclicDataIterator(Creator<E> creator) throws IOException {
-		super(creator.create());
-		this.creator = creator;
-	}
-	
-	@Override
-	public synchronized DataContainer<E> next(DataContainer<E> wrapper) {
-		DataContainer<E> result = super.next(wrapper);
-		if (result == null) {
-			reset();
-			result = super.next(wrapper);
-		}
-		return result;
-	}
+  /**
+   * The Creator.
+   */
+  protected Creator<E> creator;
 
-	public synchronized void reset() {
-		IOUtil.close(source);
-		try {
-			source = creator.create();
-		} catch (IOException e) {
-			throw new RuntimeException("Error creating DataIterator", e);
-		}
-	}
-	
-	public interface Creator<E> {
-		DataIterator<E> create() throws IOException;
-	}
-	
+  /**
+   * Instantiates a new Cyclic data iterator.
+   *
+   * @param creator the creator
+   * @throws IOException the io exception
+   */
+  public CyclicDataIterator(Creator<E> creator) throws IOException {
+    super(creator.create());
+    this.creator = creator;
+  }
+
+  @Override
+  public synchronized DataContainer<E> next(DataContainer<E> wrapper) {
+    DataContainer<E> result = super.next(wrapper);
+    if (result == null) {
+      reset();
+      result = super.next(wrapper);
+    }
+    return result;
+  }
+
+  /**
+   * Reset.
+   */
+  public synchronized void reset() {
+    IOUtil.close(source);
+    try {
+      source = creator.create();
+    } catch (IOException e) {
+      throw new RuntimeException("Error creating DataIterator", e);
+    }
+  }
+
+  /**
+   * The interface Creator.
+   *
+   * @param <E> the type parameter
+   */
+  public interface Creator<E> {
+    /**
+     * Create data iterator.
+     *
+     * @return the data iterator
+     * @throws IOException the io exception
+     */
+    DataIterator<E> create() throws IOException;
+  }
+
 }

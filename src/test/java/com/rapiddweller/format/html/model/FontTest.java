@@ -1,12 +1,18 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Font test.
+ */
 public class FontTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         Font actualFont = new Font(new HtmlComponent());
         assertEquals("<font></font>", actualFont.toString());
@@ -15,7 +21,10 @@ public class FontTest {
         assertEquals("font", actualFont.getTagName());
     }
 
-    @Test
+  /**
+   * Test constructor 2.
+   */
+  @Test
     public void testConstructor2() {
         Font actualFont = new Font("Text");
         assertEquals("<font>Text</font>", actualFont.toString());
@@ -24,7 +33,10 @@ public class FontTest {
         assertEquals("font", actualFont.getTagName());
     }
 
-    @Test
+  /**
+   * Test with size.
+   */
+  @Test
     public void testWithSize() {
         assertEquals("<font size=\"Size\">Not all who wander are lost</font>",
                 HtmlFactory.font("Not all who wander are lost").withSize("Size").toString());

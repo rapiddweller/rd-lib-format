@@ -14,24 +14,30 @@
  */
 package com.rapiddweller.format.text;
 
-import java.util.Locale;
-import java.text.ParseException;
-import java.text.FieldPosition;
-
-import com.rapiddweller.format.text.AbbreviatedNumberFormat;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.util.Locale;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link AbbreviatedNumberFormat}.
  * Created: 16.05.2005 22:04:10
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class AbbreviatedNumberFormatTest {
     private static final double DELTA = 0.0001;
 
-    @Test
+  /**
+   * Test parse english.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testParseEnglish() throws Exception {
         checkParse("1", 1, Locale.US);
         checkParse("1 Tsd", 1000, Locale.US);
@@ -40,7 +46,12 @@ public class AbbreviatedNumberFormatTest {
         checkParse("1,234.56 Mio", 1234560000, Locale.US);
     }
 
-    @Test
+  /**
+   * Test parse german.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testParseGerman() throws Exception {
         checkParse("1", 1, Locale.GERMANY);
         checkParse("1 Tsd", 1000, Locale.GERMANY);
@@ -50,7 +61,12 @@ public class AbbreviatedNumberFormatTest {
         checkParse("1.234,56 Mio", 1234560000, Locale.GERMANY);
     }
 
-    @Test
+  /**
+   * Test format.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testFormat() throws Exception {
         checkFormat(1, "1.00", Locale.US);
         checkFormat(1000, "1.00 Tsd", Locale.US);
@@ -60,7 +76,12 @@ public class AbbreviatedNumberFormatTest {
         checkFormat(1234, "1,23 Tsd", Locale.GERMANY);
     }
 
-    @Test
+  /**
+   * Test format fixed.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testFormatFixed() throws Exception {
         checkFormatFixed(1, "1.00", 1, Locale.US);
         checkFormatFixed(123, "0.12 Tsd", 1000, Locale.US);

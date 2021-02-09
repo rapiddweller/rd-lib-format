@@ -14,20 +14,21 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.*;
-
-import java.text.ParseException;
-import java.util.Arrays;
-
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.PadFormat;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests the {@link FixedWidthLineParser}.
  * Created: 22.02.2010 08:19:12
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class FixedWidthLineParserTest {
 
@@ -38,7 +39,12 @@ public class FixedWidthLineParserTest {
     
     private static final FixedWidthLineParser PARSER = new FixedWidthLineParser(FORMATS);
 
-    @Test
+  /**
+   * Test processing empty lines.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testProcessingEmptyLines() throws Exception {
         check("Alice 023", "Alice", "23");
         check("Bob   034", "Bob", "34");

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.CollectionUtil;
@@ -24,41 +25,55 @@ import java.util.List;
 /**
  * {@link List}-based implementation of the {@link DataIterator} interface.
  * Created: 08.12.2011 14:36:08
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.5
  * @author Volker Bergmann
+ * @since 0.6.5
  */
 public class ListDataIterator<E> implements DataIterator<E> {
-	
-	private final Class<E> type;
-	private final List<E> data;
-	private int cursor;
 
-	public ListDataIterator(Class<E> type, E... data) {
-		this(type, CollectionUtil.toList(data));
-	}
+  private final Class<E> type;
+  private final List<E> data;
+  private int cursor;
 
-	public ListDataIterator(Class<E> type, List<E> data) {
-		this.type = type;
-		this.data = (data != null ? data : new ArrayList<E>());
-		this.cursor = 0;
-	}
+  /**
+   * Instantiates a new List data iterator.
+   *
+   * @param type the type
+   * @param data the data
+   */
+  public ListDataIterator(Class<E> type, E... data) {
+    this(type, CollectionUtil.toList(data));
+  }
 
-	@Override
-	public Class<E> getType() {
-		return type;
-	}
+  /**
+   * Instantiates a new List data iterator.
+   *
+   * @param type the type
+   * @param data the data
+   */
+  public ListDataIterator(Class<E> type, List<E> data) {
+    this.type = type;
+    this.data = (data != null ? data : new ArrayList<E>());
+    this.cursor = 0;
+  }
 
-	@Override
-	public DataContainer<E> next(DataContainer<E> container) {
-		if (cursor >= data.size())
-			return null;
-		return container.setData(data.get(cursor++));
-	}
+  @Override
+  public Class<E> getType() {
+    return type;
+  }
 
-	@Override
-	public void close() {
-		// nothing to do
-	}
+  @Override
+  public DataContainer<E> next(DataContainer<E> container) {
+    if (cursor >= data.size()) {
+      return null;
+    }
+    return container.setData(data.get(cursor++));
+  }
+
+  @Override
+  public void close() {
+    // nothing to do
+  }
 
 }

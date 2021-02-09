@@ -17,19 +17,32 @@ package com.rapiddweller.format;
 /**
  * Address JavaBean for testing.
  * Created: 18.09.2014 19:03:30
- * @since 1.0.0
+ *
  * @author Volker Bergmann
+ * @since 1.0.0
  */
-
 public class Address {
 
-	String city;
+  /**
+   * The City.
+   */
+  String city;
 
-	public String getCity() {
+  /**
+   * Gets city.
+   *
+   * @return the city
+   */
+  public String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+  /**
+   * Sets city.
+   *
+   * @param city the city
+   */
+  public void setCity(String city) {
 		this.city = city;
 	}
 

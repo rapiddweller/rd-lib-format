@@ -14,7 +14,9 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.*;
+import com.rapiddweller.common.TimeUtil;
+import com.rapiddweller.common.format.Alignment;
+import org.junit.Test;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -22,20 +24,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.rapiddweller.common.TimeUtil;
-import com.rapiddweller.common.format.Alignment;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link FixedWidthColumnDescriptor}.
  * Created at 05.05.2008 07:18:54
- * @since 0.5.3
+ *
  * @author Volker Bergmann
+ * @since 0.5.3
  */
 public class FixedWidthColumnDescriptorTest {
 
-	@Test
+  /**
+   * Test equals.
+   */
+  @Test
 	public void testEquals() {
 		FixedWidthColumnDescriptor d1 = new FixedWidthColumnDescriptor("name", 8, Alignment.LEFT, ' ');
 		// simple tests
@@ -47,8 +52,13 @@ public class FixedWidthColumnDescriptorTest {
 		assertFalse(d1.equals(new FixedWidthColumnDescriptor("name4", 8, Alignment.RIGHT, ' ')));
 		assertFalse(d1.equals(new FixedWidthColumnDescriptor("name5", 8, Alignment.LEFT, '_')));
 	}
-	
-	@Test
+
+  /**
+   * Test format number.
+   *
+   * @throws ParseException the parse exception
+   */
+  @Test
 	public void testFormatNumber() throws ParseException {
 		DecimalFormat format = new DecimalFormat("00.00", DecimalFormatSymbols.getInstance(Locale.US));
 		FixedWidthColumnDescriptor d1 = new FixedWidthColumnDescriptor("num", format, "");
@@ -56,15 +66,25 @@ public class FixedWidthColumnDescriptorTest {
 		assertEquals("01.50", d1.format(1.5));
 		assertEquals("     ", d1.format(null));
 	}
-	
-	@Test
+
+  /**
+   * Test format date.
+   *
+   * @throws ParseException the parse exception
+   */
+  @Test
 	public void testFormatDate() throws ParseException {
 		FixedWidthColumnDescriptor d1 = new FixedWidthColumnDescriptor("date", new SimpleDateFormat("yyyyMMdd"), "");
 		assertEquals("19870503", d1.format(TimeUtil.date(1987, 4, 3)));
 		assertEquals("        ", d1.format(null));
 	}
-	
-	@Test
+
+  /**
+   * Test parse date.
+   *
+   * @throws ParseException the parse exception
+   */
+  @Test
 	public void testParseDate() throws ParseException {
 		FixedWidthColumnDescriptor d1 = new FixedWidthColumnDescriptor("date", new SimpleDateFormat("yyyyMMdd"), "");
 		assertEquals(TimeUtil.date(1987, 4, 3), d1.parse("19870503"));

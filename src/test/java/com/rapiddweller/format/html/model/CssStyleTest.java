@@ -1,12 +1,18 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.junit.Test;
-
+/**
+ * The type Css style test.
+ */
 public class CssStyleTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         CssStyle actualCssStyle = new CssStyle();
         assertEquals("<style type=\"text/css\"/>\n", actualCssStyle.toString());

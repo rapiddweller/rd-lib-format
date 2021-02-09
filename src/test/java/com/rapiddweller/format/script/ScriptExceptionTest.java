@@ -1,13 +1,19 @@
 package com.rapiddweller.format.script;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-import org.junit.Test;
-
+/**
+ * The type Script exception test.
+ */
 public class ScriptExceptionTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         ScriptException actualScriptException = new ScriptException();
         assertEquals("com.rapiddweller.format.script.ScriptException", actualScriptException.toString());
@@ -17,7 +23,10 @@ public class ScriptExceptionTest {
         assertEquals(0, actualScriptException.getSuppressed().length);
     }
 
-    @Test
+  /**
+   * Test constructor 2.
+   */
+  @Test
     public void testConstructor2() {
         ScriptException actualScriptException = new ScriptException("An error occurred");
         assertEquals("com.rapiddweller.format.script.ScriptException: An error occurred", actualScriptException.toString());
@@ -27,13 +36,19 @@ public class ScriptExceptionTest {
         assertEquals(0, actualScriptException.getSuppressed().length);
     }
 
-    @Test
+  /**
+   * Test constructor 3.
+   */
+  @Test
     public void testConstructor3() {
         Throwable throwable = new Throwable();
         assertSame((new ScriptException("An error occurred", throwable)).getCause(), throwable);
     }
 
-    @Test
+  /**
+   * Test constructor 4.
+   */
+  @Test
     public void testConstructor4() {
         Throwable throwable = new Throwable();
         assertSame((new ScriptException(throwable)).getCause(), throwable);

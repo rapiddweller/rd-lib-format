@@ -1,16 +1,21 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 import com.rapiddweller.format.DataIterator;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Data source proxy test.
+ */
 public class DataSourceProxyTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataSourceProxy<Object> actualDataSourceProxy = new DataSourceProxy<Object>(new DataSourceProxy(new DataSourceProxy(
@@ -20,7 +25,10 @@ public class DataSourceProxyTest {
         assertSame(expectedType, actualDataSourceProxy.getType());
     }
 
-    @Test
+  /**
+   * Test iterator.
+   */
+  @Test
     public void testIterator() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataIterator<Object> actualIteratorResult = (new DataSourceProxy<Object>(new DataSourceProxy(

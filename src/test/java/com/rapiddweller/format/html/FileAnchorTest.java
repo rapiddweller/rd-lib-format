@@ -1,13 +1,19 @@
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.nio.file.Paths;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
+/**
+ * The type File anchor test.
+ */
 public class FileAnchorTest {
-    @Test
+  /**
+   * Test create anchor for new window.
+   */
+  @Test
     public void testCreateAnchorForNewWindow() {
         FileAnchor actualCreateAnchorForNewWindowResult = FileAnchor
                 .createAnchorForNewWindow(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile(), "Label");
@@ -18,7 +24,10 @@ public class FileAnchorTest {
         assertEquals("_blank", actualCreateAnchorForNewWindowResult.target);
     }
 
-    @Test
+  /**
+   * Test relative link from.
+   */
+  @Test
     public void testRelativeLinkFrom() {
         FileAnchor createAnchorForNewWindowResult = FileAnchor
                 .createAnchorForNewWindow(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile(), "Label");
@@ -26,7 +35,10 @@ public class FileAnchorTest {
                 .relativeLinkFrom(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile()));
     }
 
-    @Test
+  /**
+   * Test relative link from 2.
+   */
+  @Test
     public void testRelativeLinkFrom2() {
         FileAnchor createAnchorForNewWindowResult = FileAnchor
                 .createAnchorForNewWindow(Paths.get(System.getProperty("log4jUl"), "test.txt").toFile(), "Label");
@@ -37,7 +49,10 @@ public class FileAnchorTest {
                 actualRelativeLinkFromResult);
     }
 
-    @Test
+  /**
+   * Test relative link from 3.
+   */
+  @Test
     public void testRelativeLinkFrom3() {
         FileAnchor fileAnchor = new FileAnchor(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile(),
                 "Label");
@@ -45,7 +60,10 @@ public class FileAnchorTest {
                 fileAnchor.relativeLinkFrom(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile()));
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         String actualToStringResult = FileAnchor
                 .createAnchorForNewWindow(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile(), "Label")
@@ -55,7 +73,10 @@ public class FileAnchorTest {
                 actualToStringResult);
     }
 
-    @Test
+  /**
+   * Test to string 2.
+   */
+  @Test
     public void testToString2() {
         String actualToStringResult = (new FileAnchor(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile(),
                 "Label")).toString();

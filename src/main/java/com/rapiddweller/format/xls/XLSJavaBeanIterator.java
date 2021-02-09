@@ -12,9 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xls;
 
-import com.rapiddweller.common.*;
+import com.rapiddweller.common.ArrayUtil;
+import com.rapiddweller.common.Assert;
+import com.rapiddweller.common.BeanUtil;
+import com.rapiddweller.common.ConfigurationError;
+import com.rapiddweller.common.Converter;
+import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.context.DefaultContext;
 import com.rapiddweller.common.converter.PropertyArray2JavaBeanConverter;
 import com.rapiddweller.common.converter.util.ClassProvider;
@@ -23,7 +30,7 @@ import com.rapiddweller.common.converter.util.ReferenceResolver;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.script.ScriptConverterForStrings;
 import com.rapiddweller.format.util.ConvertingDataIterator;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.commons.compress.archivers.dump.InvalidFormatException;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
@@ -38,119 +45,168 @@ import java.util.List;
 /**
  * Iterates XLS sheets and provides each row as JavaBean instance.
  * Created: 18.09.2014 15:49:49
- * @since 1.0.0
+ *
+ * @param <E> the type parameter
  * @author Volker Bergmann
+ * @since 1.0.0
  */
-
 public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> {
-	
-	private final String uri;
-	private final boolean formatted;
-	
-	public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, Class<?> beanClass) throws IOException, InvalidFormatException {
-		this(uri, sheetName, formatted, null, "", new ConstantClassProvider<Object>(beanClass));
-	}
 
-	@SuppressWarnings("unchecked")
-	public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, String nullMarker, String emptyMarker, ClassProvider<Object> beanClassProvider) 
-			throws IOException, InvalidFormatException {
-		super(null, null);
-		this.uri = uri;
-		this.formatted = formatted;
-		Converter<String, ?> scriptConverter = new ScriptConverterForStrings(new DefaultContext());
-		XLSLineIterator iterator = new XLSLineIterator(uri, sheetName, true, formatted, scriptConverter);
-		iterator.setNullMarker(nullMarker);
-		iterator.setEmptyMarker(emptyMarker);
-		String[] headers = parseHeaders(uri, sheetName, iterator);
-		this.source = iterator;
-		this.converter = (Converter<Object[], E>) new PropertyArray2JavaBeanConverter(beanClassProvider, headers, new RefResolver());
-	}
+  private final String uri;
+  private final boolean formatted;
 
-	public static <T> List<T> parseAll(String uri, String sheetName, boolean formatted, Class<T> type) 
-			throws InvalidFormatException, IOException {
-		XLSJavaBeanIterator<T> iterator = null;
-		List<T> result = new ArrayList<T>();
-		try {
-			iterator = new XLSJavaBeanIterator<T>(uri, sheetName, formatted, type);
-			DataContainer<T> container = new DataContainer<T>();
-			while (iterator.next(container) != null)
-				result.add(container.getData());
-		} finally {
-			IOUtil.close(iterator);
-		}
-		return result;
-	}
+  /**
+   * Instantiates a new Xls java bean iterator.
+   *
+   * @param uri       the uri
+   * @param sheetName the sheet name
+   * @param formatted the formatted
+   * @param beanClass the bean class
+   * @throws IOException the io exception
+   */
+  public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, Class<?> beanClass) throws IOException {
+    this(uri, sheetName, formatted, null, "", new ConstantClassProvider<Object>(beanClass));
+  }
 
-	public static Class<?> getFeatureComponentType(Class<?> ownerClass, String featureName) {
-    	// try JavaBean property
-        PropertyDescriptor propertyDescriptor = BeanUtil.getPropertyDescriptor(ownerClass, featureName);
-        if (propertyDescriptor != null) {
-        	Method readMethod = propertyDescriptor.getReadMethod();
-        	Class<?> returnType = readMethod.getReturnType();
-			if (Collection.class.isAssignableFrom(returnType)) {
-				ParameterizedType genericReturnType = (ParameterizedType) readMethod.getGenericReturnType();
-				Type componentType = genericReturnType.getActualTypeArguments()[0];
-				return (Class<?>) componentType;
-        	} else {
-        		return returnType;
-        	}
+  /**
+   * Instantiates a new Xls java bean iterator.
+   *
+   * @param uri               the uri
+   * @param sheetName         the sheet name
+   * @param formatted         the formatted
+   * @param nullMarker        the null marker
+   * @param emptyMarker       the empty marker
+   * @param beanClassProvider the bean class provider
+   * @throws IOException the io exception
+   */
+  @SuppressWarnings("unchecked")
+  public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, String nullMarker, String emptyMarker,
+                             ClassProvider<Object> beanClassProvider)
+      throws IOException {
+    super(null, null);
+    this.uri = uri;
+    this.formatted = formatted;
+    Converter<String, ?> scriptConverter = new ScriptConverterForStrings(new DefaultContext());
+    XLSLineIterator iterator = new XLSLineIterator(uri, sheetName, true, formatted, scriptConverter);
+    iterator.setNullMarker(nullMarker);
+    iterator.setEmptyMarker(emptyMarker);
+    String[] headers = parseHeaders(uri, sheetName, iterator);
+    this.source = iterator;
+    this.converter = (Converter<Object[], E>) new PropertyArray2JavaBeanConverter(beanClassProvider, headers, new RefResolver());
+  }
+
+  /**
+   * Parse all list.
+   *
+   * @param <T>       the type parameter
+   * @param uri       the uri
+   * @param sheetName the sheet name
+   * @param formatted the formatted
+   * @param type      the type
+   * @return the list
+   * @throws InvalidFormatException the invalid format exception
+   * @throws IOException            the io exception
+   */
+  public static <T> List<T> parseAll(String uri, String sheetName, boolean formatted, Class<T> type)
+      throws InvalidFormatException, IOException {
+    XLSJavaBeanIterator<T> iterator = null;
+    List<T> result = new ArrayList<T>();
+    try {
+      iterator = new XLSJavaBeanIterator<T>(uri, sheetName, formatted, type);
+      DataContainer<T> container = new DataContainer<T>();
+      while (iterator.next(container) != null) {
+        result.add(container.getData());
+      }
+    } finally {
+      IOUtil.close(iterator);
+    }
+    return result;
+  }
+
+  /**
+   * Gets feature component type.
+   *
+   * @param ownerClass  the owner class
+   * @param featureName the feature name
+   * @return the feature component type
+   */
+  public static Class<?> getFeatureComponentType(Class<?> ownerClass, String featureName) {
+    // try JavaBean property
+    PropertyDescriptor propertyDescriptor = BeanUtil.getPropertyDescriptor(ownerClass, featureName);
+    if (propertyDescriptor != null) {
+      Method readMethod = propertyDescriptor.getReadMethod();
+      Class<?> returnType = readMethod.getReturnType();
+      if (Collection.class.isAssignableFrom(returnType)) {
+        ParameterizedType genericReturnType = (ParameterizedType) readMethod.getGenericReturnType();
+        Type componentType = genericReturnType.getActualTypeArguments()[0];
+        return (Class<?>) componentType;
+      } else {
+        return returnType;
+      }
+    } else {
+      // try attribute
+      Field field = BeanUtil.getField(ownerClass, featureName);
+      if (field != null) {
+        if (Collection.class.isAssignableFrom(field.getType())) {
+          ParameterizedType genericReturnType = (ParameterizedType) field.getGenericType();
+          Type componentType = genericReturnType.getActualTypeArguments()[0];
+          return (Class<?>) componentType;
         } else {
-        	// try attribute
-        	Field field = BeanUtil.getField(ownerClass, featureName);
-        	if (field != null) {
-    			if (Collection.class.isAssignableFrom(field.getType())) {
-	        		ParameterizedType genericReturnType = (ParameterizedType) field.getGenericType();
-	    			Type componentType = genericReturnType.getActualTypeArguments()[0];
-	    			return (Class<?>) componentType;
-    			} else {
-    				return field.getType();
-    			}
-        	} else {
-                throw new ConfigurationError("Feature '" + featureName + "' not found in class " + ownerClass.getName());
-        	}
+          return field.getType();
         }
-	}
+      } else {
+        throw new ConfigurationError("Feature '" + featureName + "' not found in class " + ownerClass.getName());
+      }
+    }
+  }
 
 
-	// private helpers -------------------------------------------------------------------------------------------------
+  // private helpers -------------------------------------------------------------------------------------------------
 
-	private static String[] parseHeaders(String uri, String sheetName, XLSLineIterator iterator) {
-		// get headers
-		String[] headers = iterator.getHeaders();
-		Assert.notEmpty(headers, "Empty XLS sheet '" + sheetName + "' in document " + uri);
-		// normalize headers
-		for (int i = 0; i < headers.length; i++)
-			headers[i] = StringUtil.trimmedEmptyToNull(headers[i]);
-		// determine trailing empty headers
-		int headerCount = headers.length;
-		while (headers[headerCount - 1] == null && headerCount > 0)
-			headerCount--;
-		// verify the regular headers
-		if (headerCount == 0)
-			throw new IllegalArgumentException("No headers in XLS sheet '" + sheetName + "' of document " + uri);
-		for (int i = 0; i < headerCount; i++)
-			Assert.notNull(headers[i], "Empty header in column #" + i + " of sheet '" + sheetName + "' of file '" + uri + "'");
-		// remove trailing empty headers
-		return ArrayUtil.copyOfRange(headers, 0, headerCount);
-	}
-	
-	class RefResolver implements ReferenceResolver {
-		@Override
-		public Object resolveReferences(Object value, Object target, String localFeatureName) {
-			if (value instanceof String) {
-				String text = (String) value;
-				if (text.startsWith("tab:")) {
-					String targetSheetName = text.substring("tab:".length());
-					try {
-						Class<?> targetType = getFeatureComponentType(target.getClass(), localFeatureName);
-						return parseAll(uri, targetSheetName, formatted, targetType );
-					} catch (Exception e) {
-						throw new RuntimeException("Error parsing XLS sheet '" + targetSheetName + "' of " + uri, e);
-					}
-				}
-			}
-			return value;
-		}
-	}
+  private static String[] parseHeaders(String uri, String sheetName, XLSLineIterator iterator) {
+    // get headers
+    String[] headers = iterator.getHeaders();
+    Assert.notEmpty(headers, "Empty XLS sheet '" + sheetName + "' in document " + uri);
+    // normalize headers
+    for (int i = 0; i < headers.length; i++) {
+      headers[i] = StringUtil.trimmedEmptyToNull(headers[i]);
+    }
+    // determine trailing empty headers
+    int headerCount = headers.length;
+    while (headers[headerCount - 1] == null && headerCount > 0) {
+      headerCount--;
+    }
+    // verify the regular headers
+    if (headerCount == 0) {
+      throw new IllegalArgumentException("No headers in XLS sheet '" + sheetName + "' of document " + uri);
+    }
+    for (int i = 0; i < headerCount; i++) {
+      Assert.notNull(headers[i], "Empty header in column #" + i + " of sheet '" + sheetName + "' of file '" + uri + "'");
+    }
+    // remove trailing empty headers
+    return ArrayUtil.copyOfRange(headers, 0, headerCount);
+  }
+
+  /**
+   * The type Ref resolver.
+   */
+  class RefResolver implements ReferenceResolver {
+    @Override
+    public Object resolveReferences(Object value, Object target, String localFeatureName) {
+      if (value instanceof String) {
+        String text = (String) value;
+        if (text.startsWith("tab:")) {
+          String targetSheetName = text.substring("tab:".length());
+          try {
+            Class<?> targetType = getFeatureComponentType(target.getClass(), localFeatureName);
+            return parseAll(uri, targetSheetName, formatted, targetType);
+          } catch (Exception e) {
+            throw new RuntimeException("Error parsing XLS sheet '" + targetSheetName + "' of " + uri, e);
+          }
+        }
+      }
+      return value;
+    }
+  }
 
 }

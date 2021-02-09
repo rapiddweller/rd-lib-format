@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.format.PadFormat;
@@ -22,34 +23,44 @@ import java.io.IOException;
 
 /**
  * Creates Iterators that iterate through the lines of a flat file and returns each line as array of Strings.
- * 
+ * <p>
  * Created: 27.08.2007 19:16:26
+ *
  * @author Volker Bergmann
  */
 public class FixedWidthLineSource extends AbstractDataSource<String[]> {
 
-    private final String uri;
-    private final PadFormat[] formats;
-    private final boolean ignoreEmptyLines;
-    private final String encoding;
-    private final String lineFilter;
+  private final String uri;
+  private final PadFormat[] formats;
+  private final boolean ignoreEmptyLines;
+  private final String encoding;
+  private final String lineFilter;
 
-    public FixedWidthLineSource(String uri, PadFormat[] formats, boolean ignoreEmptyLines, String encoding, String lineFilter) {
-    	super(String[].class);
-        this.uri = uri;
-        this.formats = formats.clone();
-        this.ignoreEmptyLines = ignoreEmptyLines;
-        this.encoding = encoding;
-        this.lineFilter = lineFilter;
-    }
+  /**
+   * Instantiates a new Fixed width line source.
+   *
+   * @param uri              the uri
+   * @param formats          the formats
+   * @param ignoreEmptyLines the ignore empty lines
+   * @param encoding         the encoding
+   * @param lineFilter       the line filter
+   */
+  public FixedWidthLineSource(String uri, PadFormat[] formats, boolean ignoreEmptyLines, String encoding, String lineFilter) {
+    super(String[].class);
+    this.uri = uri;
+    this.formats = formats.clone();
+    this.ignoreEmptyLines = ignoreEmptyLines;
+    this.encoding = encoding;
+    this.lineFilter = lineFilter;
+  }
 
-    @Override
-	public DataIterator<String[]> iterator() {
-        try {
-            return new FixedWidthLineIterator(uri, formats, ignoreEmptyLines, encoding, lineFilter);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+  @Override
+  public DataIterator<String[]> iterator() {
+    try {
+      return new FixedWidthLineIterator(uri, formats, ignoreEmptyLines, encoding, lineFilter);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
-    
+  }
+
 }

@@ -1,14 +1,20 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Table row test.
+ */
 public class TableRowTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         TableRow actualTableRow = new TableRow();
         assertEquals("<tr/>\n", actualTableRow.toString());
@@ -17,7 +23,10 @@ public class TableRowTest {
         assertEquals("tr", actualTableRow.getTagName());
     }
 
-    @Test
+  /**
+   * Test add cell.
+   */
+  @Test
     public void testAddCell() {
         TableRow tableRow = new TableRow();
         HtmlComponent htmlComponent = new HtmlComponent();
@@ -25,7 +34,10 @@ public class TableRowTest {
         assertSame(tableRow, tableRow.addCell(new TableCell(htmlComponent, htmlComponent1, new HtmlComponent())));
     }
 
-    @Test
+  /**
+   * Test new cell.
+   */
+  @Test
     public void testNewCell() {
         TableRow tableRow = new TableRow();
         TableCell actualNewCellResult = tableRow.newCell("Text");
@@ -36,7 +48,10 @@ public class TableRowTest {
         assertEquals("<tr>\n<td>\nText\n</td>\n\n</tr>\n", tableRow.toString());
     }
 
-    @Test
+  /**
+   * Test new cell 2.
+   */
+  @Test
     public void testNewCell2() {
         TableRow tableRow = new TableRow();
         HtmlComponent htmlComponent = new HtmlComponent();

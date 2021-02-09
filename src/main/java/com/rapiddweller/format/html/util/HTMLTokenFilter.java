@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.util;
 
 import com.rapiddweller.common.Filter;
@@ -19,32 +20,50 @@ import com.rapiddweller.format.html.parser.HTMLTokenizer;
 
 /**
  * {@link Filter} that accepts HTML tokens by type and name.
- * 
+ * <p>
  * Created: 16.06.2007 05:54:38
+ *
  * @author Volker Bergmann
  */
 public class HTMLTokenFilter implements Filter<HTMLTokenizer> {
 
-    private final int tokenType;
-    private final String name;
+  private final int tokenType;
+  private final String name;
 
-    public HTMLTokenFilter(int tokenType, String name) {
-        this.tokenType = tokenType;
-        this.name = name;
-    }
+  /**
+   * Instantiates a new Html token filter.
+   *
+   * @param tokenType the token type
+   * @param name      the name
+   */
+  public HTMLTokenFilter(int tokenType, String name) {
+    this.tokenType = tokenType;
+    this.name = name;
+  }
 
-    @Override
-	public boolean accept(HTMLTokenizer candidate) {
-        if (this.tokenType != candidate.tokenType())
-            return false;
-        return (this.name != null && this.name.equalsIgnoreCase(candidate.name()));
+  @Override
+  public boolean accept(HTMLTokenizer candidate) {
+    if (this.tokenType != candidate.tokenType()) {
+      return false;
     }
+    return (this.name != null && this.name.equalsIgnoreCase(candidate.name()));
+  }
 
-    public int getTokenType() {
-        return tokenType;
-    }
+  /**
+   * Gets token type.
+   *
+   * @return the token type
+   */
+  public int getTokenType() {
+    return tokenType;
+  }
 
-    public String getName() {
-        return name;
-    }
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 }

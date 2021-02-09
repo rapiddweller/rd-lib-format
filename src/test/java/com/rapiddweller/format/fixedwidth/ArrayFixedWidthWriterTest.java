@@ -14,22 +14,22 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-import java.io.StringWriter;
-import java.io.IOException;
-
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.format.script.ConstantScript;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link ArrayFixedWidthWriter}.
  * Created: 16.06.2007 06:07:52
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class ArrayFixedWidthWriterTest {
 
@@ -38,7 +38,12 @@ public class ArrayFixedWidthWriterTest {
     private static final String RESULT =
             "header" + SEP + "1   23" + SEP + "14 156" + SEP + "footer";
 
-    @Test
+  /**
+   * Test.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
     public void test() throws IOException {
         StringWriter out = new StringWriter();
         ArrayFixedWidthWriter<Integer> writer = new ArrayFixedWidthWriter<Integer>(

@@ -12,24 +12,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML bold element.
  * Created: 06.01.2014 08:08:47
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Bold extends HtmlElement<Bold> {
 
-	public Bold(String text) {
-		this(new TextComponent(text));
-	}
+  /**
+   * Instantiates a new Bold.
+   *
+   * @param text the text
+   */
+  public Bold(String text) {
+    this(new TextComponent(text));
+  }
 
-	public Bold(HtmlComponent component) {
-		super("b", true);
-		this.withComponents(component);
-	}
+  /**
+   * Instantiates a new Bold.
+   *
+   * @param component the component
+   */
+  public Bold(HtmlComponent component) {
+    super("b", true);
+    this.withComponents(component);
+  }
 
 }

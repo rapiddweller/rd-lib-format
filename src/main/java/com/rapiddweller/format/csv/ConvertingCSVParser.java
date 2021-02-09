@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.Converter;
@@ -27,54 +28,83 @@ import java.util.List;
 /**
  * Parses CSV files and converts the row to the desired target type.
  * Created at 25.04.2008 18:49:50
+ *
  * @param <E> the type of the objects to provide
- * @since 0.4.2
  * @author Volker Bergmann
+ * @since 0.4.2
  */
-public class ConvertingCSVParser<E> implements DataIterator<E>{
-	
-	private final Converter<String[], E> rowConverter;
-	private final CSVLineIterator source;
-	private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
-	
-	public ConvertingCSVParser(String uri, Converter<String[], E> rowConverter) throws IOException {
-		this.source = new CSVLineIterator(uri);
-		this.rowConverter = rowConverter;
-	}
+public class ConvertingCSVParser<E> implements DataIterator<E> {
 
-	@Override
-	public Class<E> getType() {
-		return rowConverter.getTargetType();
-	}
+  private final Converter<String[], E> rowConverter;
+  private final CSVLineIterator source;
+  private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
 
-	@Override
-	public DataContainer<E> next(DataContainer<E> wrapper) {
-		DataContainer<String[]> tmp = source.next(dataContainer.get());
-		if (tmp == null)
-			return null;
-		return wrapper.setData(rowConverter.convert(tmp.getData()));
-	}
+  /**
+   * Instantiates a new Converting csv parser.
+   *
+   * @param uri          the uri
+   * @param rowConverter the row converter
+   * @throws IOException the io exception
+   */
+  public ConvertingCSVParser(String uri, Converter<String[], E> rowConverter) throws IOException {
+    this.source = new CSVLineIterator(uri);
+    this.rowConverter = rowConverter;
+  }
 
-	@Override
-	public void close() {
-		source.close();
-	}
-	
-	public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter) throws IOException {
-		return parse(uri, rowConverter, new ArrayList<T>());
-	}
-	
-	public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter, List<T> list) throws IOException {
-		ConvertingCSVParser<T> parser = null;
-		try {
-			parser = new ConvertingCSVParser<T>(uri, rowConverter);
-			DataContainer<T> container = new DataContainer<T>();
-			while ((container = parser.next(container)) != null)
-				list.add(container.getData());
-			return list;
-		} finally {
-			IOUtil.close(parser);
-		}
-	}
+  @Override
+  public Class<E> getType() {
+    return rowConverter.getTargetType();
+  }
+
+  @Override
+  public DataContainer<E> next(DataContainer<E> wrapper) {
+    DataContainer<String[]> tmp = source.next(dataContainer.get());
+    if (tmp == null) {
+      return null;
+    }
+    return wrapper.setData(rowConverter.convert(tmp.getData()));
+  }
+
+  @Override
+  public void close() {
+    source.close();
+  }
+
+  /**
+   * Parse list.
+   *
+   * @param <T>          the type parameter
+   * @param uri          the uri
+   * @param rowConverter the row converter
+   * @return the list
+   * @throws IOException the io exception
+   */
+  public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter) throws IOException {
+    return parse(uri, rowConverter, new ArrayList<T>());
+  }
+
+  /**
+   * Parse list.
+   *
+   * @param <T>          the type parameter
+   * @param uri          the uri
+   * @param rowConverter the row converter
+   * @param list         the list
+   * @return the list
+   * @throws IOException the io exception
+   */
+  public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter, List<T> list) throws IOException {
+    ConvertingCSVParser<T> parser = null;
+    try {
+      parser = new ConvertingCSVParser<T>(uri, rowConverter);
+      DataContainer<T> container = new DataContainer<T>();
+      while ((container = parser.next(container)) != null) {
+        list.add(container.getData());
+      }
+      return list;
+    } finally {
+      IOUtil.close(parser);
+    }
+  }
 
 }

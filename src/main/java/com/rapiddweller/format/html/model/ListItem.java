@@ -12,20 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML list item (&lt;li&gt;).
  * Created: 09.07.2014 13:53:40
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public class ListItem extends HtmlElement<ListItem> {
 
-	public ListItem(HtmlComponent content) {
-		super("li", true);
-		addComponent(content);
-	}
+  /**
+   * Instantiates a new List item.
+   *
+   * @param content the content
+   */
+  public ListItem(HtmlComponent content) {
+    super("li", true);
+    addComponent(content);
+  }
 
 }

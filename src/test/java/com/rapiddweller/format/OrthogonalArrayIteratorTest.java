@@ -14,21 +14,26 @@
  */
 package com.rapiddweller.format;
 
-import static org.junit.Assert.*;
-
 import com.rapiddweller.format.util.ListDataIterator;
 import com.rapiddweller.format.util.OrthogonalArrayIterator;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * Tests the {@link OrthogonalArrayIterator}.
  * Created: 08.12.2011 14:33:30
- * @since 0.6.5
+ *
  * @author Volker Bergmann
+ * @since 0.6.5
  */
 public class OrthogonalArrayIteratorTest {
 
-	@Test
+  /**
+   * Test.
+   */
+  @Test
 	public void test() {
 		DataIterator<Integer[]> source = new ListDataIterator<Integer[]>(Integer[].class, 
 				new Integer[] { 1, 2 }, 

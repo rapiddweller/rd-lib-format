@@ -14,44 +14,53 @@
  */
 package com.rapiddweller.format.compare;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.converter.XMLNode2StringConverter;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests the {@link ArrayComparator}.
  * Created: 20.11.2013 19:08:28
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public class ArrayComparatorTest {
 	
 	private final DiffFactory diffFactory = new DiffFactory(new XMLNode2StringConverter());
-	
-	@Test
+
+  /**
+   * Test identical lists.
+   */
+  @Test
 	public void testIdenticalLists() {
 		String[] l1 = new String[] { "A", "B", "C" };
 		String[] l2 = new String[] { "A", "B", "C" };
 		ArrayComparisonResult result = ArrayComparator.compare(l1, l2, new StringComparisonModel(), "", "", diffFactory);
 		assertTrue(result.identical());
 	}
-	
-	@Test
+
+  /**
+   * Test empty lists.
+   */
+  @Test
 	public void testEmptyLists() {
 		String[] l1 = new String[] { };
 		String[] l2 = new String[] { };
 		ArrayComparisonResult result = ArrayComparator.compare(l1, l2, new StringComparisonModel(), "", "", diffFactory);
 		assertTrue(result.identical());
 	}
-	
-	@Test
+
+  /**
+   * Test removed last.
+   */
+  @Test
 	public void testRemovedLast() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -59,8 +68,11 @@ public class ArrayComparatorTest {
 			diffFactory.missing("C", "list element", "[2]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test removed middle.
+   */
+  @Test
 	public void testRemovedMiddle() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -68,8 +80,11 @@ public class ArrayComparatorTest {
 			diffFactory.missing("B", "list element", "[1]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test removed first.
+   */
+  @Test
 	public void testRemovedFirst() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -77,8 +92,11 @@ public class ArrayComparatorTest {
 			diffFactory.missing("A", "list element", "[0]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test added end.
+   */
+  @Test
 	public void testAddedEnd() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -86,8 +104,11 @@ public class ArrayComparatorTest {
 			diffFactory.unexpected("X", "list element", "[3]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test added in between.
+   */
+  @Test
 	public void testAddedInBetween() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -95,8 +116,11 @@ public class ArrayComparatorTest {
 			diffFactory.unexpected("X", "list element", "[1]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test added beginning.
+   */
+  @Test
 	public void testAddedBeginning() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -104,8 +128,11 @@ public class ArrayComparatorTest {
 			diffFactory.unexpected("X", "list element", "[0]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test swapped neighbours.
+   */
+  @Test
 	public void testSwappedNeighbours() {
 		check(
 			new String[] { "A", "B", "C" }, 
@@ -113,8 +140,11 @@ public class ArrayComparatorTest {
 			diffFactory.moved("B", "list element", "[1]", "[2]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test swapped ends.
+   */
+  @Test
 	public void testSwappedEnds() {
 		String[] l1 = new String[] { "A", "B", "C" };
 		String[] l2 = new String[] { "C", "B", "A" };
@@ -126,8 +156,11 @@ public class ArrayComparatorTest {
 			diffFactory.moved("A", "list element", "[0]", "[2]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test ring change.
+   */
+  @Test
 	public void testRingChange() {
 		String[] l1 = new String[] { "A", "B", "C" };
 		String[] l2 = new String[] { "B", "C", "A" };
@@ -139,8 +172,11 @@ public class ArrayComparatorTest {
 			diffFactory.moved("A", "list element", "[0]", "[2]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test changed.
+   */
+  @Test
 	public void testChanged() {
 		check(
 			new String[] { "A", "B",  "C" }, 
@@ -148,8 +184,11 @@ public class ArrayComparatorTest {
 			diffFactory.different("B", "B2", "list element", "[1]", "[1]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test removed and added.
+   */
+  @Test
 	public void testRemovedAndAdded() {
 		check(
 			new String[] { "A", "B",  "C" }, 
@@ -158,8 +197,11 @@ public class ArrayComparatorTest {
 			diffFactory.unexpected("X", "list element", "[1]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test moved and changed.
+   */
+  @Test
 	public void testMovedAndChanged() {
 		check(
 			new String[] { "A", "B",  "C" }, 
@@ -168,8 +210,11 @@ public class ArrayComparatorTest {
 			diffFactory.different("B", "B2", "string", "[1]", "[2]")
 		);
 	}
-	
-	@Test
+
+  /**
+   * Test all change types.
+   */
+  @Test
 	public void testAllChangeTypes() {
 		check(
 				new String[] { "A", "B", "C", "D",  "E" }, 
@@ -195,8 +240,11 @@ public class ArrayComparatorTest {
 			System.out.println(diff);
 		assertArrayEquals(expectedDiffs, CollectionUtil.toArray(actualDiffs));
 	}
-	
-	static class StringComparisonModel implements ComparisonModel {
+
+  /**
+   * The type String comparison model.
+   */
+  static class StringComparisonModel implements ComparisonModel {
 
 		@Override
 		public String classifierOf(Object object) {

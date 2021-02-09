@@ -12,28 +12,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML anchor.
  * Created: 06.01.2014 08:55:54
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Anchor extends HtmlElement<Anchor> {
 
-	public Anchor(String label) {
-		this(new TextComponent(label));
-	}
+  /**
+   * Instantiates a new Anchor.
+   *
+   * @param label the label
+   */
+  public Anchor(String label) {
+    this(new TextComponent(label));
+  }
 
-	public Anchor(HtmlComponent label) {
-		super("a", true);
-		this.withComponents(label);
-	}
-	
-	public Anchor withHref(String url) {
-		return this.withAttribute("href", url);
-	}
-	
+  /**
+   * Instantiates a new Anchor.
+   *
+   * @param label the label
+   */
+  public Anchor(HtmlComponent label) {
+    super("a", true);
+    this.withComponents(label);
+  }
+
+  /**
+   * With href anchor.
+   *
+   * @param url the url
+   * @return the anchor
+   */
+  public Anchor withHref(String url) {
+    return this.withAttribute("href", url);
+  }
+
 }

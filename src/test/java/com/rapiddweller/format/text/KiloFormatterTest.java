@@ -14,22 +14,25 @@
  */
 package com.rapiddweller.format.text;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Locale;
 
-import com.rapiddweller.format.text.KiloFormatter;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link KiloFormatter}.
  * Created: 13.12.2012 14:17:17
- * @since 0.5.21
+ *
  * @author Volker Bergmann
+ * @since 0.5.21
  */
 public class KiloFormatterTest {
-	
-	@Test
+
+  /**
+   * Test base 1000.
+   */
+  @Test
 	public void testBase1000() {
 		KiloFormatter formatter = new KiloFormatter(1000, Locale.US);
 		assertEquals("0", formatter.format(0));

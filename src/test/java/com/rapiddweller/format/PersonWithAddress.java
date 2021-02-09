@@ -20,55 +20,120 @@ import java.util.List;
 /**
  * Person JavaBean for testing.
  * Created: 18.09.2014 19:03:00
- * @since 1.0.0
+ *
  * @author Volker Bergmann
+ * @since 1.0.0
  */
-
 public class PersonWithAddress {
 
-	String name;
-	int age;
-	Date date;
-	Address address;
-	List<Address> addresses;
+  /**
+   * The Name.
+   */
+  String name;
+  /**
+   * The Age.
+   */
+  int age;
+  /**
+   * The Date.
+   */
+  Date date;
+  /**
+   * The Address.
+   */
+  Address address;
+  /**
+   * The Addresses.
+   */
+  List<Address> addresses;
 
-	public String getName() {
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getAge() {
+  /**
+   * Gets age.
+   *
+   * @return the age
+   */
+  public int getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+  /**
+   * Sets age.
+   *
+   * @param age the age
+   */
+  public void setAge(int age) {
 		this.age = age;
 	}
 
-	public Date getDate() {
+  /**
+   * Gets date.
+   *
+   * @return the date
+   */
+  public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+  /**
+   * Sets date.
+   *
+   * @param date the date
+   */
+  public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public Address getAddress() {
+  /**
+   * Gets address.
+   *
+   * @return the address
+   */
+  public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+  /**
+   * Sets address.
+   *
+   * @param address the address
+   */
+  public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	public List<Address> getAddresses() {
+  /**
+   * Gets addresses.
+   *
+   * @return the addresses
+   */
+  public List<Address> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+  /**
+   * Sets addresses.
+   *
+   * @param addresses the addresses
+   */
+  public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 

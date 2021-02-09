@@ -1,23 +1,27 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
 import com.rapiddweller.common.filter.OrFilter;
-import com.rapiddweller.common.iterator.CyclicIterator;
 import com.rapiddweller.common.iterator.FilteringIterator;
 import com.rapiddweller.common.iterator.JDKIteratorWrapper;
 import com.rapiddweller.common.iterator.ReverseIterator;
 import com.rapiddweller.format.DataContainer;
+import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Map;
 
-import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
-import org.junit.Test;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
+/**
+ * The type Data iterator proxy test.
+ */
 public class DataIteratorProxyTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,
@@ -26,7 +30,10 @@ public class DataIteratorProxyTest {
         assertSame(expectedType, (new DataIteratorProxy<Object>(dataIteratorFromJavaIterator)).getType());
     }
 
-    @Test
+  /**
+   * Test get type.
+   */
+  @Test
     public void testGetType() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         Class<Object> actualType = (new DataIteratorProxy<Object>(
@@ -34,7 +41,10 @@ public class DataIteratorProxyTest {
         assertSame(Object.class, actualType);
     }
 
-    @Test
+  /**
+   * Test get type 2.
+   */
+  @Test
     public void testGetType2() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         Class<Object> actualType = (new DataIteratorProxy<Object>(
@@ -42,7 +52,10 @@ public class DataIteratorProxyTest {
         assertSame(Object.class, actualType);
     }
 
-    @Test
+  /**
+   * Test next.
+   */
+  @Test
     public void testNext() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<Object>(
@@ -50,7 +63,10 @@ public class DataIteratorProxyTest {
         assertNull(dataIteratorProxy.next(new DataContainer<Object>()));
     }
 
-    @Test
+  /**
+   * Test next 2.
+   */
+  @Test
     public void testNext2() {
         ReverseIterator<Object> realIterator = new ReverseIterator<Object>(new ReverseIterator<Object>(
                 new JDKIteratorWrapper<Object>(new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>()))));
@@ -64,7 +80,10 @@ public class DataIteratorProxyTest {
     }
 
 
-    @Test
+  /**
+   * Test next 4.
+   */
+  @Test
     public void testNext4() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<Object>(

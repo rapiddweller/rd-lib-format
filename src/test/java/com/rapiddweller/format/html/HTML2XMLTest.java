@@ -14,22 +14,23 @@
  */
 package com.rapiddweller.format.html;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import java.io.*;
-import java.text.ParseException;
-
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.format.html.HTML2XML;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.text.ParseException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link HTML2XML} class.
  * Created: 25.01.2007 17:31:28
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class HTML2XMLTest {
 
@@ -93,22 +94,42 @@ public class HTML2XMLTest {
     
     // tests -----------------------------------------------------------------------------------------------------------
 
-    @Test
+  /**
+   * Test normal.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testNormal() throws Exception {
 		check(HTML1, XML1);
     }
 
-    @Test
+  /**
+   * Test missing html.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testMissingHtml() throws Exception {
 		check(HTML2, XML2);
     }
 
-    @Test
+  /**
+   * Test ampersand.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testAmpersand() throws Exception {
 		check(HTML3, XML3);
     }
-    
-    @Test
+
+  /**
+   * Test xml in attribute.
+   *
+   * @throws Exception the exception
+   */
+  @Test
     public void testXmlInAttribute() throws Exception {
 		check(HTML4, XML4);
     }

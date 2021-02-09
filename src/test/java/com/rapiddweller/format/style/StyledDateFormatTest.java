@@ -1,28 +1,35 @@
 package com.rapiddweller.format.style;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.ConcurrentDateFormat;
+import org.junit.Test;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
 
-import org.apache.poi.ss.usermodel.ExcelStyleDateFormatter;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
-import org.junit.Test;
-
+/**
+ * The type Styled date format test.
+ */
 public class StyledDateFormatTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         assertEquals(Alignment.RIGHT, (new StyledDateFormat()).getAlignment());
         assertEquals(Alignment.RIGHT, (new StyledDateFormat()).getAlignment());
     }
 
-    @Test
+  /**
+   * Test constructor 2.
+   *
+   * @throws MissingResourceException the missing resource exception
+   */
+  @Test
     public void testConstructor2() throws MissingResourceException {
         Locale locale = new Locale("en");
         assertEquals("en", locale.getLanguage());
@@ -40,7 +47,12 @@ public class StyledDateFormatTest {
         assertEquals("en", locale.toString());
     }
 
-    @Test
+  /**
+   * Test constructor 3.
+   *
+   * @throws MissingResourceException the missing resource exception
+   */
+  @Test
     public void testConstructor3() throws MissingResourceException {
         Locale locale = new Locale("en");
         assertEquals(Alignment.RIGHT, (new StyledDateFormat("", locale)).getAlignment());
@@ -60,7 +72,12 @@ public class StyledDateFormatTest {
     }
 
 
-    @Test
+  /**
+   * Test constructor 5.
+   *
+   * @throws MissingResourceException the missing resource exception
+   */
+  @Test
     public void testConstructor5() throws MissingResourceException {
         Locale locale = new Locale("en");
         assertEquals(Alignment.RIGHT, (new StyledDateFormat("", locale)).getAlignment());
@@ -79,7 +96,10 @@ public class StyledDateFormatTest {
         assertEquals("en", locale.toString());
     }
 
-    @Test
+  /**
+   * Test constructor 6.
+   */
+  @Test
     public void testConstructor6() {
         ConcurrentDateFormat concurrentDateFormat = new ConcurrentDateFormat("Pattern");
         assertEquals(Alignment.RIGHT, (new StyledDateFormat(concurrentDateFormat)).getAlignment());

@@ -12,25 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import com.rapiddweller.common.StringUtil;
 
 /**
- * Normalizes names in capitalization and spacing. 
- * This includes trimming left and right, internal 
- * space normalization and starting each single word 
+ * Normalizes names in capitalization and spacing.
+ * This includes trimming left and right, internal
+ * space normalization and starting each single word
  * with a capital letter.
- * 
+ * <p>
  * Created at 20.11.2008 19:39:20
- * @since 0.4.6
+ *
  * @author Volker Bergmann
+ * @since 0.4.6
  */
-
 public class NameNormalizer extends NormalizeSpaceConverter {
-	
-    @Override
-	public String convert(String sourceValue) {
-        return StringUtil.normalizeName(StringUtil.normalizeSpace(sourceValue));
-    }
+
+  @Override
+  public String convert(String sourceValue) {
+    return StringUtil.normalizeName(StringUtil.normalizeSpace(sourceValue));
+  }
 }

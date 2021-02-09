@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml;
 
 import org.w3c.dom.Element;
@@ -19,11 +20,28 @@ import org.w3c.dom.Element;
 /**
  * Parent interface for classes that parse XML structures into Java objects.
  * Created: 05.12.2010 10:42:56
+ *
  * @param <E> the type of element to provide
- * @since 0.5.4
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public interface XMLElementParser<E> {
-	boolean supports(Element element, E[] parentPath);
-	E parse(Element element, E[] parentPath, ParseContext<E> context);
+  /**
+   * Supports boolean.
+   *
+   * @param element    the element
+   * @param parentPath the parent path
+   * @return the boolean
+   */
+  boolean supports(Element element, E[] parentPath);
+
+  /**
+   * Parse e.
+   *
+   * @param element    the element
+   * @param parentPath the parent path
+   * @param context    the context
+   * @return the e
+   */
+  E parse(Element element, E[] parentPath, ParseContext<E> context);
 }

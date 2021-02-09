@@ -1,22 +1,26 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertNull;
-
 import com.rapiddweller.common.filter.OrFilter;
-import com.rapiddweller.common.iterator.CyclicIterator;
 import com.rapiddweller.common.iterator.FilteringIterator;
 import com.rapiddweller.common.iterator.JDKIteratorWrapper;
 import com.rapiddweller.common.iterator.ReverseIterator;
 import com.rapiddweller.format.DataContainer;
+import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Map;
 
-import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
-import org.junit.Test;
+import static org.junit.Assert.assertNull;
 
+/**
+ * The type Data iterator from java iterator test.
+ */
 public class DataIteratorFromJavaIteratorTest {
-    @Test
+  /**
+   * Test next.
+   */
+  @Test
     public void testNext() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,
@@ -24,7 +28,10 @@ public class DataIteratorFromJavaIteratorTest {
         assertNull(dataIteratorFromJavaIterator.next(new DataContainer<Object>()));
     }
 
-    @Test
+  /**
+   * Test next 2.
+   */
+  @Test
     public void testNext2() {
         ReverseIterator<Object> realIterator = new ReverseIterator<Object>(new ReverseIterator<Object>(
                 new JDKIteratorWrapper<Object>(new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>()))));
@@ -37,7 +44,10 @@ public class DataIteratorFromJavaIteratorTest {
         assertNull(dataIteratorFromJavaIterator.next(new DataContainer<Object>()));
     }
 
-    @Test
+  /**
+   * Test close.
+   */
+  @Test
     public void testClose() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.

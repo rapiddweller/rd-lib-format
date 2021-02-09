@@ -12,32 +12,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents the &lt;html&gt; content of an HTML document.
  * Created: 06.01.2014 09:14:12
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Html extends HtmlElement<Html> {
-	
-	public Html(HtmlComponent... components) {
-		super("html", false);
-		setComponents(components);
-	}
-	
-	public Head createHead() {
-		Head head = new Head();
-		addComponent(head);
-		return head;
-	}
 
-	public Body createBody() {
-		Body body = new Body();
-		addComponent(body);
-		return body;
-	}
-	
+  /**
+   * Instantiates a new Html.
+   *
+   * @param components the components
+   */
+  public Html(HtmlComponent... components) {
+    super("html", false);
+    setComponents(components);
+  }
+
+  /**
+   * Create head head.
+   *
+   * @return the head
+   */
+  public Head createHead() {
+    Head head = new Head();
+    addComponent(head);
+    return head;
+  }
+
+  /**
+   * Create body body.
+   *
+   * @return the body
+   */
+  public Body createBody() {
+    Body body = new Body();
+    addComponent(body);
+    return body;
+  }
+
 }

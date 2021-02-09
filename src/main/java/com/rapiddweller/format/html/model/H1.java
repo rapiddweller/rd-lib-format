@@ -12,20 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML &lt;h1&gt;.
  * Created: 15.06.2014 08:45:11
- * @since 0.8.3
+ *
  * @author Volker Bergmann
+ * @since 0.8.3
  */
-
 public class H1 extends HtmlElement<H1> {
-	
-	public H1(String text) {
-		super("h1", true);
-		addComponent(text);
-	}
-	
+
+  /**
+   * Instantiates a new H 1.
+   *
+   * @param text the text
+   */
+  public H1(String text) {
+    super("h1", true);
+    addComponent(text);
+  }
+
 }

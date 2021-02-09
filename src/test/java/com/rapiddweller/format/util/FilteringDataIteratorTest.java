@@ -1,24 +1,28 @@
 package com.rapiddweller.format.util;
 
+import com.rapiddweller.common.filter.AcceptAllFilter;
+import com.rapiddweller.common.filter.OrFilter;
+import com.rapiddweller.format.DataContainer;
+import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
+import org.junit.Test;
+
+import java.util.AbstractMap;
+import java.util.HashSet;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import com.rapiddweller.common.filter.AcceptAllFilter;
-import com.rapiddweller.common.filter.OrFilter;
-import com.rapiddweller.format.DataContainer;
-
-import java.util.AbstractMap;
-
-import java.util.HashSet;
-import java.util.Map;
-
-import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
-import org.junit.Test;
-
+/**
+ * The type Filtering data iterator test.
+ */
 public class FilteringDataIteratorTest {
-    @Test
+  /**
+   * Test next.
+   */
+  @Test
     public void testNext() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorFromJavaIterator<Object> source1 = new DataIteratorFromJavaIterator<Object>(source, Object.class);
@@ -29,7 +33,10 @@ public class FilteringDataIteratorTest {
         assertNull(filteringDataIterator.next(new DataContainer<Object>()));
     }
 
-    @Test
+  /**
+   * Test next 4.
+   */
+  @Test
     public void testNext4() {
         HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
         entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
@@ -48,7 +55,10 @@ public class FilteringDataIteratorTest {
                         .getValue() instanceof String);
     }
 
-    @Test
+  /**
+   * Test next 5.
+   */
+  @Test
     public void testNext5() {
         HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
         entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));

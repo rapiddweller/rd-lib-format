@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.format.DataContainer;
@@ -20,19 +21,28 @@ import com.rapiddweller.format.DataIterator;
 /**
  * Utility class for {@link DataIterator}-related functionality.
  * Created: 24.07.2011 16:15:48
- * @since 0.6.0
+ *
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class DataUtil {
-	
-	private DataUtil() {
-	}
 
-	public static <T> T nextNotNullData(DataIterator<T> iterator) {
-		DataContainer<T> container = iterator.next(new DataContainer<T>());
-		if (container == null)
-			throw new IllegalArgumentException("iterator is unavailable though a value is expected: " + iterator);
-		return container.getData();
-	}
-	
+  private DataUtil() {
+  }
+
+  /**
+   * Next not null data t.
+   *
+   * @param <T>      the type parameter
+   * @param iterator the iterator
+   * @return the t
+   */
+  public static <T> T nextNotNullData(DataIterator<T> iterator) {
+    DataContainer<T> container = iterator.next(new DataContainer<T>());
+    if (container == null) {
+      throw new IllegalArgumentException("iterator is unavailable though a value is expected: " + iterator);
+    }
+    return container.getData();
+  }
+
 }

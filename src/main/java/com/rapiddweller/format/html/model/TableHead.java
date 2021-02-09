@@ -12,29 +12,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML table head (&lt;thead&gt;).
  * Created: 09.07.2014 14:18:38
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public class TableHead extends HtmlElement<TableHead> {
 
-	public TableHead() {
-		super("thead", false);
-	}
+  /**
+   * Instantiates a new Table head.
+   */
+  public TableHead() {
+    super("thead", false);
+  }
 
-	public TableRow newRow() {
-		TableRow row = new TableRow();
-		addRow(row);
-		return row;
-	}
+  /**
+   * New row table row.
+   *
+   * @return the table row
+   */
+  public TableRow newRow() {
+    TableRow row = new TableRow();
+    addRow(row);
+    return row;
+  }
 
-	public TableHead addRow(TableRow row) {
-		return addComponent(row);
-	}
+  /**
+   * Add row table head.
+   *
+   * @param row the row
+   * @return the table head
+   */
+  public TableHead addRow(TableRow row) {
+    return addComponent(row);
+  }
 
 }

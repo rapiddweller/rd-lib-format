@@ -12,19 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an ordered HTML list (&lt;ol&gt;).
  * Created: 09.07.2014 13:51:20
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public class OrderedList extends List {
 
-	public OrderedList() {
-		super("ol");
-	}
+  /**
+   * Instantiates a new Ordered list.
+   */
+  public OrderedList() {
+    super("ol");
+  }
 
 }

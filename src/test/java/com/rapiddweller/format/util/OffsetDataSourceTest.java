@@ -1,17 +1,22 @@
 package com.rapiddweller.format.util;
 
+import com.rapiddweller.format.DataIterator;
+import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import com.rapiddweller.format.DataIterator;
-
-import java.util.ArrayList;
-
-import org.junit.Test;
-
+/**
+ * The type Offset data source test.
+ */
 public class OffsetDataSourceTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         ArrayList<Object> source = new ArrayList<Object>();
         OffsetDataSource<Object> actualOffsetDataSource = new OffsetDataSource<Object>(
@@ -24,7 +29,10 @@ public class OffsetDataSourceTest {
         assertSame(expectedType, actualOffsetDataSource.getType());
     }
 
-    @Test
+  /**
+   * Test iterator.
+   */
+  @Test
     public void testIterator() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataIterator<Object> actualIteratorResult = (new OffsetDataSource<Object>(new DataSourceProxy(
@@ -34,7 +42,10 @@ public class OffsetDataSourceTest {
         assertSame(expectedType, actualIteratorResult.getType());
     }
 
-    @Test
+  /**
+   * Test iterator 2.
+   */
+  @Test
     public void testIterator2() {
         ArrayList<Object> source = new ArrayList<Object>();
         DataIterator<Object> actualIteratorResult = (new OffsetDataSource<Object>(
@@ -47,7 +58,10 @@ public class OffsetDataSourceTest {
         assertSame(expectedType, actualIteratorResult.getType());
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -61,7 +75,10 @@ public class OffsetDataSourceTest {
                 .toString();
     }
 
-    @Test
+  /**
+   * Test to string 2.
+   */
+  @Test
     public void testToString2() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.

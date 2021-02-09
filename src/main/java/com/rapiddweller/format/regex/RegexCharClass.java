@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.regex;
 
 import com.rapiddweller.common.CharSet;
@@ -19,22 +20,27 @@ import com.rapiddweller.common.CharSet;
 /**
  * Parent class for classes that represent a single character in a regular expression.
  * Created: 04.04.2014 16:24:52
- * @since 0.8.0
+ *
  * @author Volker Bergmann
+ * @since 0.8.0
  */
-
 public abstract class RegexCharClass implements RegexPart {
 
-	@Override
-	public int minLength() {
-		return 1;
-	}
+  @Override
+  public int minLength() {
+    return 1;
+  }
 
-	@Override
-	public Integer maxLength() {
-		return 1;
-	}
-	
-	public abstract CharSet getCharSet();
-	
+  @Override
+  public Integer maxLength() {
+    return 1;
+  }
+
+  /**
+   * Gets char set.
+   *
+   * @return the char set
+   */
+  public abstract CharSet getCharSet();
+
 }

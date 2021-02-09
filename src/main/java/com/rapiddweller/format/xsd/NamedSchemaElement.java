@@ -12,34 +12,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xsd;
 
 /**
  * Parent class for {@link SchemaElement}s that carry a name (attribute).
  * Created: 16.05.2014 19:30:31
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public class NamedSchemaElement extends SchemaElement {
 
-	protected String name;
-	
-	public NamedSchemaElement(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	@Override
-	public String toString() {
-		return renderNamePrefix() + getClass().getSimpleName() + renderShortDocumentation();
-	}
-	
-	protected String renderNamePrefix() {
-		return (name != null ? name + ": " : "");
-	}
-	
+  /**
+   * The Name.
+   */
+  protected String name;
+
+  /**
+   * Instantiates a new Named schema element.
+   *
+   * @param name the name
+   */
+  public NamedSchemaElement(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String toString() {
+    return renderNamePrefix() + getClass().getSimpleName() + renderShortDocumentation();
+  }
+
+  /**
+   * Render name prefix string.
+   *
+   * @return the string
+   */
+  protected String renderNamePrefix() {
+    return (name != null ? name + ": " : "");
+  }
+
 }

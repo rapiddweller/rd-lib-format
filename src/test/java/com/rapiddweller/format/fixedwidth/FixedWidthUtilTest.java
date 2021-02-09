@@ -14,7 +14,8 @@
  */
 package com.rapiddweller.format.fixedwidth;
 
-import static org.junit.Assert.*;
+import com.rapiddweller.common.format.Alignment;
+import org.junit.Test;
 
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
@@ -23,18 +24,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.rapiddweller.common.format.Alignment;
-import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Tests the {@link FixedWidthUtil}.
  * Created at 29.04.2008 19:06:41
- * @since 0.4.2
+ *
  * @author Volker Bergmann
+ * @since 0.4.2
  */
 public class FixedWidthUtilTest {
 
-	@Test
+  /**
+   * Test left.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testLeft() throws Exception {
 		FixedWidthColumnDescriptor d3l = new FixedWidthColumnDescriptor("name", 3, Alignment.LEFT, ' ');
 		FixedWidthColumnDescriptor[] array = new FixedWidthColumnDescriptor[] { d3l };
@@ -43,7 +49,12 @@ public class FixedWidthUtilTest {
 		assertArrayEquals(array, parse("name[3l ]"));
 	}
 
-	@Test
+  /**
+   * Test right.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testRight() throws Exception {
 		FixedWidthColumnDescriptor d3r = new FixedWidthColumnDescriptor("name", 3, Alignment.RIGHT, ' ');
 		FixedWidthColumnDescriptor[] array = new FixedWidthColumnDescriptor[] { d3r };
@@ -51,7 +62,12 @@ public class FixedWidthUtilTest {
 		assertArrayEquals(array, parse("name[3r ]"));
 	}
 
-	@Test
+  /**
+   * Test center.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testCenter() throws Exception {
 		FixedWidthColumnDescriptor d3c = new FixedWidthColumnDescriptor("name", 3, Alignment.CENTER, ' ');
 		FixedWidthColumnDescriptor[] array = new FixedWidthColumnDescriptor[] { d3c };
@@ -59,7 +75,12 @@ public class FixedWidthUtilTest {
 		assertArrayEquals(array, parse("name[3c ]"));
 	}
 
-	@Test
+  /**
+   * Test multiple.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testMultiple() throws Exception {
 		FixedWidthColumnDescriptor n3l = new FixedWidthColumnDescriptor("name", 3, Alignment.LEFT, ' ');
 		FixedWidthColumnDescriptor a3r = new FixedWidthColumnDescriptor("age",  3, Alignment.RIGHT, '0');
@@ -67,21 +88,36 @@ public class FixedWidthUtilTest {
 		assertArrayEquals(array, parse("name[3l],age[3r0]"));
 	}
 
-	@Test
+  /**
+   * Test parse pad char.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testParsePadChar() throws Exception {
 		FixedWidthColumnDescriptor d3l = new FixedWidthColumnDescriptor("name", 3, Alignment.LEFT, '_');
 		FixedWidthColumnDescriptor[] d3l_a = new FixedWidthColumnDescriptor[] { d3l };
 		assertArrayEquals(d3l_a, parse("name[3l_]"));
 	}
-	
-	@Test
+
+  /**
+   * Test date format.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testDateFormat() throws Exception {
 		FixedWidthColumnDescriptor d = new FixedWidthColumnDescriptor("date", new SimpleDateFormat("yyyyMMdd", DateFormatSymbols.getInstance(Locale.US)), "");
 		FixedWidthColumnDescriptor[] array = new FixedWidthColumnDescriptor[] { d };
 		assertArrayEquals(array, parse("date[DyyyyMMdd]"));
 	}
-	
-	@Test
+
+  /**
+   * Test number format.
+   *
+   * @throws Exception the exception
+   */
+  @Test
 	public void testNumberFormat() throws Exception {
 		FixedWidthColumnDescriptor n = new FixedWidthColumnDescriptor("num", new DecimalFormat("00.00", DecimalFormatSymbols.getInstance(Locale.US)), "");
 		FixedWidthColumnDescriptor[] array = new FixedWidthColumnDescriptor[] { n };

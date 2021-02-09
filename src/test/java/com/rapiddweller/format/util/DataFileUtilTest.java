@@ -1,30 +1,45 @@
 package com.rapiddweller.format.util;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type Data file util test.
+ */
 public class DataFileUtilTest {
-    @Test
+  /**
+   * Test is plain text document.
+   */
+  @Test
     public void testIsPlainTextDocument() {
         assertTrue(DataFileUtil.isPlainTextDocument("foo.txt"));
         assertFalse(DataFileUtil.isPlainTextDocument("File Name"));
     }
 
-    @Test
+  /**
+   * Test is db unit document.
+   */
+  @Test
     public void testIsDbUnitDocument() {
         assertFalse(DataFileUtil.isDbUnitDocument("foo.txt"));
         assertTrue(DataFileUtil.isDbUnitDocument(".dbunit.xml"));
     }
 
-    @Test
+  /**
+   * Test is xml document.
+   */
+  @Test
     public void testIsXmlDocument() {
         assertFalse(DataFileUtil.isXmlDocument("foo.txt"));
         assertTrue(DataFileUtil.isXmlDocument(".xml"));
     }
 
-    @Test
+  /**
+   * Test is excel or csv document.
+   */
+  @Test
     public void testIsExcelOrCsvDocument() {
         assertFalse(DataFileUtil.isExcelOrCsvDocument("foo.txt"));
         assertTrue(DataFileUtil.isExcelOrCsvDocument(".xls"));
@@ -32,38 +47,56 @@ public class DataFileUtilTest {
         assertTrue(DataFileUtil.isExcelOrCsvDocument(".csv"));
     }
 
-    @Test
+  /**
+   * Test is excel document.
+   */
+  @Test
     public void testIsExcelDocument() {
         assertFalse(DataFileUtil.isExcelDocument("foo.txt"));
         assertTrue(DataFileUtil.isExcelDocument(".xls"));
         assertTrue(DataFileUtil.isExcelDocument(".xlsx"));
     }
 
-    @Test
+  /**
+   * Test is binary excel document.
+   */
+  @Test
     public void testIsBinaryExcelDocument() {
         assertFalse(DataFileUtil.isBinaryExcelDocument("foo.txt"));
         assertTrue(DataFileUtil.isBinaryExcelDocument(".xls"));
     }
 
-    @Test
+  /**
+   * Test is xml excel document.
+   */
+  @Test
     public void testIsXmlExcelDocument() {
         assertFalse(DataFileUtil.isXmlExcelDocument("foo.txt"));
         assertTrue(DataFileUtil.isXmlExcelDocument(".xlsx"));
     }
 
-    @Test
+  /**
+   * Test is csv document.
+   */
+  @Test
     public void testIsCsvDocument() {
         assertFalse(DataFileUtil.isCsvDocument("foo.txt"));
         assertTrue(DataFileUtil.isCsvDocument(".csv"));
     }
 
-    @Test
+  /**
+   * Test is fixed column width file.
+   */
+  @Test
     public void testIsFixedColumnWidthFile() {
         assertFalse(DataFileUtil.isFixedColumnWidthFile("foo.txt"));
         assertTrue(DataFileUtil.isFixedColumnWidthFile(".fcw"));
     }
 
-    @Test
+  /**
+   * Test has suffix ignore case.
+   */
+  @Test
     public void testHasSuffixIgnoreCase() {
         assertFalse(DataFileUtil.hasSuffixIgnoreCase("Suffix", "foo.txt"));
         assertTrue(DataFileUtil.hasSuffixIgnoreCase("", "foo.txt"));

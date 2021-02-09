@@ -14,29 +14,34 @@
  */
 package com.rapiddweller.format;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
 import com.rapiddweller.common.version.VersionInfo;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 
 /**
  * Tests the {@link VersionInfo}.
  * Created: 23.03.2011 11:34:32
- * @since 0.5.8
+ *
  * @author Volker Bergmann
+ * @since 0.5.8
  */
 public class VersionInfoTest {
 
-	@Test
+  /**
+   * Test version.
+   */
+  @Test
 	public void testVersion() {
 		VersionInfo version = getVersion();
 		checkVersionNumber(version.getVersion());
 		System.out.println(version);
 	}
 
-	@Test
+  /**
+   * Test verify dependencies.
+   */
+  @Test
 	public void testVerifyDependencies() {
 		VersionInfo version = getVersion();
 		version.verifyDependencies();

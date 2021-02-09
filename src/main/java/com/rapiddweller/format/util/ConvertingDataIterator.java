@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.Converter;
@@ -24,43 +25,55 @@ import java.io.Closeable;
 /**
  * {@link DataIterator} proxy which applies a {@link Converter} to the data provided by its source.
  * Created: 24.07.2011 09:52:35
+ *
  * @param <S> the type of data to iterate from the source
  * @param <T> the type of data to provide to the client
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class ConvertingDataIterator<S, T> extends DataIteratorAdapter<S, T> {
 
-    protected Converter<S, T> converter;
+  /**
+   * The Converter.
+   */
+  protected Converter<S, T> converter;
 
-    public ConvertingDataIterator(DataIterator<S> source, Converter<S, T> converter) {
-    	super(source);
-        this.converter = converter;
-    }
-    
-    @Override
-	public Class<T> getType() {
-    	return converter.getTargetType();
-    }
+  /**
+   * Instantiates a new Converting data iterator.
+   *
+   * @param source    the source
+   * @param converter the converter
+   */
+  public ConvertingDataIterator(DataIterator<S> source, Converter<S, T> converter) {
+    super(source);
+    this.converter = converter;
+  }
 
-	@Override
-	public DataContainer<T> next(DataContainer<T> container) {
-        DataContainer<S> sourceWrapper = nextOfSource();
-        if (sourceWrapper == null)
-        	return null;
-        return container.setData(converter.convert(sourceWrapper.getData()));
-    }
+  @Override
+  public Class<T> getType() {
+    return converter.getTargetType();
+  }
 
-	@Override
-	public void close() {
-		if (converter instanceof Closeable)
-			IOUtil.close((Closeable) converter);
-		super.close();
-	}
-	
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "[source:" + source + ", converter:" + converter + "]";
-	}
-	
+  @Override
+  public DataContainer<T> next(DataContainer<T> container) {
+    DataContainer<S> sourceWrapper = nextOfSource();
+    if (sourceWrapper == null) {
+      return null;
+    }
+    return container.setData(converter.convert(sourceWrapper.getData()));
+  }
+
+  @Override
+  public void close() {
+    if (converter instanceof Closeable) {
+      IOUtil.close((Closeable) converter);
+    }
+    super.close();
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "[source:" + source + ", converter:" + converter + "]";
+  }
+
 }

@@ -12,28 +12,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML table cell.
  * Created: 06.01.2014 09:20:56
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
+public class TableCell extends HtmlElement<TableCell> {
 
-public class TableCell extends HtmlElement<TableCell>{
-	
-	public TableCell(String text) {
-		this(new TextComponent(text));
-	}
-	
-	public TableCell(HtmlComponent... components) {
-		super("td", false);
-		withComponents(components);
-	}
-	
-	public TableCell withColspan(int colspan) {
-		return this.withAttribute("colspan", String.valueOf(colspan));
-	}
-	
+  /**
+   * Instantiates a new Table cell.
+   *
+   * @param text the text
+   */
+  public TableCell(String text) {
+    this(new TextComponent(text));
+  }
+
+  /**
+   * Instantiates a new Table cell.
+   *
+   * @param components the components
+   */
+  public TableCell(HtmlComponent... components) {
+    super("td", false);
+    withComponents(components);
+  }
+
+  /**
+   * With colspan table cell.
+   *
+   * @param colspan the colspan
+   * @return the table cell
+   */
+  public TableCell withColspan(int colspan) {
+    return this.withAttribute("colspan", String.valueOf(colspan));
+  }
+
 }

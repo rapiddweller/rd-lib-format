@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ConversionException;
@@ -22,83 +23,111 @@ import java.io.IOException;
 
 /**
  * Iterates through cells of a CSV file.
- * 
+ * <p>
  * Created: 26.08.2006 18:52:08
+ *
  * @author Volker Bergmann
  */
 public class CSVCellIterator implements DataIterator<String> {
 
-    /** The source uri */
-    private final String uri;
+  /**
+   * The source uri
+   */
+  private final String uri;
 
-    private final char separator;
+  private final char separator;
 
-    /** The tokenizer for CSV file access */
-    private CSVTokenizer tokenizer;
+  /**
+   * The tokenizer for CSV file access
+   */
+  private CSVTokenizer tokenizer;
 
-    // constructors ----------------------------------------------------------------------------------------------------
+  // constructors ----------------------------------------------------------------------------------------------------
 
-    public CSVCellIterator(String uri, char separator, String encoding) throws IOException {
-        this.uri = uri;
-        this.separator = separator;
-        this.tokenizer = new CSVTokenizer(uri, separator, encoding);
-        skipEOLs();
+  /**
+   * Instantiates a new Csv cell iterator.
+   *
+   * @param uri       the uri
+   * @param separator the separator
+   * @param encoding  the encoding
+   * @throws IOException the io exception
+   */
+  public CSVCellIterator(String uri, char separator, String encoding) throws IOException {
+    this.uri = uri;
+    this.separator = separator;
+    this.tokenizer = new CSVTokenizer(uri, separator, encoding);
+    skipEOLs();
+  }
+
+  // properties ------------------------------------------------------------------------------------------------------
+
+  /**
+   * Gets uri.
+   *
+   * @return the uri
+   */
+  public String getUri() {
+    return uri;
+  }
+
+  /**
+   * Gets separator.
+   *
+   * @return the separator
+   */
+  public char getSeparator() {
+    return separator;
+  }
+
+  // Iterator implementation -----------------------------------------------------------------------------------------
+
+  @Override
+  public Class<String> getType() {
+    return String.class;
+  }
+
+  @Override
+  public DataContainer<String> next(DataContainer<String> wrapper) {
+    if (tokenizer == null) {
+      return null;
     }
-
-    // properties ------------------------------------------------------------------------------------------------------
-
-    public String getUri() {
-        return uri;
+    try {
+      String result = tokenizer.cell;
+      skipEOLs();
+      if (tokenizer.ttype == CSVTokenType.EOF) {
+        close();
+      }
+      return wrapper.setData(result);
+    } catch (ConversionException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public char getSeparator() {
-        return separator;
+  /**
+   * Remove.
+   */
+  public void remove() {
+    throw new UnsupportedOperationException("Operation not supported: remove()");
+  }
+
+  @Override
+  public void close() {
+    if (tokenizer != null) {
+      tokenizer.close();
+      tokenizer = null;
     }
+  }
 
-    // Iterator implementation -----------------------------------------------------------------------------------------
+  // private helpers -------------------------------------------------------------------------------------------------
 
-    @Override
-	public Class<String> getType() {
-    	return String.class;
+  private void skipEOLs() {
+    try {
+      do {
+        tokenizer.next();
+      } while (tokenizer.ttype == CSVTokenType.EOL);
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
     }
-    
-	@Override
-	public DataContainer<String> next(DataContainer<String> wrapper) {
-    	if (tokenizer == null)
-    		return null;
-        try {
-            String result = tokenizer.cell;
-            skipEOLs();
-            if (tokenizer.ttype == CSVTokenType.EOF)
-                close();
-            return wrapper.setData(result);
-        } catch (ConversionException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void remove() {
-        throw new UnsupportedOperationException("Operation not supported: remove()");
-    }
-
-    @Override
-	public void close() {
-        if (tokenizer != null) {
-            tokenizer.close();
-            tokenizer = null;
-        }
-    }
-
-    // private helpers -------------------------------------------------------------------------------------------------
-
-    private void skipEOLs() {
-        try {
-            do {
-                tokenizer.next();
-            } while (tokenizer.ttype == CSVTokenType.EOL);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
+  }
 
 }

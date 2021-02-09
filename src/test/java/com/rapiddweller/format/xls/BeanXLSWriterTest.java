@@ -8,20 +8,32 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Bean xls writer test.
+ */
 public class BeanXLSWriterTest {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         assertEquals("BeanXLSWriter",
                 (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         assertEquals("BeanXLSWriter",
                 (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
     }
 
-    @Test
+  /**
+   * Test constructor 2.
+   */
+  @Test
     public void testConstructor2() {
         OutputStream out = OutputStream.nullOutputStream();
         ArrayList<PropFormat> propFormatList = new ArrayList<PropFormat>();

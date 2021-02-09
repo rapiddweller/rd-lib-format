@@ -12,14 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 /**
  * Describes if a text is a script text or plain text.
  * Created: 09.08.2010 16:42:33
- * @since 0.5.4
+ *
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public enum ScriptLevel {
-	NONE, SCRIPT
+  /**
+   * None script level.
+   */
+  NONE,
+  /**
+   * Script script level.
+   */
+  SCRIPT
 }

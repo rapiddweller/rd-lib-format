@@ -14,28 +14,36 @@
  */
 package com.rapiddweller.format.html;
 
-import com.rapiddweller.format.html.HtmlEntity;
-
 import junit.framework.TestCase;
 
 /**
  * Tests the {@link HTMLEntityTest}.
  * Created at 02.05.2008 17:28:04
- * @since 0.4.3
+ *
  * @author Volker Bergmann
+ * @since 0.4.3
  */
 public class HTMLEntityTest extends TestCase {
-	
-	public void testXmlCode() {
+
+  /**
+   * Test xml code.
+   */
+  public void testXmlCode() {
 		assertEquals(38, HtmlEntity.getEntity("_&amp;_", 1).xmlCode);
 	}
 
-	public void testCharacter() {
+  /**
+   * Test character.
+   */
+  public void testCharacter() {
 		assertEquals('Ö', HtmlEntity.getEntity("&Ouml;", 0).xmlCode);
 		assertEquals('ì', HtmlEntity.getEntity("&igrave;", 0).xmlCode);
 	}
 
-	public void testNumberCode() {
+  /**
+   * Test number code.
+   */
+  public void testNumberCode() {
 		assertEquals('Ö', HtmlEntity.getEntity("&#214;", 0).xmlCode);
 	}
 

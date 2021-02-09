@@ -1,18 +1,24 @@
 package com.rapiddweller.format.util;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
+import org.junit.Test;
 
 import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Java iterator from data iterator test.
+ */
 public class JavaIteratorFromDataIteratorTest {
-    @Test
+  /**
+   * Test has next.
+   */
+  @Test
     public void testHasNext() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         assertFalse(
@@ -20,7 +26,10 @@ public class JavaIteratorFromDataIteratorTest {
                         .hasNext());
     }
 
-    @Test
+  /**
+   * Test has next 3.
+   */
+  @Test
     public void testHasNext3() {
         HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
         entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
@@ -30,7 +39,10 @@ public class JavaIteratorFromDataIteratorTest {
                         .hasNext());
     }
 
-    @Test
+  /**
+   * Test close.
+   */
+  @Test
     public void testClose() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -42,7 +54,10 @@ public class JavaIteratorFromDataIteratorTest {
         (new JavaIteratorFromDataIterator<Object>(new DataIteratorFromJavaIterator<Object>(source, Object.class))).close();
     }
 
-    @Test
+  /**
+   * Test to string.
+   */
+  @Test
     public void testToString() {
         // TODO: This test is incomplete.
         //   Reason: No meaningful assertions found.
@@ -55,7 +70,10 @@ public class JavaIteratorFromDataIteratorTest {
                 .toString();
     }
 
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
         DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,

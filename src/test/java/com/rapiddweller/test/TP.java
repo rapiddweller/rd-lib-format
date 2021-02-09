@@ -12,30 +12,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.test;
 
 /**
  * JavaBean for testing.
  * Created: 16.06.2007 06:52:56
+ *
  * @author Volker Bergmann
  */
 public final class TP {
 
-    private final String name;
+  private final String name;
 
-    public TP() {
-        this("Carl");
-    }
+  /**
+   * Instantiates a new Tp.
+   */
+  public TP() {
+    this("Carl");
+  }
 
-    public TP(String name) {
-        this.name = name;
-    }
+  /**
+   * Instantiates a new Tp.
+   *
+   * @param name the name
+   */
+  public TP(String name) {
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    @SuppressWarnings("static-method")
-	public int getAge() { return 48; }
-    
+  /**
+   * Gets age.
+   *
+   * @return the age
+   */
+  @SuppressWarnings("static-method")
+  public int getAge() {
+    return 48;
+  }
+
 }

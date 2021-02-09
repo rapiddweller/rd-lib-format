@@ -1,12 +1,18 @@
 package com.rapiddweller.format.html.model;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
+/**
+ * The type H 1 test.
+ */
 public class H1Test {
-    @Test
+  /**
+   * Test constructor.
+   */
+  @Test
     public void testConstructor() {
         H1 actualH1 = new H1("Text");
         assertEquals("<h1>Text</h1>", actualH1.toString());

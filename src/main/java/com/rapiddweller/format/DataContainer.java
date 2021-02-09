@@ -12,39 +12,63 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
 
 /**
  * Container object for data items.
  * Created: 24.07.2011 14:40:21
+ *
  * @param <E> the type of the objects to wrap
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class DataContainer<E> {
 
-	protected E data;
+  /**
+   * The Data.
+   */
+  protected E data;
 
-	public DataContainer() {
-		this(null);
-	}
-	
-	public DataContainer(E data) {
-		this.data = data;
-	}
-	
-	public E getData() {
-		return data;
-	}
-	
-	public DataContainer<E> setData(E data) {
-		this.data = data;
-		return this;
-	}
-	
-	@Override
-	public String toString() {
-		return String.valueOf(data);
-	}
-	
+  /**
+   * Instantiates a new Data container.
+   */
+  public DataContainer() {
+    this(null);
+  }
+
+  /**
+   * Instantiates a new Data container.
+   *
+   * @param data the data
+   */
+  public DataContainer(E data) {
+    this.data = data;
+  }
+
+  /**
+   * Gets data.
+   *
+   * @return the data
+   */
+  public E getData() {
+    return data;
+  }
+
+  /**
+   * Sets data.
+   *
+   * @param data the data
+   * @return the data
+   */
+  public DataContainer<E> setData(E data) {
+    this.data = data;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(data);
+  }
+
 }
