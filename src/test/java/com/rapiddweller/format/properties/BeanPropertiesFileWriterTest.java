@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.properties;
 
 import com.rapiddweller.common.DocumentWriter;
@@ -35,16 +36,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class BeanPropertiesFileWriterTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String UNPREFIXED_RESULT =
-            "# header" + SEP + "class=com.rapiddweller.test.TP" + SEP + "name=Carl" + SEP + "age=48" + SEP + "# footer";
+  private static final String UNPREFIXED_RESULT =
+      "# header" + SEP + "class=com.rapiddweller.test.TP" + SEP + "name=Carl" + SEP + "age=48" + SEP + "# footer";
 
-    private static final String PREFIXED_RESULT =
-            "# header" + SEP +
-            "person1.class=com.rapiddweller.test.TP" + SEP + "person1.name=Carl" + SEP + "person1.age=48" + SEP +
-            "person2.class=com.rapiddweller.test.TP" + SEP + "person2.name=Carl" + SEP + "person2.age=48" + SEP +
-            "# footer";
+  private static final String PREFIXED_RESULT =
+      "# header" + SEP +
+          "person1.class=com.rapiddweller.test.TP" + SEP + "person1.name=Carl" + SEP + "person1.age=48" + SEP +
+          "person2.class=com.rapiddweller.test.TP" + SEP + "person2.name=Carl" + SEP + "person2.age=48" + SEP +
+          "# footer";
 
   /**
    * Test escaping.
@@ -52,16 +53,16 @@ public class BeanPropertiesFileWriterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void testEscaping() throws IOException {
-        StringWriter out = new StringWriter();
-        DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
-                out, null, (String)null, null, new String[] { "class", "name", "age" }
-        );
-        TP person = new TP("Al\\f");
-        writer.writeElement(person);
-        writer.close();
-        assertEquals("class=com.rapiddweller.test.TP" + SEP + "name=Al\\\\f" + SEP + "age=48" + SEP, out.toString());
-    }
+  public void testEscaping() throws IOException {
+    StringWriter out = new StringWriter();
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+        out, null, (String) null, null, new String[] {"class", "name", "age"}
+    );
+    TP person = new TP("Al\\f");
+    writer.writeElement(person);
+    writer.close();
+    assertEquals("class=com.rapiddweller.test.TP" + SEP + "name=Al\\\\f" + SEP + "age=48" + SEP, out.toString());
+  }
 
   /**
    * Test unprefixed.
@@ -69,19 +70,19 @@ public class BeanPropertiesFileWriterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void testUnprefixed() throws IOException {
-        StringWriter out = new StringWriter();
-        DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
-                out,
-                null,
-                new ConstantScript("# header" + SEP),
-                new ConstantScript("# footer"),
-                "class", "name", "age");
-        TP person = new TP();
-        writer.writeElement(person);
-        writer.close();
-        assertEquals(UNPREFIXED_RESULT, out.toString());
-    }
+  public void testUnprefixed() throws IOException {
+    StringWriter out = new StringWriter();
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+        out,
+        null,
+        new ConstantScript("# header" + SEP),
+        new ConstantScript("# footer"),
+        "class", "name", "age");
+    TP person = new TP();
+    writer.writeElement(person);
+    writer.close();
+    assertEquals(UNPREFIXED_RESULT, out.toString());
+  }
 
   /**
    * Test prefixed.
@@ -89,19 +90,19 @@ public class BeanPropertiesFileWriterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void testPrefixed() throws IOException {
-        StringWriter out = new StringWriter();
-        DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
-                out,
-                "person{0}.",
-                new ConstantScript("# header" + SEP),
-                new ConstantScript("# footer"),
-                "class", "name", "age");
-        TP person = new TP();
-        writer.writeElement(person);
-        writer.writeElement(person);
-        writer.close();
-        assertEquals(PREFIXED_RESULT, out.toString());
-    }
+  public void testPrefixed() throws IOException {
+    StringWriter out = new StringWriter();
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+        out,
+        "person{0}.",
+        new ConstantScript("# header" + SEP),
+        new ConstantScript("# footer"),
+        "class", "name", "age");
+    TP person = new TP();
+    writer.writeElement(person);
+    writer.writeElement(person);
+    writer.close();
+    assertEquals(PREFIXED_RESULT, out.toString());
+  }
 
 }

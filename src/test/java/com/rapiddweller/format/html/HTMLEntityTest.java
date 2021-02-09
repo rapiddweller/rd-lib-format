@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html;
 
 import junit.framework.TestCase;
@@ -29,22 +30,22 @@ public class HTMLEntityTest extends TestCase {
    * Test xml code.
    */
   public void testXmlCode() {
-		assertEquals(38, HtmlEntity.getEntity("_&amp;_", 1).xmlCode);
-	}
+    assertEquals(38, HtmlEntity.getEntity("_&amp;_", 1).xmlCode);
+  }
 
   /**
    * Test character.
    */
   public void testCharacter() {
-		assertEquals('Ö', HtmlEntity.getEntity("&Ouml;", 0).xmlCode);
-		assertEquals('ì', HtmlEntity.getEntity("&igrave;", 0).xmlCode);
-	}
+    assertEquals('Ö', HtmlEntity.getEntity("&Ouml;", 0).xmlCode);
+    assertEquals('ì', HtmlEntity.getEntity("&igrave;", 0).xmlCode);
+  }
 
   /**
    * Test number code.
    */
   public void testNumberCode() {
-		assertEquals('Ö', HtmlEntity.getEntity("&#214;", 0).xmlCode);
-	}
+    assertEquals('Ö', HtmlEntity.getEntity("&#214;", 0).xmlCode);
+  }
 
 }

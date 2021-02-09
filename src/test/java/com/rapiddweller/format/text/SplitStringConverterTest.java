@@ -15,8 +15,8 @@ public class SplitStringConverterTest {
    * @throws ConversionException the conversion exception
    */
   @Test
-    public void testConvert() throws ConversionException {
-        assertEquals(1, (new SplitStringConverter('A')).convert("Source Value").length);
-    }
+  public void testConvert() throws ConversionException {
+    assertEquals(1, (new SplitStringConverter('A')).convert("Source Value").length);
+  }
 }
 

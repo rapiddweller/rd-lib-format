@@ -16,29 +16,29 @@ public class BeanXLSWriterTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        assertEquals("BeanXLSWriter",
-                (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
-    }
+  public void testConstructor() {
+    assertEquals("BeanXLSWriter",
+        (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
+  }
 
   /**
    * Test to string.
    */
   @Test
-    public void testToString() {
-        assertEquals("BeanXLSWriter",
-                (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
-    }
+  public void testToString() {
+    assertEquals("BeanXLSWriter",
+        (new BeanXLSWriter<Object>(OutputStream.nullOutputStream(), "Sheet Name")).toString());
+  }
 
   /**
    * Test constructor 2.
    */
   @Test
-    public void testConstructor2() {
-        OutputStream out = OutputStream.nullOutputStream();
-        ArrayList<PropFormat> propFormatList = new ArrayList<PropFormat>();
-        new BeanXLSWriter<Object>(out, "Sheet Name", propFormatList);
-        assertTrue(propFormatList.isEmpty());
-    }
+  public void testConstructor2() {
+    OutputStream out = OutputStream.nullOutputStream();
+    ArrayList<PropFormat> propFormatList = new ArrayList<PropFormat>();
+    new BeanXLSWriter<Object>(out, "Sheet Name", propFormatList);
+    assertTrue(propFormatList.isEmpty());
+  }
 }
 

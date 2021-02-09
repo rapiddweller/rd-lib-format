@@ -13,12 +13,12 @@ public class ListItemTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        ListItem actualListItem = new ListItem(new HtmlComponent());
-        assertEquals("<li></li>", actualListItem.toString());
-        assertTrue(actualListItem.attributes.isEmpty());
-        assertTrue(actualListItem.isInline());
-        assertEquals("li", actualListItem.getTagName());
-    }
+  public void testConstructor() {
+    ListItem actualListItem = new ListItem(new HtmlComponent());
+    assertEquals("<li></li>", actualListItem.toString());
+    assertTrue(actualListItem.attributes.isEmpty());
+    assertTrue(actualListItem.isInline());
+    assertEquals("li", actualListItem.getTagName());
+  }
 }
 

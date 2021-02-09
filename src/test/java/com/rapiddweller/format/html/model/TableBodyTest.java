@@ -15,35 +15,35 @@ public class TableBodyTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        TableBody actualTableBody = new TableBody();
-        assertEquals("<tbody/>\n", actualTableBody.toString());
-        assertTrue(actualTableBody.attributes.isEmpty());
-        assertFalse(actualTableBody.isInline());
-        assertEquals("tbody", actualTableBody.getTagName());
-    }
+  public void testConstructor() {
+    TableBody actualTableBody = new TableBody();
+    assertEquals("<tbody/>\n", actualTableBody.toString());
+    assertTrue(actualTableBody.attributes.isEmpty());
+    assertFalse(actualTableBody.isInline());
+    assertEquals("tbody", actualTableBody.getTagName());
+  }
 
   /**
    * Test new row.
    */
   @Test
-    public void testNewRow() {
-        TableBody tableBody = new TableBody();
-        TableRow actualNewRowResult = tableBody.newRow();
-        assertEquals("<tr/>\n", actualNewRowResult.toString());
-        assertTrue(actualNewRowResult.attributes.isEmpty());
-        assertFalse(actualNewRowResult.isInline());
-        assertEquals("tr", actualNewRowResult.getTagName());
-        assertEquals("<tbody>\n<tr/>\n\n</tbody>\n", tableBody.toString());
-    }
+  public void testNewRow() {
+    TableBody tableBody = new TableBody();
+    TableRow actualNewRowResult = tableBody.newRow();
+    assertEquals("<tr/>\n", actualNewRowResult.toString());
+    assertTrue(actualNewRowResult.attributes.isEmpty());
+    assertFalse(actualNewRowResult.isInline());
+    assertEquals("tr", actualNewRowResult.getTagName());
+    assertEquals("<tbody>\n<tr/>\n\n</tbody>\n", tableBody.toString());
+  }
 
   /**
    * Test add row.
    */
   @Test
-    public void testAddRow() {
-        TableBody tableBody = new TableBody();
-        assertSame(tableBody, tableBody.addRow(new TableRow()));
-    }
+  public void testAddRow() {
+    TableBody tableBody = new TableBody();
+    assertSame(tableBody, tableBody.addRow(new TableRow()));
+  }
 }
 

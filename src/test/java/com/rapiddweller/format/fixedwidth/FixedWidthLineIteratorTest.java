@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.SystemInfo;
@@ -34,7 +35,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FixedWidthLineIteratorTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
   /**
    * Test processing empty lines.
@@ -42,14 +43,14 @@ public class FixedWidthLineIteratorTest {
    * @throws Exception the exception
    */
   @Test
-    public void testProcessingEmptyLines() throws Exception {
-        FixedWidthLineIterator iterator = createIterator(true);
-        DataContainer<String[]> container = new DataContainer<String[]>();
-        assertTrue(Arrays.equals(new String[] {"Alice" , "23"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Bob"   , "34"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
-    }
+  public void testProcessingEmptyLines() throws Exception {
+    FixedWidthLineIterator iterator = createIterator(true);
+    DataContainer<String[]> container = new DataContainer<String[]>();
+    assertTrue(Arrays.equals(new String[] {"Alice", "23"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Bob", "34"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
+  }
 
   /**
    * Test ignoring empty lines.
@@ -57,32 +58,32 @@ public class FixedWidthLineIteratorTest {
    * @throws Exception the exception
    */
   @Test
-    public void testIgnoringEmptyLines() throws Exception {
-        FixedWidthLineIterator iterator = createIterator(false);
-        DataContainer<String[]> container = new DataContainer<String[]>();
-        assertTrue(Arrays.equals(new String[] {"Alice" , "23"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Bob"   , "34"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {              }, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
-        assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
-    }
-    
-    // helper ----------------------------------------------------------------------------------------------------------
+  public void testIgnoringEmptyLines() throws Exception {
+    FixedWidthLineIterator iterator = createIterator(false);
+    DataContainer<String[]> container = new DataContainer<String[]>();
+    assertTrue(Arrays.equals(new String[] {"Alice", "23"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Bob", "34"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
+    assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
+  }
 
-    private static FixedWidthLineIterator createIterator(boolean ignoreEmptyLines) {
-        PadFormat[] formats = new PadFormat[] {
-                new PadFormat("", 6, Alignment.LEFT, ' '),
-                new PadFormat("", 3, Alignment.RIGHT, '0'),
-        };
-        StringReader reader = new StringReader(
-                "Alice 023" + SEP +
-                "Bob   034" + SEP +
-                "" + SEP +
-                "Charly045" + SEP +
-                "Dieter-01"
-        );
-        FixedWidthLineIterator iterator = new FixedWidthLineIterator(reader, formats, ignoreEmptyLines, null);
-        return iterator;
-    }
+  // helper ----------------------------------------------------------------------------------------------------------
+
+  private static FixedWidthLineIterator createIterator(boolean ignoreEmptyLines) {
+    PadFormat[] formats = new PadFormat[] {
+        new PadFormat("", 6, Alignment.LEFT, ' '),
+        new PadFormat("", 3, Alignment.RIGHT, '0'),
+    };
+    StringReader reader = new StringReader(
+        "Alice 023" + SEP +
+            "Bob   034" + SEP +
+            "" + SEP +
+            "Charly045" + SEP +
+            "Dieter-01"
+    );
+    FixedWidthLineIterator iterator = new FixedWidthLineIterator(reader, formats, ignoreEmptyLines, null);
+    return iterator;
+  }
 
 }

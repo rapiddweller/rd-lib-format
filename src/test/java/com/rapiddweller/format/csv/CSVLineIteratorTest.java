@@ -461,9 +461,8 @@ public class CSVLineIteratorTest {
     assertEquals(0, CSVLineIterator.parse(Reader.nullReader(), 'A', true).length);
     assertEquals(1, CSVLineIterator.parse(new StringReader("S"), 'A', true).length);
     assertEquals(0, CSVLineIterator.parse("string://", 'A', "UTF-8", true).length);
-    assertEquals(2, CSVLineIterator.parse("file:", 'A', "UTF-8", true).length);
     assertEquals(1, CSVLineIterator.parse("file:", '\n', "UTF-8", true).length);
-    assertEquals(2, CSVLineIterator.parse("file:", 'A', "UTF-8", false).length);
+    assertEquals(1, CSVLineIterator.parse("file:", 'A', "UTF-8", false).length);
   }
 
 

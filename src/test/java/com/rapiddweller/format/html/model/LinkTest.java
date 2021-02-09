@@ -14,39 +14,39 @@ public class LinkTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        Link actualLink = new Link();
-        assertEquals("<link/>", actualLink.toString());
-        assertTrue(actualLink.attributes.isEmpty());
-        assertTrue(actualLink.isInline());
-        assertEquals("link", actualLink.getTagName());
-    }
+  public void testConstructor() {
+    Link actualLink = new Link();
+    assertEquals("<link/>", actualLink.toString());
+    assertTrue(actualLink.attributes.isEmpty());
+    assertTrue(actualLink.isInline());
+    assertEquals("link", actualLink.getTagName());
+  }
 
   /**
    * Test with rel.
    */
   @Test
-    public void testWithRel() {
-        Link link = new Link();
-        assertSame(link, link.withRel("Rel"));
-    }
+  public void testWithRel() {
+    Link link = new Link();
+    assertSame(link, link.withRel("Rel"));
+  }
 
   /**
    * Test with type.
    */
   @Test
-    public void testWithType() {
-        Link link = new Link();
-        assertSame(link, link.withType("Type"));
-    }
+  public void testWithType() {
+    Link link = new Link();
+    assertSame(link, link.withType("Type"));
+  }
 
   /**
    * Test with href.
    */
   @Test
-    public void testWithHref() {
-        Link link = new Link();
-        assertSame(link, link.withHref("Href"));
-    }
+  public void testWithHref() {
+    Link link = new Link();
+    assertSame(link, link.withHref("Href"));
+  }
 }
 

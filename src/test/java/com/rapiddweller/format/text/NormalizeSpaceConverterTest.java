@@ -15,8 +15,8 @@ public class NormalizeSpaceConverterTest {
    * @throws ConversionException the conversion exception
    */
   @Test
-    public void testConvert() throws ConversionException {
-        assertEquals("Source Value", (new NormalizeSpaceConverter()).convert("Source Value"));
-    }
+  public void testConvert() throws ConversionException {
+    assertEquals("Source Value", (new NormalizeSpaceConverter()).convert("Source Value"));
+  }
 }
 

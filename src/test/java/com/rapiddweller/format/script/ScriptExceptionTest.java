@@ -14,44 +14,44 @@ public class ScriptExceptionTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        ScriptException actualScriptException = new ScriptException();
-        assertEquals("com.rapiddweller.format.script.ScriptException", actualScriptException.toString());
-        assertNull(actualScriptException.getLocalizedMessage());
-        assertNull(actualScriptException.getCause());
-        assertNull(actualScriptException.getMessage());
-        assertEquals(0, actualScriptException.getSuppressed().length);
-    }
+  public void testConstructor() {
+    ScriptException actualScriptException = new ScriptException();
+    assertEquals("com.rapiddweller.format.script.ScriptException", actualScriptException.toString());
+    assertNull(actualScriptException.getLocalizedMessage());
+    assertNull(actualScriptException.getCause());
+    assertNull(actualScriptException.getMessage());
+    assertEquals(0, actualScriptException.getSuppressed().length);
+  }
 
   /**
    * Test constructor 2.
    */
   @Test
-    public void testConstructor2() {
-        ScriptException actualScriptException = new ScriptException("An error occurred");
-        assertEquals("com.rapiddweller.format.script.ScriptException: An error occurred", actualScriptException.toString());
-        assertEquals("An error occurred", actualScriptException.getLocalizedMessage());
-        assertNull(actualScriptException.getCause());
-        assertEquals("An error occurred", actualScriptException.getMessage());
-        assertEquals(0, actualScriptException.getSuppressed().length);
-    }
+  public void testConstructor2() {
+    ScriptException actualScriptException = new ScriptException("An error occurred");
+    assertEquals("com.rapiddweller.format.script.ScriptException: An error occurred", actualScriptException.toString());
+    assertEquals("An error occurred", actualScriptException.getLocalizedMessage());
+    assertNull(actualScriptException.getCause());
+    assertEquals("An error occurred", actualScriptException.getMessage());
+    assertEquals(0, actualScriptException.getSuppressed().length);
+  }
 
   /**
    * Test constructor 3.
    */
   @Test
-    public void testConstructor3() {
-        Throwable throwable = new Throwable();
-        assertSame((new ScriptException("An error occurred", throwable)).getCause(), throwable);
-    }
+  public void testConstructor3() {
+    Throwable throwable = new Throwable();
+    assertSame((new ScriptException("An error occurred", throwable)).getCause(), throwable);
+  }
 
   /**
    * Test constructor 4.
    */
   @Test
-    public void testConstructor4() {
-        Throwable throwable = new Throwable();
-        assertSame((new ScriptException(throwable)).getCause(), throwable);
-    }
+  public void testConstructor4() {
+    Throwable throwable = new Throwable();
+    assertSame((new ScriptException(throwable)).getCause(), throwable);
+  }
 }
 

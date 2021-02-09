@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
 
 /**
@@ -34,8 +35,8 @@ public class Address {
    * @return the city
    */
   public String getCity() {
-		return city;
-	}
+    return city;
+  }
 
   /**
    * Sets city.
@@ -43,7 +44,7 @@ public class Address {
    * @param city the city
    */
   public void setCity(String city) {
-		this.city = city;
-	}
+    this.city = city;
+  }
 
 }

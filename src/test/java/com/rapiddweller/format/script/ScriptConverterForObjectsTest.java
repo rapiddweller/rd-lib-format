@@ -15,10 +15,10 @@ public class ScriptConverterForObjectsTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        assertTrue((new ScriptConverterForObjects(new DefaultContext())).isParallelizable());
-        assertTrue((new ScriptConverterForObjects(new DefaultContext())).isParallelizable());
-    }
+  public void testConstructor() {
+    assertTrue((new ScriptConverterForObjects(new DefaultContext())).isParallelizable());
+    assertTrue((new ScriptConverterForObjects(new DefaultContext())).isParallelizable());
+  }
 
   /**
    * Test convert.
@@ -26,15 +26,15 @@ public class ScriptConverterForObjectsTest {
    * @throws ConversionException the conversion exception
    */
   @Test
-    public void testConvert() throws ConversionException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  public void testConvert() throws ConversionException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        (new ScriptConverterForObjects(new DefaultContext())).convert("sourceValue");
-    }
+    (new ScriptConverterForObjects(new DefaultContext())).convert("sourceValue");
+  }
 
   /**
    * Test convert 2.
@@ -42,8 +42,8 @@ public class ScriptConverterForObjectsTest {
    * @throws ConversionException the conversion exception
    */
   @Test
-    public void testConvert2() throws ConversionException {
-        assertEquals(42, ((Integer) (new ScriptConverterForObjects(new DefaultContext())).convert(42)).intValue());
-    }
+  public void testConvert2() throws ConversionException {
+    assertEquals(42, ((Integer) (new ScriptConverterForObjects(new DefaultContext())).convert(42)).intValue());
+  }
 }
 

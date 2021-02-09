@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import org.junit.Test;
@@ -26,17 +27,17 @@ import static org.junit.Assert.assertEquals;
  * @since 0.4.6
  */
 public class NameNormalizerTest {
-	
-	private final NameNormalizer normalizer = new NameNormalizer();
+
+  private final NameNormalizer normalizer = new NameNormalizer();
 
   /**
    * Test.
    */
   @Test
-	public void test() {
-		assertEquals("Alice", normalizer.convert("alice"));
-		assertEquals("Alice", normalizer.convert("  ALICE  "));
-		assertEquals("Alice Frazer", normalizer.convert("  ALICE   FRAZER  "));
-	}
+  public void test() {
+    assertEquals("Alice", normalizer.convert("alice"));
+    assertEquals("Alice", normalizer.convert("  ALICE  "));
+    assertEquals("Alice Frazer", normalizer.convert("  ALICE   FRAZER  "));
+  }
 
 }

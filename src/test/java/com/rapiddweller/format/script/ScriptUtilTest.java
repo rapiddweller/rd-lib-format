@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.ParseException;
@@ -35,68 +36,72 @@ public class ScriptUtilTest {
    * Test combine scriptable parts.
    */
   @Test
-	public void testCombineScriptableParts() {
-		ScriptUtil.addFactory("xyz", new XyzScriptFactory());
-		assertEquals("", ScriptUtil.combineScriptableParts());
-		assertEquals("ABCDEF",   ScriptUtil.combineScriptableParts("AB", "CD", "EF"));
-		assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("{ABC}", "DEF"));
-		assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("{ABC}", "{DEF}"));
-		assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("ABC", "{DEF}"));
-		assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("ABC", "{ftl:DEF}"));
-		assertEquals("{SELECT * FROM TT WHERE ID = $n}", 
-				ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{ftl: WHERE ID = $n}"));
-		assertEquals("{xyz:'SELECT * FROM TT' + ' WHERE ID = ' + n}", 
-				ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{xyz:' WHERE ID = ' + n}"));
-	}
+  public void testCombineScriptableParts() {
+    ScriptUtil.addFactory("xyz", new XyzScriptFactory());
+    assertEquals("", ScriptUtil.combineScriptableParts());
+    assertEquals("ABCDEF", ScriptUtil.combineScriptableParts("AB", "CD", "EF"));
+    assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("{ABC}", "DEF"));
+    assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("{ABC}", "{DEF}"));
+    assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("ABC", "{DEF}"));
+    assertEquals("{ABCDEF}", ScriptUtil.combineScriptableParts("ABC", "{ftl:DEF}"));
+    assertEquals("{SELECT * FROM TT WHERE ID = $n}",
+        ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{ftl: WHERE ID = $n}"));
+    assertEquals("{xyz:'SELECT * FROM TT' + ' WHERE ID = ' + n}",
+        ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{xyz:' WHERE ID = ' + n}"));
+  }
 
   /**
    * Test describe.
    */
   @Test
-	public void testDescribe() {
-		ScriptDescriptor[] descriptors = ScriptUtil.describe("alpha", "{ftl:${n}}");
-		assertEquals(2, descriptors.length);
-		checkDescriptor(descriptors[0], null, "alpha", ScriptLevel.NONE);
-		checkDescriptor(descriptors[1], "ftl", "${n}", ScriptLevel.SCRIPT);
-	}
+  public void testDescribe() {
+    ScriptDescriptor[] descriptors = ScriptUtil.describe("alpha", "{ftl:${n}}");
+    assertEquals(2, descriptors.length);
+    checkDescriptor(descriptors[0], null, "alpha", ScriptLevel.NONE);
+    checkDescriptor(descriptors[1], "ftl", "${n}", ScriptLevel.SCRIPT);
+  }
 
   /**
    * Test get common script engine.
    */
   @Test
-	public void testGetCommonScriptEngine() {
-		assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\n"));
-		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("alpha", "{ftl:${n}}", "\n"));
-		assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\n}"));
-	}
+  public void testGetCommonScriptEngine() {
+    assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\n"));
+    assertEquals("ftl", ScriptUtil.getCommonScriptEngine("alpha", "{ftl:${n}}", "\n"));
+    assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\n}"));
+  }
 
   /**
    * Test is script.
    */
   @Test
-	public void testIsScript() {
-		assertTrue(ScriptUtil.isScript("{''}"));
-		assertTrue(ScriptUtil.isScript(" { '' } "));
-		assertFalse(ScriptUtil.isScript("{sdfw"));
-		assertFalse(ScriptUtil.isScript("sdfw}"));
-	}
+  public void testIsScript() {
+    assertTrue(ScriptUtil.isScript("{''}"));
+    assertTrue(ScriptUtil.isScript(" { '' } "));
+    assertFalse(ScriptUtil.isScript("{sdfw"));
+    assertFalse(ScriptUtil.isScript("sdfw}"));
+  }
 
   /**
    * The type Xyz script factory.
    */
   public class XyzScriptFactory implements ScriptFactory {
-		@Override
-		public Script parseText(String text) throws ParseException { return null; }
-		
-	    @Override
-		public Script readFile(String uri) throws ParseException { return null; }
+    @Override
+    public Script parseText(String text) throws ParseException {
+      return null;
     }
 
-	private static void checkDescriptor(ScriptDescriptor scriptDescriptor, 
-			String scriptEngine, String text, ScriptLevel level) {
-		assertEquals(scriptEngine, scriptDescriptor.scriptEngine);
-		assertEquals(text, scriptDescriptor.text);
-		assertEquals(level, scriptDescriptor.level);
+    @Override
+    public Script readFile(String uri) throws ParseException {
+      return null;
     }
+  }
+
+  private static void checkDescriptor(ScriptDescriptor scriptDescriptor,
+                                      String scriptEngine, String text, ScriptLevel level) {
+    assertEquals(scriptEngine, scriptDescriptor.scriptEngine);
+    assertEquals(text, scriptDescriptor.text);
+    assertEquals(level, scriptDescriptor.level);
+  }
 
 }

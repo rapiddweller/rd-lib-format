@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE container [
-<!ENTITY child1 SYSTEM "src/test/resources/com/rapiddweller/format/xml/compare/contained.xml">
-]>
+        <!ENTITY child1 SYSTEM "src/test/resources/com/rapiddweller/format/xml/compare/contained.xml">
+        ]>
 <container>
-&child1; 
+    &child1;
 </container>

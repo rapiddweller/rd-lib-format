@@ -13,12 +13,12 @@ public class SpanTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        Span actualSpan = new Span();
-        assertEquals("<span/>", actualSpan.toString());
-        assertTrue(actualSpan.attributes.isEmpty());
-        assertTrue(actualSpan.isInline());
-        assertEquals("span", actualSpan.getTagName());
-    }
+  public void testConstructor() {
+    Span actualSpan = new Span();
+    assertEquals("<span/>", actualSpan.toString());
+    assertTrue(actualSpan.attributes.isEmpty());
+    assertTrue(actualSpan.isInline());
+    assertEquals("span", actualSpan.getTagName());
+  }
 }
 

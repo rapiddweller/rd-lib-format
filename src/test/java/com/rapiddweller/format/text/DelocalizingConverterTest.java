@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import org.junit.Test;
@@ -35,20 +36,20 @@ public class DelocalizingConverterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void testConversion() throws IOException {
-        checkConversion("Abc", "Abc");
-        checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");
-        checkConversion("áàâa", "aaaa");
-        checkConversion("éèêe", "eeee");
-        checkConversion("íìîi", "iiii");
-        checkConversion("óòôo", "oooo");
-        checkConversion("úùûu", "uuuu");
-    }
+  public void testConversion() throws IOException {
+    checkConversion("Abc", "Abc");
+    checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");
+    checkConversion("áàâa", "aaaa");
+    checkConversion("éèêe", "eeee");
+    checkConversion("íìîi", "iiii");
+    checkConversion("óòôo", "oooo");
+    checkConversion("úùûu", "uuuu");
+  }
 
-    private static void checkConversion(String source, String expectedResult) throws IOException {
-        DelocalizingConverter converter = new DelocalizingConverter();
-        String result = converter.convert(source);
-        assertEquals("Delocalization failed. ", expectedResult, result);
-    }
+  private static void checkConversion(String source, String expectedResult) throws IOException {
+    DelocalizingConverter converter = new DelocalizingConverter();
+    String result = converter.convert(source);
+    assertEquals("Delocalization failed. ", expectedResult, result);
+  }
 
 }

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
 
 import com.rapiddweller.format.util.ListDataIterator;
@@ -34,16 +35,16 @@ public class OrthogonalArrayIteratorTest {
    * Test.
    */
   @Test
-	public void test() {
-		DataIterator<Integer[]> source = new ListDataIterator<Integer[]>(Integer[].class, 
-				new Integer[] { 1, 2 }, 
-				new Integer[] { 3 });
-		@SuppressWarnings("resource")
-		DataIterator<Integer[]> iterator = new OrthogonalArrayIterator<Integer>(source);
-		DataContainer<Integer[]> container = new DataContainer<Integer[]>();
-		assertArrayEquals(new Integer[] { 1,    3 }, iterator.next(container).getData());
-		assertArrayEquals(new Integer[] { 2, null }, iterator.next(container).getData());
-		assertNull(iterator.next(container));
-	}
-	
+  public void test() {
+    DataIterator<Integer[]> source = new ListDataIterator<Integer[]>(Integer[].class,
+        new Integer[] {1, 2},
+        new Integer[] {3});
+    @SuppressWarnings("resource")
+    DataIterator<Integer[]> iterator = new OrthogonalArrayIterator<Integer>(source);
+    DataContainer<Integer[]> container = new DataContainer<Integer[]>();
+    assertArrayEquals(new Integer[] {1, 3}, iterator.next(container).getData());
+    assertArrayEquals(new Integer[] {2, null}, iterator.next(container).getData());
+    assertNull(iterator.next(container));
+  }
+
 }

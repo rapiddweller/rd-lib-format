@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.common.xml.XMLUtil;
@@ -34,21 +35,21 @@ public class DefaultXMLModelComparisonTest {
    * Test equals.
    */
   @Test
-	public void testEquals() {
-		Element a1 = XMLUtil.parseStringAsElement("<a x='1' y='2'/>");
-		Element a2 = XMLUtil.parseStringAsElement("<a y='2' x='1'/>");
-		Element a3 = XMLUtil.parseStringAsElement("<a x='1' y='2' z='3'/>");
-		Element b1 = XMLUtil.parseStringAsElement("<b x='1' y='2'/>");
-		Element c1 = XMLUtil.parseStringAsElement("<c><d/></c>");
-		Element c2 = XMLUtil.parseStringAsElement("<c><d/><d/></c>");
-		Element c3 = XMLUtil.parseStringAsElement("<c><d/><e/></c>");
-		DefaultXMLComparisonModel model = new DefaultXMLComparisonModel();
-		model.init(null, null);
-		assertTrue(model.equalNodes(a1, a2));
-		assertFalse(model.equalNodes(a1, a3));
-		assertFalse(model.equalNodes(a1, b1));
-		assertFalse(model.equalNodes(c1, c2));
-		assertFalse(model.equalNodes(c1, c3));
-	}
-	
+  public void testEquals() {
+    Element a1 = XMLUtil.parseStringAsElement("<a x='1' y='2'/>");
+    Element a2 = XMLUtil.parseStringAsElement("<a y='2' x='1'/>");
+    Element a3 = XMLUtil.parseStringAsElement("<a x='1' y='2' z='3'/>");
+    Element b1 = XMLUtil.parseStringAsElement("<b x='1' y='2'/>");
+    Element c1 = XMLUtil.parseStringAsElement("<c><d/></c>");
+    Element c2 = XMLUtil.parseStringAsElement("<c><d/><d/></c>");
+    Element c3 = XMLUtil.parseStringAsElement("<c><d/><e/></c>");
+    DefaultXMLComparisonModel model = new DefaultXMLComparisonModel();
+    model.init(null, null);
+    assertTrue(model.equalNodes(a1, a2));
+    assertFalse(model.equalNodes(a1, a3));
+    assertFalse(model.equalNodes(a1, b1));
+    assertFalse(model.equalNodes(c1, c2));
+    assertFalse(model.equalNodes(c1, c3));
+  }
+
 }

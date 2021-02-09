@@ -223,7 +223,7 @@ public class XLSLineIteratorTest extends DataIteratorTestCase {
     }
   }
 
-  
+
   // private helpers ---------------------------------------------------------
 
   private static void expectNext(XLSLineIterator iterator, Object... expected) {

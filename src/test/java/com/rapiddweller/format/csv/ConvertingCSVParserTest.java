@@ -89,7 +89,7 @@ public class ConvertingCSVParserTest {
    */
   @Test
   public void testParse3() throws IOException {
-    assertEquals(2, ConvertingCSVParser.parse("file:", new ToArrayConverter()).size());
+    assertEquals(1, ConvertingCSVParser.parse("file:", new ToArrayConverter()).size());
   }
 
   /**
@@ -99,7 +99,7 @@ public class ConvertingCSVParserTest {
    */
   @Test
   public void testParse4() throws IOException {
-    assertEquals(2, ConvertingCSVParser.parse("file:", new ToArrayConverter(Object.class)).size());
+    assertEquals(1, ConvertingCSVParser.parse("file:", new ToArrayConverter(Object.class)).size());
   }
 
 
@@ -128,7 +128,7 @@ public class ConvertingCSVParserTest {
     ArrayList<Object> objectList = new ArrayList<Object>();
     List<Object> actualParseResult = ConvertingCSVParser.parse("file:", rowConverter, objectList);
     assertSame(objectList, actualParseResult);
-    assertEquals(2, actualParseResult.size());
+    assertEquals(1, actualParseResult.size());
   }
 
   /**

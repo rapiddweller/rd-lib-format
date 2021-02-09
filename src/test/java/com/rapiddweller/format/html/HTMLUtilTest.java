@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html;
 
 import com.rapiddweller.common.CollectionUtil;
@@ -35,11 +36,11 @@ public class HTMLUtilTest {
    * Test.
    */
   @Test
-	public void test() {
-		@SuppressWarnings("unchecked")
-		Map<String, String> expected = CollectionUtil.buildMap("loc", "60", "f", "test.info");
-		Map<String, String> actual = HTMLUtil.parseCGIParameters("http://myhost.com/info.php?loc=60&f=test.info");
-		assertEquals(expected, actual);
-	}
+  public void test() {
+    @SuppressWarnings("unchecked")
+    Map<String, String> expected = CollectionUtil.buildMap("loc", "60", "f", "test.info");
+    Map<String, String> actual = HTMLUtil.parseCGIParameters("http://myhost.com/info.php?loc=60&f=test.info");
+    assertEquals(expected, actual);
+  }
 
 }

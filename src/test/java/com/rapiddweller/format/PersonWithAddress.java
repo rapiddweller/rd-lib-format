@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
 
 import java.util.Date;
@@ -53,8 +54,8 @@ public class PersonWithAddress {
    * @return the name
    */
   public String getName() {
-		return name;
-	}
+    return name;
+  }
 
   /**
    * Sets name.
@@ -62,8 +63,8 @@ public class PersonWithAddress {
    * @param name the name
    */
   public void setName(String name) {
-		this.name = name;
-	}
+    this.name = name;
+  }
 
   /**
    * Gets age.
@@ -71,8 +72,8 @@ public class PersonWithAddress {
    * @return the age
    */
   public int getAge() {
-		return age;
-	}
+    return age;
+  }
 
   /**
    * Sets age.
@@ -80,8 +81,8 @@ public class PersonWithAddress {
    * @param age the age
    */
   public void setAge(int age) {
-		this.age = age;
-	}
+    this.age = age;
+  }
 
   /**
    * Gets date.
@@ -89,8 +90,8 @@ public class PersonWithAddress {
    * @return the date
    */
   public Date getDate() {
-		return date;
-	}
+    return date;
+  }
 
   /**
    * Sets date.
@@ -98,8 +99,8 @@ public class PersonWithAddress {
    * @param date the date
    */
   public void setDate(Date date) {
-		this.date = date;
-	}
+    this.date = date;
+  }
 
   /**
    * Gets address.
@@ -107,8 +108,8 @@ public class PersonWithAddress {
    * @return the address
    */
   public Address getAddress() {
-		return address;
-	}
+    return address;
+  }
 
   /**
    * Sets address.
@@ -116,8 +117,8 @@ public class PersonWithAddress {
    * @param address the address
    */
   public void setAddress(Address address) {
-		this.address = address;
-	}
+    this.address = address;
+  }
 
   /**
    * Gets addresses.
@@ -125,8 +126,8 @@ public class PersonWithAddress {
    * @return the addresses
    */
   public List<Address> getAddresses() {
-		return addresses;
-	}
+    return addresses;
+  }
 
   /**
    * Sets addresses.
@@ -134,7 +135,7 @@ public class PersonWithAddress {
    * @param addresses the addresses
    */
   public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+    this.addresses = addresses;
+  }
 
 }

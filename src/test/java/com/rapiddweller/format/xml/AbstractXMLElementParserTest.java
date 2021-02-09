@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.CollectionUtil;
@@ -33,13 +34,13 @@ public class AbstractXMLElementParserTest {
    * Test render unsupported attributes message.
    */
   @Test
-	public void testRenderUnsupportedAttributesMessage() {
-		MyXMLElementParser parser = new MyXMLElementParser();
-		StringBuilder message = parser.renderUnsupportedAttributesMessage("att1");
-		String expectedMessage = "attribute 'att1' is not supported. The attributes supported by <elem> are: " +
-				"req1, req2, opt1, opt2";
-		assertEquals(expectedMessage, message.toString());
-	}
+  public void testRenderUnsupportedAttributesMessage() {
+    MyXMLElementParser parser = new MyXMLElementParser();
+    StringBuilder message = parser.renderUnsupportedAttributesMessage("att1");
+    String expectedMessage = "attribute 'att1' is not supported. The attributes supported by <elem> are: " +
+        "req1, req2, opt1, opt2";
+    assertEquals(expectedMessage, message.toString());
+  }
 
   /**
    * The type My xml element parser.
@@ -50,15 +51,15 @@ public class AbstractXMLElementParserTest {
      * Instantiates a new My xml element parser.
      */
     public MyXMLElementParser() {
-			super("elem", CollectionUtil.toSortedSet("req1", "req2"),
-					CollectionUtil.toSortedSet("opt1", "opt2"));
-		}
+      super("elem", CollectionUtil.toSortedSet("req1", "req2"),
+          CollectionUtil.toSortedSet("opt1", "opt2"));
+    }
 
-		@Override
-		protected Object doParse(Element element, Object[] parentPath, ParseContext<Object> context) {
-			return null;
-		}
-		
-	}
-	
+    @Override
+    protected Object doParse(Element element, Object[] parentPath, ParseContext<Object> context) {
+      return null;
+    }
+
+  }
+
 }

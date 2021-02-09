@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.ReaderLineIterator;
@@ -43,24 +44,24 @@ public class MultiTypeArrayFixedWidthWriterTest {
    * @throws Exception the exception
    */
   @Test
-	public void testDefaultFormats() throws Exception {
-		String fileName = "target" + File.separator + getClass().getSimpleName() + ".fcw";
-		FileWriter out = new FileWriter(fileName);
-		MultiTypeArrayFixedWidthWriter writer = new MultiTypeArrayFixedWidthWriter(out);
-		FixedWidthRowTypeDescriptor f1 = FixedWidthUtil.parseArrayColumnsSpec("8,3r0,10,5", "t1", "", Locale.US);
-		writer.addRowFormat(f1);
-		FixedWidthRowTypeDescriptor f2 = FixedWidthUtil.parseArrayColumnsSpec("6,5r0,15", "t2", "", Locale.US);
-		writer.addRowFormat(f2);
-		writer.write("t1", "Alice", 23, TimeUtil.date(2014, Calendar.JANUARY, 1), 1.23);
-		writer.write("t2", "Bob", 34, TimeUtil.date(2014, Calendar.FEBRUARY, 28));
-		writer.close();
-		ReaderLineIterator iterator = new ReaderLineIterator(new FileReader(fileName));
-		assertTrue(iterator.hasNext());
-		assertEquals("Alice   0232014-01-011.23 ", iterator.next());
-		assertTrue(iterator.hasNext());
-		assertEquals("Bob   000342014-02-28     ", iterator.next());
-		assertFalse(iterator.hasNext());
-		iterator.close();
-	}
-	
+  public void testDefaultFormats() throws Exception {
+    String fileName = "target" + File.separator + getClass().getSimpleName() + ".fcw";
+    FileWriter out = new FileWriter(fileName);
+    MultiTypeArrayFixedWidthWriter writer = new MultiTypeArrayFixedWidthWriter(out);
+    FixedWidthRowTypeDescriptor f1 = FixedWidthUtil.parseArrayColumnsSpec("8,3r0,10,5", "t1", "", Locale.US);
+    writer.addRowFormat(f1);
+    FixedWidthRowTypeDescriptor f2 = FixedWidthUtil.parseArrayColumnsSpec("6,5r0,15", "t2", "", Locale.US);
+    writer.addRowFormat(f2);
+    writer.write("t1", "Alice", 23, TimeUtil.date(2014, Calendar.JANUARY, 1), 1.23);
+    writer.write("t2", "Bob", 34, TimeUtil.date(2014, Calendar.FEBRUARY, 28));
+    writer.close();
+    ReaderLineIterator iterator = new ReaderLineIterator(new FileReader(fileName));
+    assertTrue(iterator.hasNext());
+    assertEquals("Alice   0232014-01-011.23 ", iterator.next());
+    assertTrue(iterator.hasNext());
+    assertEquals("Bob   000342014-02-28     ", iterator.next());
+    assertFalse(iterator.hasNext());
+    iterator.close();
+  }
+
 }

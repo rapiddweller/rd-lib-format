@@ -14,12 +14,12 @@ public class UnorderedListTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        UnorderedList actualUnorderedList = new UnorderedList();
-        assertEquals("<ul/>\n", actualUnorderedList.toString());
-        assertTrue(actualUnorderedList.attributes.isEmpty());
-        assertFalse(actualUnorderedList.isInline());
-        assertEquals("ul", actualUnorderedList.getTagName());
-    }
+  public void testConstructor() {
+    UnorderedList actualUnorderedList = new UnorderedList();
+    assertEquals("<ul/>\n", actualUnorderedList.toString());
+    assertTrue(actualUnorderedList.attributes.isEmpty());
+    assertFalse(actualUnorderedList.isInline());
+    assertEquals("ul", actualUnorderedList.getTagName());
+  }
 }
 

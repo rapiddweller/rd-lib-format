@@ -25,6 +25,7 @@
  *  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.Context;
@@ -45,15 +46,14 @@ public class ScriptSupportTest {
    * Test render.
    */
   @Test
-    public void testRender() {
-        assertEquals("xyz", ScriptUtil.evaluate("xyz", null));
-        assertEquals("xyz${var}xyz", ScriptUtil.evaluate("xyz${var}xyz", null));
-        Context context = new DefaultContext();
-        context.set("var", "!!!");
-        assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{xyz${var}xyz}", context));
-        assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{ftl:xyz${var}xyz}", context));
-    }
+  public void testRender() {
+    assertEquals("xyz", ScriptUtil.evaluate("xyz", null));
+    assertEquals("xyz${var}xyz", ScriptUtil.evaluate("xyz${var}xyz", null));
+    Context context = new DefaultContext();
+    context.set("var", "!!!");
+    assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{xyz${var}xyz}", context));
+    assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{ftl:xyz${var}xyz}", context));
+  }
 
 
-	
 }

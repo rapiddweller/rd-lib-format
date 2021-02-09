@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.SystemInfo;
@@ -33,10 +34,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class ArrayFixedWidthWriterTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String RESULT =
-            "header" + SEP + "1   23" + SEP + "14 156" + SEP + "footer";
+  private static final String RESULT =
+      "header" + SEP + "1   23" + SEP + "14 156" + SEP + "footer";
 
   /**
    * Test.
@@ -44,20 +45,20 @@ public class ArrayFixedWidthWriterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void test() throws IOException {
-        StringWriter out = new StringWriter();
-        ArrayFixedWidthWriter<Integer> writer = new ArrayFixedWidthWriter<Integer>(
-                out, new ConstantScript("header" + SEP), new ConstantScript("footer"),
-                new FixedWidthRowTypeDescriptor("default", new FixedWidthColumnDescriptor[] {
-                        new FixedWidthColumnDescriptor(2, Alignment.LEFT),
-                        new FixedWidthColumnDescriptor(3, Alignment.RIGHT),
-                        new FixedWidthColumnDescriptor(1, Alignment.LEFT)
-                })
-        );
-        writer.writeElement(new Integer[] {  1,  2, 3 });
-        writer.writeElement(new Integer[] { 14, 15, 6 });
-        writer.close();
-        assertEquals(RESULT, out.toString());
-    }
+  public void test() throws IOException {
+    StringWriter out = new StringWriter();
+    ArrayFixedWidthWriter<Integer> writer = new ArrayFixedWidthWriter<Integer>(
+        out, new ConstantScript("header" + SEP), new ConstantScript("footer"),
+        new FixedWidthRowTypeDescriptor("default", new FixedWidthColumnDescriptor[] {
+            new FixedWidthColumnDescriptor(2, Alignment.LEFT),
+            new FixedWidthColumnDescriptor(3, Alignment.RIGHT),
+            new FixedWidthColumnDescriptor(1, Alignment.LEFT)
+        })
+    );
+    writer.writeElement(new Integer[] {1, 2, 3});
+    writer.writeElement(new Integer[] {14, 15, 6});
+    writer.close();
+    assertEquals(RESULT, out.toString());
+  }
 
 }

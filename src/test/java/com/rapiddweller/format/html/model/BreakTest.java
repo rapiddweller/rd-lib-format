@@ -14,12 +14,12 @@ public class BreakTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        Break actualResultBreak = new Break();
-        assertEquals("<br/>\n", actualResultBreak.toString());
-        assertTrue(actualResultBreak.attributes.isEmpty());
-        assertFalse(actualResultBreak.isInline());
-        assertEquals("br", actualResultBreak.getTagName());
-    }
+  public void testConstructor() {
+    Break actualResultBreak = new Break();
+    assertEquals("<br/>\n", actualResultBreak.toString());
+    assertTrue(actualResultBreak.attributes.isEmpty());
+    assertFalse(actualResultBreak.isInline());
+    assertEquals("br", actualResultBreak.getTagName());
+  }
 }
 

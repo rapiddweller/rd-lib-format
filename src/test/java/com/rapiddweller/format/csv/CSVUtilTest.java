@@ -67,9 +67,9 @@ public class CSVUtilTest {
   @Test
   public void testParseRows() throws IOException {
     assertEquals(0, CSVUtil.parseRows("string://", 'A').length);
-    assertEquals(2, CSVUtil.parseRows("file:", 'A').length);
+    assertEquals(1, CSVUtil.parseRows("file:", 'A').length);
     assertEquals(0, CSVUtil.parseRows("string://", 'A', "UTF-8").length);
-    assertEquals(2, CSVUtil.parseRows("file:", 'A', "UTF-8").length);
+    assertEquals(1, CSVUtil.parseRows("file:", 'A', "UTF-8").length);
   }
 
   /**

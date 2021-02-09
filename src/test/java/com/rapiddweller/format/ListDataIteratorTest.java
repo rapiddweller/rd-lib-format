@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
 
 import com.rapiddweller.common.IOUtil;
@@ -34,13 +35,13 @@ public class ListDataIteratorTest {
    * Test.
    */
   @Test
-	public void test() {
-		ListDataIterator<Integer> iterator = new ListDataIterator<Integer>(Integer.class, 3, 5);
-		DataContainer<Integer> container = new DataContainer<Integer>();
-		assertEquals(3, iterator.next(container).getData().intValue());
-		assertEquals(5, iterator.next(container).getData().intValue());
-		assertNull(iterator.next(container));
-		IOUtil.close(iterator);
-	}
-	
+  public void test() {
+    ListDataIterator<Integer> iterator = new ListDataIterator<Integer>(Integer.class, 3, 5);
+    DataContainer<Integer> container = new DataContainer<Integer>();
+    assertEquals(3, iterator.next(container).getData().intValue());
+    assertEquals(5, iterator.next(container).getData().intValue());
+    assertNull(iterator.next(container));
+    IOUtil.close(iterator);
+  }
+
 }

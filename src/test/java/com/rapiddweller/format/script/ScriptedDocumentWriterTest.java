@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.SystemInfo;
@@ -31,10 +32,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class ScriptedDocumentWriterTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String RESULT =
-            "header" + SEP + "row" + SEP + "footer";
+  private static final String RESULT =
+      "header" + SEP + "row" + SEP + "footer";
 
   /**
    * Test.
@@ -42,16 +43,16 @@ public class ScriptedDocumentWriterTest {
    * @throws IOException the io exception
    */
   @Test
-    public void test() throws IOException {
-        StringWriter out = new StringWriter();
-        ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<String>(
-                out,
-                new ConstantScript("header" + SEP),
-                new ConstantScript("row" + SEP),
-                new ConstantScript("footer"));
-        writer.writeElement(null);
-        writer.close();
-        assertEquals(RESULT, out.toString());
-    }
-    
+  public void test() throws IOException {
+    StringWriter out = new StringWriter();
+    ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<String>(
+        out,
+        new ConstantScript("header" + SEP),
+        new ConstantScript("row" + SEP),
+        new ConstantScript("footer"));
+    writer.writeElement(null);
+    writer.close();
+    assertEquals(RESULT, out.toString());
+  }
+
 }

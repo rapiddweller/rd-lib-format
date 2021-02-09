@@ -14,14 +14,14 @@ public class BodyTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        HtmlComponent htmlComponent = new HtmlComponent();
-        HtmlComponent htmlComponent1 = new HtmlComponent();
-        Body actualBody = new Body(htmlComponent, htmlComponent1, new HtmlComponent());
-        assertEquals("<body>\n\n</body>\n", actualBody.toString());
-        assertTrue(actualBody.attributes.isEmpty());
-        assertFalse(actualBody.isInline());
-        assertEquals("body", actualBody.getTagName());
-    }
+  public void testConstructor() {
+    HtmlComponent htmlComponent = new HtmlComponent();
+    HtmlComponent htmlComponent1 = new HtmlComponent();
+    Body actualBody = new Body(htmlComponent, htmlComponent1, new HtmlComponent());
+    assertEquals("<body>\n\n</body>\n", actualBody.toString());
+    assertTrue(actualBody.attributes.isEmpty());
+    assertFalse(actualBody.isInline());
+    assertEquals("body", actualBody.getTagName());
+  }
 }
 

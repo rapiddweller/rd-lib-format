@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 /**
@@ -22,8 +23,8 @@ package com.rapiddweller.format.fixedwidth;
  * @since 0.7.2
  */
 public class FWPet {
-	
-	private String name;
+
+  private String name;
 
   /**
    * Instantiates a new Fw pet.
@@ -31,8 +32,8 @@ public class FWPet {
    * @param name the name
    */
   public FWPet(String name) {
-		this.name = name;
-	}
+    this.name = name;
+  }
 
   /**
    * Gets name.
@@ -40,8 +41,8 @@ public class FWPet {
    * @return the name
    */
   public String getName() {
-		return name;
-	}
+    return name;
+  }
 
   /**
    * Sets name.
@@ -49,7 +50,7 @@ public class FWPet {
    * @param name the name
    */
   public void setName(String name) {
-		this.name = name;
-	}
-	
+    this.name = name;
+  }
+
 }

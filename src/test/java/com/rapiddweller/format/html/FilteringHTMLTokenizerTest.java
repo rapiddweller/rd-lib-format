@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html;
 
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
@@ -35,10 +36,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class FilteringHTMLTokenizerTest {
 
-    private static final String HTML = "<html><body>Links<ul>" +
-            "<li><a href='http://databene.org'>Great Tools</a></li>" +
-            "<li><a href='http://bergmann-it.de'>Volker Bergmann</a></li>" +
-            "</ul></body></html>";
+  private static final String HTML = "<html><body>Links<ul>" +
+      "<li><a href='http://databene.org'>Great Tools</a></li>" +
+      "<li><a href='http://bergmann-it.de'>Volker Bergmann</a></li>" +
+      "</ul></body></html>";
 
   /**
    * Test link iteration.
@@ -47,22 +48,22 @@ public class FilteringHTMLTokenizerTest {
    * @throws ParseException the parse exception
    */
   @Test
-    public void testLinkIteration() throws IOException, ParseException {
-        HTMLTokenizer source = new DefaultHTMLTokenizer(new StringReader(HTML));
-        HTMLTokenFilter filter = new HTMLTokenFilter(HTMLTokenizer.START_TAG, "a");
-        HTMLTokenizer tokenizer = new FilteringHTMLTokenizer(source, filter);
+  public void testLinkIteration() throws IOException, ParseException {
+    HTMLTokenizer source = new DefaultHTMLTokenizer(new StringReader(HTML));
+    HTMLTokenFilter filter = new HTMLTokenFilter(HTMLTokenizer.START_TAG, "a");
+    HTMLTokenizer tokenizer = new FilteringHTMLTokenizer(source, filter);
 
-        tokenizer.nextToken();
-        assertEquals(HTMLTokenizer.START_TAG, tokenizer.tokenType());
-        assertEquals("a", tokenizer.name());
-        assertEquals("http://databene.org", tokenizer.attributes().get("href"));
+    tokenizer.nextToken();
+    assertEquals(HTMLTokenizer.START_TAG, tokenizer.tokenType());
+    assertEquals("a", tokenizer.name());
+    assertEquals("http://databene.org", tokenizer.attributes().get("href"));
 
-        tokenizer.nextToken();
-        assertEquals(HTMLTokenizer.START_TAG, tokenizer.tokenType());
-        assertEquals("a", tokenizer.name());
-        assertEquals("http://bergmann-it.de", tokenizer.attributes().get("href"));
+    tokenizer.nextToken();
+    assertEquals(HTMLTokenizer.START_TAG, tokenizer.tokenType());
+    assertEquals("a", tokenizer.name());
+    assertEquals("http://bergmann-it.de", tokenizer.attributes().get("href"));
 
-        assertEquals(HTMLTokenizer.END, tokenizer.nextToken());
-    }
+    assertEquals(HTMLTokenizer.END, tokenizer.nextToken());
+  }
 
 }

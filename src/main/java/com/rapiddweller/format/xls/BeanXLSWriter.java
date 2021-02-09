@@ -19,21 +19,13 @@ import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.bean.PropertyGraphAccessor;
 import com.rapiddweller.common.converter.ToStringConverter;
-import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.ExtendedColor;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Hyperlink;
-import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.AreaReference;
-import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.Closeable;
@@ -51,7 +43,7 @@ import java.util.List;
  * @author Volker Bergmann
  * @since 1.0.7
  */
-public class BeanXLSWriter<E> implements Closeable, CreationHelper {
+public class BeanXLSWriter<E> implements Closeable {
 
   // attributes ------------------------------------------------------------------------------------------------------
 
@@ -155,7 +147,7 @@ public class BeanXLSWriter<E> implements Closeable, CreationHelper {
       PropFormat prop = beanProperties.get(i);
       // write column header
       String componentName = prop.getName();
-      headerRow.createCell(i).setCellValue(createRichTextString(componentName));
+      headerRow.createCell(i).setCellValue(new XSSFRichTextString(componentName));
       // apply pattern
       if (prop.getPattern() != null) {
         DataFormat dataFormat = workbook.createDataFormat();
@@ -187,43 +179,4 @@ public class BeanXLSWriter<E> implements Closeable, CreationHelper {
     return getClass().getSimpleName();
   }
 
-  @Override
-  public RichTextString createRichTextString(String s) {
-    return null;
-  }
-
-  @Override
-  public DataFormat createDataFormat() {
-    return null;
-  }
-
-  @Override
-  public Hyperlink createHyperlink(HyperlinkType hyperlinkType) {
-    return null;
-  }
-
-  @Override
-  public FormulaEvaluator createFormulaEvaluator() {
-    return null;
-  }
-
-  @Override
-  public ExtendedColor createExtendedColor() {
-    return null;
-  }
-
-  @Override
-  public ClientAnchor createClientAnchor() {
-    return null;
-  }
-
-  @Override
-  public AreaReference createAreaReference(String s) {
-    return null;
-  }
-
-  @Override
-  public AreaReference createAreaReference(CellReference cellReference, CellReference cellReference1) {
-    return null;
-  }
 }

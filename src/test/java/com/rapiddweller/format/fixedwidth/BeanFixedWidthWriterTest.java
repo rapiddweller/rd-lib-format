@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.DocumentWriter;
@@ -33,10 +34,10 @@ import java.io.StringWriter;
  */
 public class BeanFixedWidthWriterTest extends TestCase {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String RESULT =
-            "header" + SEP + "Carl   48" + SEP + "Carl   48" + SEP + "footer";
+  private static final String RESULT =
+      "header" + SEP + "Carl   48" + SEP + "Carl   48" + SEP + "footer";
 
   /**
    * Test.
@@ -44,16 +45,16 @@ public class BeanFixedWidthWriterTest extends TestCase {
    * @throws IOException the io exception
    */
   public void test() throws IOException {
-        StringWriter out = new StringWriter();
-        DocumentWriter<TP> writer = new BeanFixedWidthWriter<TP>(out,
-                new ConstantScript("header" + SEP), new ConstantScript("footer"),
-                new FixedWidthColumnDescriptor("name", 6, Alignment.LEFT),
-                new FixedWidthColumnDescriptor("age", 3, Alignment.RIGHT));
-        TP person = new TP();
-        writer.writeElement(person);
-        writer.writeElement(person);
-        writer.close();
-        assertEquals(RESULT, out.toString());
-    }
-    
+    StringWriter out = new StringWriter();
+    DocumentWriter<TP> writer = new BeanFixedWidthWriter<TP>(out,
+        new ConstantScript("header" + SEP), new ConstantScript("footer"),
+        new FixedWidthColumnDescriptor("name", 6, Alignment.LEFT),
+        new FixedWidthColumnDescriptor("age", 3, Alignment.RIGHT));
+    TP person = new TP();
+    writer.writeElement(person);
+    writer.writeElement(person);
+    writer.close();
+    assertEquals(RESULT, out.toString());
+  }
+
 }

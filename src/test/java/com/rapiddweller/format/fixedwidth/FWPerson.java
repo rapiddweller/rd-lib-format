@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 /**
@@ -22,10 +23,10 @@ package com.rapiddweller.format.fixedwidth;
  * @since 0.7.2
  */
 public class FWPerson {
-	
-	private String name;
-	private int age;
-	private FWPet pet;
+
+  private String name;
+  private int age;
+  private FWPet pet;
 
   /**
    * Instantiates a new Fw person.
@@ -35,10 +36,10 @@ public class FWPerson {
    * @param pet  the pet
    */
   public FWPerson(String name, int age, FWPet pet) {
-		this.name = name;
-		this.age = age;
-		this.pet = pet;
-	}
+    this.name = name;
+    this.age = age;
+    this.pet = pet;
+  }
 
   /**
    * Gets name.
@@ -46,8 +47,8 @@ public class FWPerson {
    * @return the name
    */
   public String getName() {
-		return name;
-	}
+    return name;
+  }
 
   /**
    * Sets name.
@@ -55,8 +56,8 @@ public class FWPerson {
    * @param name the name
    */
   public void setName(String name) {
-		this.name = name;
-	}
+    this.name = name;
+  }
 
   /**
    * Gets age.
@@ -64,8 +65,8 @@ public class FWPerson {
    * @return the age
    */
   public int getAge() {
-		return age;
-	}
+    return age;
+  }
 
   /**
    * Sets age.
@@ -73,8 +74,8 @@ public class FWPerson {
    * @param age the age
    */
   public void setAge(int age) {
-		this.age = age;
-	}
+    this.age = age;
+  }
 
   /**
    * Gets pet.
@@ -82,8 +83,8 @@ public class FWPerson {
    * @return the pet
    */
   public FWPet getPet() {
-		return pet;
-	}
+    return pet;
+  }
 
   /**
    * Sets pet.
@@ -91,7 +92,7 @@ public class FWPerson {
    * @param pet the pet
    */
   public void setPet(FWPet pet) {
-		this.pet = pet;
-	}
-	
+    this.pet = pet;
+  }
+
 }

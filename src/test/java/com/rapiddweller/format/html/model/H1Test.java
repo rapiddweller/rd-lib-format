@@ -13,12 +13,12 @@ public class H1Test {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        H1 actualH1 = new H1("Text");
-        assertEquals("<h1>Text</h1>", actualH1.toString());
-        assertTrue(actualH1.attributes.isEmpty());
-        assertTrue(actualH1.isInline());
-        assertEquals("h1", actualH1.getTagName());
-    }
+  public void testConstructor() {
+    H1 actualH1 = new H1("Text");
+    assertEquals("<h1>Text</h1>", actualH1.toString());
+    assertTrue(actualH1.attributes.isEmpty());
+    assertTrue(actualH1.isInline());
+    assertEquals("h1", actualH1.getTagName());
+  }
 }
 

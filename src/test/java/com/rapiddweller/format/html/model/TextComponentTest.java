@@ -12,11 +12,11 @@ public class TextComponentTest {
    * Test constructor.
    */
   @Test
-    public void testConstructor() {
-        assertEquals("Text", (new TextComponent("Text")).toString());
-        assertEquals("Text", (new TextComponent("Text", true, true)).toString());
-        assertEquals("Text", (new TextComponent("Text", false, true)).toString());
-        assertEquals("Text", (new TextComponent("Text", true, false)).toString());
-    }
+  public void testConstructor() {
+    assertEquals("Text", (new TextComponent("Text")).toString());
+    assertEquals("Text", (new TextComponent("Text", true, true)).toString());
+    assertEquals("Text", (new TextComponent("Text", false, true)).toString());
+    assertEquals("Text", (new TextComponent("Text", true, false)).toString());
+  }
 }
 

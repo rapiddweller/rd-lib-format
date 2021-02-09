@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script.freemarker;
 
 import com.rapiddweller.common.Context;
@@ -42,13 +43,13 @@ public class FreemarkerScriptTest {
    * @throws ScriptException the script exception
    */
   @Test
-    public void testScriptGetInstance() throws IOException, ScriptException {
-        Script script = new FreeMarkerScript("src/test/resources/com/rapiddweller/format/script/freemarker/test.ftl", new Configuration());
-        Context context = new DefaultContext();
-        context.set("var_dings", "XYZ");
-        StringWriter writer = new StringWriter();
-        script.execute(context, writer);
-        assertEquals("TestXYZTest", writer.toString());
-    }
-	
+  public void testScriptGetInstance() throws IOException, ScriptException {
+    Script script = new FreeMarkerScript("src/test/resources/com/rapiddweller/format/script/freemarker/test.ftl", new Configuration());
+    Context context = new DefaultContext();
+    context.set("var_dings", "XYZ");
+    StringWriter writer = new StringWriter();
+    script.execute(context, writer);
+    assertEquals("TestXYZTest", writer.toString());
+  }
+
 }
