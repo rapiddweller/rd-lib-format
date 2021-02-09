@@ -19,13 +19,22 @@ import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.bean.PropertyGraphAccessor;
 import com.rapiddweller.common.converter.ToStringConverter;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.ExtendedColor;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.AreaReference;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -42,7 +51,7 @@ import java.util.List;
  * @author Volker Bergmann
  * @since 1.0.7
  */
-public class BeanXLSWriter<E> implements Closeable {
+public class BeanXLSWriter<E> implements Closeable, CreationHelper {
 
   // attributes ------------------------------------------------------------------------------------------------------
 
@@ -50,7 +59,7 @@ public class BeanXLSWriter<E> implements Closeable {
   private final String sheetName;
   private final List<PropFormat> beanProperties;
 
-  private HSSFWorkbook workbook;
+  private Workbook workbook;
 
 
   // constructors ----------------------------------------------------------------------------------------------------
@@ -93,8 +102,8 @@ public class BeanXLSWriter<E> implements Closeable {
    * @param bean the bean
    */
   public void save(E bean) {
-    HSSFSheet sheet = getOrCreateSheet(bean, sheetName);
-    HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
+    Sheet sheet = getOrCreateSheet(bean, sheetName);
+    Row row = sheet.createRow(sheet.getLastRowNum() + 1);
     for (int i = 0; i < beanProperties.size(); i++) {
       PropFormat prop = beanProperties.get(i);
       Object propValue = PropertyGraphAccessor.getPropertyGraph(prop.getName(), bean);
@@ -106,7 +115,7 @@ public class BeanXLSWriter<E> implements Closeable {
   public void close() {
     try {
       if (workbook == null) {
-        workbook = new HSSFWorkbook(); // if no data was added, create an empty Excel document
+        createWorkbook(); // if no data was added, create an empty Excel document
       } else {
         XLSUtil.autoSizeColumns(workbook);
       }
@@ -123,12 +132,12 @@ public class BeanXLSWriter<E> implements Closeable {
 
   // private helpers -------------------------------------------------------------------------------------------------
 
-  private HSSFSheet getOrCreateSheet(E bean, String sheetName) {
+  private Sheet getOrCreateSheet(E bean, String sheetName) {
     // create file
     if (workbook == null) {
       createWorkbook();
     }
-    HSSFSheet sheet = workbook.getSheet(sheetName);
+    Sheet sheet = workbook.getSheet(sheetName);
     if (sheet == null) {
       sheet = workbook.createSheet(sheetName);
       writeHeaderRow(bean, sheet);
@@ -137,19 +146,19 @@ public class BeanXLSWriter<E> implements Closeable {
   }
 
   private void createWorkbook() {
-    this.workbook = new HSSFWorkbook();
+    this.workbook = new XSSFWorkbook();
   }
 
-  private void writeHeaderRow(E bean, HSSFSheet sheet) {
-    HSSFRow headerRow = sheet.createRow(0);
+  private void writeHeaderRow(E bean, Sheet sheet) {
+    Row headerRow = sheet.createRow(0);
     for (int i = 0; i < beanProperties.size(); i++) {
       PropFormat prop = beanProperties.get(i);
       // write column header
       String componentName = prop.getName();
-      headerRow.createCell(i).setCellValue(new HSSFRichTextString(componentName));
+      headerRow.createCell(i).setCellValue(createRichTextString(componentName));
       // apply pattern
       if (prop.getPattern() != null) {
-        HSSFDataFormat dataFormat = workbook.createDataFormat();
+        DataFormat dataFormat = workbook.createDataFormat();
         CellStyle columnStyle = workbook.createCellStyle();
         columnStyle.setDataFormat(dataFormat.getFormat(prop.getPattern()));
         sheet.setDefaultColumnStyle(i, columnStyle);
@@ -157,8 +166,8 @@ public class BeanXLSWriter<E> implements Closeable {
     }
   }
 
-  private static void render(Object propValue, HSSFRow row, int column) {
-    HSSFCell cell = row.createCell(column);
+  private static void render(Object propValue, Row row, int column) {
+    Cell cell = row.createCell(column);
     if (propValue instanceof Number) {
       cell.setCellValue(((Number) propValue).doubleValue());
     } else if (propValue instanceof Date) {
@@ -167,7 +176,7 @@ public class BeanXLSWriter<E> implements Closeable {
       cell.setCellValue((Boolean) propValue);
     } else {
       String s = ToStringConverter.convert(propValue, null);
-      cell.setCellValue(new HSSFRichTextString(s));
+      cell.setCellValue((s));
     }
   }
 
@@ -178,4 +187,43 @@ public class BeanXLSWriter<E> implements Closeable {
     return getClass().getSimpleName();
   }
 
+  @Override
+  public RichTextString createRichTextString(String s) {
+    return null;
+  }
+
+  @Override
+  public DataFormat createDataFormat() {
+    return null;
+  }
+
+  @Override
+  public Hyperlink createHyperlink(HyperlinkType hyperlinkType) {
+    return null;
+  }
+
+  @Override
+  public FormulaEvaluator createFormulaEvaluator() {
+    return null;
+  }
+
+  @Override
+  public ExtendedColor createExtendedColor() {
+    return null;
+  }
+
+  @Override
+  public ClientAnchor createClientAnchor() {
+    return null;
+  }
+
+  @Override
+  public AreaReference createAreaReference(String s) {
+    return null;
+  }
+
+  @Override
+  public AreaReference createAreaReference(CellReference cellReference, CellReference cellReference1) {
+    return null;
+  }
 }

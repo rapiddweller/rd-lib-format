@@ -41,7 +41,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   private NamedMutator[] mutators;
   private int classIndex;
-  private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
+  private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<>();
 
 
   // constructors ----------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   @SuppressWarnings("unchecked")
   @Override
-  public DataContainer<E> next(DataContainer<E> wrapper) {
+  public DataContainer<E> next(DataContainer<E> wrapper) throws ConfigurationError {
     int i = 0;
     String value = null;
     try {
@@ -126,7 +126,6 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
       }
       return wrapper.setData(bean);
     } catch (Exception e) {
-      e.printStackTrace();
       throw new ConfigurationError("Failed to set property '" +
           mutators[i].getName() + "' to '" + value + "' on class " + type, e);
     }

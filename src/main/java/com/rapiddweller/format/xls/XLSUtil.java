@@ -19,10 +19,10 @@ import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.MathUtil;
 import com.rapiddweller.common.converter.ToStringConverter;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -35,7 +35,7 @@ import static org.apache.poi.ss.usermodel.CellType.FORMULA;
 import static org.apache.poi.ss.usermodel.CellType.STRING;
 
 /**
- * Provides utility methods for HSSF (POI).
+ * Provides utility methods for XSSF (POI).
  * <p>
  * Created at 09.08.2009 07:47:52
  *
@@ -74,7 +74,7 @@ public class XLSUtil {
       case STRING:
         return convertString(cell, emptyMarker, nullMarker, stringPreprocessor);
       case NUMERIC:
-        if (HSSFDateUtil.isCellDateFormatted(cell)) {
+        if (DateUtil.isCellDateFormatted(cell)) {
           return cell.getDateCellValue();
         } else {
           return mapNumberType(cell.getNumericCellValue());
@@ -91,8 +91,8 @@ public class XLSUtil {
           case STRING:
             return convertString(cellValue, emptyMarker, stringPreprocessor);
           case NUMERIC:
-            if (HSSFDateUtil.isCellDateFormatted(cell)) {
-              return HSSFDateUtil.getJavaDate(cellValue.getNumberValue());
+            if (DateUtil.isCellDateFormatted(cell)) {
+              return DateUtil.getJavaDate(cellValue.getNumberValue());
             } else {
               return mapNumberType(cellValue.getNumberValue());
             }

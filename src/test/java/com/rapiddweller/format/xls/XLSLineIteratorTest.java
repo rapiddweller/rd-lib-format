@@ -37,7 +37,61 @@ public class XLSLineIteratorTest extends DataIteratorTestCase {
   private static final String VALUES_FILENAME = "com/rapiddweller/format/xls/types_and_values.xls";
   private static final String ALTERNATIVE_EMPTY_FILENAME = "com/rapiddweller/format/xls/alternative_empty.xls";
   private static final String NULL_AND_EMPTY_FILENAME = "com/rapiddweller/format/xls/null_and_empty.xls";
+  private static final String POI_TESTDATA_XLS = "com/rapiddweller/format/xls/poiTestData.xls";
+  private static final String POI_TESTDATA_XLSX = "com/rapiddweller/format/xls/poiTestData.xlsx";
 
+
+  /**
+   * Test default sheet with formula.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testXls() throws Exception {
+    // test default sheet
+    try (XLSLineIterator iterator = new XLSLineIterator(POI_TESTDATA_XLS, 0)) {
+      // check headers
+      assertArrayEquals(new Object[] {"A", "B", "C", "D"}, iterator.next(new DataContainer<Object[]>()).getData());
+      // check normal row
+      expectNext(iterator, 1L, "a", null, 100L);
+      // check next row
+      expectNext(iterator, 2L, "b", null, 200L);
+      // check next row
+      expectNext(iterator, 3L, "c", null, 300L);
+      // check next row
+      expectNext(iterator, 4L, "d", null, 400L);
+      // check next row
+      expectNext(iterator, 5L, "e", null, 500L);
+      // check end of sheet
+      expectUnavailable(iterator);
+    }
+  }
+
+  /**
+   * Test default sheet with formula.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testXlsx() throws Exception {
+    // test default sheet
+    try (XLSLineIterator iterator = new XLSLineIterator(POI_TESTDATA_XLSX, 0)) {
+      // check headers
+      assertArrayEquals(new Object[] {"A", "B", "C", "D"}, iterator.next(new DataContainer<Object[]>()).getData());
+      // check normal row
+      expectNext(iterator, 1L, "a", null, 100L);
+      // check next row
+      expectNext(iterator, 2L, "b", null, 200L);
+      // check next row
+      expectNext(iterator, 3L, "c", null, 300L);
+      // check next row
+      expectNext(iterator, 4L, "d", null, 400L);
+      // check next row
+      expectNext(iterator, 5L, "e", null, 500L);
+      // check end of sheet
+      expectUnavailable(iterator);
+    }
+  }
 
   /**
    * Test default sheet with formula.

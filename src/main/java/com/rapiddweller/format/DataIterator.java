@@ -15,6 +15,8 @@
 
 package com.rapiddweller.format;
 
+import com.rapiddweller.common.ConfigurationError;
+
 import java.io.Closeable;
 
 /**
@@ -40,7 +42,7 @@ public interface DataIterator<E> extends Closeable {
    * @param container a {@link DataContainer} to receive the iterated data
    * @return a {@link DataContainer} that holds the next element, or null if none is available
    */
-  DataContainer<E> next(DataContainer<E> container);
+  DataContainer<E> next(DataContainer<E> container) throws ConfigurationError;
 
   /**
    * Closes the iterator.
