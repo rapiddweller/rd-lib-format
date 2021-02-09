@@ -12,23 +12,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xsd;
 
 /**
  * Represents a simple type in an XML schema.
  * Created: 16.05.2014 19:03:00
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public class SimpleType extends NamedSchemaElement {
-	
-	public SimpleType(String name) {
-		super(name);
-	}
-	
-	public void printContent(String indent) {
-		System.out.println(indent + super.toString());
-	}
-	
+
+  /**
+   * Instantiates a new Simple type.
+   *
+   * @param name the name
+   */
+  public SimpleType(String name) {
+    super(name);
+  }
+
+  /**
+   * Print content.
+   *
+   * @param indent the indent
+   */
+  public void printContent(String indent) {
+    System.out.println(indent + super.toString());
+  }
+
 }

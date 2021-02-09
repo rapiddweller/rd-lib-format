@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.HeavyweightIterable;
@@ -21,21 +22,30 @@ import com.rapiddweller.format.DataSource;
 /**
  * Wraps a {@link DataSource} with a Java {@link Iterable}.
  * Created: 25.01.2012 15:20:26
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.6
  * @author Volker Bergmann
+ * @since 0.6.6
  */
 public class JavaIterableFromDataSource<E> implements HeavyweightIterable<E> {
-	
-	protected DataSource<E> source;
 
-	public JavaIterableFromDataSource(DataSource<E> source) {
-		this.source = source;
-	}
+  /**
+   * The Source.
+   */
+  protected DataSource<E> source;
 
-	@Override
-	public HeavyweightIterator<E> iterator() {
-		return new JavaIteratorFromDataIterator<E>(source.iterator());
-	}
+  /**
+   * Instantiates a new Java iterable from data source.
+   *
+   * @param source the source
+   */
+  public JavaIterableFromDataSource(DataSource<E> source) {
+    this.source = source;
+  }
+
+  @Override
+  public HeavyweightIterator<E> iterator() {
+    return new JavaIteratorFromDataIterator<E>(source.iterator());
+  }
 
 }

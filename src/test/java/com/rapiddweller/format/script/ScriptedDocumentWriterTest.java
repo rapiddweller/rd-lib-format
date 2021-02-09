@@ -12,42 +12,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 import com.rapiddweller.common.SystemInfo;
-import com.rapiddweller.format.script.ConstantScript;
-import com.rapiddweller.format.script.ScriptedDocumentWriter;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests the {@link ScriptedDocumentWriter}.
  * Created: 16.06.2007 06:07:52
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class ScriptedDocumentWriterTest {
 
-    private static final String SEP = SystemInfo.getLineSeparator();
+  private static final String SEP = SystemInfo.getLineSeparator();
 
-    private static final String RESULT =
-            "header" + SEP + "row" + SEP + "footer";
+  private static final String RESULT =
+      "header" + SEP + "row" + SEP + "footer";
 
-    @Test
-    public void test() throws IOException {
-        StringWriter out = new StringWriter();
-        ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<String>(
-                out,
-                new ConstantScript("header" + SEP),
-                new ConstantScript("row" + SEP),
-                new ConstantScript("footer"));
-        writer.writeElement(null);
-        writer.close();
-        assertEquals(RESULT, out.toString());
-    }
-    
+  /**
+   * Test.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void test() throws IOException {
+    StringWriter out = new StringWriter();
+    ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<String>(
+        out,
+        new ConstantScript("header" + SEP),
+        new ConstantScript("row" + SEP),
+        new ConstantScript("footer"));
+    writer.writeElement(null);
+    writer.close();
+    assertEquals(RESULT, out.toString());
+  }
+
 }

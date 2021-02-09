@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.format.compare.ComparisonModel;
@@ -21,34 +22,136 @@ import org.w3c.dom.Node;
 /**
  * Parent interface for XML comparison models.
  * Created: 19.11.2015 15:14:33
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public interface XMLComparisonModel extends ComparisonModel {
-	
-	String DOCUMENT = "document";
-	String DOCUMENT_ENCODING = "document encoding";
-	String ELEMENT = "element";
-	String ELEMENT_NAMESPACE = "element namespace";
-	String ELEMENT_NAME = "element name";
-	String ELEMENT_TEXT = "element text";
-	String ATTRIBUTE = "attribute value";
-	String TEXT = "text";
-	String COMMENT = "comment";
-	String PROCESSING_INSTRUCTION = "processing instruction";
-	
-	boolean isNamespaceRelevant();
-	void setNamespaceRelevant(boolean namespaceRelevant);
-	boolean isWhitespaceRelevant();
-	void setWhitespaceRelevant(boolean whitespaceRelevant);
-	boolean isCommentRelevant();
-	void setCommentRelevant(boolean commentRelevant);
-	boolean isCdataRelevant();
-	void setCdataRelevant(boolean cdataRelevant);
-	boolean isProcessingInstructionRelevant();
-	void setProcessingInstructionRelevant(boolean processingInstructionRelevant);
-	
-	void init(Document document1, Document document2);
-	Node[] childNodes(Node parent);
+
+  /**
+   * The constant DOCUMENT.
+   */
+  String DOCUMENT = "document";
+  /**
+   * The constant DOCUMENT_ENCODING.
+   */
+  String DOCUMENT_ENCODING = "document encoding";
+  /**
+   * The constant ELEMENT.
+   */
+  String ELEMENT = "element";
+  /**
+   * The constant ELEMENT_NAMESPACE.
+   */
+  String ELEMENT_NAMESPACE = "element namespace";
+  /**
+   * The constant ELEMENT_NAME.
+   */
+  String ELEMENT_NAME = "element name";
+  /**
+   * The constant ELEMENT_TEXT.
+   */
+  String ELEMENT_TEXT = "element text";
+  /**
+   * The constant ATTRIBUTE.
+   */
+  String ATTRIBUTE = "attribute value";
+  /**
+   * The constant TEXT.
+   */
+  String TEXT = "text";
+  /**
+   * The constant COMMENT.
+   */
+  String COMMENT = "comment";
+  /**
+   * The constant PROCESSING_INSTRUCTION.
+   */
+  String PROCESSING_INSTRUCTION = "processing instruction";
+
+  /**
+   * Is namespace relevant boolean.
+   *
+   * @return the boolean
+   */
+  boolean isNamespaceRelevant();
+
+  /**
+   * Sets namespace relevant.
+   *
+   * @param namespaceRelevant the namespace relevant
+   */
+  void setNamespaceRelevant(boolean namespaceRelevant);
+
+  /**
+   * Is whitespace relevant boolean.
+   *
+   * @return the boolean
+   */
+  boolean isWhitespaceRelevant();
+
+  /**
+   * Sets whitespace relevant.
+   *
+   * @param whitespaceRelevant the whitespace relevant
+   */
+  void setWhitespaceRelevant(boolean whitespaceRelevant);
+
+  /**
+   * Is comment relevant boolean.
+   *
+   * @return the boolean
+   */
+  boolean isCommentRelevant();
+
+  /**
+   * Sets comment relevant.
+   *
+   * @param commentRelevant the comment relevant
+   */
+  void setCommentRelevant(boolean commentRelevant);
+
+  /**
+   * Is cdata relevant boolean.
+   *
+   * @return the boolean
+   */
+  boolean isCdataRelevant();
+
+  /**
+   * Sets cdata relevant.
+   *
+   * @param cdataRelevant the cdata relevant
+   */
+  void setCdataRelevant(boolean cdataRelevant);
+
+  /**
+   * Is processing instruction relevant boolean.
+   *
+   * @return the boolean
+   */
+  boolean isProcessingInstructionRelevant();
+
+  /**
+   * Sets processing instruction relevant.
+   *
+   * @param processingInstructionRelevant the processing instruction relevant
+   */
+  void setProcessingInstructionRelevant(boolean processingInstructionRelevant);
+
+  /**
+   * Init.
+   *
+   * @param document1 the document 1
+   * @param document2 the document 2
+   */
+  void init(Document document1, Document document2);
+
+  /**
+   * Child nodes node [ ].
+   *
+   * @param parent the parent
+   * @return the node [ ]
+   */
+  Node[] childNodes(Node parent);
 }

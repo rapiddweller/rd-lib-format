@@ -12,15 +12,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.dot;
 
 /**
  * Represents a Dot node style.
  * Created: 27.05.2014 07:45:29
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public enum NodeStyle {
-	solid, dashed, dotted, bold, rounded, diagonals, filled, striped, wedged
+  /**
+   * Solid node style.
+   */
+  solid,
+  /**
+   * Dashed node style.
+   */
+  dashed,
+  /**
+   * Dotted node style.
+   */
+  dotted,
+  /**
+   * Bold node style.
+   */
+  bold,
+  /**
+   * Rounded node style.
+   */
+  rounded,
+  /**
+   * Diagonals node style.
+   */
+  diagonals,
+  /**
+   * Filled node style.
+   */
+  filled,
+  /**
+   * Striped node style.
+   */
+  striped,
+  /**
+   * Wedged node style.
+   */
+  wedged
 }

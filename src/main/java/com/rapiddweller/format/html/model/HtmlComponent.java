@@ -12,20 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Parent class for HTML component classes.
  * Created: 06.01.2014 08:12:43
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class HtmlComponent {
-	
-	@Override
-	public String toString() {
-		return "";
-	}
-	
+
+  @Override
+  public String toString() {
+    return "";
+  }
+
 }

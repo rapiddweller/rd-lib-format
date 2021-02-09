@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xls;
 
 import com.rapiddweller.format.DataIterator;
@@ -20,36 +21,49 @@ import com.rapiddweller.format.util.AbstractDataSource;
 import java.util.Iterator;
 
 /**
- * {@link Iterable} implementation which creates {@link Iterator}s 
+ * {@link Iterable} implementation which creates {@link Iterator}s
  * that provide lines of XLS files as array objects.
  * Created: 19.07.2011 08:36:18
- * @since 0.6.5
+ *
  * @author Volker Bergmann
+ * @since 0.6.5
  */
 public class XLSLineSource extends AbstractDataSource<Object[]> {
-	
-	private final String uri;
-	private final String sheetName;
-	private final boolean formatted;
 
-	public XLSLineSource(String uri) {
-		this(uri, null, false);
-	}
+  private final String uri;
+  private final String sheetName;
+  private final boolean formatted;
 
-	public XLSLineSource(String uri, String sheetName, boolean formatted) {
-		super(Object[].class);
-		this.uri = uri;
-		this.sheetName = sheetName;
-		this.formatted = formatted;
-	}
+  /**
+   * Instantiates a new Xls line source.
+   *
+   * @param uri the uri
+   */
+  public XLSLineSource(String uri) {
+    this(uri, null, false);
+  }
 
-	@Override
-	public DataIterator<Object[]> iterator() {
-		try {
-			return new XLSLineIterator(uri, sheetName, false, formatted, null);
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to create iterator for URI " + uri, e);
-		}
-	}
+  /**
+   * Instantiates a new Xls line source.
+   *
+   * @param uri       the uri
+   * @param sheetName the sheet name
+   * @param formatted the formatted
+   */
+  public XLSLineSource(String uri, String sheetName, boolean formatted) {
+    super(Object[].class);
+    this.uri = uri;
+    this.sheetName = sheetName;
+    this.formatted = formatted;
+  }
+
+  @Override
+  public DataIterator<Object[]> iterator() {
+    try {
+      return new XLSLineIterator(uri, sheetName, false, formatted, null);
+    } catch (Exception e) {
+      throw new RuntimeException("Unable to create iterator for URI " + uri, e);
+    }
+  }
 
 }

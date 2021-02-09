@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.format.DataContainer;
@@ -19,21 +20,22 @@ import com.rapiddweller.format.DataContainer;
 /**
  * Holds a {@link DataContainer} for each thread using the {@link ThreadLocal} mechanism.
  * Created: 24.07.2011 14:46:18
+ *
  * @param <E> the type of data to hold
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
-public class ThreadLocalDataContainer<E> extends ThreadLocal<DataContainer<E>>  {
+public class ThreadLocalDataContainer<E> extends ThreadLocal<DataContainer<E>> {
 
-	@Override
-	protected DataContainer<E> initialValue() {
-	    return new DataContainer<E>();
-	}
-	
-	@Override
-	public String toString() {
-	    return get().toString();
-	}
-	
+  @Override
+  protected DataContainer<E> initialValue() {
+    return new DataContainer<E>();
+  }
+
+  @Override
+  public String toString() {
+    return get().toString();
+  }
+
 
 }

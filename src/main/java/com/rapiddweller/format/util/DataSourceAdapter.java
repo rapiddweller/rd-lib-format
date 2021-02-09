@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
@@ -20,24 +21,34 @@ import com.rapiddweller.format.DataSource;
 /**
  * Adapter for the {@link DataSource} class.
  * Created: 24.07.2011 10:01:19
+ *
  * @param <S> the type of data to iterate from the source
  * @param <T> the type of data to provide to the client
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public abstract class DataSourceAdapter<S, T> extends AbstractDataSource<T> {
 
-	protected DataSource<S> source;
-	
-	public DataSourceAdapter(DataSource<S> source, Class<T> type) {
-		super(type);
-		this.source = source;
-	}
+  /**
+   * The Source.
+   */
+  protected DataSource<S> source;
 
-	@Override
-	public void close() {
-		IOUtil.close(source);
-		super.close();
-	}
-	
+  /**
+   * Instantiates a new Data source adapter.
+   *
+   * @param source the source
+   * @param type   the type
+   */
+  public DataSourceAdapter(DataSource<S> source, Class<T> type) {
+    super(type);
+    this.source = source;
+  }
+
+  @Override
+  public void close() {
+    IOUtil.close(source);
+    super.close();
+  }
+
 }

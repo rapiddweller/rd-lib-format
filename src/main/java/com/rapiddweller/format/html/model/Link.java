@@ -12,31 +12,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML &lt;link&gt;.
  * Created: 16.06.2014 11:13:45
- * @since 0.8.3
+ *
  * @author Volker Bergmann
+ * @since 0.8.3
  */
-
 public class Link extends HtmlElement<Link> {
-	
-	public Link() {
-		super("link", true);
-	}
-	
-	public Link withRel(String rel) {
-		return this.withAttribute("rel", rel);
-	}
-	
-	public Link withType(String type) {
-		return this.withAttribute("type", type);
-	}
-	
-	public Link withHref(String href) {
-		return this.withAttribute("href", href);
-	}
-	
+
+  /**
+   * Instantiates a new Link.
+   */
+  public Link() {
+    super("link", true);
+  }
+
+  /**
+   * With rel link.
+   *
+   * @param rel the rel
+   * @return the link
+   */
+  public Link withRel(String rel) {
+    return this.withAttribute("rel", rel);
+  }
+
+  /**
+   * With type link.
+   *
+   * @param type the type
+   * @return the link
+   */
+  public Link withType(String type) {
+    return this.withAttribute("type", type);
+  }
+
+  /**
+   * With href link.
+   *
+   * @param href the href
+   * @return the link
+   */
+  public Link withHref(String href) {
+    return this.withAttribute("href", href);
+  }
+
 }

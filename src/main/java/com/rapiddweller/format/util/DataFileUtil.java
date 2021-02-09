@@ -12,55 +12,117 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 /**
  * Provides general utility methods for data files.
  * Created: 05.06.2013 18:17:20
- * @since 0.6.17
+ *
  * @author Volker Bergmann
+ * @since 0.6.17
  */
-
 public class DataFileUtil {
-	
-	public static boolean isPlainTextDocument(String fileName) {
-		return hasSuffixIgnoreCase(".txt", fileName);
-	}
 
-	public static boolean isDbUnitDocument(String fileName) {
-		return hasSuffixIgnoreCase(".dbunit.xml", fileName);
-	}
-	
-	public static boolean isXmlDocument(String fileName) {
-		return hasSuffixIgnoreCase(".xml", fileName);
-	}
-	
-	public static boolean isExcelOrCsvDocument(String fileName) {
-		return isExcelDocument(fileName) || isCsvDocument(fileName);
-	}
-	
-	public static boolean isExcelDocument(String fileName) {
-		return isBinaryExcelDocument(fileName) || isXmlExcelDocument(fileName);
-	}
-	
-	public static boolean isBinaryExcelDocument(String fileName) {
-		return hasSuffixIgnoreCase(".xls", fileName);
-	}
+  /**
+   * Is plain text document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isPlainTextDocument(String fileName) {
+    return hasSuffixIgnoreCase(".txt", fileName);
+  }
 
-	public static boolean isXmlExcelDocument(String fileName) {
-		return hasSuffixIgnoreCase(".xlsx", fileName);
-	}
-	
-	public static boolean isCsvDocument(String fileName) {
-		return hasSuffixIgnoreCase(".csv", fileName);
-	}
-	
-	public static boolean isFixedColumnWidthFile(String fileName) {
-		return hasSuffixIgnoreCase(".fcw", fileName);
-	}
+  /**
+   * Is db unit document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isDbUnitDocument(String fileName) {
+    return hasSuffixIgnoreCase(".dbunit.xml", fileName);
+  }
 
-	public static boolean hasSuffixIgnoreCase(String suffix, String fileName) {
-		return fileName.toLowerCase().endsWith(suffix);
-	}
+  /**
+   * Is xml document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isXmlDocument(String fileName) {
+    return hasSuffixIgnoreCase(".xml", fileName);
+  }
+
+  /**
+   * Is excel or csv document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isExcelOrCsvDocument(String fileName) {
+    return isExcelDocument(fileName) || isCsvDocument(fileName);
+  }
+
+  /**
+   * Is excel document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isExcelDocument(String fileName) {
+    return isBinaryExcelDocument(fileName) || isXmlExcelDocument(fileName);
+  }
+
+  /**
+   * Is binary excel document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isBinaryExcelDocument(String fileName) {
+    return hasSuffixIgnoreCase(".xls", fileName);
+  }
+
+  /**
+   * Is xml excel document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isXmlExcelDocument(String fileName) {
+    return hasSuffixIgnoreCase(".xlsx", fileName);
+  }
+
+  /**
+   * Is csv document boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isCsvDocument(String fileName) {
+    return hasSuffixIgnoreCase(".csv", fileName);
+  }
+
+  /**
+   * Is fixed column width file boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean isFixedColumnWidthFile(String fileName) {
+    return hasSuffixIgnoreCase(".fcw", fileName);
+  }
+
+  /**
+   * Has suffix ignore case boolean.
+   *
+   * @param suffix   the suffix
+   * @param fileName the file name
+   * @return the boolean
+   */
+  public static boolean hasSuffixIgnoreCase(String suffix, String fileName) {
+    return fileName.toLowerCase().endsWith(suffix);
+  }
 
 }

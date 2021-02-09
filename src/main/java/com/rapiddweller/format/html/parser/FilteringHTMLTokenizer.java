@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.parser;
 
 import com.rapiddweller.common.Filter;
@@ -22,47 +23,54 @@ import java.util.Map;
 
 /**
  * {@link HTMLTokenizer} proxy that returns only the tokens that match a {@link Filter}.
- * 
+ * <p>
  * Created: 16.06.2007 05:50:50
+ *
  * @author Volker Bergmann
  */
-public class FilteringHTMLTokenizer implements HTMLTokenizer{
+public class FilteringHTMLTokenizer implements HTMLTokenizer {
 
-    private final HTMLTokenizer source;
-    private final Filter<HTMLTokenizer> filter;
+  private final HTMLTokenizer source;
+  private final Filter<HTMLTokenizer> filter;
 
-    public FilteringHTMLTokenizer(HTMLTokenizer source, Filter<HTMLTokenizer> filter) {
-        this.source = source;
-        this.filter = filter;
-    }
+  /**
+   * Instantiates a new Filtering html tokenizer.
+   *
+   * @param source the source
+   * @param filter the filter
+   */
+  public FilteringHTMLTokenizer(HTMLTokenizer source, Filter<HTMLTokenizer> filter) {
+    this.source = source;
+    this.filter = filter;
+  }
 
-    @Override
-	public int nextToken() throws IOException, ParseException {
-        int token;
-        do {
-            token = source.nextToken();
-        } while (token != -1 && !filter.accept(source));
-        return token;
-    }
+  @Override
+  public int nextToken() throws IOException, ParseException {
+    int token;
+    do {
+      token = source.nextToken();
+    } while (token != -1 && !filter.accept(source));
+    return token;
+  }
 
-    @Override
-	public int tokenType() {
-        return source.tokenType();
-    }
+  @Override
+  public int tokenType() {
+    return source.tokenType();
+  }
 
-    @Override
-	public String name() {
-        return source.name();
-    }
+  @Override
+  public String name() {
+    return source.name();
+  }
 
-    @Override
-	public String text() {
-        return source.text();
-    }
+  @Override
+  public String text() {
+    return source.text();
+  }
 
-    @Override
-	public Map<String, String> attributes() {
-        return source.attributes();
-    }
-    
+  @Override
+  public Map<String, String> attributes() {
+    return source.attributes();
+  }
+
 }

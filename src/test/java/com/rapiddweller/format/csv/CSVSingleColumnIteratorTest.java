@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.Encodings;
@@ -24,43 +25,59 @@ import static org.junit.Assert.assertNull;
 /**
  * Tests the {@link CSVSingleColumIterator}.
  * Created: 14.10.2009 12:06:42
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class CSVSingleColumnIteratorTest extends DataIteratorTestCase {
 
-	private static final String FILENAME = "file://com/rapiddweller/format/csv/persons.csv";
+  private static final String FILENAME = "file://com/rapiddweller/format/csv/persons.csv";
 
-	@Test
-	public void testValidColumns() throws Exception {
-		CSVSingleColumIterator iterator0 = new CSVSingleColumIterator(FILENAME, 0, ',', true, Encodings.UTF_8);
-		try {
-			expectNextElements(iterator0, "name", "Alice", "Bob").withNoNext();
-		} finally {
-			iterator0.close();
-		}
-		CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 1, ',', true, Encodings.UTF_8);
-		try {
-			expectNextElements(iterator1, "age", "23", "34").withNoNext();
-		} finally {
-			iterator1.close();
-		}
-	}
-	
-	@SuppressWarnings("resource")
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeColumn() throws Exception {
-		new CSVSingleColumIterator(FILENAME, -1, ',', true, Encodings.UTF_8);
-	}
-	
-	@Test
-	public void testNonExistingColumn() throws Exception {
-		CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 2, ',', true, Encodings.UTF_8);
-		try {
-			assertNull(iterator1.next(new DataContainer<String>()).getData());
-		} finally {
-			iterator1.close();
-		}
-	}
-	
+  /**
+   * Test valid columns.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testValidColumns() throws Exception {
+    CSVSingleColumIterator iterator0 = new CSVSingleColumIterator(FILENAME, 0, ',', true, Encodings.UTF_8);
+    try {
+      expectNextElements(iterator0, "name", "Alice", "Bob").withNoNext();
+    } finally {
+      iterator0.close();
+    }
+    CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 1, ',', true, Encodings.UTF_8);
+    try {
+      expectNextElements(iterator1, "age", "23", "34").withNoNext();
+    } finally {
+      iterator1.close();
+    }
+  }
+
+  /**
+   * Test negative column.
+   *
+   * @throws Exception the exception
+   */
+  @SuppressWarnings("resource")
+  @Test(expected = IllegalArgumentException.class)
+  public void testNegativeColumn() throws Exception {
+    new CSVSingleColumIterator(FILENAME, -1, ',', true, Encodings.UTF_8);
+  }
+
+  /**
+   * Test non existing column.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testNonExistingColumn() throws Exception {
+    CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 2, ',', true, Encodings.UTF_8);
+    try {
+      assertNull(iterator1.next(new DataContainer<String>()).getData());
+    } finally {
+      iterator1.close();
+    }
+  }
+
 }

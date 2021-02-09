@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ConfigurationError;
@@ -34,114 +35,167 @@ import static org.junit.Assert.assertThrows;
  */
 public class CSVUtilTest {
 
-    @Test
-    public void testParseHeader2() {
-        assertThrows(ConfigurationError.class, () -> CSVUtil.parseHeader("string://", 'A', "UTF-8"));
-    }
+  /**
+   * Test parse header 2.
+   */
+  @Test
+  public void testParseHeader2() {
+    assertThrows(ConfigurationError.class, () -> CSVUtil.parseHeader("string://", 'A', "UTF-8"));
+  }
 
-    @Test
-    public void testParseHeader3() {
-        assertEquals(1, CSVUtil.parseHeader("file:", 'A', "UTF-8").length);
-    }
+  /**
+   * Test parse header 3.
+   */
+  @Test
+  public void testParseHeader3() {
+    assertEquals(1, CSVUtil.parseHeader("file:", 'A', "UTF-8").length);
+  }
 
-    @Test
-    public void testParseHeader4() {
-        assertThrows(RuntimeException.class, () -> CSVUtil.parseHeader("://", 'A', "UTF-8"));
-    }
+  /**
+   * Test parse header 4.
+   */
+  @Test
+  public void testParseHeader4() {
+    assertThrows(RuntimeException.class, () -> CSVUtil.parseHeader("://", 'A', "UTF-8"));
+  }
 
-    @Test
-    public void testParseRows() throws IOException {
-        assertEquals(0, CSVUtil.parseRows("string://", 'A').length);
-        assertEquals(2, CSVUtil.parseRows("file:", 'A').length);
-        assertEquals(0, CSVUtil.parseRows("string://", 'A', "UTF-8").length);
-        assertEquals(2, CSVUtil.parseRows("file:", 'A', "UTF-8").length);
-    }
+  /**
+   * Test parse rows.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testParseRows() throws IOException {
+    assertEquals(0, CSVUtil.parseRows("string://", 'A').length);
+    assertEquals(1, CSVUtil.parseRows("file:", 'A').length);
+    assertEquals(0, CSVUtil.parseRows("string://", 'A', "UTF-8").length);
+    assertEquals(1, CSVUtil.parseRows("file:", 'A', "UTF-8").length);
+  }
 
-    @Test
-    public void testParseCSVRow() {
-        assertEquals(1, CSVUtil.parseCSVRow("Text").length);
-    }
+  /**
+   * Test parse csv row.
+   */
+  @Test
+  public void testParseCSVRow() {
+    assertEquals(1, CSVUtil.parseCSVRow("Text").length);
+  }
 
-    @Test
-    public void testRenderCell() {
-        // simple test
-        assertEquals("Alice", CSVUtil.renderCell("Alice", ','));
-        // test cell with comma
-        assertEquals("\"Alice,Bob\"", CSVUtil.renderCell("Alice,Bob", ','));
-        // test cell with quotes
-        assertEquals("\"\"\"Ha! Ha!\"\" Said the clown\"", CSVUtil.renderCell("\"Ha! Ha!\" Said the clown", ','));
-        // test cell with quotes and comma
-        assertEquals("\"\"\"One, two, three\"\" and so\"", CSVUtil.renderCell("\"One, two, three\" and so", ','));
-        assertEquals("Text", CSVUtil.renderCell("Text", 'A'));
-        assertEquals("", CSVUtil.renderCell(null, 'A'));
-        assertEquals("\"java.lang.String\"", CSVUtil.renderCell("java.lang.String", 'a'));
-        assertEquals("\"\"\"\"", CSVUtil.renderCell("\"", 'a'));
-    }
+  /**
+   * Test render cell.
+   */
+  @Test
+  public void testRenderCell() {
+    // simple test
+    assertEquals("Alice", CSVUtil.renderCell("Alice", ','));
+    // test cell with comma
+    assertEquals("\"Alice,Bob\"", CSVUtil.renderCell("Alice,Bob", ','));
+    // test cell with quotes
+    assertEquals("\"\"\"Ha! Ha!\"\" Said the clown\"", CSVUtil.renderCell("\"Ha! Ha!\" Said the clown", ','));
+    // test cell with quotes and comma
+    assertEquals("\"\"\"One, two, three\"\" and so\"", CSVUtil.renderCell("\"One, two, three\" and so", ','));
+    assertEquals("Text", CSVUtil.renderCell("Text", 'A'));
+    assertEquals("", CSVUtil.renderCell(null, 'A'));
+    assertEquals("\"java.lang.String\"", CSVUtil.renderCell("java.lang.String", 'a'));
+    assertEquals("\"\"\"\"", CSVUtil.renderCell("\"", 'a'));
+  }
 
-    @Test
-    public void testFormatHeaderWithLineFeed() {
-        assertEquals("Property Names\n", CSVUtil.formatHeaderWithLineFeed('A', "Property Names"));
-    }
+  /**
+   * Test format header with line feed.
+   */
+  @Test
+  public void testFormatHeaderWithLineFeed() {
+    assertEquals("Property Names\n", CSVUtil.formatHeaderWithLineFeed('A', "Property Names"));
+  }
 
-    @Test
-    public void testWriteRow() throws Exception {
-        StringWriter out = new StringWriter();
-        CSVUtil.writeRow(out, ',', null, "A", "B,C", "D\"E\"F", "G,\"H\",I");
-        assertEquals(",A,\"B,C\",\"D\"\"E\"\"F\",\"G,\"\"H\"\",I\"" + SystemInfo.getLineSeparator(), out.toString());
-    }
+  /**
+   * Test write row.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testWriteRow() throws Exception {
+    StringWriter out = new StringWriter();
+    CSVUtil.writeRow(out, ',', null, "A", "B,C", "D\"E\"F", "G,\"H\",I");
+    assertEquals(",A,\"B,C\",\"D\"\"E\"\"F\",\"G,\"\"H\"\",I\"" + SystemInfo.getLineSeparator(), out.toString());
+  }
 
-    @Test
-    public void testWriteRow2() throws IOException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  /**
+   * Test write row 2.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testWriteRow2() throws IOException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        CSVUtil.writeRow(Writer.nullWriter(), 'A', "Cells");
-    }
+    CSVUtil.writeRow(Writer.nullWriter(), 'A', "Cells");
+  }
 
-    @Test
-    public void testWriteRow3() throws IOException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  /**
+   * Test write row 3.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testWriteRow3() throws IOException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        CSVUtil.writeRow(new StringWriter(), 'A', "Cells");
-    }
+    CSVUtil.writeRow(new StringWriter(), 'A', "Cells");
+  }
 
-    @Test
-    public void testWriteRow4() throws IOException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  /**
+   * Test write row 4.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testWriteRow4() throws IOException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        CSVUtil.writeRow(Writer.nullWriter(), 'A', "line.separator", "line.separator");
-    }
+    CSVUtil.writeRow(Writer.nullWriter(), 'A', "line.separator", "line.separator");
+  }
 
-    @Test
-    public void testWriteRow5() throws IOException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  /**
+   * Test write row 5.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testWriteRow5() throws IOException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        CSVUtil.writeRow(Writer.nullWriter(), 'a', "line.separator", "line.separator");
-    }
+    CSVUtil.writeRow(Writer.nullWriter(), 'a', "line.separator", "line.separator");
+  }
 
-    @Test
-    public void testWriteRow6() throws IOException {
-        // TODO: This test is incomplete.
-        //   Reason: No meaningful assertions found.
-        //   To help Diffblue Cover to find assertions, please add getters to the
-        //   class under test that return fields written by the method under test.
-        //   See https://diff.blue/R004
+  /**
+   * Test write row 6.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testWriteRow6() throws IOException {
+    // TODO: This test is incomplete.
+    //   Reason: No meaningful assertions found.
+    //   To help Diffblue Cover to find assertions, please add getters to the
+    //   class under test that return fields written by the method under test.
+    //   See https://diff.blue/R004
 
-        CSVUtil.writeRow(Writer.nullWriter(), 'a', "\"", "line.separator");
-    }
+    CSVUtil.writeRow(Writer.nullWriter(), 'a', "\"", "line.separator");
+  }
 }

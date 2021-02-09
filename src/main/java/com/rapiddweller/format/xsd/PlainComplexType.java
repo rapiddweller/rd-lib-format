@@ -12,46 +12,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xsd;
 
 /**
  * Represents a plain {@link ComplexType} of an XML schema.
  * Created: 16.05.2014 20:01:00
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public class PlainComplexType extends ComplexType {
-	
-	private Integer minLength;
-	private Integer maxLength;
 
-	public PlainComplexType(String name) {
-		super(name);
-	}
-	
-	public Integer getMinLength() {
-		return minLength;
-	}
-	
-	public void setMinLength(Integer minLength) {
-		this.minLength = minLength;
-	}
+  private Integer minLength;
+  private Integer maxLength;
 
-	public Integer getMaxLength() {
-		return maxLength;
-	}
-	
-	public void setMaxLength(Integer maxLength) {
-		this.maxLength = maxLength;
-	}
+  /**
+   * Instantiates a new Plain complex type.
+   *
+   * @param name the name
+   */
+  public PlainComplexType(String name) {
+    super(name);
+  }
 
-	@Override
-	public void printContent(String indent) {
-		System.out.println(indent + super.toString());
-		indent += "  ";
-		for (Attribute attribute : attributes.values())
-			attribute.printContent(indent);
-	}
+  /**
+   * Gets min length.
+   *
+   * @return the min length
+   */
+  public Integer getMinLength() {
+    return minLength;
+  }
+
+  /**
+   * Sets min length.
+   *
+   * @param minLength the min length
+   */
+  public void setMinLength(Integer minLength) {
+    this.minLength = minLength;
+  }
+
+  /**
+   * Gets max length.
+   *
+   * @return the max length
+   */
+  public Integer getMaxLength() {
+    return maxLength;
+  }
+
+  /**
+   * Sets max length.
+   *
+   * @param maxLength the max length
+   */
+  public void setMaxLength(Integer maxLength) {
+    this.maxLength = maxLength;
+  }
+
+  @Override
+  public void printContent(String indent) {
+    System.out.println(indent + super.toString());
+    indent += "  ";
+    for (Attribute attribute : attributes.values()) {
+      attribute.printContent(indent);
+    }
+  }
 
 }

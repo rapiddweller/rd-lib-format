@@ -12,21 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.regex;
 
 /**
  * Parent interface for all classes that represent parts of a regular expression.
  * Created: 04.04.2014 15:47:50
- * @since 0.8.0
+ *
  * @author Volker Bergmann
+ * @since 0.8.0
  */
-
 public interface RegexPart {
-	
-	/** @return the minimum length of the regex part */
-	int minLength();
-	
-	/** @return the maximum length of the regex part, or null if the length is not limited */
-	Integer maxLength();
-	
+
+  /**
+   * Min length int.
+   *
+   * @return the minimum length of the regex part
+   */
+  int minLength();
+
+  /**
+   * Max length integer.
+   *
+   * @return the maximum length of the regex part, or null if the length is not limited
+   */
+  Integer maxLength();
+
 }

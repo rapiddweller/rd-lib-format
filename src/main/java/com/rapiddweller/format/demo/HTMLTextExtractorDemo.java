@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.demo;
 
 import com.rapiddweller.common.ConversionException;
@@ -28,31 +29,42 @@ import java.text.ParseException;
 /**
  * This class demonstrates how to use the HTML2XML utility and the XSLTTransformer
  * for extracting data from a web page.
- * 
+ * <p>
  * Created: 16.06.2007 10:08:41
+ *
  * @author Volker Bergmann
  */
 public class HTMLTextExtractorDemo {
-    private static final String XSLT_FILENAME = "com/rapiddweller/format/demo/HTMLTextExtractorDemo.xsl";
+  private static final String XSLT_FILENAME = "com/rapiddweller/format/demo/HTMLTextExtractorDemo.xsl";
 
-    public static void main(String[] args) throws IOException, ParseException, TransformerException, ConversionException {
-        // Fetch the web page as string
-        String html = IOUtil.getContentOfURI("http://www.yahoo.com");
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   * @throws IOException          the io exception
+   * @throws ParseException       the parse exception
+   * @throws TransformerException the transformer exception
+   * @throws ConversionException  the conversion exception
+   */
+  public static void main(String[] args) throws IOException, ParseException, TransformerException, ConversionException {
+    // Fetch the web page as string
+    String html = IOUtil.getContentOfURI("http://www.yahoo.com");
 
-        // convert the page content to XML
-        String xml = HTML2XML.convert(html);
+    // convert the page content to XML
+    String xml = HTML2XML.convert(html);
 
-        // load the XSLT script and execute it on the XML text
-        String xslt = IOUtil.getContentOfURI(XSLT_FILENAME);
-        String xsltResult = XSLTTransformer.transform(xml, xslt);
-        System.out.println("XSLT result: " + xsltResult);
+    // load the XSLT script and execute it on the XML text
+    String xslt = IOUtil.getContentOfURI(XSLT_FILENAME);
+    String xsltResult = XSLTTransformer.transform(xml, xslt);
+    System.out.println("XSLT result: " + xsltResult);
 
-        // split the list by its s separator token |
-        Converter<String, String[]> converter = new SplitStringConverter('|');
-        String[] headlines = converter.convert(xsltResult);
-        System.out.println("Yahoo headlines :");
-        System.out.println("- - - - - - - - -");
-        for (int i = 0; i < headlines.length; i++)
-            System.out.println((i+1) + ". " + headlines[i]);
+    // split the list by its s separator token |
+    Converter<String, String[]> converter = new SplitStringConverter('|');
+    String[] headlines = converter.convert(xsltResult);
+    System.out.println("Yahoo headlines :");
+    System.out.println("- - - - - - - - -");
+    for (int i = 0; i < headlines.length; i++) {
+      System.out.println((i + 1) + ". " + headlines[i]);
     }
+  }
 }

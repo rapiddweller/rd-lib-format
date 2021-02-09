@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.format.DataIterator;
@@ -21,56 +22,81 @@ import com.rapiddweller.format.util.OrthogonalArrayIterator;
 import java.io.IOException;
 
 /**
- * {@link DataSource} implementation that provides for 
+ * {@link DataSource} implementation that provides for
  * row-wise or column-wise iteration through CSV files.
  * Created: 23.11.2011 11:14:54
- * @since 0.6.4
+ *
  * @author Volker Bergmann
+ * @since 0.6.4
  */
 public class CSVSource implements DataSource<String[]> {
 
-    /** The default separator to use */
-    public static final char DEFAULT_SEPARATOR = ',';
+  /**
+   * The default separator to use
+   */
+  public static final char DEFAULT_SEPARATOR = ',';
 
-    protected String uri;
-    protected char separator;
-    protected String encoding;
-    protected boolean ignoreEmptyLines;
+  /**
+   * The Uri.
+   */
+  protected String uri;
+  /**
+   * The Separator.
+   */
+  protected char separator;
+  /**
+   * The Encoding.
+   */
+  protected String encoding;
+  /**
+   * The Ignore empty lines.
+   */
+  protected boolean ignoreEmptyLines;
 
-	private final boolean rowBased;
-	
-    // constructors ----------------------------------------------------------------------------------------------------
+  private final boolean rowBased;
 
-    public CSVSource(String uri, char separator, String encoding, boolean ignoreEmptyLines, boolean rowBased) {
-		this.uri = uri;
-		this.separator = separator;
-		this.encoding = encoding;
-		this.ignoreEmptyLines = ignoreEmptyLines;
-		this.rowBased = rowBased;
-	}
+  // constructors ----------------------------------------------------------------------------------------------------
 
-    // interface -------------------------------------------------------------------------------------------------------
+  /**
+   * Instantiates a new Csv source.
+   *
+   * @param uri              the uri
+   * @param separator        the separator
+   * @param encoding         the encoding
+   * @param ignoreEmptyLines the ignore empty lines
+   * @param rowBased         the row based
+   */
+  public CSVSource(String uri, char separator, String encoding, boolean ignoreEmptyLines, boolean rowBased) {
+    this.uri = uri;
+    this.separator = separator;
+    this.encoding = encoding;
+    this.ignoreEmptyLines = ignoreEmptyLines;
+    this.rowBased = rowBased;
+  }
 
-    @Override
-	public Class<String[]> getType() {
-    	return String[].class;
+  // interface -------------------------------------------------------------------------------------------------------
+
+  @Override
+  public Class<String[]> getType() {
+    return String[].class;
+  }
+
+  @Override
+  public DataIterator<String[]> iterator() {
+    try {
+      DataIterator<String[]> result = new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
+      if (!rowBased) {
+        result = new OrthogonalArrayIterator<String>(result);
+      }
+      return result;
+    } catch (IOException e) {
+      throw new RuntimeException("Error creating iterator for " + uri, e);
     }
-    
-	@Override
-	public DataIterator<String[]> iterator() {
-		try {
-			DataIterator<String[]> result = new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
-			if (!rowBased)
-				result = new OrthogonalArrayIterator<String>(result);
-			return result;
-		} catch (IOException e) {
-			throw new RuntimeException("Error creating iterator for " + uri, e);
-		}
-	}
-	
-    @Override
-	public void close() {
-    	// nothing to do
-    }
-    
+  }
+
+  @Override
+  public void close() {
+    // nothing to do
+  }
+
 }

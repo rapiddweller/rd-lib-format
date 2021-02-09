@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ConfigurationError;
@@ -21,46 +22,68 @@ import com.rapiddweller.format.util.AbstractDataSource;
 
 /**
  * Creates Iterators that iterate through the cells of a CSV file.
- * 
+ * <p>
  * Created: 01.09.2007 11:40:30
+ *
  * @author Volker Bergmann
  */
 public class CSVCellSource extends AbstractDataSource<String> {
 
-    private String uri;
-    private final char separator;
-    private final String encoding;
+  private String uri;
+  private final char separator;
+  private final String encoding;
 
-    public CSVCellSource() {
-        this(null, ',');
-    }
+  /**
+   * Instantiates a new Csv cell source.
+   */
+  public CSVCellSource() {
+    this(null, ',');
+  }
 
-    public CSVCellSource(String uri, char separator) {
-        this(uri, separator, SystemInfo.getFileEncoding());
-    }
-    
-    public CSVCellSource(String uri, char separator, String encoding) {
-    	super(String.class);
-        this.uri = uri;
-        this.separator = separator;
-        this.encoding = encoding;
-    }
-    
-    public void setUri(String uri) {
-		this.uri = uri;
-	}
+  /**
+   * Instantiates a new Csv cell source.
+   *
+   * @param uri       the uri
+   * @param separator the separator
+   */
+  public CSVCellSource(String uri, char separator) {
+    this(uri, separator, SystemInfo.getFileEncoding());
+  }
 
-    @Override
-	public DataIterator<String> iterator() {
-        try {
-            return new CSVCellIterator(uri, separator, encoding);
-        } catch (Exception e) {
-            throw new ConfigurationError(e);
-        }
+  /**
+   * Instantiates a new Csv cell source.
+   *
+   * @param uri       the uri
+   * @param separator the separator
+   * @param encoding  the encoding
+   */
+  public CSVCellSource(String uri, char separator, String encoding) {
+    super(String.class);
+    this.uri = uri;
+    this.separator = separator;
+    this.encoding = encoding;
+  }
+
+  /**
+   * Sets uri.
+   *
+   * @param uri the uri
+   */
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
+
+  @Override
+  public DataIterator<String> iterator() {
+    try {
+      return new CSVCellIterator(uri, separator, encoding);
+    } catch (Exception e) {
+      throw new ConfigurationError(e);
     }
-    
-    @Override
-    public String toString() {
-    	return getClass().getSimpleName() + '[' + uri + ", '" + separator + "']";
-    }
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + '[' + uri + ", '" + separator + "']";
+  }
 }

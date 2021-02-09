@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.Context;
@@ -21,11 +22,28 @@ import java.io.Writer;
 
 /**
  * Abstraction of a Script.
- * 
+ * <p>
  * Created: 03.02.2007 11:50:27
+ *
  * @author Volker Bergmann
  */
 public interface Script {
-    void execute(Context context, Writer out) throws ScriptException, IOException;
-    Object evaluate(Context context) throws ScriptException;
+  /**
+   * Execute.
+   *
+   * @param context the context
+   * @param out     the out
+   * @throws ScriptException the script exception
+   * @throws IOException     the io exception
+   */
+  void execute(Context context, Writer out) throws ScriptException, IOException;
+
+  /**
+   * Evaluate object.
+   *
+   * @param context the context
+   * @return the object
+   * @throws ScriptException the script exception
+   */
+  Object evaluate(Context context) throws ScriptException;
 }

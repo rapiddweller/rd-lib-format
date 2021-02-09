@@ -12,13 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.csv;
 
 /**
  * Callback interface for CSV parsing.
- * 
+ * <p>
  * Created: 26.10.2007 12:53:01
  */
 public interface CSVLineHandler {
-    void handle(String[] cells);
+  /**
+   * Handle.
+   *
+   * @param cells the cells
+   */
+  void handle(String[] cells);
 }

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.StringUtil;
@@ -22,31 +23,44 @@ import java.text.ParseException;
 /**
  * Parses a line of a flat file.
  * Created: 22.02.2010 08:06:41
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class FixedWidthLineParser {
 
-	private final PadFormat[] formats;
+  private final PadFormat[] formats;
 
-    public FixedWidthLineParser(PadFormat[] formats) {
-	    this.formats = formats.clone();
-    }
+  /**
+   * Instantiates a new Fixed width line parser.
+   *
+   * @param formats the formats
+   */
+  public FixedWidthLineParser(PadFormat[] formats) {
+    this.formats = formats.clone();
+  }
 
-    public String[] parse(String line) throws ParseException {
-        String[] cells = new String[formats.length];
-        int offset = 0;
-        if (StringUtil.isEmpty(line))
-            return new String[0];
-        else {
-            for (int i = 0; i < formats.length; i++) {
-                PadFormat format = formats[i];
-                String cell = line.substring(offset, Math.min(offset + format.getLength(), line.length()));
-                cells[i] = (String) format.parseObject(cell);
-                offset += format.getLength();
-            }
-            return cells;
-        }
+  /**
+   * Parse string [ ].
+   *
+   * @param line the line
+   * @return the string [ ]
+   * @throws ParseException the parse exception
+   */
+  public String[] parse(String line) throws ParseException {
+    String[] cells = new String[formats.length];
+    int offset = 0;
+    if (StringUtil.isEmpty(line)) {
+      return new String[0];
+    } else {
+      for (int i = 0; i < formats.length; i++) {
+        PadFormat format = formats[i];
+        String cell = line.substring(offset, Math.min(offset + format.getLength(), line.length()));
+        cells[i] = (String) format.parseObject(cell);
+        offset += format.getLength();
+      }
+      return cells;
     }
-    
+  }
+
 }

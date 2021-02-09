@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <root att="val">
-	<?procint piatt="pival"?>
-	<node><![CDATA[text]]></node>
+    <?procint piatt="pival"?>
+    <node><![CDATA[text]]></node>
 </root>

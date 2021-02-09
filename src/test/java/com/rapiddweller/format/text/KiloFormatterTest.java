@@ -12,40 +12,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Locale;
 
-import com.rapiddweller.format.text.KiloFormatter;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link KiloFormatter}.
  * Created: 13.12.2012 14:17:17
- * @since 0.5.21
+ *
  * @author Volker Bergmann
+ * @since 0.5.21
  */
 public class KiloFormatterTest {
-	
-	@Test
-	public void testBase1000() {
-		KiloFormatter formatter = new KiloFormatter(1000, Locale.US);
-		assertEquals("0", formatter.format(0));
-		assertEquals("1", formatter.format(1));
-		assertEquals("999", formatter.format(999));
-		assertEquals("1 K", formatter.format(1000));
-		assertEquals("1.1 K", formatter.format(1100));
-		assertEquals("1.9 K", formatter.format(1900));
-		assertEquals("2 K", formatter.format(1999));
-		assertEquals("2 K", formatter.format(2000));
-		assertEquals("2 K", formatter.format(2001));
-		assertEquals("1 M", formatter.format(1000000));
-		assertEquals("1 G", formatter.format(1000000000L));
-		assertEquals("1 T", formatter.format(1000000000000L));
-		assertEquals("1 E", formatter.format(1000000000000000L));
-		assertEquals("1000 E", formatter.format(1000000000000000000L));
-	}
-	
+
+  /**
+   * Test base 1000.
+   */
+  @Test
+  public void testBase1000() {
+    KiloFormatter formatter = new KiloFormatter(1000, Locale.US);
+    assertEquals("0", formatter.format(0));
+    assertEquals("1", formatter.format(1));
+    assertEquals("999", formatter.format(999));
+    assertEquals("1 K", formatter.format(1000));
+    assertEquals("1.1 K", formatter.format(1100));
+    assertEquals("1.9 K", formatter.format(1900));
+    assertEquals("2 K", formatter.format(1999));
+    assertEquals("2 K", formatter.format(2000));
+    assertEquals("2 K", formatter.format(2001));
+    assertEquals("1 M", formatter.format(1000000));
+    assertEquals("1 G", formatter.format(1000000000L));
+    assertEquals("1 T", formatter.format(1000000000000L));
+    assertEquals("1 E", formatter.format(1000000000000000L));
+    assertEquals("1000 E", formatter.format(1000000000000000000L));
+  }
+
 }

@@ -18,64 +18,115 @@ package com.rapiddweller.format.xls;
 /**
  * Describes how to format a bean property.
  * Created: 27.12.2015 07:55:04
- * @since 1.0.7
+ *
  * @author Volker Bergmann
+ * @since 1.0.7
  */
-
 public class PropFormat {
 
-	private final String name;
-	private String pattern;
-	
-	public PropFormat(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public String getPattern() {
-		return pattern;
-	}
-	
-	public PropFormat withDateFormat() {
-		return withPattern("dd.MM.yyyy");
-	}
+  private final String name;
+  private String pattern;
 
-	public PropFormat withIntFormat() {
-		return withPattern("#,##0");
-	}
+  /**
+   * Instantiates a new Prop format.
+   *
+   * @param name the name
+   */
+  public PropFormat(String name) {
+    this.name = name;
+  }
 
-	public PropFormat withPercentageFormat() {
-		return withPattern("0%");
-	}
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-	public PropFormat withDecimalFormat(int fractionDigits) {
-		String pattern;
-		switch (fractionDigits) {
-			case 0: pattern = "#,##0";     break;
-			case 1: pattern = "#,##0.0";   break;
-			case 2: pattern = "#,##0.00";  break;
-			case 3: pattern = "#,##0.000"; break;
-			default: 
-				StringBuilder builder = new StringBuilder("#,##0.");
-				for (int i = 0; i < fractionDigits; i++)
-					builder.append("0");
-				pattern = builder.toString();
-				break;
-		}
-		return withPattern(pattern);
-	}
+  /**
+   * Gets pattern.
+   *
+   * @return the pattern
+   */
+  public String getPattern() {
+    return pattern;
+  }
 
-	public PropFormat withPattern(String pattern) {
-		this.pattern = pattern;
-		return this;
-	}
+  /**
+   * With date format prop format.
+   *
+   * @return the prop format
+   */
+  public PropFormat withDateFormat() {
+    return withPattern("dd.MM.yyyy");
+  }
 
-	@Override
-	public String toString() {
-		return name + (pattern != null ? "[" + pattern + "]" : "");
-	}
-	
+  /**
+   * With int format prop format.
+   *
+   * @return the prop format
+   */
+  public PropFormat withIntFormat() {
+    return withPattern("#,##0");
+  }
+
+  /**
+   * With percentage format prop format.
+   *
+   * @return the prop format
+   */
+  public PropFormat withPercentageFormat() {
+    return withPattern("0%");
+  }
+
+  /**
+   * With decimal format prop format.
+   *
+   * @param fractionDigits the fraction digits
+   * @return the prop format
+   */
+  public PropFormat withDecimalFormat(int fractionDigits) {
+    String pattern;
+    switch (fractionDigits) {
+      case 0:
+        pattern = "#,##0";
+        break;
+      case 1:
+        pattern = "#,##0.0";
+        break;
+      case 2:
+        pattern = "#,##0.00";
+        break;
+      case 3:
+        pattern = "#,##0.000";
+        break;
+      default:
+        StringBuilder builder = new StringBuilder("#,##0.");
+        for (int i = 0; i < fractionDigits; i++) {
+          builder.append("0");
+        }
+        pattern = builder.toString();
+        break;
+    }
+    return withPattern(pattern);
+  }
+
+  /**
+   * With pattern prop format.
+   *
+   * @param pattern the pattern
+   * @return the prop format
+   */
+  public PropFormat withPattern(String pattern) {
+    this.pattern = pattern;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return name + (pattern != null ? "[" + pattern + "]" : "");
+  }
+
 }

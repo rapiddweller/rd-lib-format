@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import com.rapiddweller.common.ConversionException;
@@ -20,21 +21,27 @@ import com.rapiddweller.common.converter.ThreadSafeConverter;
 
 /**
  * Splits a String by a separator character
- * 
+ * <p>
  * Created: 19.06.2007 07:33:03
+ *
  * @author Volker Bergmann
  */
 public class SplitStringConverter extends ThreadSafeConverter<String, String[]> {
 
-    private final char separator;
+  private final char separator;
 
-    public SplitStringConverter(char separator) {
-    	super(String.class, String[].class);
-        this.separator = separator;
-    }
+  /**
+   * Instantiates a new Split string converter.
+   *
+   * @param separator the separator
+   */
+  public SplitStringConverter(char separator) {
+    super(String.class, String[].class);
+    this.separator = separator;
+  }
 
-    @Override
-	public String[] convert(String sourceValue) throws ConversionException {
-        return StringUtil.tokenize(sourceValue, separator);
-    }
+  @Override
+  public String[] convert(String sourceValue) throws ConversionException {
+    return StringUtil.tokenize(sourceValue, separator);
+  }
 }

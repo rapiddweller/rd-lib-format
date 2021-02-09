@@ -25,32 +25,35 @@
  *  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.context.DefaultContext;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.graalvm.polyglot.Value;
+
 import static org.junit.Assert.assertEquals;
 
 /**
  * Test the ScriptSupport class.
  * Created: 29.01.2021 17:38:51
+ *
  * @author Alexander Kell
  */
 public class ScriptSupportTest {
 
-	@Test
-    public void testRender() {
-        assertEquals("xyz", ScriptUtil.evaluate("xyz", null));
-        assertEquals("xyz${var}xyz", ScriptUtil.evaluate("xyz${var}xyz", null));
-        Context context = new DefaultContext();
-        context.set("var", "!!!");
-        assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{xyz${var}xyz}", context));
-        assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{ftl:xyz${var}xyz}", context));
-    }
+  /**
+   * Test render.
+   */
+  @Test
+  public void testRender() {
+    assertEquals("xyz", ScriptUtil.evaluate("xyz", null));
+    assertEquals("xyz${var}xyz", ScriptUtil.evaluate("xyz${var}xyz", null));
+    Context context = new DefaultContext();
+    context.set("var", "!!!");
+    assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{xyz${var}xyz}", context));
+    assertEquals("xyz!!!xyz", ScriptUtil.evaluate("{ftl:xyz${var}xyz}", context));
+  }
 
 
-	
 }

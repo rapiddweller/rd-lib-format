@@ -12,30 +12,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 /**
  * Indicates the failure of a {@link Script} execution.
- * 
+ * <p>
  * Created: 03.02.2007 12:19:00
+ *
  * @author Volker Bergmann
  */
 public class ScriptException extends RuntimeException {
-    
-	private static final long serialVersionUID = 837802417051369136L;
 
-	public ScriptException() {
-    }
+  private static final long serialVersionUID = 837802417051369136L;
 
-    public ScriptException(String message) {
-        super(message);
-    }
+  /**
+   * Instantiates a new Script exception.
+   */
+  public ScriptException() {
+  }
 
-    public ScriptException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  /**
+   * Instantiates a new Script exception.
+   *
+   * @param message the message
+   */
+  public ScriptException(String message) {
+    super(message);
+  }
 
-    public ScriptException(Throwable cause) {
-        super(cause);
-    }
+  /**
+   * Instantiates a new Script exception.
+   *
+   * @param message the message
+   * @param cause   the cause
+   */
+  public ScriptException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  /**
+   * Instantiates a new Script exception.
+   *
+   * @param cause the cause
+   */
+  public ScriptException(Throwable cause) {
+    super(cause);
+  }
 }

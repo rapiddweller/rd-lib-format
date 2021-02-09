@@ -12,79 +12,104 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.regex;
 
 import java.util.Arrays;
 
 /**
  * Represents a sequence of regular expression factors.
- * 
- * @see Factor 
+ *
+ * @see Factor
  */
 public class Sequence implements RegexPart {
-	
-    /** The represented sequence of regular expression factors */
-    private final RegexPart[] factors;
-    
-    // constructors ----------------------------------------------------------------------------------------------------
-    
-    public Sequence(RegexPart ... factors) {
-        this.factors = factors;
-    }
-    
-    public RegexPart[] getFactors() {
-        return factors;
-    }
-    
-    
-    // RegexPart interface implementation ------------------------------------------------------------------------------
-    
-	@Override
-	public int minLength() {
-		int min = 0;
-		for (RegexPart part : factors)
-			min += part.minLength();
-		return min;
-	}
-	
-	@Override
-	public Integer maxLength() {
-		int max = 0;
-		for (RegexPart part : factors) {
-			Integer partMaxLength = part.maxLength();
-			if (partMaxLength == null) // if one sequence component is unlimited, then the whole sequence is unlimited
-				return null;
-			max += partMaxLength;
-		}
-		return max;
-	}
-    
-    // java.lang.Object overrides --------------------------------------------------------------------------------------
-	
-    /** @see java.lang.Object#equals(Object) */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-        	return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        final Sequence that = (Sequence) o;
-        return Arrays.equals(this.factors, that.factors);
-    }
 
-    /** @see java.lang.Object#equals(Object) */
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(factors);
-    }
+  /**
+   * The represented sequence of regular expression factors
+   */
+  private final RegexPart[] factors;
 
-    /** @see java.lang.Object#equals(Object) */
-    @Override
-    public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        for (Object factor : factors)
-            buffer.append(factor);
-        return buffer.toString();
+  // constructors ----------------------------------------------------------------------------------------------------
+
+  /**
+   * Instantiates a new Sequence.
+   *
+   * @param factors the factors
+   */
+  public Sequence(RegexPart... factors) {
+    this.factors = factors;
+  }
+
+  /**
+   * Get factors regex part [ ].
+   *
+   * @return the regex part [ ]
+   */
+  public RegexPart[] getFactors() {
+    return factors;
+  }
+
+
+  // RegexPart interface implementation ------------------------------------------------------------------------------
+
+  @Override
+  public int minLength() {
+    int min = 0;
+    for (RegexPart part : factors) {
+      min += part.minLength();
     }
+    return min;
+  }
+
+  @Override
+  public Integer maxLength() {
+    int max = 0;
+    for (RegexPart part : factors) {
+      Integer partMaxLength = part.maxLength();
+      if (partMaxLength == null) // if one sequence component is unlimited, then the whole sequence is unlimited
+      {
+        return null;
+      }
+      max += partMaxLength;
+    }
+    return max;
+  }
+
+  // java.lang.Object overrides --------------------------------------------------------------------------------------
+
+  /**
+   * @see java.lang.Object#equals(Object)
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Sequence that = (Sequence) o;
+    return Arrays.equals(this.factors, that.factors);
+  }
+
+  /**
+   * @see java.lang.Object#equals(Object)
+   */
+  @Override
+  public int hashCode() {
+    return Arrays.hashCode(factors);
+  }
+
+  /**
+   * @see java.lang.Object#equals(Object)
+   */
+  @Override
+  public String toString() {
+    StringBuilder buffer = new StringBuilder();
+    for (Object factor : factors) {
+      buffer.append(factor);
+    }
+    return buffer.toString();
+  }
 
 }

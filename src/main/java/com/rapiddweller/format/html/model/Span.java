@@ -12,19 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML &lt;span&gt;.
  * Created: 14.06.2014 15:31:37
- * @since 0.8.3
+ *
  * @author Volker Bergmann
+ * @since 0.8.3
  */
-
 public class Span extends HtmlElement<Span> {
-	
-	public Span() {
-		super("span", true);
-	}
-	
+
+  /**
+   * Instantiates a new Span.
+   */
+  public Span() {
+    super("span", true);
+  }
+
 }

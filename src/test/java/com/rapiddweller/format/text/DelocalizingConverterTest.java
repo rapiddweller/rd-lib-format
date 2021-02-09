@@ -12,37 +12,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
+
+import org.junit.Test;
 
 import java.io.IOException;
 
-import com.rapiddweller.format.text.DelocalizingConverter;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link DelocalizingConverter}.
  * Created: 03.09.2006 19:29:56
- * @since 0.1
+ *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class DelocalizingConverterTest {
 
-	@Test
-    public void testConversion() throws IOException {
-        checkConversion("Abc", "Abc");
-        checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");
-        checkConversion("áàâa", "aaaa");
-        checkConversion("éèêe", "eeee");
-        checkConversion("íìîi", "iiii");
-        checkConversion("óòôo", "oooo");
-        checkConversion("úùûu", "uuuu");
-    }
+  /**
+   * Test conversion.
+   *
+   * @throws IOException the io exception
+   */
+  @Test
+  public void testConversion() throws IOException {
+    checkConversion("Abc", "Abc");
+    checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");
+    checkConversion("áàâa", "aaaa");
+    checkConversion("éèêe", "eeee");
+    checkConversion("íìîi", "iiii");
+    checkConversion("óòôo", "oooo");
+    checkConversion("úùûu", "uuuu");
+  }
 
-    private static void checkConversion(String source, String expectedResult) throws IOException {
-        DelocalizingConverter converter = new DelocalizingConverter();
-        String result = converter.convert(source);
-        assertEquals("Delocalization failed. ", expectedResult, result);
-    }
+  private static void checkConversion(String source, String expectedResult) throws IOException {
+    DelocalizingConverter converter = new DelocalizingConverter();
+    String result = converter.convert(source);
+    assertEquals("Delocalization failed. ", expectedResult, result);
+  }
 
 }

@@ -12,15 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.dot;
 
 /**
  * Represents a Dot edge style.
  * Created: 27.05.2014 08:04:34
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public enum EdgeStyle {
-	solid, dashed, dotted, bold
+  /**
+   * Solid edge style.
+   */
+  solid,
+  /**
+   * Dashed edge style.
+   */
+  dashed,
+  /**
+   * Dotted edge style.
+   */
+  dotted,
+  /**
+   * Bold edge style.
+   */
+  bold
 }

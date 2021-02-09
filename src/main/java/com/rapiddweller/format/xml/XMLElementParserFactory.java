@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
@@ -25,34 +26,54 @@ import java.util.List;
 /**
  * Factory method which provides {@link XMLElementParser}s.
  * Created: 05.12.2010 12:15:57
+ *
  * @param <E> the type of elements to provide
- * @since 0.5.4
  * @author Volker Bergmann
+ * @since 0.5.4
  */
 public class XMLElementParserFactory<E> {
-	
-	protected List<XMLElementParser<E>> parsers;
 
-	public XMLElementParserFactory() {
-		this.parsers = new ArrayList<XMLElementParser<E>>();
-	}
-	
-	public void addParser(XMLElementParser<E> parser) {
-		this.parsers.add(parser);
-	}
+  /**
+   * The Parsers.
+   */
+  protected List<XMLElementParser<E>> parsers;
 
-	public XMLElementParser<E> getParser(Element element, E[] parentPath) {
-		for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
-			XMLElementParser<E> parser = parsers.get(i);
-			if (parser.supports(element, parentPath))
-				return parser;
-		}
-		Object parent = (ArrayUtil.isEmpty(parentPath) ? null : ArrayUtil.lastElementOf(parentPath));
-		String message = "Syntax Error: Element '" + element.getNodeName() + 
-			"' not supported " + (parent != null ? 
-				"in the context of a " + parent.getClass().getSimpleName() :
-				"as top level element");
-		throw new ParseException(message, XMLUtil.format(element));
-	}
-	
+  /**
+   * Instantiates a new Xml element parser factory.
+   */
+  public XMLElementParserFactory() {
+    this.parsers = new ArrayList<XMLElementParser<E>>();
+  }
+
+  /**
+   * Add parser.
+   *
+   * @param parser the parser
+   */
+  public void addParser(XMLElementParser<E> parser) {
+    this.parsers.add(parser);
+  }
+
+  /**
+   * Gets parser.
+   *
+   * @param element    the element
+   * @param parentPath the parent path
+   * @return the parser
+   */
+  public XMLElementParser<E> getParser(Element element, E[] parentPath) {
+    for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
+      XMLElementParser<E> parser = parsers.get(i);
+      if (parser.supports(element, parentPath)) {
+        return parser;
+      }
+    }
+    Object parent = (ArrayUtil.isEmpty(parentPath) ? null : ArrayUtil.lastElementOf(parentPath));
+    String message = "Syntax Error: Element '" + element.getNodeName() +
+        "' not supported " + (parent != null ?
+        "in the context of a " + parent.getClass().getSimpleName() :
+        "as top level element");
+    throw new ParseException(message, XMLUtil.format(element));
+  }
+
 }

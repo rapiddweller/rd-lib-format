@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.rapiddweller</groupId>
     <artifactId>rd-lib-format</artifactId>
-    <version>1.2.0-jdk-11-SNAPSHOT</version>
+    <version>1.1.1-jdk-11-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>rapiddweller Format</name>
     <description>'rapiddweller Format' is an open source software library
@@ -137,6 +137,11 @@
         <!-- Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-full</artifactId>
+            <version>${dependency_poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${dependency_poi.version}</version>
         </dependency>
@@ -144,6 +149,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${dependency_poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.20</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -167,6 +178,7 @@
             <artifactId>graal-sdk</artifactId>
             <version>${dependency_graalvm.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -21,133 +21,220 @@ import com.rapiddweller.common.NullSafeComparator;
 /**
  * Represents a difference between the state of two objects.
  * Created: 21.11.2013 11:29:35
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public class DiffDetail {
-	
-	protected final Object expected;
-	protected final Object actual;
-	protected final String objectClassifier;
-	protected final DiffDetailType type;
-	protected final String locatorOfExpected;
-	protected final String locatorOfActual;
-	protected final Converter<Object, String> formatter;
-	
-	public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, Converter<Object, String> formatter) {
-		this(expected, actual, objectClassifier, type, null, null, formatter);
-	}
-	
-	public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, String locatorOfExpected, String locatorOfActual, Converter<Object, String> formatter) {
-		this.expected = expected;
-		this.actual = actual;
-		this.objectClassifier = objectClassifier;
-		this.type = type;
-		this.locatorOfExpected = locatorOfExpected;
-		this.locatorOfActual = locatorOfActual;
-		this.formatter = formatter;
-	}
 
-	public Object getExpected() {
-		return expected;
-	}
-	
-	public Object getActual() {
-		return actual;
-	}
-	
-	public String getObjectClassifier() {
-		return objectClassifier;
-	}
-	
-	public DiffDetailType getType() {
-		return type;
-	}
-	
-	public String getLocatorOfExpected() {
-		return locatorOfExpected;
-	}
-	
-	public String getLocatorOfActual() {
-		return locatorOfActual;
-	}
-	
-	public Converter<Object, String> getFormatter() {
-		return formatter;
-	}
-	
-	
-	// java.lang.Object overrides --------------------------------------------------------------------------------------
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((locatorOfExpected == null) ? 0 : locatorOfExpected.hashCode());
-		result = prime * result + ((locatorOfActual == null) ? 0 : locatorOfActual.hashCode());
-		result = prime * result + ((objectClassifier == null) ? 0 : objectClassifier.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((expected == null) ? 0 : expected.hashCode());
-		result = prime * result + ((actual == null) ? 0 : actual.hashCode());
-		return result;
-	}
+  /**
+   * The Expected.
+   */
+  protected final Object expected;
+  /**
+   * The Actual.
+   */
+  protected final Object actual;
+  /**
+   * The Object classifier.
+   */
+  protected final String objectClassifier;
+  /**
+   * The Type.
+   */
+  protected final DiffDetailType type;
+  /**
+   * The Locator of expected.
+   */
+  protected final String locatorOfExpected;
+  /**
+   * The Locator of actual.
+   */
+  protected final String locatorOfActual;
+  /**
+   * The Formatter.
+   */
+  protected final Converter<Object, String> formatter;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		DiffDetail that = (DiffDetail) obj;
-		return (NullSafeComparator.equals(this.expected, that.expected) &&
-				NullSafeComparator.equals(this.actual, that.actual) &&
-				NullSafeComparator.equals(this.type, that.type) &&
-				NullSafeComparator.equals(this.locatorOfExpected, that.locatorOfExpected) &&
-				NullSafeComparator.equals(this.locatorOfActual, that.locatorOfActual));
-	}
+  /**
+   * Instantiates a new Diff detail.
+   *
+   * @param expected         the expected
+   * @param actual           the actual
+   * @param objectClassifier the object classifier
+   * @param type             the type
+   * @param formatter        the formatter
+   */
+  public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, Converter<Object, String> formatter) {
+    this(expected, actual, objectClassifier, type, null, null, formatter);
+  }
 
-	@Override
-	public String toString() {
-		switch (type) {
-			case DIFFERENT :  return formatDifferent();
-			case MISSING :    return formatMissing();
-			case UNEXPECTED : return formatUnexpected();
-			case MOVED :      return formatMoved();
-			default :         return formatGenericDiff();
-		}
-	}
-	
-	
-	// private helpers -------------------------------------------------------------------------------------------------
+  /**
+   * Instantiates a new Diff detail.
+   *
+   * @param expected          the expected
+   * @param actual            the actual
+   * @param objectClassifier  the object classifier
+   * @param type              the type
+   * @param locatorOfExpected the locator of expected
+   * @param locatorOfActual   the locator of actual
+   * @param formatter         the formatter
+   */
+  public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, String locatorOfExpected, String locatorOfActual,
+                    Converter<Object, String> formatter) {
+    this.expected = expected;
+    this.actual = actual;
+    this.objectClassifier = objectClassifier;
+    this.type = type;
+    this.locatorOfExpected = locatorOfExpected;
+    this.locatorOfActual = locatorOfActual;
+    this.formatter = formatter;
+  }
 
-	private String formatDifferent() {
-		if (NullSafeComparator.equals(locatorOfExpected, locatorOfActual))
-			return "Different " + objectClassifier + ": expected " + formatObject(expected) + 
-					" but found " + formatObject(actual) + (locatorOfActual != null ? " at " + locatorOfActual : "");
-		else
-			return "Different " + objectClassifier + ": expected " + formatObject(expected) + (locatorOfExpected != null ? " at " + locatorOfExpected : "") + 
-					" but found " + formatObject(actual) + (locatorOfActual != null ? " at " + locatorOfActual : "");
-	}
+  /**
+   * Gets expected.
+   *
+   * @return the expected
+   */
+  public Object getExpected() {
+    return expected;
+  }
 
-	private String formatMissing() {
-		return "Missing " + objectClassifier + " " + formatObject(expected) + " at " + locatorOfExpected;
-	}
+  /**
+   * Gets actual.
+   *
+   * @return the actual
+   */
+  public Object getActual() {
+    return actual;
+  }
 
-	private String formatUnexpected() {
-		return "Unexpected " + objectClassifier + " " + formatObject(actual) + " found at " + locatorOfActual;
-	}
+  /**
+   * Gets object classifier.
+   *
+   * @return the object classifier
+   */
+  public String getObjectClassifier() {
+    return objectClassifier;
+  }
 
-	private String formatMoved() {
-		return "Moved " + objectClassifier + " " + formatObject(expected) + " from " + locatorOfExpected + " to " + locatorOfActual;
-	}
+  /**
+   * Gets type.
+   *
+   * @return the type
+   */
+  public DiffDetailType getType() {
+    return type;
+  }
 
-	private String formatGenericDiff() {
-		return type + " " + objectClassifier + ", expected " + formatObject(expected) + ", found " + actual + " " + locatorOfExpected + " " + locatorOfActual;
-	}
-	
-	private String formatObject(Object value) {
-		return formatter.convert(value);
-	}
-	
+  /**
+   * Gets locator of expected.
+   *
+   * @return the locator of expected
+   */
+  public String getLocatorOfExpected() {
+    return locatorOfExpected;
+  }
+
+  /**
+   * Gets locator of actual.
+   *
+   * @return the locator of actual
+   */
+  public String getLocatorOfActual() {
+    return locatorOfActual;
+  }
+
+  /**
+   * Gets formatter.
+   *
+   * @return the formatter
+   */
+  public Converter<Object, String> getFormatter() {
+    return formatter;
+  }
+
+
+  // java.lang.Object overrides --------------------------------------------------------------------------------------
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((locatorOfExpected == null) ? 0 : locatorOfExpected.hashCode());
+    result = prime * result + ((locatorOfActual == null) ? 0 : locatorOfActual.hashCode());
+    result = prime * result + ((objectClassifier == null) ? 0 : objectClassifier.hashCode());
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((expected == null) ? 0 : expected.hashCode());
+    result = prime * result + ((actual == null) ? 0 : actual.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    DiffDetail that = (DiffDetail) obj;
+    return (NullSafeComparator.equals(this.expected, that.expected) &&
+        NullSafeComparator.equals(this.actual, that.actual) &&
+        NullSafeComparator.equals(this.type, that.type) &&
+        NullSafeComparator.equals(this.locatorOfExpected, that.locatorOfExpected) &&
+        NullSafeComparator.equals(this.locatorOfActual, that.locatorOfActual));
+  }
+
+  @Override
+  public String toString() {
+    switch (type) {
+      case DIFFERENT:
+        return formatDifferent();
+      case MISSING:
+        return formatMissing();
+      case UNEXPECTED:
+        return formatUnexpected();
+      case MOVED:
+        return formatMoved();
+      default:
+        return formatGenericDiff();
+    }
+  }
+
+
+  // private helpers -------------------------------------------------------------------------------------------------
+
+  private String formatDifferent() {
+    if (NullSafeComparator.equals(locatorOfExpected, locatorOfActual)) {
+      return "Different " + objectClassifier + ": expected " + formatObject(expected) +
+          " but found " + formatObject(actual) + (locatorOfActual != null ? " at " + locatorOfActual : "");
+    } else {
+      return "Different " + objectClassifier + ": expected " + formatObject(expected) +
+          (locatorOfExpected != null ? " at " + locatorOfExpected : "") +
+          " but found " + formatObject(actual) + (locatorOfActual != null ? " at " + locatorOfActual : "");
+    }
+  }
+
+  private String formatMissing() {
+    return "Missing " + objectClassifier + " " + formatObject(expected) + " at " + locatorOfExpected;
+  }
+
+  private String formatUnexpected() {
+    return "Unexpected " + objectClassifier + " " + formatObject(actual) + " found at " + locatorOfActual;
+  }
+
+  private String formatMoved() {
+    return "Moved " + objectClassifier + " " + formatObject(expected) + " from " + locatorOfExpected + " to " + locatorOfActual;
+  }
+
+  private String formatGenericDiff() {
+    return type + " " + objectClassifier + ", expected " + formatObject(expected) + ", found " + actual + " " + locatorOfExpected + " " +
+        locatorOfActual;
+  }
+
+  private String formatObject(Object value) {
+    return formatter.convert(value);
+  }
+
 }

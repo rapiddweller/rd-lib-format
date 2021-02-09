@@ -12,35 +12,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html;
 
 /**
  * {@link Anchor} implementation for an arbitrary String-based URL.
  * Created: 13.06.2011 12:50:11
- * @since 0.5.8
+ *
  * @author Volker Bergmann
+ * @since 0.5.8
  */
 public class StringAnchor extends Anchor {
 
-	public final String href;
+  /**
+   * The Href.
+   */
+  public final String href;
 
-	public StringAnchor(String href, String label) {
-		super(label);
-		this.href = href;
-	}
+  /**
+   * Instantiates a new String anchor.
+   *
+   * @param href  the href
+   * @param label the label
+   */
+  public StringAnchor(String href, String label) {
+    super(label);
+    this.href = href;
+  }
 
-	public StringAnchor(String href, String label, String target) {
-		super(label, target);
-		this.href = href;
-	}
+  /**
+   * Instantiates a new String anchor.
+   *
+   * @param href   the href
+   * @param label  the label
+   * @param target the target
+   */
+  public StringAnchor(String href, String label, String target) {
+    super(label, target);
+    this.href = href;
+  }
 
-	public static StringAnchor createAnchorForNewWindow(String href, String label) {
-		return new StringAnchor(href, label, "_blank");
-	}
-	
-	@Override
-	public String toString() {
-		return "<a href='" + href + "'" + (target != null ? " target='" + target + "'" : "") + ">" + label + "</a>";
-	}
-	
+  /**
+   * Create anchor for new window string anchor.
+   *
+   * @param href  the href
+   * @param label the label
+   * @return the string anchor
+   */
+  public static StringAnchor createAnchorForNewWindow(String href, String label) {
+    return new StringAnchor(href, label, "_blank");
+  }
+
+  @Override
+  public String toString() {
+    return "<a href='" + href + "'" + (target != null ? " target='" + target + "'" : "") + ">" + label + "</a>";
+  }
+
 }

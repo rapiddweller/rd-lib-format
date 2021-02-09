@@ -12,29 +12,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script;
 
 /**
  * Name-value-pair that represents a variable in a Script.
- * 
+ * <p>
  * Created: 07.06.2007 11:43:01
+ *
  * @author Volker Bergmann
  */
 public class ScriptVariable {
 
-    private final String name;
-    private final Object value;
+  private final String name;
+  private final Object value;
 
-    public ScriptVariable(String name, Object value) {
-        this.name = name;
-        this.value = value;
-    }
+  /**
+   * Instantiates a new Script variable.
+   *
+   * @param name  the name
+   * @param value the value
+   */
+  public ScriptVariable(String name, Object value) {
+    this.name = name;
+    this.value = value;
+  }
 
-    public String getName() {
-        return name;
-    }
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    public Object getValue() {
-        return value;
-    }
+  /**
+   * Gets value.
+   *
+   * @return the value
+   */
+  public Object getValue() {
+    return value;
+  }
 }

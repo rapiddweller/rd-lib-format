@@ -12,43 +12,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
-
-import static org.junit.Assert.*;
-
-import java.util.Map;
 
 import com.rapiddweller.common.version.VersionInfo;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+
 /**
  * Tests the {@link VersionInfo}.
  * Created: 23.03.2011 11:34:32
- * @since 0.5.8
+ *
  * @author Volker Bergmann
+ * @since 0.5.8
  */
 public class VersionInfoTest {
 
-	@Test
-	public void testVersion() {
-		VersionInfo version = getVersion();
-		checkVersionNumber(version.getVersion());
-		System.out.println(version);
-	}
+  /**
+   * Test version.
+   */
+  @Test
+  public void testVersion() {
+    VersionInfo version = getVersion();
+    checkVersionNumber(version.getVersion());
+    System.out.println(version);
+  }
 
-	@Test
-	public void testVerifyDependencies() {
-		VersionInfo version = getVersion();
-		version.verifyDependencies();
-	}
-	
-	private static void checkVersionNumber(String versionNumber) {
-		assertFalse("version number is empty", versionNumber == null || versionNumber.length() == 0);
-		assertFalse("version number was not substituted", versionNumber.startsWith("${"));
-	}
-	
-	private static VersionInfo getVersion() {
-		return VersionInfo.getInfo("format");
-	}
+  /**
+   * Test verify dependencies.
+   */
+  @Test
+  public void testVerifyDependencies() {
+    VersionInfo version = getVersion();
+    version.verifyDependencies();
+  }
+
+  private static void checkVersionNumber(String versionNumber) {
+    assertFalse("version number is empty", versionNumber == null || versionNumber.length() == 0);
+    assertFalse("version number was not substituted", versionNumber.startsWith("${"));
+  }
+
+  private static VersionInfo getVersion() {
+    return VersionInfo.getInfo("format");
+  }
 
 }

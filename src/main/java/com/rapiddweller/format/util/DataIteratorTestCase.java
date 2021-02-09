@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.format.DataContainer;
@@ -22,49 +23,87 @@ import java.util.HashSet;
 /**
  * Abstract parent class for tests that check {@link DataIterator}.
  * Created: 24.07.2011 10:56:23
- * @since 0.6.0
+ *
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public abstract class DataIteratorTestCase  {
+public abstract class DataIteratorTestCase {
 
-    public static <T> void checkUniqueIteration(DataIterator<T> iterator, int count) {
-    	HashSet<T> items = new HashSet<T>(count);
-        for (int i = 0; i < count; i++) {
-            T item = iterator.next(new DataContainer<T>()).getData();
-            assert items.contains(item); // uniqueness check
-            items.add(item);
-        }
+  /**
+   * Check unique iteration.
+   *
+   * @param <T>      the type parameter
+   * @param iterator the iterator
+   * @param count    the count
+   */
+  public static <T> void checkUniqueIteration(DataIterator<T> iterator, int count) {
+    HashSet<T> items = new HashSet<T>(count);
+    for (int i = 0; i < count; i++) {
+      T item = iterator.next(new DataContainer<T>()).getData();
+      assert items.contains(item); // uniqueness check
+      items.add(item);
+    }
+  }
+
+  /**
+   * Expect next elements next helper.
+   *
+   * @param <T>            the type parameter
+   * @param iterator       the iterator
+   * @param expectedValues the expected values
+   * @return the next helper
+   */
+  public static <T> NextHelper expectNextElements(DataIterator<?> iterator, T... expectedValues) {
+    for (T expectedValue : expectedValues) {
+      Object actualValue = iterator.next(new DataContainer()).getData();
+      assert expectedValue.equals(actualValue);
+    }
+    return new NextHelper(iterator);
+  }
+
+  /**
+   * Expect unavailable.
+   *
+   * @param iterator the iterator
+   */
+  protected static void expectUnavailable(DataIterator<?> iterator) {
+    assert iterator.next(new DataContainer()) == null;
+  }
+
+  /**
+   * The type Next helper.
+   */
+  public static class NextHelper {
+
+    /**
+     * The Iterator.
+     */
+    DataIterator<?> iterator;
+
+    /**
+     * Instantiates a new Next helper.
+     *
+     * @param iterator the iterator
+     */
+    public NextHelper(DataIterator<?> iterator) {
+      this.iterator = iterator;
     }
 
-	public static <T> NextHelper expectNextElements(DataIterator<?> iterator, T... expectedValues) {
-		for (T expectedValue : expectedValues) {
-			Object actualValue = iterator.next(new DataContainer()).getData();
-			assert expectedValue.equals(actualValue);
-		}
-		return new NextHelper(iterator);
-	}
-	
-	protected static void expectUnavailable(DataIterator<?> iterator) {
-		assert iterator.next(new DataContainer()) == null;
-	}
+    /**
+     * With next.
+     */
+    public void withNext() {
+      assert iterator.next(new DataContainer()) != null;
+    }
 
-	public static class NextHelper {
-		
-		DataIterator<?> iterator;
+    /**
+     * With no next.
+     */
+    public void withNoNext() {
+      expectUnavailable(iterator);
+    }
 
-		public NextHelper(DataIterator<?> iterator) {
-			this.iterator = iterator;
-		}
-		
-		public void withNext() {
-			assert iterator.next(new DataContainer()) != null;
-		}
-		
-		public void withNoNext() {
-			expectUnavailable(iterator);
-		}
+  }
 
-	}
-	
 }

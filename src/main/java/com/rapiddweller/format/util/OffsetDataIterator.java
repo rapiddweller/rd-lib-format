@@ -12,28 +12,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
 /**
- * Forwards the data of another {@link DataIterator}, swallowing the first elements 
+ * Forwards the data of another {@link DataIterator}, swallowing the first elements
  * provided by its {@link #next(DataContainer)} method.
  * Created: 18.09.2014 10:01:00
+ *
  * @param <E> the type of data to iterate
- * @since 1.0
  * @author Volker Bergmann
+ * @since 1.0
  */
-
 public class OffsetDataIterator<E> extends DataIteratorProxy<E> {
 
-	public OffsetDataIterator(DataIterator<E> source, int offset) {
-		super(source);
-		// consume the first 'offset' elements of the source
-		DataContainer<E> container = new DataContainer<E>();
-		for (int i = 0; i < offset; i++)
-			source.next(container);
-	}
+  /**
+   * Instantiates a new Offset data iterator.
+   *
+   * @param source the source
+   * @param offset the offset
+   */
+  public OffsetDataIterator(DataIterator<E> source, int offset) {
+    super(source);
+    // consume the first 'offset' elements of the source
+    DataContainer<E> container = new DataContainer<E>();
+    for (int i = 0; i < offset; i++) {
+      source.next(container);
+    }
+  }
 
 }

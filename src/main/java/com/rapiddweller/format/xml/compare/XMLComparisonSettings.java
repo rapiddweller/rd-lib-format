@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.format.compare.ComparisonSettings;
@@ -19,107 +20,166 @@ import com.rapiddweller.format.compare.ComparisonSettings;
 /**
  * Provides settings and models for the comparison of XML documents.
  * Created: 19.11.2015 15:11:03
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public class XMLComparisonSettings extends ComparisonSettings {
 
-    private boolean encodingRelevant;
+  private boolean encodingRelevant;
 
-	public XMLComparisonSettings() {
-		this(new DefaultXMLComparisonModel());
-	}
+  /**
+   * Instantiates a new Xml comparison settings.
+   */
+  public XMLComparisonSettings() {
+    this(new DefaultXMLComparisonModel());
+  }
 
-	public XMLComparisonSettings(XMLComparisonModel model) {
-		super(model);
-		setEncodingRelevant(false);
-        setNamespaceRelevant(false);
-        setWhitespaceRelevant(false);
-        setCdataRelevant(true);
-        setProcessingInstructionRelevant(false);
-	}
+  /**
+   * Instantiates a new Xml comparison settings.
+   *
+   * @param model the model
+   */
+  public XMLComparisonSettings(XMLComparisonModel model) {
+    super(model);
+    setEncodingRelevant(false);
+    setNamespaceRelevant(false);
+    setWhitespaceRelevant(false);
+    setCdataRelevant(true);
+    setProcessingInstructionRelevant(false);
+  }
 
-	@Override
-	public XMLComparisonModel getModel() {
-		return (XMLComparisonModel) super.getModel();
-	}
-	
-	public void setModel(XMLComparisonModel model) {
-		this.model = model;
-	}
-	
-    public boolean isEncodingRelevant() {
-		return encodingRelevant;
-	}
+  @Override
+  public XMLComparisonModel getModel() {
+    return (XMLComparisonModel) super.getModel();
+  }
 
-	public void setEncodingRelevant(boolean encodingRelevant) {
-		this.encodingRelevant = encodingRelevant;
-	}
+  /**
+   * Sets model.
+   *
+   * @param model the model
+   */
+  public void setModel(XMLComparisonModel model) {
+    this.model = model;
+  }
 
-	/** Tells if namespaces are relevant
-     * @return true if namespace is relevant, otherwise false */
-    public boolean isNamespaceRelevant() {
-        return getModel().isNamespaceRelevant();
-    }
+  /**
+   * Is encoding relevant boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isEncodingRelevant() {
+    return encodingRelevant;
+  }
 
-    /** Sets if namespaces are relevant
-     * @param namespaceRelevant true if namespace shall be relevant, otherwise false */
-    public void setNamespaceRelevant(boolean namespaceRelevant) {
-        getModel().setNamespaceRelevant(namespaceRelevant);
-    }
+  /**
+   * Sets encoding relevant.
+   *
+   * @param encodingRelevant the encoding relevant
+   */
+  public void setEncodingRelevant(boolean encodingRelevant) {
+    this.encodingRelevant = encodingRelevant;
+  }
 
-    /** Tells if whitespace is relevant
-     * @return true if whitespace is relevant, otherwise false */
-    public boolean isWhitespaceRelevant() {
-        return getModel().isWhitespaceRelevant();
-    }
+  /**
+   * Tells if namespaces are relevant
+   *
+   * @return true if namespace is relevant, otherwise false
+   */
+  public boolean isNamespaceRelevant() {
+    return getModel().isNamespaceRelevant();
+  }
 
-    /** Sets if whitespace is relevant
-     * @param whitespaceRelevant true if whitespace shall be relevant, otherwise false */
-    public void setWhitespaceRelevant(boolean whitespaceRelevant) {
-    	getModel().setWhitespaceRelevant(whitespaceRelevant);
-    }
+  /**
+   * Sets if namespaces are relevant
+   *
+   * @param namespaceRelevant true if namespace shall be relevant, otherwise false
+   */
+  public void setNamespaceRelevant(boolean namespaceRelevant) {
+    getModel().setNamespaceRelevant(namespaceRelevant);
+  }
 
-    /** Tells if comments are relevant
-     * @return true if whitespace is relevant, otherwise false */
-    public boolean isCommentRelevant() {
-        return getModel().isCommentRelevant();
-    }
+  /**
+   * Tells if whitespace is relevant
+   *
+   * @return true if whitespace is relevant, otherwise false
+   */
+  public boolean isWhitespaceRelevant() {
+    return getModel().isWhitespaceRelevant();
+  }
 
-    /** Sets if comments are relevant
-     * @param commentRelevant true if whitespace shall be relevant, otherwise false */
-    public void setCommentRelevant(boolean commentRelevant) {
-    	getModel().setCommentRelevant(commentRelevant);
-    }
+  /**
+   * Sets if whitespace is relevant
+   *
+   * @param whitespaceRelevant true if whitespace shall be relevant, otherwise false
+   */
+  public void setWhitespaceRelevant(boolean whitespaceRelevant) {
+    getModel().setWhitespaceRelevant(whitespaceRelevant);
+  }
 
-    /** Tells if CDATA is relevant
-     * @return true if CDATA is relevant, otherwise false */
-    public boolean isCdataRelevant() {
-        return getModel().isCdataRelevant();
-    }
+  /**
+   * Tells if comments are relevant
+   *
+   * @return true if whitespace is relevant, otherwise false
+   */
+  public boolean isCommentRelevant() {
+    return getModel().isCommentRelevant();
+  }
 
-    /** Sets if CDATA is relevant
-     * @param cdataRelevant true if CDATA shall be relevant, otherwise false */
-    public void setCdataRelevant(boolean cdataRelevant) {
-    	getModel().setCdataRelevant(cdataRelevant);
-    }
+  /**
+   * Sets if comments are relevant
+   *
+   * @param commentRelevant true if whitespace shall be relevant, otherwise false
+   */
+  public void setCommentRelevant(boolean commentRelevant) {
+    getModel().setCommentRelevant(commentRelevant);
+  }
 
-    /** Tells if processing instructions are relevant
-     * @return true if processing instructions are relevant, otherwise false */
-    public boolean isProcessingInstructionRelevant() {
-        return getModel().isProcessingInstructionRelevant();
-    }
+  /**
+   * Tells if CDATA is relevant
+   *
+   * @return true if CDATA is relevant, otherwise false
+   */
+  public boolean isCdataRelevant() {
+    return getModel().isCdataRelevant();
+  }
 
-    /** Sets if processing instructions are relevant
-     * @param processingInstructionRelevant true if processing instructions shall be relevant, otherwise false */
-    public void setProcessingInstructionRelevant(boolean processingInstructionRelevant) {
-    	getModel().setProcessingInstructionRelevant(processingInstructionRelevant);
-    }
+  /**
+   * Sets if CDATA is relevant
+   *
+   * @param cdataRelevant true if CDATA shall be relevant, otherwise false
+   */
+  public void setCdataRelevant(boolean cdataRelevant) {
+    getModel().setCdataRelevant(cdataRelevant);
+  }
 
-	public XMLComparisonSettings withCommentRelevant(boolean commentRelevant) {
-		setCommentRelevant(commentRelevant);
-		return this;
-	}
+  /**
+   * Tells if processing instructions are relevant
+   *
+   * @return true if processing instructions are relevant, otherwise false
+   */
+  public boolean isProcessingInstructionRelevant() {
+    return getModel().isProcessingInstructionRelevant();
+  }
+
+  /**
+   * Sets if processing instructions are relevant
+   *
+   * @param processingInstructionRelevant true if processing instructions shall be relevant, otherwise false
+   */
+  public void setProcessingInstructionRelevant(boolean processingInstructionRelevant) {
+    getModel().setProcessingInstructionRelevant(processingInstructionRelevant);
+  }
+
+  /**
+   * With comment relevant xml comparison settings.
+   *
+   * @param commentRelevant the comment relevant
+   * @return the xml comparison settings
+   */
+  public XMLComparisonSettings withCommentRelevant(boolean commentRelevant) {
+    setCommentRelevant(commentRelevant);
+    return this;
+  }
 
 }

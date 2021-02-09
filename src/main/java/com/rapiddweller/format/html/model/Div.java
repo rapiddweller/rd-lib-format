@@ -12,28 +12,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents a &lt;div&gt; element.
  * Created: 15.03.2014 07:05:25
- * @since 0.7.2
+ *
  * @author Volker Bergmann
+ * @since 0.7.2
  */
-
 public class Div extends HtmlElement<Div> {
 
-	public Div() {
-		this(false);
-	}
+  /**
+   * Instantiates a new Div.
+   */
+  public Div() {
+    this(false);
+  }
 
-	public Div(boolean inline) {
-		super("div", inline);
-	}
-	
-	@Override
-	public Div withTitle(String title) {
-		return this.withAttribute("title", title);
-	}
+  /**
+   * Instantiates a new Div.
+   *
+   * @param inline the inline
+   */
+  public Div(boolean inline) {
+    super("div", inline);
+  }
+
+  @Override
+  public Div withTitle(String title) {
+    return this.withAttribute("title", title);
+  }
 
 }

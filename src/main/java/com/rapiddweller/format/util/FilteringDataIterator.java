@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.Filter;
@@ -21,26 +22,36 @@ import com.rapiddweller.format.DataIterator;
 /**
  * {@link DataIterator} proxy which applies a {@link Filter} to the data provides by its source.
  * Created: 24.07.2011 10:19:41
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class FilteringDataIterator<E> extends DataIteratorProxy<E> {
 
-    protected Filter<E> filter;
+  /**
+   * The Filter.
+   */
+  protected Filter<E> filter;
 
-    public FilteringDataIterator(DataIterator<E> source, Filter<E> filter) {
-        super(source);
-        this.filter = filter;
-    }
+  /**
+   * Instantiates a new Filtering data iterator.
+   *
+   * @param source the source
+   * @param filter the filter
+   */
+  public FilteringDataIterator(DataIterator<E> source, Filter<E> filter) {
+    super(source);
+    this.filter = filter;
+  }
 
-    @Override
-	public DataContainer<E> next(DataContainer<E> wrapper) {
-    	DataContainer<E> result;
-    	do {
-    		result = source.next(wrapper);
-    	} while (result != null && !filter.accept(result.getData()));
-        return result;
-    }
+  @Override
+  public DataContainer<E> next(DataContainer<E> wrapper) {
+    DataContainer<E> result;
+    do {
+      result = source.next(wrapper);
+    } while (result != null && !filter.accept(result.getData()));
+    return result;
+  }
 
 }

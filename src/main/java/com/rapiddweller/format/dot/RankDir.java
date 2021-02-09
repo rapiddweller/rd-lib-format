@@ -12,15 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.dot;
 
 /**
  * Enumerates Dot rankdirs.
  * Created: 24.05.2014 15:05:06
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public enum RankDir {
-	TB, BT, LR, RL
+  /**
+   * Tb rank dir.
+   */
+  TB,
+  /**
+   * Bt rank dir.
+   */
+  BT,
+  /**
+   * Lr rank dir.
+   */
+  LR,
+  /**
+   * Rl rank dir.
+   */
+  RL
 }

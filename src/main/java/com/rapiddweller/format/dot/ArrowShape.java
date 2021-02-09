@@ -12,18 +12,91 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.dot;
 
 /**
  * Arrow type for dot graphs.
  * Created: 24.05.2014 12:18:19
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public enum ArrowShape {
-	none, normal, empty, dot, odot, 
-	diamond, ediamond, box, open, vee, 
-	inv, invdot, invodot, tee, invempty, 
-	odiamond, crow, obox, halfopen
+  /**
+   * None arrow shape.
+   */
+  none,
+  /**
+   * Normal arrow shape.
+   */
+  normal,
+  /**
+   * Empty arrow shape.
+   */
+  empty,
+  /**
+   * Dot arrow shape.
+   */
+  dot,
+  /**
+   * Odot arrow shape.
+   */
+  odot,
+  /**
+   * Diamond arrow shape.
+   */
+  diamond,
+  /**
+   * Ediamond arrow shape.
+   */
+  ediamond,
+  /**
+   * Box arrow shape.
+   */
+  box,
+  /**
+   * Open arrow shape.
+   */
+  open,
+  /**
+   * Vee arrow shape.
+   */
+  vee,
+  /**
+   * Inv arrow shape.
+   */
+  inv,
+  /**
+   * Invdot arrow shape.
+   */
+  invdot,
+  /**
+   * Invodot arrow shape.
+   */
+  invodot,
+  /**
+   * Tee arrow shape.
+   */
+  tee,
+  /**
+   * Invempty arrow shape.
+   */
+  invempty,
+  /**
+   * Odiamond arrow shape.
+   */
+  odiamond,
+  /**
+   * Crow arrow shape.
+   */
+  crow,
+  /**
+   * Obox arrow shape.
+   */
+  obox,
+  /**
+   * Halfopen arrow shape.
+   */
+  halfopen
 }

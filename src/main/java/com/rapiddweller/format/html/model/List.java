@@ -12,27 +12,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Parent class for HTML lists.
  * Created: 09.07.2014 13:51:04
- * @since 0.8.4
+ *
  * @author Volker Bergmann
+ * @since 0.8.4
  */
-
 public abstract class List extends HtmlElement<List> {
 
-	public List(String tagName) {
-		super(tagName, false);
-	}
+  /**
+   * Instantiates a new List.
+   *
+   * @param tagName the tag name
+   */
+  public List(String tagName) {
+    super(tagName, false);
+  }
 
-	public void addAsListItem(String text) {
-		addAsListItem(new TextComponent(text));
-	}
+  /**
+   * Add as list item.
+   *
+   * @param text the text
+   */
+  public void addAsListItem(String text) {
+    addAsListItem(new TextComponent(text));
+  }
 
-	public void addAsListItem(HtmlComponent component) {
-		addComponent(new ListItem(component));
-	}
+  /**
+   * Add as list item.
+   *
+   * @param component the component
+   */
+  public void addAsListItem(HtmlComponent component) {
+    addComponent(new ListItem(component));
+  }
 
 }

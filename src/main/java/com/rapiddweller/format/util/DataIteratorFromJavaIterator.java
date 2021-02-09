@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
@@ -24,34 +25,48 @@ import java.util.Iterator;
 /**
  * Provides {@link DataIterator}-style access to a Java {@link Iterator}.
  * Created: 24.07.2011 11:09:16
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class DataIteratorFromJavaIterator<E> implements DataIterator<E> {
 
-	protected Iterator<E> source;
-	protected Class<E> type;
-	
-	public DataIteratorFromJavaIterator(Iterator<E> source, Class<E> type) {
-		this.source = source;
-		this.type = type;
-	}
+  /**
+   * The Source.
+   */
+  protected Iterator<E> source;
+  /**
+   * The Type.
+   */
+  protected Class<E> type;
 
-	@Override
-	public Class<E> getType() {
-		return type;
-	}
+  /**
+   * Instantiates a new Data iterator from java iterator.
+   *
+   * @param source the source
+   * @param type   the type
+   */
+  public DataIteratorFromJavaIterator(Iterator<E> source, Class<E> type) {
+    this.source = source;
+    this.type = type;
+  }
 
-	@Override
-	public DataContainer<E> next(DataContainer<E> wrapper) {
-		return (source.hasNext() ? wrapper.setData(source.next()) : null);
-	}
+  @Override
+  public Class<E> getType() {
+    return type;
+  }
 
-	@Override
-	public void close() {
-		if (source instanceof Closeable)
-			IOUtil.close((Closeable) source);
-	}
+  @Override
+  public DataContainer<E> next(DataContainer<E> wrapper) {
+    return (source.hasNext() ? wrapper.setData(source.next()) : null);
+  }
+
+  @Override
+  public void close() {
+    if (source instanceof Closeable) {
+      IOUtil.close((Closeable) source);
+    }
+  }
 
 }

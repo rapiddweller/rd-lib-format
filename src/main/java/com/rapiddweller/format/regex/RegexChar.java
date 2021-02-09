@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.regex;
 
 import com.rapiddweller.common.CharSet;
@@ -19,57 +20,69 @@ import com.rapiddweller.common.CharSet;
 /**
  * Represents a constant character as part of a regular expression.
  * Created: 04.04.2014 18:22:39
- * @since 0.8.0
+ *
  * @author Volker Bergmann
+ * @since 0.8.0
  */
-
 public class RegexChar extends RegexCharClass {
-	
-	private final char c;
-	private final CharSet charSet;
 
-	public RegexChar(char c) {
-		this.c = c;
-		this.charSet = new CharSet().add(c);
-	}
+  private final char c;
+  private final CharSet charSet;
 
-	public char getChar() {
-		return c;
-	}
+  /**
+   * Instantiates a new Regex char.
+   *
+   * @param c the c
+   */
+  public RegexChar(char c) {
+    this.c = c;
+    this.charSet = new CharSet().add(c);
+  }
 
-	@Override
-	public CharSet getCharSet() {
-		return charSet;
-	}
-	
-	@Override
-	public int hashCode() {
-		return c;
-	}
+  /**
+   * Gets char.
+   *
+   * @return the char
+   */
+  public char getChar() {
+    return c;
+  }
 
-	@Override
-	public int minLength() {
-		return 1;
-	}
+  @Override
+  public CharSet getCharSet() {
+    return charSet;
+  }
 
-	@Override
-	public Integer maxLength() {
-		return 1;
-	}
+  @Override
+  public int hashCode() {
+    return c;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		RegexChar that = (RegexChar) obj;
-		return (this.c == that.c);
-	}
-	
-	@Override
-	public String toString() {
-		return String.valueOf(c);
-	}
+  @Override
+  public int minLength() {
+    return 1;
+  }
+
+  @Override
+  public Integer maxLength() {
+    return 1;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    RegexChar that = (RegexChar) obj;
+    return (this.c == that.c);
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(c);
+  }
 
 }

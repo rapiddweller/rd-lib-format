@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.script.freemarker;
 
 import com.rapiddweller.common.IOUtil;
@@ -30,41 +31,50 @@ import java.util.Locale;
 /**
  * Creates {@link FreeMarkerScript}s.
  * Created: 27.01.2008 16:47:21
- * @since 0.3.0
+ *
  * @author Volker Bergmann
+ * @since 0.3.0
  */
 public class FreeMarkerScriptFactory implements ScriptFactory {
 
-    private final Configuration config;
-    
-    public FreeMarkerScriptFactory() {
-        this(Locale.getDefault());
-    }
+  private final Configuration config;
 
-    public FreeMarkerScriptFactory(Locale locale) {
-        config = new Configuration();
-        config.setClassForTemplateLoading(FreeMarkerScript.class, "/");
-        config.setObjectWrapper(new DefaultObjectWrapper());
-        config.setNumberFormat("0.##");
-        config.setLocale(locale);
-    }
+  /**
+   * Instantiates a new Free marker script factory.
+   */
+  public FreeMarkerScriptFactory() {
+    this(Locale.getDefault());
+  }
 
-    @Override
-	public Script parseText(String text) {
-        try {
-            StringReader reader = new StringReader(text);
-            Template template = new Template(text, reader, config);
-            return new FreeMarkerScript(template);
-        } catch (IOException e) {
-            throw new RuntimeException(e); // This is not supposed to happen
-        }
-    }
+  /**
+   * Instantiates a new Free marker script factory.
+   *
+   * @param locale the locale
+   */
+  public FreeMarkerScriptFactory(Locale locale) {
+    config = new Configuration();
+    config.setClassForTemplateLoading(FreeMarkerScript.class, "/");
+    config.setObjectWrapper(new DefaultObjectWrapper());
+    config.setNumberFormat("0.##");
+    config.setLocale(locale);
+  }
 
-    @Override
-	public Script readFile(String uri) throws IOException {
-    	InputStreamReader reader = new InputStreamReader(IOUtil.getInputStreamForURI(uri), StandardCharsets.UTF_8);
-        Template template = new Template(null, reader, config);
-        return new FreeMarkerScript(template);
+  @Override
+  public Script parseText(String text) {
+    try {
+      StringReader reader = new StringReader(text);
+      Template template = new Template(text, reader, config);
+      return new FreeMarkerScript(template);
+    } catch (IOException e) {
+      throw new RuntimeException(e); // This is not supposed to happen
     }
+  }
+
+  @Override
+  public Script readFile(String uri) throws IOException {
+    InputStreamReader reader = new InputStreamReader(IOUtil.getInputStreamForURI(uri), StandardCharsets.UTF_8);
+    Template template = new Template(null, reader, config);
+    return new FreeMarkerScript(template);
+  }
 
 }

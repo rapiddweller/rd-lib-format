@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.format.DataIterator;
@@ -20,19 +21,25 @@ import com.rapiddweller.format.DataSource;
 /**
  * Proxy for a {@link DataSource}.
  * Created: 24.07.2011 10:02:59
+ *
  * @param <E> the type of data to iterate
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class DataSourceProxy<E> extends DataSourceAdapter<E, E> {
 
-	public DataSourceProxy(DataSource<E> source) {
-		super(source, source.getType());
-	}
+  /**
+   * Instantiates a new Data source proxy.
+   *
+   * @param source the source
+   */
+  public DataSourceProxy(DataSource<E> source) {
+    super(source, source.getType());
+  }
 
-	@Override
-	public DataIterator<E> iterator() {
-		return source.iterator();
-	}
+  @Override
+  public DataIterator<E> iterator() {
+    return source.iterator();
+  }
 
 }

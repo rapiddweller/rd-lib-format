@@ -12,23 +12,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.xsd;
 
 /**
  * Represents an attribute definition of an XML schema.
  * Created: 16.05.2014 19:46:32
- * @since 0.8.2
+ *
  * @author Volker Bergmann
+ * @since 0.8.2
  */
-
 public class Attribute extends NamedSchemaElement {
-	
-	public Attribute(String name) {
-		super(name);
-	}
-	
-	public void printContent(String indent) {
-		System.out.println(indent + name);
-	}
-	
+
+  /**
+   * Instantiates a new Attribute.
+   *
+   * @param name the name
+   */
+  public Attribute(String name) {
+    super(name);
+  }
+
+  /**
+   * Print content.
+   *
+   * @param indent the indent
+   */
+  public void printContent(String indent) {
+    System.out.println(indent + name);
+  }
+
 }

@@ -12,51 +12,87 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML table.
  * Created: 06.01.2014 09:17:54
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Table extends HtmlElement<Table> {
 
-	public Table() {
-		super("table", false);
-	}
-	
-	public Table withCellspacing(String value) {
-		return withAttribute("cellspacing", value);
-	}
+  /**
+   * Instantiates a new Table.
+   */
+  public Table() {
+    super("table", false);
+  }
 
-	public TableHead newTableHead() {
-		TableHead head = new TableHead();
-		addComponent(head);
-		return head;
-	}
-	
-	public TableBody newTableBody() {
-		TableBody body = new TableBody();
-		addComponent(body);
-		return body;
-	}
+  /**
+   * With cellspacing table.
+   *
+   * @param value the value
+   * @return the table
+   */
+  public Table withCellspacing(String value) {
+    return withAttribute("cellspacing", value);
+  }
 
-	public TableFoot newTableFoot() {
-		TableFoot foot = new TableFoot();
-		addComponent(foot);
-		return foot;
-	}
+  /**
+   * New table head table head.
+   *
+   * @return the table head
+   */
+  public TableHead newTableHead() {
+    TableHead head = new TableHead();
+    addComponent(head);
+    return head;
+  }
 
-	public Table addRow(TableRow row) {
-		return addComponent(row);
-	}
+  /**
+   * New table body table body.
+   *
+   * @return the table body
+   */
+  public TableBody newTableBody() {
+    TableBody body = new TableBody();
+    addComponent(body);
+    return body;
+  }
 
-	public TableRow newRow() {
-		TableRow row = new TableRow();
-		addRow(row);
-		return row;
-	}
+  /**
+   * New table foot table foot.
+   *
+   * @return the table foot
+   */
+  public TableFoot newTableFoot() {
+    TableFoot foot = new TableFoot();
+    addComponent(foot);
+    return foot;
+  }
+
+  /**
+   * Add row table.
+   *
+   * @param row the row
+   * @return the table
+   */
+  public Table addRow(TableRow row) {
+    return addComponent(row);
+  }
+
+  /**
+   * New row table row.
+   *
+   * @return the table row
+   */
+  public TableRow newRow() {
+    TableRow row = new TableRow();
+    addRow(row);
+    return row;
+  }
 
 }

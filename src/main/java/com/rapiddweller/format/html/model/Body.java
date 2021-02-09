@@ -12,20 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.html.model;
 
 /**
  * Represents an HTML body.
  * Created: 06.01.2014 09:40:09
- * @since 0.7.1
+ *
  * @author Volker Bergmann
+ * @since 0.7.1
  */
-
 public class Body extends HtmlElement<Body> {
-	
-	public Body(HtmlComponent... components) {
-		super("body", false);
-		setComponents(components);
-	}
-	
+
+  /**
+   * Instantiates a new Body.
+   *
+   * @param components the components
+   */
+  public Body(HtmlComponent... components) {
+    super("body", false);
+    setComponents(components);
+  }
+
 }

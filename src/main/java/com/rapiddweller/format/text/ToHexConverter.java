@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.text;
 
 import com.rapiddweller.common.ConversionException;
@@ -25,99 +26,183 @@ import java.text.MessageFormat;
  * {@link Converter} that transforms an object into its hexadecimal representation.
  * It works with integral numbers, characters and strings.
  * Created: 29.10.2009 08:44:53
- * @since 0.5.0
+ *
  * @author Volker Bergmann
+ * @since 0.5.0
  */
 public class ToHexConverter extends ThreadSafeConverter<Object, String> {
-	
-	private final boolean upperCase;
-	private final String pattern;
-	private final int length;
 
-	public ToHexConverter() {
-	    this(false);
-    }
+  private final boolean upperCase;
+  private final String pattern;
+  private final int length;
 
-	public ToHexConverter(boolean upperCase) {
-	    this(upperCase, null);
-    }
+  /**
+   * Instantiates a new To hex converter.
+   */
+  public ToHexConverter() {
+    this(false);
+  }
 
-	public ToHexConverter(boolean upperCase, String pattern) {
-	    this(upperCase, pattern, -1);
-    }
+  /**
+   * Instantiates a new To hex converter.
+   *
+   * @param upperCase the upper case
+   */
+  public ToHexConverter(boolean upperCase) {
+    this(upperCase, null);
+  }
 
-	public ToHexConverter(boolean upperCase, String pattern, int length) {
-	    super(Object.class, String.class);
-	    this.upperCase = upperCase;
-	    this.pattern = pattern;
-	    this.length = length;
-    }
+  /**
+   * Instantiates a new To hex converter.
+   *
+   * @param upperCase the upper case
+   * @param pattern   the pattern
+   */
+  public ToHexConverter(boolean upperCase, String pattern) {
+    this(upperCase, pattern, -1);
+  }
 
-	@Override
-	public String convert(Object sourceValue) throws ConversionException {
-		if (sourceValue == null)
-			return null;
-		Class<?> sourceType = sourceValue.getClass();
-		if (sourceType == Long.class)
-			return convertLong((Long) sourceValue, upperCase, pattern, length);
-		else if (sourceType == Integer.class)
-			return convertInt((Integer) sourceValue, upperCase, pattern, length);
-		else if (sourceType == Short.class)
-			return convertShort((Short) sourceValue, upperCase, pattern, length);
-		else if (sourceType == Byte.class)
-			return convertByte((Byte) sourceValue, upperCase, pattern, length);
-		else if (sourceType == Character.class)
-			return convertChar((Character) sourceValue, upperCase, pattern, length);
-		else if (sourceType == String.class)
-			return convertString((String) sourceValue, upperCase, pattern, length);
-		else
-			throw new IllegalArgumentException("Can't render '" + sourceType + "' in hex format.");
-    }
+  /**
+   * Instantiates a new To hex converter.
+   *
+   * @param upperCase the upper case
+   * @param pattern   the pattern
+   * @param length    the length
+   */
+  public ToHexConverter(boolean upperCase, String pattern, int length) {
+    super(Object.class, String.class);
+    this.upperCase = upperCase;
+    this.pattern = pattern;
+    this.length = length;
+  }
 
-	public static String convertLong(Long sourceValue, boolean upperCase, String pattern, int length) {
-	    String base = Long.toHexString(sourceValue);
-	    return postProcess(base, upperCase, pattern, length);
+  @Override
+  public String convert(Object sourceValue) throws ConversionException {
+    if (sourceValue == null) {
+      return null;
     }
+    Class<?> sourceType = sourceValue.getClass();
+    if (sourceType == Long.class) {
+      return convertLong((Long) sourceValue, upperCase, pattern, length);
+    } else if (sourceType == Integer.class) {
+      return convertInt((Integer) sourceValue, upperCase, pattern, length);
+    } else if (sourceType == Short.class) {
+      return convertShort((Short) sourceValue, upperCase, pattern, length);
+    } else if (sourceType == Byte.class) {
+      return convertByte((Byte) sourceValue, upperCase, pattern, length);
+    } else if (sourceType == Character.class) {
+      return convertChar((Character) sourceValue, upperCase, pattern, length);
+    } else if (sourceType == String.class) {
+      return convertString((String) sourceValue, upperCase, pattern, length);
+    } else {
+      throw new IllegalArgumentException("Can't render '" + sourceType + "' in hex format.");
+    }
+  }
 
-	public static String convertInt(int sourceValue, boolean upperCase, String pattern, int length) {
-	    String base = Integer.toHexString(sourceValue);
-	    return postProcess(base, upperCase, pattern, length);
-    }
+  /**
+   * Convert long string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertLong(Long sourceValue, boolean upperCase, String pattern, int length) {
+    String base = Long.toHexString(sourceValue);
+    return postProcess(base, upperCase, pattern, length);
+  }
 
-	public static String convertShort(short sourceValue, boolean upperCase, String pattern, int length) {
-	    String base = Integer.toHexString(sourceValue);
-	    if (base.length() == 8)
-	    	base = base.substring(4);
-	    return postProcess(base, upperCase, pattern, length);
-    }
+  /**
+   * Convert int string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertInt(int sourceValue, boolean upperCase, String pattern, int length) {
+    String base = Integer.toHexString(sourceValue);
+    return postProcess(base, upperCase, pattern, length);
+  }
 
-	public static String convertByte(byte sourceValue, boolean upperCase, String pattern, int length) {
-	    String base = Integer.toHexString(sourceValue);
-	    if (base.length() == 8)
-	    	base = base.substring(6);
-	    return postProcess(base, upperCase, pattern, length);
+  /**
+   * Convert short string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertShort(short sourceValue, boolean upperCase, String pattern, int length) {
+    String base = Integer.toHexString(sourceValue);
+    if (base.length() == 8) {
+      base = base.substring(4);
     }
+    return postProcess(base, upperCase, pattern, length);
+  }
 
-	public static String convertChar(Character sourceValue, boolean upperCase, String pattern, int length) {
-		String base = convertInt(sourceValue, upperCase, null, 2);
-		return postProcess(base, upperCase, pattern, length);
+  /**
+   * Convert byte string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertByte(byte sourceValue, boolean upperCase, String pattern, int length) {
+    String base = Integer.toHexString(sourceValue);
+    if (base.length() == 8) {
+      base = base.substring(6);
     }
+    return postProcess(base, upperCase, pattern, length);
+  }
 
-	public static String convertString(String sourceValue, boolean upperCase, String pattern, int length) {
-		StringBuilder builder = new StringBuilder(sourceValue.length() * 2);
-		for (int i = 0; i < sourceValue.length() ; i++)
-			builder.append(convertChar(sourceValue.charAt(i), upperCase, null, 2));
-		return postProcess(builder.toString(), upperCase, pattern, length);
-    }
+  /**
+   * Convert char string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertChar(Character sourceValue, boolean upperCase, String pattern, int length) {
+    String base = convertInt(sourceValue, upperCase, null, 2);
+    return postProcess(base, upperCase, pattern, length);
+  }
 
-	private static String postProcess(String base, boolean upperCase, String pattern, int length) {
-	    if (upperCase)
-	    	base = base.toUpperCase();
-	    if (length > 0)
-	    	base = StringUtil.padLeft(base, length, '0');
-	    if (pattern != null)
-	    	base = MessageFormat.format(pattern, base);
-	    return base;
+  /**
+   * Convert string string.
+   *
+   * @param sourceValue the source value
+   * @param upperCase   the upper case
+   * @param pattern     the pattern
+   * @param length      the length
+   * @return the string
+   */
+  public static String convertString(String sourceValue, boolean upperCase, String pattern, int length) {
+    StringBuilder builder = new StringBuilder(sourceValue.length() * 2);
+    for (int i = 0; i < sourceValue.length(); i++) {
+      builder.append(convertChar(sourceValue.charAt(i), upperCase, null, 2));
     }
+    return postProcess(builder.toString(), upperCase, pattern, length);
+  }
+
+  private static String postProcess(String base, boolean upperCase, String pattern, int length) {
+    if (upperCase) {
+      base = base.toUpperCase();
+    }
+    if (length > 0) {
+      base = StringUtil.padLeft(base, length, '0');
+    }
+    if (pattern != null) {
+      base = MessageFormat.format(pattern, base);
+    }
+    return base;
+  }
 
 }

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.Converter;
@@ -24,40 +25,51 @@ import java.io.Closeable;
 /**
  * {@link DataSource} proxy which applies a {@link Converter} to the source's data.
  * Created: 24.07.2011 10:06:31
+ *
  * @param <S> the type of data to iterate from the source
  * @param <T> the type of data to provide to the client
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public class ConvertingDataSource<S, T> extends DataSourceAdapter<S, T> {
 
-	protected Converter<S, T> converter;
-	
-	public ConvertingDataSource(DataSource<S> source, Converter<S, T> converter) {
-		super(source, converter.getTargetType());
-		this.converter = converter;
-	}
+  /**
+   * The Converter.
+   */
+  protected Converter<S, T> converter;
 
-	@Override
-	public Class<T> getType() {
-		return converter.getTargetType();
-	}
+  /**
+   * Instantiates a new Converting data source.
+   *
+   * @param source    the source
+   * @param converter the converter
+   */
+  public ConvertingDataSource(DataSource<S> source, Converter<S, T> converter) {
+    super(source, converter.getTargetType());
+    this.converter = converter;
+  }
 
-	@Override
-	public DataIterator<T> iterator() {
-		return new ConvertingDataIterator<S, T>(source.iterator(), converter);
-	}
-	
-	@Override
-	public void close() {
-		if (converter instanceof Closeable)
-			IOUtil.close((Closeable) converter);
-		super.close();
-	}
-	
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + '[' + source + " -> " + converter + ']';
-	}
+  @Override
+  public Class<T> getType() {
+    return converter.getTargetType();
+  }
+
+  @Override
+  public DataIterator<T> iterator() {
+    return new ConvertingDataIterator<S, T>(source.iterator(), converter);
+  }
+
+  @Override
+  public void close() {
+    if (converter instanceof Closeable) {
+      IOUtil.close((Closeable) converter);
+    }
+    super.close();
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + '[' + source + " -> " + converter + ']';
+  }
 
 }

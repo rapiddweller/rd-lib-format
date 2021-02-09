@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.compare;
 
 import java.util.ArrayList;
@@ -20,28 +21,46 @@ import java.util.List;
 /**
  * Provides the result of a comparison.
  * Created: 20.11.2013 17:54:31
- * @since 1.0.5
+ *
  * @author Volker Bergmann
+ * @since 1.0.5
  */
-
 public class ArrayComparisonResult {
-	
-	private final List<DiffDetail> diffs;
-	
-	public ArrayComparisonResult() {
-		this.diffs = new ArrayList<DiffDetail>();
-	}
-	
-	public void add(DiffDetail diff) {
-		this.diffs.add(diff);
-	}
 
-	public boolean identical() {
-		return (diffs.size() == 0);
-	}
+  private final List<DiffDetail> diffs;
 
-	public List<DiffDetail> getDiffs() {
-		return diffs;
-	}
+  /**
+   * Instantiates a new Array comparison result.
+   */
+  public ArrayComparisonResult() {
+    this.diffs = new ArrayList<DiffDetail>();
+  }
+
+  /**
+   * Add.
+   *
+   * @param diff the diff
+   */
+  public void add(DiffDetail diff) {
+    this.diffs.add(diff);
+  }
+
+  /**
+   * Identical boolean.
+   *
+   * @return the boolean
+   */
+  public boolean identical() {
+    return (diffs.size() == 0);
+  }
+
+  /**
+   * Gets diffs.
+   *
+   * @return the diffs
+   */
+  public List<DiffDetail> getDiffs() {
+    return diffs;
+  }
 
 }

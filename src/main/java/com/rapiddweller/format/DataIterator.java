@@ -12,30 +12,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format;
+
+import com.rapiddweller.common.ConfigurationError;
 
 import java.io.Closeable;
 
 /**
  * Iterates through data. Implementors are expected to be thread-safe.
  * Created: 24.07.2011 08:49:16
+ *
  * @param <E> the type of iterated data
- * @since 0.6.0
  * @author Volker Bergmann
+ * @since 0.6.0
  */
 public interface DataIterator<E> extends Closeable {
-	
-	/** Returns the type of the iterated elements. 
-	 * @return the type of iterated data */
-	Class<E> getType();
-	
-	/** Returns the container with the next data element if available, otherwise null. 
-	 * @param container a {@link DataContainer} to receive the iterated data
-	 * @return a {@link DataContainer} that holds the next element, or null if none is available */
-	DataContainer<E> next(DataContainer<E> container);
-	
-	/** Closes the iterator. */
-	@Override
-	void close();
-	
+
+  /**
+   * Returns the type of the iterated elements.
+   *
+   * @return the type of iterated data
+   */
+  Class<E> getType();
+
+  /**
+   * Returns the container with the next data element if available, otherwise null.
+   *
+   * @param container a {@link DataContainer} to receive the iterated data
+   * @return a {@link DataContainer} that holds the next element, or null if none is available
+   */
+  DataContainer<E> next(DataContainer<E> container) throws ConfigurationError;
+
+  /**
+   * Closes the iterator.
+   */
+  @Override
+  void close();
+
 }

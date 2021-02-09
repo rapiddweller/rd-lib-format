@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.rapiddweller.format.demo;
 
 import com.rapiddweller.common.IOUtil;
@@ -26,22 +27,31 @@ import java.text.ParseException;
 
 /**
  * This class demonstrates how to use the HTMLTokenizer for extracting all link targets of a web page.
- * 
+ * <p>
  * Created: 16.06.2007 10:07:54
+ *
  * @author Volker Bergmann
  */
 public class HTMLLinkExtractorDemo {
 
-    public static void main(String[] args) throws IOException, ParseException {
-        // Fetch the web page as stream
-        Reader reader = IOUtil.getReaderForURI("http://www.yahoo.com");
-        // build the filtering iterator structure
-        HTMLTokenizer tokenizer = new DefaultHTMLTokenizer(reader);
-        tokenizer = new FilteringHTMLTokenizer(tokenizer, new HTMLTokenFilter(HTMLTokenizer.START_TAG, "a"));
-        // simply iterate the filter to retrieve all references of the page
-        while (tokenizer.nextToken() != HTMLTokenizer.END)
-            System.out.println(tokenizer.attributes().get("href"));
-        // free resources
-        reader.close();
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   * @throws IOException    the io exception
+   * @throws ParseException the parse exception
+   */
+  public static void main(String[] args) throws IOException, ParseException {
+    // Fetch the web page as stream
+    Reader reader = IOUtil.getReaderForURI("http://www.yahoo.com");
+    // build the filtering iterator structure
+    HTMLTokenizer tokenizer = new DefaultHTMLTokenizer(reader);
+    tokenizer = new FilteringHTMLTokenizer(tokenizer, new HTMLTokenFilter(HTMLTokenizer.START_TAG, "a"));
+    // simply iterate the filter to retrieve all references of the page
+    while (tokenizer.nextToken() != HTMLTokenizer.END) {
+      System.out.println(tokenizer.attributes().get("href"));
     }
+    // free resources
+    reader.close();
+  }
 }

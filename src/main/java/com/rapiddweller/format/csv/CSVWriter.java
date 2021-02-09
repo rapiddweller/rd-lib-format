@@ -17,50 +17,84 @@ package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.SystemInfo;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Writes String arrays to a CSV file.
  * Created: 10.04.2013 07:47:36
- * @since 1.0.15
+ *
  * @author Volker Bergmann
+ * @since 1.0.15
  */
 public class CSVWriter implements Closeable {
-	
-	private static final String LF = SystemInfo.getLineSeparator();
-	
-	private final Writer out;
-	private final char separator;
-	
-	public static CSVWriter forFile(File file, char separator, boolean append, String ... columnHeaders) throws IOException {
-		boolean exists = (file.exists() && file.length() > 0);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
-		return new CSVWriter(writer, separator, exists, columnHeaders);
-	}
-    
-	public CSVWriter(Writer writer, char separator, boolean append, String ... columnHeaders) throws IOException {
-		this.separator = separator;
-		this.out = writer;
-		if (!append)
-			writeRow(columnHeaders);
-	}
-    
-	public synchronized void writeRow(String[] cells) throws IOException {
-		for (int i = 0; i < cells.length; i++) {
-			String cell = cells[i];
-			if (cell.indexOf(separator) >= 0)
-				out.write('"' + cell + '"');
-			else
-				out.write(cell);
-			if (i < cells.length - 1)
-				out.write(separator);
-		}
-		out.write(LF);
-	}
 
-	@Override
-	public synchronized void close() throws IOException {
-		out.close();
-	}
-    
+  private static final String LF = SystemInfo.getLineSeparator();
+
+  private final Writer out;
+  private final char separator;
+
+  /**
+   * For file csv writer.
+   *
+   * @param file          the file
+   * @param separator     the separator
+   * @param append        the append
+   * @param columnHeaders the column headers
+   * @return the csv writer
+   * @throws IOException the io exception
+   */
+  public static CSVWriter forFile(File file, char separator, boolean append, String... columnHeaders) throws IOException {
+    boolean exists = (file.exists() && file.length() > 0);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
+    return new CSVWriter(writer, separator, exists, columnHeaders);
+  }
+
+  /**
+   * Instantiates a new Csv writer.
+   *
+   * @param writer        the writer
+   * @param separator     the separator
+   * @param append        the append
+   * @param columnHeaders the column headers
+   * @throws IOException the io exception
+   */
+  public CSVWriter(Writer writer, char separator, boolean append, String... columnHeaders) throws IOException {
+    this.separator = separator;
+    this.out = writer;
+    if (!append) {
+      writeRow(columnHeaders);
+    }
+  }
+
+  /**
+   * Write row.
+   *
+   * @param cells the cells
+   * @throws IOException the io exception
+   */
+  public synchronized void writeRow(String[] cells) throws IOException {
+    for (int i = 0; i < cells.length; i++) {
+      String cell = cells[i];
+      if (cell.indexOf(separator) >= 0) {
+        out.write('"' + cell + '"');
+      } else {
+        out.write(cell);
+      }
+      if (i < cells.length - 1) {
+        out.write(separator);
+      }
+    }
+    out.write(LF);
+  }
+
+  @Override
+  public synchronized void close() throws IOException {
+    out.close();
+  }
+
 }
