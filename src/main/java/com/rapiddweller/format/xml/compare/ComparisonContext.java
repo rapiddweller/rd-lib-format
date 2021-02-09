@@ -121,7 +121,7 @@ public class ComparisonContext {
   public boolean isTolerated(DiffDetailType diffType, String locator) {
     for (PathSetting pathSetting : pathSettings) {
       if (NullSafeComparator.equals(locator, pathSetting.getLocator())
-          && (pathSetting.getDiffType() == null || pathSetting.getDiffType() == diffType)) {
+          && (pathSetting.getDiffType() == null || pathSetting.getDiffType().equals(diffType))) {
         return true;
       }
     }
@@ -142,7 +142,7 @@ public class ComparisonContext {
     private PathSetting(String locator, DiffDetailType type) {
       this.locator = locator;
       this.diffType = type;
-      this.affectedNodes = new ArrayList<Object>();
+      this.affectedNodes = new ArrayList<>();
     }
 
     /**
@@ -174,7 +174,7 @@ public class ComparisonContext {
         return true;
       }
       for (Object affectedNode : affectedNodes) {
-        if (node == affectedNode) {
+        if (node != null && node.equals(affectedNode)) {
           return true;
         }
       }

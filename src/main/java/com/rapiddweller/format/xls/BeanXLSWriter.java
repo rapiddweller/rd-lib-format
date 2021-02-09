@@ -94,7 +94,7 @@ public class BeanXLSWriter<E> implements Closeable {
    * @param bean the bean
    */
   public void save(E bean) {
-    Sheet sheet = getOrCreateSheet(bean, sheetName);
+    Sheet sheet = getOrCreateSheet(sheetName);
     Row row = sheet.createRow(sheet.getLastRowNum() + 1);
     for (int i = 0; i < beanProperties.size(); i++) {
       PropFormat prop = beanProperties.get(i);
@@ -124,7 +124,7 @@ public class BeanXLSWriter<E> implements Closeable {
 
   // private helpers -------------------------------------------------------------------------------------------------
 
-  private Sheet getOrCreateSheet(E bean, String sheetName) {
+  private Sheet getOrCreateSheet(String sheetName) {
     // create file
     if (workbook == null) {
       createWorkbook();
@@ -132,7 +132,7 @@ public class BeanXLSWriter<E> implements Closeable {
     Sheet sheet = workbook.getSheet(sheetName);
     if (sheet == null) {
       sheet = workbook.createSheet(sheetName);
-      writeHeaderRow(bean, sheet);
+      writeHeaderRow(sheet);
     }
     return sheet;
   }
@@ -141,7 +141,7 @@ public class BeanXLSWriter<E> implements Closeable {
     this.workbook = new XSSFWorkbook();
   }
 
-  private void writeHeaderRow(E bean, Sheet sheet) {
+  private void writeHeaderRow(Sheet sheet) {
     Row headerRow = sheet.createRow(0);
     for (int i = 0; i < beanProperties.size(); i++) {
       PropFormat prop = beanProperties.get(i);
