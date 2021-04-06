@@ -1,3 +1,18 @@
+# Release 1.1.2-jdk-11
+
+## Release Highlights
+
+* Upgrade rd-lib-commons to 1.1.1
+* Removed unnecessary GraalVM dependencies
+
+## Important Notes
+
+N/A
+
+## Breaking Changes
+
+N/A
+
 # Release 1.1.1-jdk-11
 
 ## Release Highlights
