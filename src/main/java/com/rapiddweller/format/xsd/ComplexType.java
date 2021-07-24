@@ -41,7 +41,7 @@ public abstract class ComplexType extends NamedSchemaElement {
    */
   public ComplexType(String name) {
     super(name);
-    this.attributes = new OrderedNameMap<Attribute>();
+    this.attributes = new OrderedNameMap<>();
   }
 
   /**

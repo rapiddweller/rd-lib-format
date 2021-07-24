@@ -55,7 +55,7 @@ public class MultiTypeArrayFixedWidthWriter implements Closeable {
   public MultiTypeArrayFixedWidthWriter(Writer out, List<FixedWidthRowTypeDescriptor> rowDescriptors) {
     Assert.notNull(out, "Writer");
     this.out = out;
-    this.rowDescriptors = new HashMap<String, FixedWidthRowTypeDescriptor>();
+    this.rowDescriptors = new HashMap<>();
     if (rowDescriptors != null) {
       for (FixedWidthRowTypeDescriptor rowDescriptor : rowDescriptors) {
         addRowFormat(rowDescriptor);

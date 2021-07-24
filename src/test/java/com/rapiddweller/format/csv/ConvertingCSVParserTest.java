@@ -35,7 +35,7 @@ public class ConvertingCSVParserTest {
   @Test
   public void testNext() throws IOException {
     ConvertingCSVParser<Object> convertingCSVParser = new ConvertingCSVParser<Object>("", new ToArrayConverter());
-    DataContainer<Object> dataContainer = new DataContainer<Object>();
+    DataContainer<Object> dataContainer = new DataContainer<>();
     DataContainer<Object> actualNextResult = convertingCSVParser.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertTrue(actualNextResult.getData() instanceof Object[]);
@@ -49,7 +49,7 @@ public class ConvertingCSVParserTest {
   @Test
   public void testNext2() throws IOException {
     ConvertingCSVParser<Object> convertingCSVParser = new ConvertingCSVParser<Object>("", new ToArrayConverter());
-    DataContainer<Object> dataContainer = new DataContainer<Object>("data");
+    DataContainer<Object> dataContainer = new DataContainer<>("data");
     DataContainer<Object> actualNextResult = convertingCSVParser.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertTrue(actualNextResult.getData() instanceof Object[]);
@@ -111,7 +111,7 @@ public class ConvertingCSVParserTest {
   @Test
   public void testParse6() throws IOException {
     ToArrayConverter rowConverter = new ToArrayConverter();
-    ArrayList<Object> objectList = new ArrayList<Object>();
+    ArrayList<Object> objectList = new ArrayList<>();
     List<Object> actualParseResult = ConvertingCSVParser.parse("string://", rowConverter, objectList);
     assertSame(objectList, actualParseResult);
     assertTrue(actualParseResult.isEmpty());
@@ -125,7 +125,7 @@ public class ConvertingCSVParserTest {
   @Test
   public void testParse7() throws IOException {
     ToArrayConverter rowConverter = new ToArrayConverter();
-    ArrayList<Object> objectList = new ArrayList<Object>();
+    ArrayList<Object> objectList = new ArrayList<>();
     List<Object> actualParseResult = ConvertingCSVParser.parse("file:", rowConverter, objectList);
     assertSame(objectList, actualParseResult);
     assertEquals(1, actualParseResult.size());

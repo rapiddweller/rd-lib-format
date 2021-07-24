@@ -47,7 +47,7 @@ public class ArrayFixedWidthWriterTest {
   @Test
   public void test() throws IOException {
     StringWriter out = new StringWriter();
-    ArrayFixedWidthWriter<Integer> writer = new ArrayFixedWidthWriter<Integer>(
+    ArrayFixedWidthWriter<Integer> writer = new ArrayFixedWidthWriter<>(
         out, new ConstantScript("header" + SEP), new ConstantScript("footer"),
         new FixedWidthRowTypeDescriptor("default", new FixedWidthColumnDescriptor[] {
             new FixedWidthColumnDescriptor(2, Alignment.LEFT),

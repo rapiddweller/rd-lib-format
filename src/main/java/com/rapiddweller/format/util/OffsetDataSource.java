@@ -47,7 +47,7 @@ public class OffsetDataSource<E> extends DataSourceProxy<E> {
 
   @Override
   public DataIterator<E> iterator() {
-    DataContainer<E> container = new DataContainer<E>();
+    DataContainer<E> container = new DataContainer<>();
     DataIterator<E> result = super.iterator();
     for (int i = 0; i < offset; i++) {
       result.next(container);

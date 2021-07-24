@@ -15,7 +15,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithClass() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withClass("Klass"));
   }
 
@@ -24,7 +24,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithStyle() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withStyle("Style"));
   }
 
@@ -33,7 +33,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithTitle() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withTitle("Dr"));
   }
 
@@ -42,7 +42,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithAlign() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withAlign("Align"));
   }
 
@@ -51,7 +51,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithValign() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withValign("Valign"));
   }
 
@@ -60,7 +60,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithAttribute() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withAttribute("Attribute Name", "Attribute Value"));
   }
 
@@ -69,7 +69,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testAddBreak() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.addBreak());
   }
 
@@ -78,7 +78,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithRawTextContent() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withRawTextContent("Text"));
   }
 
@@ -87,7 +87,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithTextContent() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.withTextContent("Text", true, true));
   }
 
@@ -96,7 +96,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testWithComponents() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     HtmlComponent htmlComponent = new HtmlComponent();
     HtmlComponent htmlComponent1 = new HtmlComponent();
     assertSame(htmlElement, htmlElement.withComponents(htmlComponent, htmlComponent1, new HtmlComponent()));
@@ -107,7 +107,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testSetComponents() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     HtmlComponent htmlComponent = new HtmlComponent();
     HtmlComponent htmlComponent1 = new HtmlComponent();
     htmlElement.setComponents(htmlComponent, htmlComponent1, new HtmlComponent());
@@ -119,7 +119,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testAddComponent() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.addComponent(new HtmlComponent()));
   }
 
@@ -128,7 +128,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testAddComponent2() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     assertSame(htmlElement, htmlElement.addComponent("Text To Add"));
   }
 
@@ -137,8 +137,8 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatStartTag() {
-    assertEquals("<Tag Name>", (new HtmlElement<HtmlElement<?>>("Tag Name", true)).formatStartTag());
-    assertEquals("<Tag Name>\n", (new HtmlElement<HtmlElement<?>>("Tag Name", false)).formatStartTag());
+    assertEquals("<Tag Name>", (new HtmlElement<>("Tag Name", true)).formatStartTag());
+    assertEquals("<Tag Name>\n", (new HtmlElement<>("Tag Name", false)).formatStartTag());
   }
 
   /**
@@ -146,8 +146,8 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatAtomicTag() {
-    assertEquals("<Tag Name/>", (new HtmlElement<HtmlElement<?>>("Tag Name", true)).formatAtomicTag());
-    assertEquals("<Tag Name/>\n", (new HtmlElement<HtmlElement<?>>("Tag Name", false)).formatAtomicTag());
+    assertEquals("<Tag Name/>", (new HtmlElement<>("Tag Name", true)).formatAtomicTag());
+    assertEquals("<Tag Name/>\n", (new HtmlElement<>("Tag Name", false)).formatAtomicTag());
   }
 
   /**
@@ -161,7 +161,7 @@ public class HtmlElementTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.formatAttributes(new StringBuilder());
   }
 
@@ -170,7 +170,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatComponents() {
-    assertEquals("", (new HtmlElement<HtmlElement<?>>("Tag Name", true)).formatComponents());
+    assertEquals("", (new HtmlElement<>("Tag Name", true)).formatComponents());
   }
 
   /**
@@ -178,7 +178,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatComponents2() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new HtmlComponent());
     assertEquals("", htmlElement.formatComponents());
   }
@@ -188,7 +188,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatComponents3() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new Break());
     assertEquals("<br/>\n", htmlElement.formatComponents());
   }
@@ -198,7 +198,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatComponents4() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new CssStyle());
     assertEquals("<style type=\"text/css\"/>\n", htmlElement.formatComponents());
   }
@@ -208,7 +208,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatComponents5() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new Div(true));
     assertEquals("<div/>", htmlElement.formatComponents());
   }
@@ -221,7 +221,7 @@ public class HtmlElementTest {
     Break resultBreak = new Break();
     resultBreak.addComponent(new HtmlComponent());
 
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(resultBreak);
     assertEquals("<br>\n\n</br>\n", htmlElement.formatComponents());
   }
@@ -234,7 +234,7 @@ public class HtmlElementTest {
     CssStyle cssStyle = new CssStyle();
     cssStyle.addComponent(new HtmlComponent());
 
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(cssStyle);
     assertEquals("<style type=\"text/css\">\n\n</style>\n", htmlElement.formatComponents());
   }
@@ -247,7 +247,7 @@ public class HtmlElementTest {
     Div div = new Div(true);
     div.addComponent(new HtmlComponent());
 
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(div);
     assertEquals("<div></div>", htmlElement.formatComponents());
   }
@@ -257,8 +257,8 @@ public class HtmlElementTest {
    */
   @Test
   public void testFormatEndTag() {
-    assertEquals("</Tag Name>", (new HtmlElement<HtmlElement<?>>("Tag Name", true)).formatEndTag());
-    assertEquals("\n</Tag Name>\n", (new HtmlElement<HtmlElement<?>>("Tag Name", false)).formatEndTag());
+    assertEquals("</Tag Name>", (new HtmlElement<>("Tag Name", true)).formatEndTag());
+    assertEquals("\n</Tag Name>\n", (new HtmlElement<>("Tag Name", false)).formatEndTag());
   }
 
   /**
@@ -266,8 +266,8 @@ public class HtmlElementTest {
    */
   @Test
   public void testToString() {
-    assertEquals("<Tag Name/>", (new HtmlElement<HtmlElement<?>>("Tag Name", true)).toString());
-    assertEquals("<Tag Name/>\n", (new HtmlElement<HtmlElement<?>>("Tag Name", false)).toString());
+    assertEquals("<Tag Name/>", (new HtmlElement<>("Tag Name", true)).toString());
+    assertEquals("<Tag Name/>\n", (new HtmlElement<>("Tag Name", false)).toString());
   }
 
   /**
@@ -275,7 +275,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testToString2() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new HtmlComponent());
     assertEquals("<Tag Name></Tag Name>", htmlElement.toString());
   }
@@ -285,7 +285,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testToString3() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", false);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", false);
     htmlElement.addComponent(new HtmlComponent());
     assertEquals("<Tag Name>\n\n</Tag Name>\n", htmlElement.toString());
   }
@@ -295,7 +295,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testToString4() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new Break());
     assertEquals("<Tag Name><br/>\n</Tag Name>", htmlElement.toString());
   }
@@ -305,7 +305,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testToString5() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     htmlElement.addComponent(new CssStyle());
     assertEquals("<Tag Name><style type=\"text/css\"/>\n</Tag Name>", htmlElement.toString());
   }
@@ -325,7 +325,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testAddComponents() {
-    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> htmlElement = new HtmlElement<>("Tag Name", true);
     HtmlComponent htmlComponent = new HtmlComponent();
     HtmlComponent htmlComponent1 = new HtmlComponent();
     htmlElement.addComponents(htmlComponent, htmlComponent1, new HtmlComponent());
@@ -337,7 +337,7 @@ public class HtmlElementTest {
    */
   @Test
   public void testConstructor() {
-    HtmlElement<HtmlElement<?>> actualHtmlElement = new HtmlElement<HtmlElement<?>>("Tag Name", true);
+    HtmlElement<HtmlElement<?>> actualHtmlElement = new HtmlElement<>("Tag Name", true);
     assertEquals("<Tag Name/>", actualHtmlElement.toString());
     assertTrue(actualHtmlElement.attributes.isEmpty());
     assertTrue(actualHtmlElement.isInline());

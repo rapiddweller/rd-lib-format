@@ -27,7 +27,7 @@ public class DataIteratorProxyTest {
     DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,
         Object.class);
     Class<Object> expectedType = dataIteratorFromJavaIterator.type;
-    assertSame(expectedType, (new DataIteratorProxy<Object>(dataIteratorFromJavaIterator)).getType());
+    assertSame(expectedType, (new DataIteratorProxy<>(dataIteratorFromJavaIterator)).getType());
   }
 
   /**
@@ -36,7 +36,7 @@ public class DataIteratorProxyTest {
   @Test
   public void testGetType() {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
-    Class<Object> actualType = (new DataIteratorProxy<Object>(
+    Class<Object> actualType = (new DataIteratorProxy<>(
         new DataIteratorFromJavaIterator<Object>(source, Object.class))).getType();
     assertSame(Object.class, actualType);
   }
@@ -58,9 +58,9 @@ public class DataIteratorProxyTest {
   @Test
   public void testNext() {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
-    DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<Object>(
+    DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<>(
         new DataIteratorFromJavaIterator<Object>(source, Object.class));
-    assertNull(dataIteratorProxy.next(new DataContainer<Object>()));
+    assertNull(dataIteratorProxy.next(new DataContainer<>()));
   }
 
   /**
@@ -68,15 +68,15 @@ public class DataIteratorProxyTest {
    */
   @Test
   public void testNext2() {
-    ReverseIterator<Object> realIterator = new ReverseIterator<Object>(new ReverseIterator<Object>(
+    ReverseIterator<Object> realIterator = new ReverseIterator<>(new ReverseIterator<>(
         new JDKIteratorWrapper<Object>(new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>()))));
-    OrFilter<Object> orFilter = new OrFilter<Object>(null, null, null);
-    OrFilter<Object> orFilter1 = new OrFilter<Object>(null, null, null);
-    FilteringIterator<Object> source = new FilteringIterator<Object>(realIterator,
-        new OrFilter<Object>(orFilter, orFilter1, new OrFilter<Object>(null, null, null)));
-    DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<Object>(
-        new DataIteratorFromJavaIterator<Object>(source, Object.class));
-    assertNull(dataIteratorProxy.next(new DataContainer<Object>()));
+    OrFilter<Object> orFilter = new OrFilter<>(null, null, null);
+    OrFilter<Object> orFilter1 = new OrFilter<>(null, null, null);
+    FilteringIterator<Object> source = new FilteringIterator<>(realIterator,
+        new OrFilter<>(orFilter, orFilter1, new OrFilter<>(null, null, null)));
+    DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<>(
+        new DataIteratorFromJavaIterator<>(source, Object.class));
+    assertNull(dataIteratorProxy.next(new DataContainer<>()));
   }
 
 
@@ -88,7 +88,7 @@ public class DataIteratorProxyTest {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
     DataIteratorProxy<Object> dataIteratorProxy = new DataIteratorProxy<Object>(
         new OffsetDataIterator(new DataIteratorFromJavaIterator<Object>(source, Object.class), 2));
-    assertNull(dataIteratorProxy.next(new DataContainer<Object>()));
+    assertNull(dataIteratorProxy.next(new DataContainer<>()));
   }
 }
 

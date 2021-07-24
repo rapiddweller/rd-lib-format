@@ -1,3 +1,16 @@
+# Release 1.1.3-jdk-11
+
+## Release Highlights
+
+* Introduce checkstyle
+* upgrade dependencies rd-lib-common, log4j, JUnit
+* improve pom
+* refactor JDK 11
+* remove useless tests
+
+
+---
+
 # Release 1.1.2-jdk-11
 
 ## Release Highlights
@@ -13,6 +26,8 @@ N/A
 
 N/A
 
+---
+
 # Release 1.1.1-jdk-11
 
 ## Release Highlights
@@ -27,6 +42,8 @@ N/A
 
 * upgraded org.apache.poi needed some more adjustments, added missing OpenXML Schema dependencies and switched default
   create workbook format from HSSF to XSSF new standard.
+
+---
 
 # Release 1.1.0-jdk-11
 

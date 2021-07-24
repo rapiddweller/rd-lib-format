@@ -15,9 +15,9 @@ public class JavaIterableFromDataSourceTest {
    */
   @Test
   public void testIterator() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     assertTrue((new JavaIterableFromDataSource<Object>(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))))))
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))))))
         .iterator() instanceof JavaIteratorFromDataIterator);
   }
 
@@ -26,10 +26,10 @@ public class JavaIterableFromDataSourceTest {
    */
   @Test
   public void testIterator2() {
-    ArrayList<Object> objectList = new ArrayList<Object>();
+    ArrayList<Object> objectList = new ArrayList<>();
     objectList.add("e");
     assertTrue((new JavaIterableFromDataSource<Object>(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(objectList, Object.class))))))
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(objectList, Object.class))))))
         .iterator() instanceof JavaIteratorFromDataIterator);
   }
 }

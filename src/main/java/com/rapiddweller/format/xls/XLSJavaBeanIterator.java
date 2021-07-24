@@ -65,7 +65,7 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
    * @throws IOException the io exception
    */
   public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, Class<?> beanClass) throws IOException {
-    this(uri, sheetName, formatted, null, "", new ConstantClassProvider<Object>(beanClass));
+    this(uri, sheetName, formatted, null, "", new ConstantClassProvider<>(beanClass));
   }
 
   /**
@@ -110,10 +110,10 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
   public static <T> List<T> parseAll(String uri, String sheetName, boolean formatted, Class<T> type)
       throws InvalidFormatException, IOException {
     XLSJavaBeanIterator<T> iterator = null;
-    List<T> result = new ArrayList<T>();
+    List<T> result = new ArrayList<>();
     try {
-      iterator = new XLSJavaBeanIterator<T>(uri, sheetName, formatted, type);
-      DataContainer<T> container = new DataContainer<T>();
+      iterator = new XLSJavaBeanIterator<>(uri, sheetName, formatted, type);
+      DataContainer<T> container = new DataContainer<>();
       while (iterator.next(container) != null) {
         result.add(container.getData());
       }

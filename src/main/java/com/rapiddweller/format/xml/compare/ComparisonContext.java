@@ -66,7 +66,7 @@ public class ComparisonContext {
 
   private void init(Set<LocalDiffType> toleratedDiffs, Document expectedDocument, Document actualDocument)
       throws XPathExpressionException {
-    this.pathSettings = new ArrayList<PathSetting>();
+    this.pathSettings = new ArrayList<>();
     if (toleratedDiffs != null) {
       for (LocalDiffType localDiffType : toleratedDiffs) {
         PathSetting pathSetting = new PathSetting(localDiffType.getLocator(), localDiffType.getType());

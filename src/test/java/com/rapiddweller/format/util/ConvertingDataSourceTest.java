@@ -19,9 +19,9 @@ public class ConvertingDataSourceTest {
    */
   @Test
   public void testGetType() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     Class<Object> actualType = (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter()))
         .getType();
     assertSame(List.class, actualType);
@@ -32,9 +32,9 @@ public class ConvertingDataSourceTest {
    */
   @Test
   public void testIterator() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy dataSourceProxy = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     ConvertingDataSource<Object, Object> convertingDataSource = new ConvertingDataSource<Object, Object>(
         dataSourceProxy, new ToCollectionConverter());
     DataIterator<Object> actualIteratorResult = convertingDataSource.iterator();
@@ -51,9 +51,9 @@ public class ConvertingDataSourceTest {
    */
   @Test
   public void testIterator2() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     ConvertingDataSource convertingDataSource = new ConvertingDataSource(source1, new ToCollectionConverter());
     DataSourceProxy source2 = new DataSourceProxy(new DataSourceProxy(new DataSourceProxy(convertingDataSource)));
     ConvertingDataSource<Object, Object> convertingDataSource1 = new ConvertingDataSource<Object, Object>(source2,
@@ -81,9 +81,9 @@ public class ConvertingDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).close();
   }
 
@@ -98,9 +98,9 @@ public class ConvertingDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)));
+        new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)));
     (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).close();
   }
 
@@ -115,9 +115,9 @@ public class ConvertingDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     DataSourceProxy source2 = new DataSourceProxy(
         new DataSourceProxy(new DataSourceProxy(new ConvertingDataSource(source1, new ToCollectionConverter()))));
     (new ConvertingDataSource<Object, Object>(source2, new ToCollectionConverter())).close();
@@ -134,9 +134,9 @@ public class ConvertingDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     (new ConvertingDataSource<Object, Object>(source1, new ToCollectionConverter())).toString();
   }
 
@@ -151,9 +151,9 @@ public class ConvertingDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))));
     ConvertingDataSource source2 = new ConvertingDataSource(source1, new ToCollectionConverter());
     (new ConvertingDataSource<Object, Object>(source2, new ToCollectionConverter())).toString();
   }
@@ -163,9 +163,9 @@ public class ConvertingDataSourceTest {
    */
   @Test
   public void testConstructor() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataSourceProxy source1 = new DataSourceProxy(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)))));
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))));
     ConvertingDataSource<Object, Object> actualConvertingDataSource = new ConvertingDataSource<Object, Object>(source1,
         new ToCollectionConverter());
     Class<Object> expectedType = actualConvertingDataSource.type;

@@ -30,8 +30,8 @@ public class DataUtilTest {
    */
   @Test
   public void testNextNotNullData3() {
-    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
-    entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
+    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<>();
+    entrySet.add(new AbstractMap.SimpleEntry<>("key", "value"));
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(entrySet);
     DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,
         Object.class);

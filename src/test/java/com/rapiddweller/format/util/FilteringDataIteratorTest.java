@@ -26,11 +26,11 @@ public class FilteringDataIteratorTest {
   public void testNext() {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
     DataIteratorFromJavaIterator<Object> source1 = new DataIteratorFromJavaIterator<Object>(source, Object.class);
-    OrFilter<Object> orFilter = new OrFilter<Object>(null, null, null);
-    OrFilter<Object> orFilter1 = new OrFilter<Object>(null, null, null);
-    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<Object>(source1,
-        new OrFilter<Object>(orFilter, orFilter1, new OrFilter<Object>(null, null, null)));
-    assertNull(filteringDataIterator.next(new DataContainer<Object>()));
+    OrFilter<Object> orFilter = new OrFilter<>(null, null, null);
+    OrFilter<Object> orFilter1 = new OrFilter<>(null, null, null);
+    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<>(source1,
+        new OrFilter<>(orFilter, orFilter1, new OrFilter<>(null, null, null)));
+    assertNull(filteringDataIterator.next(new DataContainer<>()));
   }
 
   /**
@@ -38,15 +38,15 @@ public class FilteringDataIteratorTest {
    */
   @Test
   public void testNext4() {
-    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
-    entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
+    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<>();
+    entrySet.add(new AbstractMap.SimpleEntry<>("key", "value"));
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(entrySet);
     DataIteratorFromJavaIterator<Object> source1 = new DataIteratorFromJavaIterator<Object>(source, Object.class);
-    AcceptAllFilter<Object> acceptAllFilter = new AcceptAllFilter<Object>();
-    OrFilter<Object> orFilter = new OrFilter<Object>(null, null, null);
-    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<Object>(source1,
-        new OrFilter<Object>(acceptAllFilter, orFilter, new OrFilter<Object>(null, null, null)));
-    DataContainer<Object> dataContainer = new DataContainer<Object>();
+    AcceptAllFilter<Object> acceptAllFilter = new AcceptAllFilter<>();
+    OrFilter<Object> orFilter = new OrFilter<>(null, null, null);
+    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<>(source1,
+        new OrFilter<>(acceptAllFilter, orFilter, new OrFilter<>(null, null, null)));
+    DataContainer<Object> dataContainer = new DataContainer<>();
     DataContainer<Object> actualNextResult = filteringDataIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals("key", actualNextResult.toString());
@@ -60,13 +60,13 @@ public class FilteringDataIteratorTest {
    */
   @Test
   public void testNext5() {
-    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
-    entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
+    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<>();
+    entrySet.add(new AbstractMap.SimpleEntry<>("key", "value"));
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(entrySet);
     DataIteratorFromJavaIterator<Object> source1 = new DataIteratorFromJavaIterator<Object>(source, Object.class);
-    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<Object>(source1,
-        new OrFilter<Object>());
-    DataContainer<Object> dataContainer = new DataContainer<Object>();
+    FilteringDataIterator<Object> filteringDataIterator = new FilteringDataIterator<>(source1,
+        new OrFilter<>());
+    DataContainer<Object> dataContainer = new DataContainer<>();
     assertNull(filteringDataIterator.next(dataContainer));
     assertEquals("key", dataContainer.toString());
     assertTrue(

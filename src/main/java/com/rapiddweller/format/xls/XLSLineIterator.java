@@ -135,7 +135,7 @@ public class XLSLineIterator implements DataIterator<Object[]> {
     this.nullMarker = null;
     this.formatted = formatted;
     if (stringPreprocessor == null) {
-      stringPreprocessor = new NoOpConverter<String>();
+      stringPreprocessor = new NoOpConverter<>();
     }
     this.stringPreprocessor = stringPreprocessor;
 
@@ -289,7 +289,7 @@ public class XLSLineIterator implements DataIterator<Object[]> {
   }
 
   private void parseHeaders() {
-    DataContainer<Object[]> wrapper = new DataContainer<Object[]>();
+    DataContainer<Object[]> wrapper = new DataContainer<>();
     if (next(wrapper) != null) {
       this.headers = StringUtil.trimAll(ArrayTypeConverter.convert(wrapper.getData(), String.class));
     } else {

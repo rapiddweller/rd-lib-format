@@ -37,7 +37,7 @@ public class ConvertingCSVParser<E> implements DataIterator<E> {
 
   private final Converter<String[], E> rowConverter;
   private final CSVLineIterator source;
-  private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<String[]>();
+  private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<>();
 
   /**
    * Instantiates a new Converting csv parser.
@@ -80,7 +80,7 @@ public class ConvertingCSVParser<E> implements DataIterator<E> {
    * @throws IOException the io exception
    */
   public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter) throws IOException {
-    return parse(uri, rowConverter, new ArrayList<T>());
+    return parse(uri, rowConverter, new ArrayList<>());
   }
 
   /**
@@ -96,8 +96,8 @@ public class ConvertingCSVParser<E> implements DataIterator<E> {
   public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter, List<T> list) throws IOException {
     ConvertingCSVParser<T> parser = null;
     try {
-      parser = new ConvertingCSVParser<T>(uri, rowConverter);
-      DataContainer<T> container = new DataContainer<T>();
+      parser = new ConvertingCSVParser<>(uri, rowConverter);
+      DataContainer<T> container = new DataContainer<>();
       while ((container = parser.next(container)) != null) {
         list.add(container.getData());
       }

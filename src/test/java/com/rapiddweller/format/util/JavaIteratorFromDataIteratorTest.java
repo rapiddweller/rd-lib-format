@@ -22,7 +22,7 @@ public class JavaIteratorFromDataIteratorTest {
   public void testHasNext() {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
     assertFalse(
-        (new JavaIteratorFromDataIterator<Object>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
+        (new JavaIteratorFromDataIterator<>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
             .hasNext());
   }
 
@@ -31,11 +31,11 @@ public class JavaIteratorFromDataIteratorTest {
    */
   @Test
   public void testHasNext3() {
-    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<Map.Entry<Object, Object>>();
-    entrySet.add(new AbstractMap.SimpleEntry<Object, Object>("key", "value"));
+    HashSet<Map.Entry<Object, Object>> entrySet = new HashSet<>();
+    entrySet.add(new AbstractMap.SimpleEntry<>("key", "value"));
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(entrySet);
     assertTrue(
-        (new JavaIteratorFromDataIterator<Object>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
+        (new JavaIteratorFromDataIterator<>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
             .hasNext());
   }
 
@@ -51,7 +51,7 @@ public class JavaIteratorFromDataIteratorTest {
     //   See https://diff.blue/R004
 
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
-    (new JavaIteratorFromDataIterator<Object>(new DataIteratorFromJavaIterator<Object>(source, Object.class))).close();
+    (new JavaIteratorFromDataIterator<>(new DataIteratorFromJavaIterator<Object>(source, Object.class))).close();
   }
 
   /**
@@ -66,7 +66,7 @@ public class JavaIteratorFromDataIteratorTest {
     //   See https://diff.blue/R004
 
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
-    (new JavaIteratorFromDataIterator<Object>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
+    (new JavaIteratorFromDataIterator<>(new DataIteratorFromJavaIterator<Object>(source, Object.class)))
         .toString();
   }
 
@@ -78,7 +78,7 @@ public class JavaIteratorFromDataIteratorTest {
     EntrySetToMapIteratorAdapter source = new EntrySetToMapIteratorAdapter(new HashSet<Map.Entry<Object, Object>>());
     DataIteratorFromJavaIterator<Object> dataIteratorFromJavaIterator = new DataIteratorFromJavaIterator<Object>(source,
         Object.class);
-    new JavaIteratorFromDataIterator<Object>(dataIteratorFromJavaIterator);
+    new JavaIteratorFromDataIterator<>(dataIteratorFromJavaIterator);
     Class<Object> expectedType = dataIteratorFromJavaIterator.type;
     Class<Object> type = dataIteratorFromJavaIterator.getType();
     assertSame(expectedType, type);

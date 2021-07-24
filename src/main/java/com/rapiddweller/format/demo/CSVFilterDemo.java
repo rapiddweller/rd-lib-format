@@ -54,7 +54,7 @@ public class CSVFilterDemo {
 
     // sets up a filtered iterator that uses the upper iterator as source
     Filter<String[]> filter = new RowFilter();
-    FilteringDataIterator<String[]> iterator = new FilteringDataIterator<String[]>(src, filter);
+    FilteringDataIterator<String[]> iterator = new FilteringDataIterator<>(src, filter);
 
     // create a CSV writer to save the rows that matched the filter
     Writer out = new BufferedWriter(new FileWriter("matches.csv"));
@@ -66,7 +66,7 @@ public class CSVFilterDemo {
     long startMillis = System.currentTimeMillis();
 
     // iterate the entries
-    DataContainer<String[]> cells = new DataContainer<String[]>();
+    DataContainer<String[]> cells = new DataContainer<>();
     while ((cells = iterator.next(cells)) != null) {
       csvWriter.writeElement(cells.getData());
       matchCount++;

@@ -103,11 +103,7 @@ public class PropFormat {
         pattern = "#,##0.000";
         break;
       default:
-        StringBuilder builder = new StringBuilder("#,##0.");
-        for (int i = 0; i < fractionDigits; i++) {
-          builder.append("0");
-        }
-        pattern = builder.toString();
+        pattern = "#,##0." + "0".repeat(Math.max(0, fractionDigits));
         break;
     }
     return withPattern(pattern);

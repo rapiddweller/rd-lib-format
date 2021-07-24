@@ -48,8 +48,8 @@ public class XLSJavaBeanIteratorTest {
   @Test
   public void testFlat() throws IOException {
     XLSJavaBeanIterator<PersonWithAddress> iterator =
-        new XLSJavaBeanIterator<PersonWithAddress>("com/rapiddweller/format/xls/person_lines.xls", "persons", true, PersonWithAddress.class);
-    DataContainer<PersonWithAddress> wrapper = new DataContainer<PersonWithAddress>();
+        new XLSJavaBeanIterator<>("com/rapiddweller/format/xls/person_lines.xls", "persons", true, PersonWithAddress.class);
+    DataContainer<PersonWithAddress> wrapper = new DataContainer<>();
     assertNotNull(iterator.next(wrapper));
     assertContent("Alice", 23, TimeUtil.date(2011, 0, 1), wrapper);
     assertNotNull(iterator.next(wrapper));
@@ -67,9 +67,9 @@ public class XLSJavaBeanIteratorTest {
   @Test
   public void testTrailingNullHeaders() throws IOException {
     XLSJavaBeanIterator<PersonWithAddress> iterator =
-        new XLSJavaBeanIterator<PersonWithAddress>("com/rapiddweller/format/xls/person_lines_empty_headers_trailing.xls", "persons", true,
+        new XLSJavaBeanIterator<>("com/rapiddweller/format/xls/person_lines_empty_headers_trailing.xls", "persons", true,
             PersonWithAddress.class);
-    DataContainer<PersonWithAddress> wrapper = new DataContainer<PersonWithAddress>();
+    DataContainer<PersonWithAddress> wrapper = new DataContainer<>();
     assertNotNull(iterator.next(wrapper));
     assertContent("Alice", 23, TimeUtil.date(2011, 0, 1), wrapper);
     assertNotNull(iterator.next(wrapper));
@@ -86,8 +86,8 @@ public class XLSJavaBeanIteratorTest {
   @Test
   public void testOneToOneAssociation() throws IOException {
     XLSJavaBeanIterator<PersonWithAddress> iterator =
-        new XLSJavaBeanIterator<PersonWithAddress>("com/rapiddweller/format/xls/persons_with_address.xls", "persons", true, PersonWithAddress.class);
-    DataContainer<PersonWithAddress> wrapper = new DataContainer<PersonWithAddress>();
+        new XLSJavaBeanIterator<>("com/rapiddweller/format/xls/persons_with_address.xls", "persons", true, PersonWithAddress.class);
+    DataContainer<PersonWithAddress> wrapper = new DataContainer<>();
     assertNotNull(iterator.next(wrapper));
     assertContent("Alice", 23, "London", wrapper);
     assertNotNull(iterator.next(wrapper));
@@ -104,9 +104,9 @@ public class XLSJavaBeanIteratorTest {
   @Test
   public void testOneToManyAssociation() throws IOException {
     XLSJavaBeanIterator<PersonWithAddress> iterator =
-        new XLSJavaBeanIterator<PersonWithAddress>("com/rapiddweller/format/xls/persons_with_addresses.xls", "persons", true,
+        new XLSJavaBeanIterator<>("com/rapiddweller/format/xls/persons_with_addresses.xls", "persons", true,
             PersonWithAddress.class);
-    DataContainer<PersonWithAddress> wrapper = new DataContainer<PersonWithAddress>();
+    DataContainer<PersonWithAddress> wrapper = new DataContainer<>();
     assertNotNull(iterator.next(wrapper));
     assertContent("Alice", 23, "London", "Dover", wrapper);
     assertNotNull(iterator.next(wrapper));

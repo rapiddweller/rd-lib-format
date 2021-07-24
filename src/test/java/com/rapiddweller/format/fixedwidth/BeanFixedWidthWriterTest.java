@@ -46,7 +46,7 @@ public class BeanFixedWidthWriterTest extends TestCase {
    */
   public void test() throws IOException {
     StringWriter out = new StringWriter();
-    DocumentWriter<TP> writer = new BeanFixedWidthWriter<TP>(out,
+    DocumentWriter<TP> writer = new BeanFixedWidthWriter<>(out,
         new ConstantScript("header" + SEP), new ConstantScript("footer"),
         new FixedWidthColumnDescriptor("name", 6, Alignment.LEFT),
         new FixedWidthColumnDescriptor("age", 3, Alignment.RIGHT));

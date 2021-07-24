@@ -76,10 +76,10 @@ public class FixedWidthRowTypeDescriptor {
    */
   public String formatBean(Object rowBean) {
     StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < columnDescriptors.length; i++) {
-      String path = columnDescriptors[i].getName();
+    for (FixedWidthColumnDescriptor columnDescriptor : columnDescriptors) {
+      String path = columnDescriptor.getName();
       Object value = GraphAccessor.getValue(path, rowBean);
-      builder.append(columnDescriptors[i].format(value));
+      builder.append(columnDescriptor.format(value));
     }
     return builder.toString();
   }
@@ -113,7 +113,7 @@ public class FixedWidthRowTypeDescriptor {
       throw new SyntaxError("Row of type '" + name + "' has illegal length. " +
           "Expected: " + rowLength + ", found: " + row.length(), "'" + row + "'");
     }
-    ArrayBuilder<Object> builder = new ArrayBuilder<Object>(Object.class);
+    ArrayBuilder<Object> builder = new ArrayBuilder<>(Object.class);
     ParsePosition pos = new ParsePosition(0);
     for (int i = 0; i < columnDescriptors.length; i++) {
       FixedWidthColumnDescriptor columnDescriptor = columnDescriptors[i];

@@ -39,7 +39,7 @@ public class CompositeComplexType extends ComplexType {
    */
   public CompositeComplexType(String name) {
     super(name);
-    this.members = new OrderedNameMap<ComplexMember>();
+    this.members = new OrderedNameMap<>();
   }
 
   /**

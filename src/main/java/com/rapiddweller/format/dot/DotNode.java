@@ -46,8 +46,8 @@ public class DotNode implements Named {
     this.vertical = true;
     this.style = null;
     this.fillColor = null;
-    this.segments = new ArrayList<String>();
-    this.edges = new ArrayList<DotEdge>();
+    this.segments = new ArrayList<>();
+    this.edges = new ArrayList<>();
   }
 
   @Override

@@ -29,7 +29,7 @@ public class ThreadLocalDataContainer<E> extends ThreadLocal<DataContainer<E>> {
 
   @Override
   protected DataContainer<E> initialValue() {
-    return new DataContainer<E>();
+    return new DataContainer<>();
   }
 
   @Override

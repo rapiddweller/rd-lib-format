@@ -18,10 +18,10 @@ public class OffsetDataSourceTest {
    */
   @Test
   public void testConstructor() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     OffsetDataSource<Object> actualOffsetDataSource = new OffsetDataSource<Object>(
         new DataSourceProxy(new DataSourceProxy(
-            new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class))))),
+            new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class))))),
         2);
     assertEquals(2, actualOffsetDataSource.offset);
     assertTrue(actualOffsetDataSource.source instanceof DataSourceProxy);
@@ -34,9 +34,9 @@ public class OffsetDataSourceTest {
    */
   @Test
   public void testIterator() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataIterator<Object> actualIteratorResult = (new OffsetDataSource<Object>(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)))), 2))
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))), 2))
         .iterator();
     Class<Object> expectedType = ((DataIteratorFromJavaIterator<Object>) actualIteratorResult).type;
     assertSame(expectedType, actualIteratorResult.getType());
@@ -47,11 +47,11 @@ public class OffsetDataSourceTest {
    */
   @Test
   public void testIterator2() {
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     DataIterator<Object> actualIteratorResult = (new OffsetDataSource<Object>(
         new DataSourceProxy(new DataSourceProxy(new DataSourceProxy(new OffsetDataSource(
             new DataSourceProxy(
-                new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)))),
+                new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))),
             2)))),
         2)).iterator();
     Class<Object> expectedType = ((DataIteratorFromJavaIterator<Object>) actualIteratorResult).type;
@@ -69,9 +69,9 @@ public class OffsetDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     (new OffsetDataSource<Object>(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)))), 2))
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))), 2))
         .toString();
   }
 
@@ -86,9 +86,9 @@ public class OffsetDataSourceTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
+    ArrayList<Object> source = new ArrayList<>();
     (new OffsetDataSource<Object>(new OffsetDataSource(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<Object>(source, Object.class)))), 2), 2))
+        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))), 2), 2))
         .toString();
   }
 }

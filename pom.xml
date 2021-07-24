@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.rapiddweller</groupId>
     <artifactId>rd-lib-format</artifactId>
-    <version>1.1.3-jdk-11-SNAPSHOT</version>
+    <version>1.1.4-jdk-11-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>rapiddweller Format</name>
     <description>'rapiddweller Format' is an open source software library
@@ -16,17 +16,15 @@
     <inceptionYear>2006</inceptionYear>
 
     <properties>
-        <_rd_common_version>1.1.1-jdk-11</_rd_common_version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <_rd_common_version>1.1.2-jdk-11</_rd_common_version>
         <dependency_antlr-runtime.version>3.3</dependency_antlr-runtime.version>
         <dependency_freemarker.version>2.3.20</dependency_freemarker.version>
-        <dependency_junit.version>4.13.1</dependency_junit.version>
-        <dependency_log4j-api.version>2.14.0</dependency_log4j-api.version>
-        <dependency_log4j-core.version>2.14.0</dependency_log4j-core.version>
-        <dependency_log4j-slf4j-impl.version>2.14.0</dependency_log4j-slf4j-impl.version>
+        <dependency_junit.version>4.13.2</dependency_junit.version>
+        <dependency_log4j-api.version>2.14.1</dependency_log4j-api.version>
+        <dependency_log4j-core.version>2.14.1</dependency_log4j-core.version>
         <dependency_poi.version>5.0.0</dependency_poi.version>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <java_source_version>11</java_source_version>
-        <java_target_version>11</java_target_version>
         <plugin_jacoco-maven-plugin.version>0.8.6</plugin_jacoco-maven-plugin.version>
         <plugin_maven-assembly-plugin.version>3.3.0</plugin_maven-assembly-plugin.version>
         <plugin_maven-compiler-plugin.version>3.8.1</plugin_maven-compiler-plugin.version>
@@ -127,12 +125,6 @@
             <version>${dependency_log4j-core.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${dependency_log4j-slf4j-impl.version}</version>
-            <scope>runtime</scope>
-        </dependency>
         <!-- Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -177,7 +169,7 @@
                     <include>**/*.txt</include>
                 </includes>
                 <excludes>
-                    <exclude>log4j.xml</exclude>
+                    <exclude>log4j2.xml</exclude>
                     <exclude>**/version.properties</exclude>
                 </excludes>
             </resource>
@@ -225,8 +217,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${plugin_maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${java_source_version}</source>
-                    <target>${java_target_version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -235,7 +227,7 @@
                 <version>${plugin_maven-javadoc-plugin.version}</version>
                 <configuration>
                     <doclint>none</doclint>
-                    <source>${java_source_version}</source>
+                    <source>${maven.compiler.source}</source>
                     <detectJavaApiLink>false</detectJavaApiLink>
                 </configuration>
                 <executions>
@@ -337,7 +329,7 @@
                 <version>${plugin_maven-javadoc-plugin.version}</version>
                 <configuration>
                     <doclint>none</doclint>
-                    <source>${java_source_version}</source>
+                    <source>${maven.compiler.source}</source>
                     <detectJavaApiLink>false</detectJavaApiLink>
                 </configuration>
             </plugin>

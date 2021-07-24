@@ -38,7 +38,7 @@ public class DataUtil {
    * @return the t
    */
   public static <T> T nextNotNullData(DataIterator<T> iterator) {
-    DataContainer<T> container = iterator.next(new DataContainer<T>());
+    DataContainer<T> container = iterator.next(new DataContainer<>());
     if (container == null) {
       throw new IllegalArgumentException("iterator is unavailable though a value is expected: " + iterator);
     }

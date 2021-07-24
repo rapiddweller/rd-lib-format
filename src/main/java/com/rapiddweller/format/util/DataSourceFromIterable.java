@@ -49,7 +49,7 @@ public class DataSourceFromIterable<E> extends AbstractDataSource<E> {
 
   @Override
   public DataIterator<E> iterator() {
-    return new DataIteratorFromJavaIterator<E>(source.iterator(), type);
+    return new DataIteratorFromJavaIterator<>(source.iterator(), type);
   }
 
   @Override

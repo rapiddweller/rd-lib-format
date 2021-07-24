@@ -90,9 +90,9 @@ public class KiloFormatter {
    */
   public String convert(long value, int base) {
     long threshold = 1;
-    for (int i = 0; i < SYMBOLS.length; i++) {
+    for (String symbol : SYMBOLS) {
       if (value < threshold * base) {
-        return formatNumber(value, threshold, SYMBOLS[i]);
+        return formatNumber(value, threshold, symbol);
       }
       threshold *= base;
     }

@@ -40,7 +40,7 @@ public class AbbreviatedNumberFormat extends NumberFormat {
   private static final Map<Locale, List<AbbreviatedScale>> ABBREVIATIONS;
 
   static {
-    ABBREVIATIONS = new HashMap<Locale, List<AbbreviatedScale>>();
+    ABBREVIATIONS = new HashMap<>();
     createAbbreviation("Mrd", 1E9, Locale.GERMAN);
     createAbbreviation("Mrd.", 1E9, Locale.GERMAN);
     createAbbreviation("Mio", 1E6, Locale.GERMAN);
@@ -58,7 +58,7 @@ public class AbbreviatedNumberFormat extends NumberFormat {
   }
 
   private static void createAbbreviation(String abbreviation, Double factor, Locale locale) {
-    List<AbbreviatedScale> localAbbrevs = ABBREVIATIONS.computeIfAbsent(locale, k -> new ArrayList<AbbreviatedScale>());
+    List<AbbreviatedScale> localAbbrevs = ABBREVIATIONS.computeIfAbsent(locale, k -> new ArrayList<>());
     AbbreviatedScale entry = new AbbreviatedScale(abbreviation, factor);
     localAbbrevs.add(entry);
   }

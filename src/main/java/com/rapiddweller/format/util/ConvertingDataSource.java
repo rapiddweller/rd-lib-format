@@ -56,7 +56,7 @@ public class ConvertingDataSource<S, T> extends DataSourceAdapter<S, T> {
 
   @Override
   public DataIterator<T> iterator() {
-    return new ConvertingDataIterator<S, T>(source.iterator(), converter);
+    return new ConvertingDataIterator<>(source.iterator(), converter);
   }
 
   @Override

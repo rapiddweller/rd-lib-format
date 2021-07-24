@@ -86,7 +86,7 @@ public class CSVSource implements DataSource<String[]> {
     try {
       DataIterator<String[]> result = new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
       if (!rowBased) {
-        result = new OrthogonalArrayIterator<String>(result);
+        result = new OrthogonalArrayIterator<>(result);
       }
       return result;
     } catch (IOException e) {

@@ -89,11 +89,11 @@ public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
    * @throws IOException when file access fails.
    */
   private void init() throws IOException {
-    replacements = new HashMap<Character, String>();
+    replacements = new HashMap<>();
     CSVLineIterator iterator = null;
     try {
       iterator = new CSVLineIterator(CONFIG_FILENAME, ',', true, Encodings.UTF_8);
-      DataContainer<String[]> tokens = new DataContainer<String[]>();
+      DataContainer<String[]> tokens = new DataContainer<>();
       while ((tokens = iterator.next(tokens)) != null) {
         addReplacements(tokens.getData());
       }

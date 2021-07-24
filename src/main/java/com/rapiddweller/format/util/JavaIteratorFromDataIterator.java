@@ -43,7 +43,7 @@ public class JavaIteratorFromDataIterator<E> implements HeavyweightIterator<E> {
    */
   public JavaIteratorFromDataIterator(DataIterator<E> source) {
     this.source = source;
-    this.next = new DataContainer<E>();
+    this.next = new DataContainer<>();
     this.initialized = false;
   }
 

@@ -27,6 +27,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static com.rapiddweller.format.csv.CSVTokenType.CELL;
 import static com.rapiddweller.format.csv.CSVTokenType.EOF;
@@ -174,12 +175,8 @@ public class CSVLineIterator implements DataIterator<String[]> {
    * @param headers the headers
    */
   public void setHeaders(String[] headers) {
-    if (headers != null) {
-      this.headers = headers;
-    } else {
-      this.headers = new String[0];
-    }
-    this.headerIndexes = new HashMap<String, Integer>();
+    this.headers = Objects.requireNonNullElseGet(headers, () -> new String[0]);
+    this.headerIndexes = new HashMap<>();
     for (int i = 0; i < this.headers.length; i++) {
       this.headerIndexes.put(this.headers[i], i);
     }
@@ -296,16 +293,10 @@ public class CSVLineIterator implements DataIterator<String[]> {
    * @throws IOException the io exception
    */
   public static void process(Reader reader, char separator, boolean ignoreEmptyLines, CSVLineHandler lineHandler) throws IOException {
-    CSVLineIterator iterator = null;
-    try {
-      iterator = new CSVLineIterator(reader, separator, ignoreEmptyLines);
-      DataContainer<String[]> row = new DataContainer<String[]>();
+    try (CSVLineIterator iterator = new CSVLineIterator(reader, separator, ignoreEmptyLines)) {
+      DataContainer<String[]> row = new DataContainer<>();
       while ((row = iterator.next(row)) != null) {
         lineHandler.handle(row.getData());
-      }
-    } finally {
-      if (iterator != null) {
-        iterator.close();
       }
     }
   }
@@ -334,13 +325,8 @@ public class CSVLineIterator implements DataIterator<String[]> {
    * @throws IOException the io exception
    */
   public static String[][] parse(Reader reader, char separator, boolean ignoreEmptyLines) throws IOException {
-    final ArrayBuilder<String[]> builder = new ArrayBuilder<String[]>(String[].class);
-    CSVLineHandler handler = new CSVLineHandler() {
-      @Override
-      public void handle(String[] cells) {
-        builder.add(cells);
-      }
-    };
+    final ArrayBuilder<String[]> builder = new ArrayBuilder<>(String[].class);
+    CSVLineHandler handler = cells -> builder.add(cells);
     process(reader, separator, ignoreEmptyLines, handler);
     return builder.toArray();
   }
@@ -355,7 +341,7 @@ public class CSVLineIterator implements DataIterator<String[]> {
     List<String> list;
     CSVTokenType tokenType;
     do {
-      list = new ArrayList<String>();
+      list = new ArrayList<>();
       while ((tokenType = tokenizer.next()) == CELL) {
         list.add(tokenizer.cell);
       }

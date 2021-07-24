@@ -45,7 +45,7 @@ public class JavaIterableFromDataSource<E> implements HeavyweightIterable<E> {
 
   @Override
   public HeavyweightIterator<E> iterator() {
-    return new JavaIteratorFromDataIterator<E>(source.iterator());
+    return new JavaIteratorFromDataIterator<>(source.iterator());
   }
 
 }

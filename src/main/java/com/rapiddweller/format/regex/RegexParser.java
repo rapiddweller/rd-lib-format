@@ -230,7 +230,7 @@ public class RegexParser {
   @SuppressWarnings("unchecked")
   private Choice convertChoice(CommonTree node) throws SyntaxError {
     List<CommonTree> childNodes = node.getChildren();
-    List<RegexPart> childPatterns = new ArrayList<RegexPart>();
+    List<RegexPart> childPatterns = new ArrayList<>();
     if (childNodes != null) {
       for (CommonTree childNode : childNodes) {
         childPatterns.add(convertRegexPart(childNode));
@@ -242,7 +242,7 @@ public class RegexParser {
   @SuppressWarnings("unchecked")
   private Sequence convertSequence(CommonTree tree) throws SyntaxError {
     List<CommonTree> childNodes = tree.getChildren();
-    List<RegexPart> children = new ArrayList<RegexPart>();
+    List<RegexPart> children = new ArrayList<>();
     if (childNodes != null) {
       for (CommonTree child : childNodes) {
         children.add(convertRegexPart(child));

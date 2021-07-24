@@ -302,7 +302,7 @@ public class DefaultHTMLTokenizerTest {
     }
 
     private static Map<String, String> buildMap(String[] attributes) {
-      Map<String, String> map = new HashMap<String, String>();
+      Map<String, String> map = new HashMap<>();
       for (int i = 0; i < attributes.length; i += 2) {
         String key = attributes[i];
         String value = null;

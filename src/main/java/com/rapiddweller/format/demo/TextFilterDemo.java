@@ -50,7 +50,7 @@ public class TextFilterDemo {
 
     // sets up a filtered iterator that uses the upper iterator as source
     Filter<String> filter = new LineFilter();
-    FilteringIterator<String> iterator = new FilteringIterator<String>(src, filter);
+    FilteringIterator<String> iterator = new FilteringIterator<>(src, filter);
 
     // create a writer to save the rows that matched the filter
     Writer out = new BufferedWriter(new FileWriter("matches.csv"));

@@ -54,8 +54,8 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
    * Instantiates a new Default xml comparison model.
    */
   public DefaultXMLComparisonModel() {
-    this.keyExpressions = new ArrayList<KeyExpression>();
-    this.keys = new HashMap<Element, String>();
+    this.keyExpressions = new ArrayList<>();
+    this.keys = new HashMap<>();
     this.initialized = false;
   }
 
@@ -209,7 +209,7 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
       return new Node[0];
     }
     NodeList childNodes = parent.getChildNodes();
-    ArrayBuilder<Node> builder = new ArrayBuilder<Node>(Node.class);
+    ArrayBuilder<Node> builder = new ArrayBuilder<>(Node.class);
     for (int i = 0; i < childNodes.getLength(); i++) {
       Node child = childNodes.item(i);
       if (child instanceof Element) {

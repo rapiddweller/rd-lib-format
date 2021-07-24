@@ -46,7 +46,7 @@ public class CSVCellIteratorTest {
   @Test
   public void testNext() throws IOException {
     CSVCellIterator csvCellIterator = new CSVCellIterator("", 'A', "UTF-8");
-    DataContainer<String> dataContainer = new DataContainer<String>();
+    DataContainer<String> dataContainer = new DataContainer<>();
     DataContainer<String> actualNextResult = csvCellIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals("com", actualNextResult.toString());
@@ -60,7 +60,7 @@ public class CSVCellIteratorTest {
   @Test
   public void testNext2() throws IOException {
     CSVCellIterator csvCellIterator = new CSVCellIterator("", 'A', "UTF-8");
-    DataContainer<String> dataContainer = new DataContainer<String>("Data");
+    DataContainer<String> dataContainer = new DataContainer<>("Data");
     DataContainer<String> actualNextResult = csvCellIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals("com", actualNextResult.toString());
@@ -74,7 +74,7 @@ public class CSVCellIteratorTest {
   @Test
   public void testNext3() throws IOException {
     CSVCellIterator csvCellIterator = new CSVCellIterator("", 'A', "UTF-8");
-    DataContainer<String> dataContainer = new DataContainer<String>();
+    DataContainer<String> dataContainer = new DataContainer<>();
     DataContainer<String> actualNextResult = csvCellIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals("com", actualNextResult.toString());
@@ -88,7 +88,7 @@ public class CSVCellIteratorTest {
   @Test
   public void testNext4() throws IOException {
     CSVCellIterator csvCellIterator = new CSVCellIterator("", 'A', "UTF-8");
-    DataContainer<String> dataContainer = new DataContainer<String>("Data");
+    DataContainer<String> dataContainer = new DataContainer<>("Data");
     DataContainer<String> actualNextResult = csvCellIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals("com", actualNextResult.toString());
