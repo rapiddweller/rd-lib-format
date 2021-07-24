@@ -76,7 +76,7 @@ public class BeanXLSWriter<E> implements Closeable {
   public BeanXLSWriter(OutputStream out, String sheetName, List<PropFormat> beanProperties) {
     this.out = out;
     this.sheetName = sheetName;
-    this.beanProperties = (beanProperties != null ? new ArrayList<PropFormat>(beanProperties) : new ArrayList<PropFormat>());
+    this.beanProperties = (beanProperties != null ? new ArrayList<>(beanProperties) : new ArrayList<>());
   }
 
   /**

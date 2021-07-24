@@ -38,8 +38,8 @@ public class Schema extends SchemaElement implements Named {
    * Instantiates a new Schema.
    */
   public Schema() {
-    this.simpleTypes = new OrderedNameMap<SimpleType>();
-    this.complexTypes = new OrderedNameMap<ComplexType>();
+    this.simpleTypes = new OrderedNameMap<>();
+    this.complexTypes = new OrderedNameMap<>();
   }
 
   @Override

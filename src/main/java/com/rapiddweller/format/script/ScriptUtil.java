@@ -114,7 +114,7 @@ public class ScriptUtil {
 
   // static factory methods ------------------------------------------------------------------------------------------
 
-  private static final Map<String, Script> scriptsByName = new WeakHashMap<String, Script>();
+  private static final Map<String, Script> scriptsByName = new WeakHashMap<>();
 
   /**
    * Read file script.

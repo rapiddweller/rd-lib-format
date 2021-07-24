@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 com/rapiddweller/regex/antlr/Regex.g 2011-02-06 17:18:17
-
+// CHECKSTYLE:OFF
 package com.rapiddweller.format.regex.antlr;
 
 
@@ -178,7 +178,354 @@ public class RegexLexer extends Lexer {
    * The constant HEXDIGIT.
    */
   public static final int HEXDIGIT = 26;
+  /**
+   * The Dfa 3 eot s.
+   */
+  static final String DFA3_eotS =
+      "\24\uffff";
+  /**
+   * The Dfa 3 eof s.
+   */
+  static final String DFA3_eofS =
+      "\24\uffff";
+  /**
+   * The Dfa 3 min s.
+   */
+  static final String DFA3_minS =
+      "\1\40\23\uffff";
 
+
+  // delegates
+  // delegators
+  /**
+   * The Dfa 3 max s.
+   */
+  static final String DFA3_maxS =
+      "\1\176\23\uffff";
+  /**
+   * The Dfa 3 accept s.
+   */
+  static final String DFA3_acceptS =
+      "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1" +
+          "\15\1\16\1\17\1\20\1\21\1\22\1\23";
+  /**
+   * The Dfa 3 special s.
+   */
+  static final String DFA3_specialS =
+      "\1\0\23\uffff}>";
+  /**
+   * The Dfa 3 transition s.
+   */
+  static final String[] DFA3_transitionS = {
+      "\1\1\1\2\1\4\1\21\1\uffff\1\5\1\6\1\3\2\uffff\2\23\1\22\2\uffff" +
+          "\1\7\12\uffff\1\10\1\11\1\12\1\13\1\14\1\23\1\15\36\uffff\1" +
+          "\16\1\17\35\uffff\1\20",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+  };
+  /**
+   * The Dfa 3 eot.
+   */
+  static final short[] DFA3_eot = DFA.unpackEncodedString(DFA3_eotS);
+  // $ANTLR end "T__31"
+  /**
+   * The Dfa 3 eof.
+   */
+  static final short[] DFA3_eof = DFA.unpackEncodedString(DFA3_eofS);
+  // $ANTLR end "T__32"
+  /**
+   * The Dfa 3 min.
+   */
+  static final char[] DFA3_min = DFA.unpackEncodedStringToUnsignedChars(DFA3_minS);
+  // $ANTLR end "T__33"
+  /**
+   * The Dfa 3 max.
+   */
+  static final char[] DFA3_max = DFA.unpackEncodedStringToUnsignedChars(DFA3_maxS);
+  // $ANTLR end "T__34"
+  /**
+   * The Dfa 3 accept.
+   */
+  static final short[] DFA3_accept = DFA.unpackEncodedString(DFA3_acceptS);
+  // $ANTLR end "T__35"
+  /**
+   * The Dfa 3 special.
+   */
+  static final short[] DFA3_special = DFA.unpackEncodedString(DFA3_specialS);
+  // $ANTLR end "T__36"
+  /**
+   * The Dfa 3 transition.
+   */
+  static final short[][] DFA3_transition;
+  // $ANTLR end "T__37"
+  /**
+   * The Dfa 4 eot s.
+   */
+  static final String DFA4_eotS =
+      "\1\2\23\uffff";
+  // $ANTLR end "GROUP"
+  /**
+   * The Dfa 4 eof s.
+   */
+  static final String DFA4_eofS =
+      "\24\uffff";
+  // $ANTLR end "CHOICE"
+  /**
+   * The Dfa 4 min s.
+   */
+  static final String DFA4_minS =
+      "\1\134\1\44\22\uffff";
+  // $ANTLR end "SEQUENCE"
+  /**
+   * The Dfa 4 max s.
+   */
+  static final String DFA4_maxS =
+      "\1\134\1\175\22\uffff";
+  // $ANTLR end "FACTOR"
+  /**
+   * The Dfa 4 accept s.
+   */
+  static final String DFA4_acceptS =
+      "\2\uffff\1\5\1\1\1\2\1\3\1\4\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1" +
+          "\15\1\16\1\17\1\20\1\21\1\22";
+  // $ANTLR end "CLASS"
+  /**
+   * The Dfa 4 special s.
+   */
+  static final String DFA4_specialS =
+      "\24\uffff}>";
+  // $ANTLR end "RANGE"
+  /**
+   * The Dfa 4 transition s.
+   */
+  static final String[] DFA4_transitionS = {
+      "\1\1",
+      "\1\3\1\uffff\1\4\1\uffff\1\5\1\6\1\21\1\22\1\7\1\10\1\11\20" +
+          "\uffff\1\23\33\uffff\1\12\1\17\1\13\1\14\34\uffff\1\15\1\20" +
+          "\1\16",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+  };
+  // $ANTLR end "INCL"
+  /**
+   * The Dfa 4 eot.
+   */
+  static final short[] DFA4_eot = DFA.unpackEncodedString(DFA4_eotS);
+  // $ANTLR end "EXCL"
+  /**
+   * The Dfa 4 eof.
+   */
+  static final short[] DFA4_eof = DFA.unpackEncodedString(DFA4_eofS);
+  // $ANTLR end "QUANT"
+  /**
+   * The Dfa 4 min.
+   */
+  static final char[] DFA4_min = DFA.unpackEncodedStringToUnsignedChars(DFA4_minS);
+  // $ANTLR end "PREDEFINEDCLASS"
+  /**
+   * The Dfa 4 max.
+   */
+  static final char[] DFA4_max = DFA.unpackEncodedStringToUnsignedChars(DFA4_maxS);
+  // $ANTLR end "ALPHANUM"
+  /**
+   * The Dfa 4 accept.
+   */
+  static final short[] DFA4_accept = DFA.unpackEncodedString(DFA4_acceptS);
+  // $ANTLR end "SPECIALCHARACTER"
+  /**
+   * The Dfa 4 special.
+   */
+  static final short[] DFA4_special = DFA.unpackEncodedString(DFA4_specialS);
+  // $ANTLR end "ESCAPEDCHARACTER"
+  /**
+   * The Dfa 4 transition.
+   */
+  static final short[][] DFA4_transition;
+  // $ANTLR end "NONTYPEABLECHARACTER"
+  /**
+   * The Dfa 8 eot s.
+   */
+  static final String DFA8_eotS =
+      "\1\16\6\uffff\1\23\3\uffff\1\30\1\uffff\1\32\17\uffff";
+  // $ANTLR end "OCTALCHAR"
+  /**
+   * The Dfa 8 eof s.
+   */
+  static final String DFA8_eofS =
+      "\35\uffff";
+  // $ANTLR end "HEXCHAR"
+  /**
+   * The Dfa 8 min s.
+   */
+  static final String DFA8_minS =
+      "\1\40\6\uffff\1\0\1\uffff\1\44\1\uffff\1\60\1\uffff\1\0\5\uffff" +
+          "\1\0\4\uffff\1\0\1\uffff\1\0\2\uffff";
+  // $ANTLR end "CODEDCHAR"
+  /**
+   * The Dfa 8 max s.
+   */
+  static final String DFA8_maxS =
+      "\1\176\6\uffff\1\0\1\uffff\1\175\1\uffff\1\71\1\uffff\1\0\5\uffff" +
+          "\1\0\4\uffff\1\0\1\uffff\1\0\2\uffff";
+  // $ANTLR end "SIMPLEQUANTIFIER"
+  /**
+   * The Dfa 8 accept s.
+   */
+  static final String DFA8_acceptS =
+      "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\uffff\1\10\1\uffff\1\11\1\uffff" +
+          "\1\12\1\uffff\1\13\1\22\1\23\1\24\1\25\1\uffff\1\14\1\15\1\16\1" +
+          "\17\1\uffff\1\21\1\uffff\1\7\1\20";
+  // $ANTLR end "INT"
+  /**
+   * The Dfa 8 special s.
+   */
+  static final String DFA8_specialS =
+      "\1\2\12\uffff\1\5\1\uffff\1\4\5\uffff\1\3\4\uffff\1\1\1\uffff\1" +
+          "\0\2\uffff}>";
+  // $ANTLR end "LBRACE"
+  /**
+   * The Dfa 8 transition s.
+   */
+  static final String[] DFA8_transitionS = {
+      "\4\14\1\2\3\14\1\5\1\6\2\15\1\7\1\4\1\10\1\14\12\13\5\14\1\15" +
+          "\1\14\32\12\1\21\1\11\1\22\1\1\2\14\32\12\1\17\1\3\1\20\1\14",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "\1\uffff",
+      "",
+      "\1\16\1\uffff\1\16\1\uffff\7\16\1\uffff\1\25\16\uffff\1\16" +
+          "\4\uffff\1\10\16\uffff\1\10\3\uffff\1\10\3\uffff\4\16\2\uffff" +
+          "\1\24\1\uffff\1\27\1\10\2\24\7\uffff\1\24\3\uffff\1\24\1\10" +
+          "\1\24\1\26\1\uffff\1\10\1\26\2\uffff\3\16",
+      "",
+      "\12\31",
+      "",
+      "\1\uffff",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "\1\uffff",
+      "",
+      "",
+      "",
+      "",
+      "\1\uffff",
+      "",
+      "\1\uffff",
+      "",
+      ""
+  };
+  // $ANTLR end "RBRACE"
+  /**
+   * The Dfa 8 eot.
+   */
+  static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
+  // $ANTLR end "LBRACKET"
+  /**
+   * The Dfa 8 eof.
+   */
+  static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
+  // $ANTLR end "RBRACKET"
+  /**
+   * The Dfa 8 min.
+   */
+  static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
+  // $ANTLR end "LETTER"
+  /**
+   * The Dfa 8 max.
+   */
+  static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
+  // $ANTLR end "HEXDIGIT"
+  /**
+   * The Dfa 8 accept.
+   */
+  static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
+  // $ANTLR end "OCTALDIGIT"
+  /**
+   * The Dfa 8 special.
+   */
+  static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
+  // $ANTLR end "DIGIT"
+  /**
+   * The Dfa 8 transition.
+   */
+  static final short[][] DFA8_transition;
+
+  static {
+    int numStates = DFA3_transitionS.length;
+    DFA3_transition = new short[numStates][];
+    for (int i = 0; i < numStates; i++) {
+      DFA3_transition[i] = DFA.unpackEncodedString(DFA3_transitionS[i]);
+    }
+  }
+
+  static {
+    int numStates = DFA4_transitionS.length;
+    DFA4_transition = new short[numStates][];
+    for (int i = 0; i < numStates; i++) {
+      DFA4_transition[i] = DFA.unpackEncodedString(DFA4_transitionS[i]);
+    }
+  }
+
+  static {
+    int numStates = DFA8_transitionS.length;
+    DFA8_transition = new short[numStates][];
+    for (int i = 0; i < numStates; i++) {
+      DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
+    }
+  }
+
+  /**
+   * The Dfa 3.
+   */
+  protected DFA3 dfa3 = new DFA3(this);
+  /**
+   * The Dfa 4.
+   */
+  protected DFA4 dfa4 = new DFA4(this);
+  /**
+   * The Dfa 8.
+   */
+  protected DFA8 dfa8 = new DFA8(this);
   /**
    * The Num quantifier mode.
    */
@@ -187,37 +534,6 @@ public class RegexLexer extends Lexer {
    * The Class mode.
    */
   boolean classMode = false;
-
-  @Override
-  public Token nextToken() {
-    while (true) {
-      state.token = null;
-      state.channel = Token.DEFAULT_CHANNEL;
-      state.tokenStartCharIndex = input.index();
-      state.tokenStartCharPositionInLine = input.getCharPositionInLine();
-      state.tokenStartLine = input.getLine();
-      state.text = null;
-      if (input.LA(1) == CharStream.EOF) {
-        return Token.EOF_TOKEN;
-      }
-      try {
-        mTokens();
-        if (state.token == null) {
-          emit();
-        } else if (state.token == Token.SKIP_TOKEN) {
-          continue;
-        }
-        return state.token;
-      } catch (RecognitionException re) {
-        reportError(re);
-        throw new RuntimeException(getClass().getSimpleName() + " error", re); // or throw Error
-      }
-    }
-  }
-
-
-  // delegates
-  // delegators
 
   /**
    * Instantiates a new Regex lexer.
@@ -246,6 +562,33 @@ public class RegexLexer extends Lexer {
 
   }
 
+  @Override
+  public Token nextToken() {
+    while (true) {
+      state.token = null;
+      state.channel = Token.DEFAULT_CHANNEL;
+      state.tokenStartCharIndex = input.index();
+      state.tokenStartCharPositionInLine = input.getCharPositionInLine();
+      state.tokenStartLine = input.getLine();
+      state.text = null;
+      if (input.LA(1) == CharStream.EOF) {
+        return Token.EOF_TOKEN;
+      }
+      try {
+        mTokens();
+        if (state.token == null) {
+          emit();
+        } else if (state.token == Token.SKIP_TOKEN) {
+          continue;
+        }
+        return state.token;
+      } catch (RecognitionException re) {
+        reportError(re);
+        throw new RuntimeException(getClass().getSimpleName() + " error", re); // or throw Error
+      }
+    }
+  }
+
   public String getGrammarFileName() {
     return "com/rapiddweller/regex/antlr/Regex.g";
   }
@@ -272,7 +615,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__31"
 
   /**
    * M t __ 32.
@@ -296,7 +638,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__32"
 
   /**
    * M t __ 33.
@@ -320,7 +661,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__33"
 
   /**
    * M t __ 34.
@@ -344,7 +684,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__34"
 
   /**
    * M t __ 35.
@@ -368,7 +707,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__35"
 
   /**
    * M t __ 36.
@@ -392,7 +730,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__36"
 
   /**
    * M t __ 37.
@@ -416,7 +753,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "T__37"
 
   /**
    * M group.
@@ -434,7 +770,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "GROUP"
 
   /**
    * M choice.
@@ -452,7 +787,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "CHOICE"
 
   /**
    * M sequence.
@@ -470,7 +804,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "SEQUENCE"
 
   /**
    * M factor.
@@ -488,7 +821,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "FACTOR"
 
   /**
    * M class.
@@ -506,7 +838,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "CLASS"
 
   /**
    * M range.
@@ -524,7 +855,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "RANGE"
 
   /**
    * M incl.
@@ -542,7 +872,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "INCL"
 
   /**
    * M excl.
@@ -560,7 +889,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "EXCL"
 
   /**
    * M quant.
@@ -578,7 +906,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "QUANT"
 
   /**
    * M predefinedclass.
@@ -698,7 +1025,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "PREDEFINEDCLASS"
 
   /**
    * M alphanum.
@@ -749,7 +1075,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "ALPHANUM"
 
   /**
    * M specialcharacter.
@@ -919,7 +1244,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "SPECIALCHARACTER"
 
   /**
    * M escapedcharacter.
@@ -1083,7 +1407,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "ESCAPEDCHARACTER"
 
   /**
    * M nontypeablecharacter.
@@ -1194,7 +1517,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "NONTYPEABLECHARACTER"
 
   /**
    * M octalchar.
@@ -1222,7 +1544,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "OCTALCHAR"
 
   /**
    * M hexchar.
@@ -1287,7 +1608,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "HEXCHAR"
 
   /**
    * M codedchar.
@@ -1313,7 +1633,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "CODEDCHAR"
 
   /**
    * M simplequantifier.
@@ -1348,7 +1667,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "SIMPLEQUANTIFIER"
 
   /**
    * M int.
@@ -1406,7 +1724,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "INT"
 
   /**
    * M lbrace.
@@ -1431,7 +1748,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "LBRACE"
 
   /**
    * M rbrace.
@@ -1456,7 +1772,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "RBRACE"
 
   /**
    * M lbracket.
@@ -1481,7 +1796,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "LBRACKET"
 
   /**
    * M rbracket.
@@ -1506,7 +1820,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "RBRACKET"
 
   /**
    * M letter.
@@ -1534,7 +1847,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "LETTER"
 
   /**
    * M hexdigit.
@@ -1562,7 +1874,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "HEXDIGIT"
 
   /**
    * M octaldigit.
@@ -1582,7 +1893,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "OCTALDIGIT"
 
   /**
    * M digit.
@@ -1602,7 +1912,6 @@ public class RegexLexer extends Lexer {
     } finally {
     }
   }
-  // $ANTLR end "DIGIT"
 
   public void mTokens() throws RecognitionException {
     // com/rapiddweller/regex/antlr/Regex.g:1:8: ( T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | PREDEFINEDCLASS | ALPHANUM | SPECIALCHARACTER | ESCAPEDCHARACTER | NONTYPEABLECHARACTER | OCTALCHAR | HEXCHAR | CODEDCHAR | SIMPLEQUANTIFIER | INT | LBRACE | RBRACE | LBRACKET | RBRACKET )
@@ -1761,115 +2070,6 @@ public class RegexLexer extends Lexer {
 
   }
 
-
-  /**
-   * The Dfa 3.
-   */
-  protected DFA3 dfa3 = new DFA3(this);
-  /**
-   * The Dfa 4.
-   */
-  protected DFA4 dfa4 = new DFA4(this);
-  /**
-   * The Dfa 8.
-   */
-  protected DFA8 dfa8 = new DFA8(this);
-  /**
-   * The Dfa 3 eot s.
-   */
-  static final String DFA3_eotS =
-      "\24\uffff";
-  /**
-   * The Dfa 3 eof s.
-   */
-  static final String DFA3_eofS =
-      "\24\uffff";
-  /**
-   * The Dfa 3 min s.
-   */
-  static final String DFA3_minS =
-      "\1\40\23\uffff";
-  /**
-   * The Dfa 3 max s.
-   */
-  static final String DFA3_maxS =
-      "\1\176\23\uffff";
-  /**
-   * The Dfa 3 accept s.
-   */
-  static final String DFA3_acceptS =
-      "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1" +
-          "\15\1\16\1\17\1\20\1\21\1\22\1\23";
-  /**
-   * The Dfa 3 special s.
-   */
-  static final String DFA3_specialS =
-      "\1\0\23\uffff}>";
-  /**
-   * The Dfa 3 transition s.
-   */
-  static final String[] DFA3_transitionS = {
-      "\1\1\1\2\1\4\1\21\1\uffff\1\5\1\6\1\3\2\uffff\2\23\1\22\2\uffff" +
-          "\1\7\12\uffff\1\10\1\11\1\12\1\13\1\14\1\23\1\15\36\uffff\1" +
-          "\16\1\17\35\uffff\1\20",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-  };
-
-  /**
-   * The Dfa 3 eot.
-   */
-  static final short[] DFA3_eot = DFA.unpackEncodedString(DFA3_eotS);
-  /**
-   * The Dfa 3 eof.
-   */
-  static final short[] DFA3_eof = DFA.unpackEncodedString(DFA3_eofS);
-  /**
-   * The Dfa 3 min.
-   */
-  static final char[] DFA3_min = DFA.unpackEncodedStringToUnsignedChars(DFA3_minS);
-  /**
-   * The Dfa 3 max.
-   */
-  static final char[] DFA3_max = DFA.unpackEncodedStringToUnsignedChars(DFA3_maxS);
-  /**
-   * The Dfa 3 accept.
-   */
-  static final short[] DFA3_accept = DFA.unpackEncodedString(DFA3_acceptS);
-  /**
-   * The Dfa 3 special.
-   */
-  static final short[] DFA3_special = DFA.unpackEncodedString(DFA3_specialS);
-  /**
-   * The Dfa 3 transition.
-   */
-  static final short[][] DFA3_transition;
-
-  static {
-    int numStates = DFA3_transitionS.length;
-    DFA3_transition = new short[numStates][];
-    for (int i = 0; i < numStates; i++) {
-      DFA3_transition[i] = DFA.unpackEncodedString(DFA3_transitionS[i]);
-    }
-  }
-
   /**
    * The type Dfa 3.
    */
@@ -1962,102 +2162,6 @@ public class RegexLexer extends Lexer {
   }
 
   /**
-   * The Dfa 4 eot s.
-   */
-  static final String DFA4_eotS =
-      "\1\2\23\uffff";
-  /**
-   * The Dfa 4 eof s.
-   */
-  static final String DFA4_eofS =
-      "\24\uffff";
-  /**
-   * The Dfa 4 min s.
-   */
-  static final String DFA4_minS =
-      "\1\134\1\44\22\uffff";
-  /**
-   * The Dfa 4 max s.
-   */
-  static final String DFA4_maxS =
-      "\1\134\1\175\22\uffff";
-  /**
-   * The Dfa 4 accept s.
-   */
-  static final String DFA4_acceptS =
-      "\2\uffff\1\5\1\1\1\2\1\3\1\4\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1" +
-          "\15\1\16\1\17\1\20\1\21\1\22";
-  /**
-   * The Dfa 4 special s.
-   */
-  static final String DFA4_specialS =
-      "\24\uffff}>";
-  /**
-   * The Dfa 4 transition s.
-   */
-  static final String[] DFA4_transitionS = {
-      "\1\1",
-      "\1\3\1\uffff\1\4\1\uffff\1\5\1\6\1\21\1\22\1\7\1\10\1\11\20" +
-          "\uffff\1\23\33\uffff\1\12\1\17\1\13\1\14\34\uffff\1\15\1\20" +
-          "\1\16",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-  };
-
-  /**
-   * The Dfa 4 eot.
-   */
-  static final short[] DFA4_eot = DFA.unpackEncodedString(DFA4_eotS);
-  /**
-   * The Dfa 4 eof.
-   */
-  static final short[] DFA4_eof = DFA.unpackEncodedString(DFA4_eofS);
-  /**
-   * The Dfa 4 min.
-   */
-  static final char[] DFA4_min = DFA.unpackEncodedStringToUnsignedChars(DFA4_minS);
-  /**
-   * The Dfa 4 max.
-   */
-  static final char[] DFA4_max = DFA.unpackEncodedStringToUnsignedChars(DFA4_maxS);
-  /**
-   * The Dfa 4 accept.
-   */
-  static final short[] DFA4_accept = DFA.unpackEncodedString(DFA4_acceptS);
-  /**
-   * The Dfa 4 special.
-   */
-  static final short[] DFA4_special = DFA.unpackEncodedString(DFA4_specialS);
-  /**
-   * The Dfa 4 transition.
-   */
-  static final short[][] DFA4_transition;
-
-  static {
-    int numStates = DFA4_transitionS.length;
-    DFA4_transition = new short[numStates][];
-    for (int i = 0; i < numStates; i++) {
-      DFA4_transition[i] = DFA.unpackEncodedString(DFA4_transitionS[i]);
-    }
-  }
-
-  /**
    * The type Dfa 4.
    */
   class DFA4 extends DFA {
@@ -2081,117 +2185,6 @@ public class RegexLexer extends Lexer {
 
     public String getDescription() {
       return "218:1: ESCAPEDCHARACTER : ( '\\\\$' | '\\\\&' | '\\\\(' | '\\\\)' | | '\\\\,' | '\\\\-' | '\\\\.' | '\\\\[' | '\\\\]' | '\\\\^' | '\\\\{' | '\\\\}' | '\\\\\\\\' | '\\\\|' | '\\\\*' | '\\\\+' | '\\\\?' );";
-    }
-  }
-
-  /**
-   * The Dfa 8 eot s.
-   */
-  static final String DFA8_eotS =
-      "\1\16\6\uffff\1\23\3\uffff\1\30\1\uffff\1\32\17\uffff";
-  /**
-   * The Dfa 8 eof s.
-   */
-  static final String DFA8_eofS =
-      "\35\uffff";
-  /**
-   * The Dfa 8 min s.
-   */
-  static final String DFA8_minS =
-      "\1\40\6\uffff\1\0\1\uffff\1\44\1\uffff\1\60\1\uffff\1\0\5\uffff" +
-          "\1\0\4\uffff\1\0\1\uffff\1\0\2\uffff";
-  /**
-   * The Dfa 8 max s.
-   */
-  static final String DFA8_maxS =
-      "\1\176\6\uffff\1\0\1\uffff\1\175\1\uffff\1\71\1\uffff\1\0\5\uffff" +
-          "\1\0\4\uffff\1\0\1\uffff\1\0\2\uffff";
-  /**
-   * The Dfa 8 accept s.
-   */
-  static final String DFA8_acceptS =
-      "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\uffff\1\10\1\uffff\1\11\1\uffff" +
-          "\1\12\1\uffff\1\13\1\22\1\23\1\24\1\25\1\uffff\1\14\1\15\1\16\1" +
-          "\17\1\uffff\1\21\1\uffff\1\7\1\20";
-  /**
-   * The Dfa 8 special s.
-   */
-  static final String DFA8_specialS =
-      "\1\2\12\uffff\1\5\1\uffff\1\4\5\uffff\1\3\4\uffff\1\1\1\uffff\1" +
-          "\0\2\uffff}>";
-  /**
-   * The Dfa 8 transition s.
-   */
-  static final String[] DFA8_transitionS = {
-      "\4\14\1\2\3\14\1\5\1\6\2\15\1\7\1\4\1\10\1\14\12\13\5\14\1\15" +
-          "\1\14\32\12\1\21\1\11\1\22\1\1\2\14\32\12\1\17\1\3\1\20\1\14",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "\1\uffff",
-      "",
-      "\1\16\1\uffff\1\16\1\uffff\7\16\1\uffff\1\25\16\uffff\1\16" +
-          "\4\uffff\1\10\16\uffff\1\10\3\uffff\1\10\3\uffff\4\16\2\uffff" +
-          "\1\24\1\uffff\1\27\1\10\2\24\7\uffff\1\24\3\uffff\1\24\1\10" +
-          "\1\24\1\26\1\uffff\1\10\1\26\2\uffff\3\16",
-      "",
-      "\12\31",
-      "",
-      "\1\uffff",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "\1\uffff",
-      "",
-      "",
-      "",
-      "",
-      "\1\uffff",
-      "",
-      "\1\uffff",
-      "",
-      ""
-  };
-
-  /**
-   * The Dfa 8 eot.
-   */
-  static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
-  /**
-   * The Dfa 8 eof.
-   */
-  static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
-  /**
-   * The Dfa 8 min.
-   */
-  static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
-  /**
-   * The Dfa 8 max.
-   */
-  static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
-  /**
-   * The Dfa 8 accept.
-   */
-  static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
-  /**
-   * The Dfa 8 special.
-   */
-  static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
-  /**
-   * The Dfa 8 transition.
-   */
-  static final short[][] DFA8_transition;
-
-  static {
-    int numStates = DFA8_transitionS.length;
-    DFA8_transition = new short[numStates][];
-    for (int i = 0; i < numStates; i++) {
-      DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
     }
   }
 

@@ -28,8 +28,8 @@ import java.util.HashMap;
  */
 public class HtmlEntity extends HtmlComponent {
 
-  private static final HashMap<String, HtmlEntity> HTML_CODES = new HashMap<String, HtmlEntity>();
-  private static final HashMap<Integer, HtmlEntity> NUMBERS = new HashMap<Integer, HtmlEntity>();
+  private static final HashMap<String, HtmlEntity> HTML_CODES = new HashMap<>();
+  private static final HashMap<Integer, HtmlEntity> NUMBERS = new HashMap<>();
 
   /**
    * The constant NBSP.

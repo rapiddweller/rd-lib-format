@@ -163,7 +163,7 @@ public class HTMLUtil {
    * @return the map
    */
   public static Map<String, String> parseCGIParameters(String url) {
-    Map<String, String> result = new HashMap<String, String>();
+    Map<String, String> result = new HashMap<>();
     int qmIndex = url.indexOf('?');
     if (qmIndex >= 0) {
       url = url.substring(qmIndex + 1);

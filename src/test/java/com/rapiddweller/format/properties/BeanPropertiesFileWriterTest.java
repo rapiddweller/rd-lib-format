@@ -55,7 +55,7 @@ public class BeanPropertiesFileWriterTest {
   @Test
   public void testEscaping() throws IOException {
     StringWriter out = new StringWriter();
-    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<>(
         out, null, (String) null, null, new String[] {"class", "name", "age"}
     );
     TP person = new TP("Al\\f");
@@ -72,7 +72,7 @@ public class BeanPropertiesFileWriterTest {
   @Test
   public void testUnprefixed() throws IOException {
     StringWriter out = new StringWriter();
-    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<>(
         out,
         null,
         new ConstantScript("# header" + SEP),
@@ -92,7 +92,7 @@ public class BeanPropertiesFileWriterTest {
   @Test
   public void testPrefixed() throws IOException {
     StringWriter out = new StringWriter();
-    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<TP>(
+    DocumentWriter<TP> writer = new BeanPropertiesFileWriter<>(
         out,
         "person{0}.",
         new ConstantScript("# header" + SEP),

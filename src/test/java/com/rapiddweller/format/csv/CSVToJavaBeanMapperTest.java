@@ -24,8 +24,8 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNext() throws IOException {
     Reader reader = Reader.nullReader();
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
-    assertNull(csvToJavaBeanMapper.next(new DataContainer<Object>()));
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
+    assertNull(csvToJavaBeanMapper.next(new DataContainer<>()));
   }
 
   /**
@@ -36,8 +36,8 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNext2() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
-    assertNull(csvToJavaBeanMapper.next(new DataContainer<Object>()));
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
+    assertNull(csvToJavaBeanMapper.next(new DataContainer<>()));
   }
 
   /**
@@ -48,9 +48,9 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNext3() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"foo", "foo", "foo"});
-    DataContainer<Object> dataContainer = new DataContainer<Object>();
+    DataContainer<Object> dataContainer = new DataContainer<>();
     assertSame(dataContainer, csvToJavaBeanMapper.next(dataContainer));
   }
 
@@ -61,9 +61,9 @@ public class CSVToJavaBeanMapperTest {
    */
   @Test
   public void testNext4() throws IOException {
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(new StringReader("S"), null, 'A',
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(new StringReader("S"), null, 'A',
         "Empty Value", new String[] {"foo", "foo", "foo"});
-    assertThrows(ConfigurationError.class, () -> csvToJavaBeanMapper.next(new DataContainer<Object>()));
+    assertThrows(ConfigurationError.class, () -> csvToJavaBeanMapper.next(new DataContainer<>()));
   }
 
   /**
@@ -74,9 +74,9 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNext5() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {null, "foo", "foo"});
-    DataContainer<Object> dataContainer = new DataContainer<Object>();
+    DataContainer<Object> dataContainer = new DataContainer<>();
     assertSame(dataContainer, csvToJavaBeanMapper.next(dataContainer));
   }
 
@@ -88,33 +88,31 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNext6() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"foo", "class", "foo"});
-    assertThrows(ConfigurationError.class, () -> csvToJavaBeanMapper.next(new DataContainer<Object>()));
+    assertThrows(ConfigurationError.class, () -> csvToJavaBeanMapper.next(new DataContainer<>()));
   }
 
   /**
    * Test next 7.
    *
-   * @throws IOException the io exception
    */
   @Test
-  public void testNext7() throws IOException {
+  public void testNext7() {
     StringReader reader = new StringReader("S");
-    assertThrows(ConfigurationError.class, () -> (new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    assertThrows(ConfigurationError.class, () -> (new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"foo", "foo", "foo"})).next(null));
   }
 
   /**
    * Test next 8.
    *
-   * @throws IOException the io exception
    */
   @Test
-  public void testNext8() throws IOException {
+  public void testNext8() {
     StringReader reader = new StringReader("S");
     assertThrows(ArrayIndexOutOfBoundsException.class,
-        () -> (new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A', "Empty Value", new String[] {})).next(null));
+        () -> (new CSVToJavaBeanMapper<>(reader, Object.class, 'A', "Empty Value", new String[] {})).next(null));
   }
 
   /**
@@ -125,8 +123,8 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNextRaw() throws IOException {
     Reader reader = Reader.nullReader();
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
-    assertNull(csvToJavaBeanMapper.nextRaw(new DataContainer<String[]>()));
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
+    assertNull(csvToJavaBeanMapper.nextRaw(new DataContainer<>()));
   }
 
   /**
@@ -137,8 +135,8 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testNextRaw2() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
-    assertNull(csvToJavaBeanMapper.nextRaw(new DataContainer<String[]>()));
+    CSVToJavaBeanMapper<Object> csvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
+    assertNull(csvToJavaBeanMapper.nextRaw(new DataContainer<>()));
   }
 
   /**
@@ -155,7 +153,7 @@ public class CSVToJavaBeanMapperTest {
     //   See https://diff.blue/R004
 
     Reader reader = Reader.nullReader();
-    (new CSVToJavaBeanMapper<Object>(reader, Object.class)).close();
+    (new CSVToJavaBeanMapper<>(reader, Object.class)).close();
   }
 
   /**
@@ -172,7 +170,7 @@ public class CSVToJavaBeanMapperTest {
     //   See https://diff.blue/R004
 
     StringReader reader = new StringReader("S");
-    (new CSVToJavaBeanMapper<Object>(reader, Object.class)).skip();
+    (new CSVToJavaBeanMapper<>(reader, Object.class)).skip();
   }
 
   /**
@@ -183,7 +181,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor() throws IOException {
     Reader reader = Reader.nullReader();
-    assertNull((new CSVToJavaBeanMapper<Object>(reader, Object.class)).getType());
+    assertNull((new CSVToJavaBeanMapper<>(reader, Object.class)).getType());
   }
 
   /**
@@ -194,7 +192,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor10() throws IOException {
     Reader reader = Reader.nullReader();
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"class", "foo", "foo"});
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -208,7 +206,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor11() throws IOException {
     Reader reader = Reader.nullReader();
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {null, "foo", "foo"});
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -222,7 +220,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor2() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
   }
@@ -235,7 +233,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor3() throws IOException {
     StringReader reader = new StringReader("class");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class);
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class);
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
   }
@@ -248,7 +246,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor4() throws IOException {
     Reader reader = Reader.nullReader();
-    assertNull((new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A', "Empty Value")).getType());
+    assertNull((new CSVToJavaBeanMapper<>(reader, Object.class, 'A', "Empty Value")).getType());
   }
 
   /**
@@ -259,7 +257,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor5() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value");
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -273,7 +271,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor6() throws IOException {
     StringReader reader = new StringReader("class");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value");
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -287,7 +285,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor7() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'S',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'S',
         "Empty Value");
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -301,7 +299,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor8() throws IOException {
     Reader reader = Reader.nullReader();
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"foo", "foo", "foo"});
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());
@@ -315,7 +313,7 @@ public class CSVToJavaBeanMapperTest {
   @Test
   public void testConstructor9() throws IOException {
     StringReader reader = new StringReader("S");
-    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<Object>(reader, Object.class, 'A',
+    CSVToJavaBeanMapper<Object> actualCsvToJavaBeanMapper = new CSVToJavaBeanMapper<>(reader, Object.class, 'A',
         "Empty Value", new String[] {"foo", "foo", "foo"});
     Class<?> expectedType = Object.class;
     assertSame(expectedType, actualCsvToJavaBeanMapper.getType());

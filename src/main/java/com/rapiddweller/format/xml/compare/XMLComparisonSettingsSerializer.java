@@ -110,7 +110,7 @@ public class XMLComparisonSettingsSerializer {
   // private persistor implementation --------------------------------------------------------------------------------
 
   private void saveXmlElementSettings(SimpleXMLWriter writer, XMLComparisonSettings settings) throws SAXException {
-    Map<String, String> attrs = new HashMap<String, String>();
+    Map<String, String> attrs = new HashMap<>();
     attrs.put(CDATA_RELEVANT, String.valueOf(settings.isCdataRelevant()));
     attrs.put(COMMENT_RELEVANT, String.valueOf(settings.isCommentRelevant()));
     attrs.put(ENCODING_RELEVANT, String.valueOf(settings.isEncodingRelevant()));
@@ -123,7 +123,7 @@ public class XMLComparisonSettingsSerializer {
   private void saveToleratedDiffs(SimpleXMLWriter writer, XMLComparisonSettings settings) throws SAXException {
     writer.startElement(TOLERATED_DIFFS);
     for (LocalDiffType toleratedDiff : settings.getToleratedDiffs()) {
-      Map<String, String> atts = new HashMap<String, String>();
+      Map<String, String> atts = new HashMap<>();
       atts.put(LOCATOR, toleratedDiff.getLocator());
       atts.put(TYPE, toleratedDiff.getType().toString());
       writer.writeElement(TOLERATED_DIFF, atts);
@@ -134,7 +134,7 @@ public class XMLComparisonSettingsSerializer {
   private void saveKeys(SimpleXMLWriter writer, XMLComparisonSettings settings) throws SAXException {
     writer.startElement(KEY_EXPRESSIONS);
     for (KeyExpression keyDefinition : settings.getModel().getKeyExpressions()) {
-      Map<String, String> atts = new HashMap<String, String>();
+      Map<String, String> atts = new HashMap<>();
       atts.put(LOCATOR, keyDefinition.getLocator());
       atts.put(DEFINITION, keyDefinition.getExpression());
       writer.writeElement(KEY_EXPRESSION, atts);

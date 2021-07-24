@@ -163,7 +163,7 @@ public class DotWriter {
      */
     public AttributesWriter(String label) {
       this.label = label;
-      this.map = new OrderedNameMap<Object>();
+      this.map = new OrderedNameMap<>();
     }
 
     /**

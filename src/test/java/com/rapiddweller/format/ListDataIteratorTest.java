@@ -36,8 +36,8 @@ public class ListDataIteratorTest {
    */
   @Test
   public void test() {
-    ListDataIterator<Integer> iterator = new ListDataIterator<Integer>(Integer.class, 3, 5);
-    DataContainer<Integer> container = new DataContainer<Integer>();
+    ListDataIterator<Integer> iterator = new ListDataIterator<>(Integer.class, 3, 5);
+    DataContainer<Integer> container = new DataContainer<>();
     assertEquals(3, iterator.next(container).getData().intValue());
     assertEquals(5, iterator.next(container).getData().intValue());
     assertNull(iterator.next(container));

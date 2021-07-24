@@ -52,7 +52,7 @@ public class ParseContext<E> implements Context {
    * @param pathComponentType the path component type
    */
   public ParseContext(Class<E> pathComponentType) {
-    this(pathComponentType, new XMLElementParserFactory<E>());
+    this(pathComponentType, new XMLElementParserFactory<>());
   }
 
   /**
@@ -96,7 +96,7 @@ public class ParseContext<E> implements Context {
    * @return the list
    */
   public List<E> parseChildElementsOf(Element element, E[] currentPath) {
-    List<E> result = new ArrayList<E>();
+    List<E> result = new ArrayList<>();
     for (Element childElement : XMLUtil.getChildElements(element)) {
       result.add(parseChildElement(childElement, currentPath));
     }

@@ -39,7 +39,7 @@ public class CSVSingleColumIterator extends DataIteratorAdapter<String[], String
   /**
    * The Row container.
    */
-  ThreadLocalDataContainer<String[]> rowContainer = new ThreadLocalDataContainer<String[]>();
+  ThreadLocalDataContainer<String[]> rowContainer = new ThreadLocalDataContainer<>();
 
   /**
    * Instantiates a new Csv single colum iterator.

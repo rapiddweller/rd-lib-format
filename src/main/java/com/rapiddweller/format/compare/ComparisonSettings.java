@@ -41,7 +41,7 @@ public class ComparisonSettings {
    */
   public ComparisonSettings(ComparisonModel model) {
     this.model = model;
-    this.toleratedDiffs = new HashSet<LocalDiffType>();
+    this.toleratedDiffs = new HashSet<>();
   }
 
   /**

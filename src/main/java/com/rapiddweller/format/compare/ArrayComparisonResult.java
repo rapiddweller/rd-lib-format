@@ -33,7 +33,7 @@ public class ArrayComparisonResult {
    * Instantiates a new Array comparison result.
    */
   public ArrayComparisonResult() {
-    this.diffs = new ArrayList<DiffDetail>();
+    this.diffs = new ArrayList<>();
   }
 
   /**

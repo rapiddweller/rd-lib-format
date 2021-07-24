@@ -76,7 +76,7 @@ public class OrthogonalArrayIterator<E> implements DataIterator<E[]> {
 
   private void beInitialized(DataContainer<E[]> container) {
     if (rows == null) { // initialize on the first invocation
-      rows = new ArrayList<E[]>();
+      rows = new ArrayList<>();
       while (source.next(container) != null) {
         rows.add(container.getData());
       }

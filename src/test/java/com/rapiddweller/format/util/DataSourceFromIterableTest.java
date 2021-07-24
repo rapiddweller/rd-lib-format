@@ -17,8 +17,8 @@ public class DataSourceFromIterableTest {
    */
   @Test
   public void testIterator() {
-    ArrayList<Object> source = new ArrayList<Object>();
-    DataIterator<Object> actualIteratorResult = (new DataSourceFromIterable<Object>(source, Object.class)).iterator();
+    ArrayList<Object> source = new ArrayList<>();
+    DataIterator<Object> actualIteratorResult = (new DataSourceFromIterable<>(source, Object.class)).iterator();
     Class<Object> expectedType = ((DataIteratorFromJavaIterator<Object>) actualIteratorResult).type;
     assertSame(expectedType, actualIteratorResult.getType());
   }
@@ -34,8 +34,8 @@ public class DataSourceFromIterableTest {
     //   class under test that return fields written by the method under test.
     //   See https://diff.blue/R004
 
-    ArrayList<Object> source = new ArrayList<Object>();
-    (new DataSourceFromIterable<Object>(source, Object.class)).close();
+    ArrayList<Object> source = new ArrayList<>();
+    (new DataSourceFromIterable<>(source, Object.class)).close();
   }
 
   /**
@@ -43,8 +43,8 @@ public class DataSourceFromIterableTest {
    */
   @Test
   public void testToString() {
-    ArrayList<Object> source = new ArrayList<Object>();
-    assertEquals("DataSourceFromIterable[[]]", (new DataSourceFromIterable<Object>(source, Object.class)).toString());
+    ArrayList<Object> source = new ArrayList<>();
+    assertEquals("DataSourceFromIterable[[]]", (new DataSourceFromIterable<>(source, Object.class)).toString());
   }
 }
 

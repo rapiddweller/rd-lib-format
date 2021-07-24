@@ -43,7 +43,7 @@ public abstract class DataIteratorAdapter<S, T> implements DataIterator<T> {
    */
   public DataIteratorAdapter(DataIterator<S> source) {
     this.source = source;
-    this.sourceContainerProvider = new ThreadLocalDataContainer<S>();
+    this.sourceContainerProvider = new ThreadLocalDataContainer<>();
   }
 
   @Override

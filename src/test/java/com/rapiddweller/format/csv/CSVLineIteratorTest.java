@@ -297,7 +297,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testNext() throws IOException {
     CSVLineIterator csvLineIterator = new CSVLineIterator("");
-    DataContainer<String[]> dataContainer = new DataContainer<String[]>();
+    DataContainer<String[]> dataContainer = new DataContainer<>();
     DataContainer<String[]> actualNextResult = csvLineIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals(1, actualNextResult.getData().length);
@@ -312,7 +312,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testNext2() throws IOException {
     CSVLineIterator csvLineIterator = new CSVLineIterator(Reader.nullReader(), 'A');
-    assertNull(csvLineIterator.next(new DataContainer<String[]>()));
+    assertNull(csvLineIterator.next(new DataContainer<>()));
   }
 
   /**
@@ -333,7 +333,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testNext4() throws IOException {
     CSVLineIterator csvLineIterator = new CSVLineIterator(new StringReader("S"), 'A');
-    DataContainer<String[]> dataContainer = new DataContainer<String[]>();
+    DataContainer<String[]> dataContainer = new DataContainer<>();
     DataContainer<String[]> actualNextResult = csvLineIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals(1, actualNextResult.getData().length);
@@ -347,7 +347,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testNext5() throws IOException {
     CSVLineIterator csvLineIterator = new CSVLineIterator("", 'A', true);
-    DataContainer<String[]> dataContainer = new DataContainer<String[]>();
+    DataContainer<String[]> dataContainer = new DataContainer<>();
     DataContainer<String[]> actualNextResult = csvLineIterator.next(dataContainer);
     assertSame(dataContainer, actualNextResult);
     assertEquals(1, actualNextResult.getData().length);
@@ -484,7 +484,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testIgnoringEmptyLines() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("file://com/rapiddweller/format/csv/names.csv", ',', true);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertArrayEquals(new String[] {"Alice", "Bob"}, iterator.next(container).getData());
     assertArrayEquals(new String[] {"Charly"}, iterator.next(container).getData());
     assertArrayEquals(new String[] {"Dieter", "Indiana\nJones"}, iterator.next(container).getData());
@@ -500,7 +500,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testIncludingEmptyLines() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("file://com/rapiddweller/format/csv/names.csv", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertArrayEquals(new String[] {"Alice", "Bob"}, iterator.next(container).getData());
     assertArrayEquals(new String[] {"Charly"}, iterator.next(container).getData());
     assertArrayEquals(new String[] {}, iterator.next(container).getData());
@@ -517,7 +517,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEmptyFile() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertNull(iterator.next(container));
     iterator.close();
   }
@@ -530,7 +530,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testThreeEmptyLines() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://\n\n\n", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
@@ -546,7 +546,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEachLineEndingWithCrLf() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://DATA\n\nDATA2\n", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[] {"DATA"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA2"}, iterator.next(container).getData()));
@@ -562,7 +562,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testLastLineWithoutCrLf() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://DATA\n\nDATA2", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[] {"DATA"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA2"}, iterator.next(container).getData()));
@@ -578,7 +578,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEmptyRowAtBeginning() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://\nDATA\nDATA2\n", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA2"}, iterator.next(container).getData()));
@@ -594,7 +594,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEmptyRowBetween() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://DATA\n\nDATA2\n", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[] {"DATA"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA2"}, iterator.next(container).getData()));
@@ -610,7 +610,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEmptyRowAtEnd() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://DATA\nDATA2\n\n", ',', false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[] {"DATA"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {"DATA2"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[0], iterator.next(container).getData()));
@@ -626,7 +626,7 @@ public class CSVLineIteratorTest {
   @Test
   public void testEmptyCells() throws IOException {
     CSVLineIterator iterator = new CSVLineIterator("string://name,\"\",,x\n,\"\",");
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     assertTrue(Arrays.equals(new String[] {"name", "", null, "x"}, iterator.next(container).getData()));
     assertTrue(Arrays.equals(new String[] {null, "", null}, iterator.next(container).getData()));
     assertNull(iterator.next(container));

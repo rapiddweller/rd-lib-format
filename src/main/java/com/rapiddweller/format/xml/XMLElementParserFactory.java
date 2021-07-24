@@ -42,7 +42,7 @@ public class XMLElementParserFactory<E> {
    * Instantiates a new Xml element parser factory.
    */
   public XMLElementParserFactory() {
-    this.parsers = new ArrayList<XMLElementParser<E>>();
+    this.parsers = new ArrayList<>();
   }
 
   /**

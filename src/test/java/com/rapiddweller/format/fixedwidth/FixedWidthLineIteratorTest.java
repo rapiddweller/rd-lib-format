@@ -24,6 +24,7 @@ import org.junit.Test;
 import java.io.StringReader;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -45,11 +46,11 @@ public class FixedWidthLineIteratorTest {
   @Test
   public void testProcessingEmptyLines() throws Exception {
     FixedWidthLineIterator iterator = createIterator(true);
-    DataContainer<String[]> container = new DataContainer<String[]>();
-    assertTrue(Arrays.equals(new String[] {"Alice", "23"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Bob", "34"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
+    DataContainer<String[]> container = new DataContainer<>();
+    assertArrayEquals(new String[] {"Alice", "23"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Bob", "34"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Charly", "45"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Dieter", "-1"}, iterator.next(container).getData());
   }
 
   /**
@@ -60,12 +61,12 @@ public class FixedWidthLineIteratorTest {
   @Test
   public void testIgnoringEmptyLines() throws Exception {
     FixedWidthLineIterator iterator = createIterator(false);
-    DataContainer<String[]> container = new DataContainer<String[]>();
-    assertTrue(Arrays.equals(new String[] {"Alice", "23"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Bob", "34"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Charly", "45"}, iterator.next(container).getData()));
-    assertTrue(Arrays.equals(new String[] {"Dieter", "-1"}, iterator.next(container).getData()));
+    DataContainer<String[]> container = new DataContainer<>();
+    assertArrayEquals(new String[] {"Alice", "23"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Bob", "34"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Charly", "45"}, iterator.next(container).getData());
+    assertArrayEquals(new String[] {"Dieter", "-1"}, iterator.next(container).getData());
   }
 
   // helper ----------------------------------------------------------------------------------------------------------
@@ -82,8 +83,7 @@ public class FixedWidthLineIteratorTest {
             "Charly045" + SEP +
             "Dieter-01"
     );
-    FixedWidthLineIterator iterator = new FixedWidthLineIterator(reader, formats, ignoreEmptyLines, null);
-    return iterator;
+    return new FixedWidthLineIterator(reader, formats, ignoreEmptyLines, null);
   }
 
 }

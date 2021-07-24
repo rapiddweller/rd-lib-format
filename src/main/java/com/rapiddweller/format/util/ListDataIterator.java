@@ -42,6 +42,7 @@ public class ListDataIterator<E> implements DataIterator<E> {
    * @param type the type
    * @param data the data
    */
+  @SafeVarargs
   public ListDataIterator(Class<E> type, E... data) {
     this(type, CollectionUtil.toList(data));
   }
@@ -54,7 +55,7 @@ public class ListDataIterator<E> implements DataIterator<E> {
    */
   public ListDataIterator(Class<E> type, List<E> data) {
     this.type = type;
-    this.data = (data != null ? data : new ArrayList<E>());
+    this.data = (data != null ? data : new ArrayList<>());
     this.cursor = 0;
   }
 

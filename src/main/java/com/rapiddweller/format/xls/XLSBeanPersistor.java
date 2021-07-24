@@ -55,7 +55,7 @@ public class XLSBeanPersistor<E> {
    */
   public XLSBeanPersistor(Class<E> beanClass, String... propertyNames) {
     this.beanClass = beanClass;
-    this.beanProperties = new ArrayList<PropFormat>();
+    this.beanProperties = new ArrayList<>();
     for (String propertyName : propertyNames) {
       this.addProperty(propertyName);
     }
@@ -83,8 +83,8 @@ public class XLSBeanPersistor<E> {
   protected void load(File file, Consumer<E> consumer) throws IOException {
     XLSJavaBeanIterator<E> mapper = null;
     try {
-      mapper = new XLSJavaBeanIterator<E>(file.getAbsolutePath(), null, false, beanClass);
-      DataContainer<E> wrapper = new DataContainer<E>();
+      mapper = new XLSJavaBeanIterator<>(file.getAbsolutePath(), null, false, beanClass);
+      DataContainer<E> wrapper = new DataContainer<>();
       while (mapper.next(wrapper) != null) {
         if (wrapper.getData() != null) {
           consumer.consume(wrapper.getData());
@@ -111,7 +111,7 @@ public class XLSBeanPersistor<E> {
     // save
     BeanXLSWriter<E> out = null;
     try {
-      out = new BeanXLSWriter<E>(new FileOutputStream(file), sheetName, beanProperties);
+      out = new BeanXLSWriter<>(new FileOutputStream(file), sheetName, beanProperties);
       while (beanIterator.hasNext()) {
         out.save(beanIterator.next());
       }

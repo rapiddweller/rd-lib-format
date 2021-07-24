@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class XSLTTransformer {
 
-  private static final Map<String, Transformer> transformers = new HashMap<String, Transformer>();
+  private static final Map<String, Transformer> transformers = new HashMap<>();
 
   private static Transformer getTransformer(String xsltString) throws TransformerConfigurationException {
     Transformer transformer = transformers.get(xsltString);

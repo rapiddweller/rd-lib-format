@@ -103,7 +103,7 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
    */
   public static <T> void persist(T bean, String filename) throws IOException {
     FileWriter out = new FileWriter(filename);
-    BeanPropertiesFileWriter<T> writer = new BeanPropertiesFileWriter<T>(out, getPropertyNames(bean.getClass()));
+    BeanPropertiesFileWriter<T> writer = new BeanPropertiesFileWriter<>(out, getPropertyNames(bean.getClass()));
     writer.writeHeader();
     writer.writeElement(bean);
     writer.close();

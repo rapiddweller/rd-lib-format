@@ -40,17 +40,11 @@ public class CSVSingleColumnIteratorTest extends DataIteratorTestCase {
    */
   @Test
   public void testValidColumns() throws Exception {
-    CSVSingleColumIterator iterator0 = new CSVSingleColumIterator(FILENAME, 0, ',', true, Encodings.UTF_8);
-    try {
+    try (CSVSingleColumIterator iterator0 = new CSVSingleColumIterator(FILENAME, 0, ',', true, Encodings.UTF_8)) {
       expectNextElements(iterator0, "name", "Alice", "Bob").withNoNext();
-    } finally {
-      iterator0.close();
     }
-    CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 1, ',', true, Encodings.UTF_8);
-    try {
+    try (CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 1, ',', true, Encodings.UTF_8)) {
       expectNextElements(iterator1, "age", "23", "34").withNoNext();
-    } finally {
-      iterator1.close();
     }
   }
 
@@ -72,11 +66,8 @@ public class CSVSingleColumnIteratorTest extends DataIteratorTestCase {
    */
   @Test
   public void testNonExistingColumn() throws Exception {
-    CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 2, ',', true, Encodings.UTF_8);
-    try {
-      assertNull(iterator1.next(new DataContainer<String>()).getData());
-    } finally {
-      iterator1.close();
+    try (CSVSingleColumIterator iterator1 = new CSVSingleColumIterator(FILENAME, 2, ',', true, Encodings.UTF_8)) {
+      assertNull(iterator1.next(new DataContainer<>()).getData());
     }
   }
 

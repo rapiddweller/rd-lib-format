@@ -38,9 +38,9 @@ public abstract class DataIteratorTestCase {
    * @param count    the count
    */
   public static <T> void checkUniqueIteration(DataIterator<T> iterator, int count) {
-    HashSet<T> items = new HashSet<T>(count);
+    HashSet<T> items = new HashSet<>(count);
     for (int i = 0; i < count; i++) {
-      T item = iterator.next(new DataContainer<T>()).getData();
+      T item = iterator.next(new DataContainer<>()).getData();
       assert items.contains(item); // uniqueness check
       items.add(item);
     }

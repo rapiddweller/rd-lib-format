@@ -38,7 +38,7 @@ public class OffsetDataIterator<E> extends DataIteratorProxy<E> {
   public OffsetDataIterator(DataIterator<E> source, int offset) {
     super(source);
     // consume the first 'offset' elements of the source
-    DataContainer<E> container = new DataContainer<E>();
+    DataContainer<E> container = new DataContainer<>();
     for (int i = 0; i < offset; i++) {
       source.next(container);
     }

@@ -122,8 +122,8 @@ public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
     public void execute(Context context, Writer out) throws IOException, ScriptException {
       try {
         String[] cells = converter.convert(context.get("part"));
-        for (int i = 0; i < cells.length; i++) {
-          out.write(cells[i]);
+        for (String cell : cells) {
+          out.write(cell);
         }
         out.write(SystemInfo.getLineSeparator());
       } catch (ConversionException e) {

@@ -68,7 +68,7 @@ public class XLSSource implements DataSource<Object[]> {
         iterator.setNullMarker(nullMarker);
       }
       if (!rowBased) {
-        return new OrthogonalArrayIterator<Object>(iterator);
+        return new OrthogonalArrayIterator<>(iterator);
       } else {
         return iterator;
       }

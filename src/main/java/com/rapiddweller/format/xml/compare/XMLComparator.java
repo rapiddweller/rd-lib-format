@@ -221,13 +221,7 @@ public class XMLComparator {
       // if child elements exist, then compare them
       compareNodeArrays(expectedChildNodes, actualChildNodes, context, parentPathOfExpected, parentPathOfActual, diffs);
     }
-    Iterator<DiffDetail> iterator = diffs.getDetails().iterator();
-    while (iterator.hasNext()) {
-      DiffDetail diff = iterator.next();
-      if (context.isTolerated(diff.getType(), diff.getExpected(), diff.getActual())) {
-        iterator.remove();
-      }
-    }
+    diffs.getDetails().removeIf(diff -> context.isTolerated(diff.getType(), diff.getExpected(), diff.getActual()));
   }
 
   private void compareNodeArrays(Node[] expectedNodes, Node[] actualNodes,

@@ -58,11 +58,11 @@ public class CustomCharClass extends RegexCharClass {
    * @param excludedSets the excluded sets
    */
   public CustomCharClass(List<? extends RegexCharClass> includedSets, List<? extends RegexCharClass> excludedSets) {
-    this.inclusions = new ArrayList<RegexCharClass>();
+    this.inclusions = new ArrayList<>();
     if (includedSets != null) {
       this.inclusions.addAll(includedSets);
     }
-    this.exclusions = new ArrayList<RegexCharClass>();
+    this.exclusions = new ArrayList<>();
     if (excludedSets != null) {
       this.exclusions.addAll(excludedSets);
     }

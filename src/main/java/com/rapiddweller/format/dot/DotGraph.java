@@ -54,7 +54,7 @@ public class DotGraph implements Named {
     this.edgeStyle = null;
     this.edgeArrowHead = null;
     this.edgeArrowTail = null;
-    this.nodes = new OrderedNameMap<DotNode>();
+    this.nodes = new OrderedNameMap<>();
   }
 
   /**

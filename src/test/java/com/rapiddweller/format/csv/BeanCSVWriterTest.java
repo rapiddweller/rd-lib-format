@@ -51,7 +51,7 @@ public class BeanCSVWriterTest {
   @Test
   public void test() throws IOException {
     StringWriter out = new StringWriter();
-    DocumentWriter<TP> writer = new BeanCSVWriter<TP>(out, ';',
+    DocumentWriter<TP> writer = new BeanCSVWriter<>(out, ';',
         new ConstantScript("header" + SEP), new ConstantScript("footer"),
         "name", "age");
     TP person = new TP();
@@ -67,7 +67,7 @@ public class BeanCSVWriterTest {
   @Test
   public void testConstructor() {
     Writer out = Writer.nullWriter();
-    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(out, 'A', Object.class);
+    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<>(out, 'A', Object.class);
     assertNull(actualBeanCSVWriter.getFooterScript());
     assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
   }
@@ -77,7 +77,7 @@ public class BeanCSVWriterTest {
    */
   @Test
   public void testConstructor2() {
-    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', true, "foo", "foo",
+    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<>(Writer.nullWriter(), 'A', true, "foo", "foo",
         "foo");
     assertNull(actualBeanCSVWriter.getFooterScript());
     assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);
@@ -88,7 +88,7 @@ public class BeanCSVWriterTest {
    */
   @Test
   public void testConstructor3() {
-    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', false, "foo", "foo",
+    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<>(Writer.nullWriter(), 'A', false, "foo", "foo",
         "foo");
     assertNull(actualBeanCSVWriter.getFooterScript());
     assertNull(actualBeanCSVWriter.getHeaderScript());
@@ -99,7 +99,7 @@ public class BeanCSVWriterTest {
    */
   @Test
   public void testConstructor4() {
-    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<Object>(Writer.nullWriter(), 'A', "foo", "foo",
+    BeanCSVWriter<Object> actualBeanCSVWriter = new BeanCSVWriter<>(Writer.nullWriter(), 'A', "foo", "foo",
         "foo");
     assertNull(actualBeanCSVWriter.getFooterScript());
     assertTrue(actualBeanCSVWriter.getHeaderScript() instanceof com.rapiddweller.format.script.ConstantScript);

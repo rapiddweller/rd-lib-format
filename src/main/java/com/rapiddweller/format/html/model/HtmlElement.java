@@ -52,8 +52,8 @@ public class HtmlElement<E extends HtmlElement<?>> extends HtmlComponent {
   public HtmlElement(String tagName, boolean inline) {
     this.tagName = tagName;
     this.inline = inline;
-    this.attributes = new OrderedNameMap<String>();
-    this.components = new ArrayList<HtmlComponent>();
+    this.attributes = new OrderedNameMap<>();
+    this.components = new ArrayList<>();
   }
 
   /**

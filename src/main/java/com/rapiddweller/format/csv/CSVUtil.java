@@ -51,7 +51,7 @@ public class CSVUtil {
     DataIterator<String[]> cellIterator = null;
     try {
       cellIterator = new CSVLineIterator(uri, separator, true, encoding);
-      DataContainer<String[]> tmp = cellIterator.next(new DataContainer<String[]>());
+      DataContainer<String[]> tmp = cellIterator.next(new DataContainer<>());
       if (tmp != null) {
         return tmp.getData();
       } else {
@@ -86,9 +86,9 @@ public class CSVUtil {
    * @throws IOException the io exception
    */
   public static String[][] parseRows(String url, char separator, String encoding) throws IOException {
-    List<String[]> lines = new ArrayList<String[]>();
+    List<String[]> lines = new ArrayList<>();
     CSVLineIterator iterator = new CSVLineIterator(url, separator, encoding);
-    DataContainer<String[]> container = new DataContainer<String[]>();
+    DataContainer<String[]> container = new DataContainer<>();
     while ((container = iterator.next(container)) != null) {
       lines.add(container.getData());
     }
@@ -104,7 +104,7 @@ public class CSVUtil {
    * @return the string [ ]
    */
   public static String[] parseCSVRow(String text) {
-    ArrayBuilder<String> builder = new ArrayBuilder<String>(String.class);
+    ArrayBuilder<String> builder = new ArrayBuilder<>(String.class);
     CSVTokenizer tokenizer = new CSVTokenizer(new StringReader(text));
     try {
       CSVTokenType type;

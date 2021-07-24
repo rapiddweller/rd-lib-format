@@ -45,27 +45,22 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
 
   // parser state
   private final PushbackReader reader;
-  private boolean script;
-
-  // token state
-  private int tokenType;
-
-  private int cursor;
-  private String text;
-
-  private int nameStart;
-  private int nameLength;
-  private String name;
-
-  private int attribCount;
-  private Map<String, String> attributeMap;
-
   // buffers
   private final char[] textBuffer;
   private final int[] attribNameFrom;
   private final int[] attribNameUntil;
   private final int[] attribValueFrom;
   private final int[] attribValueUntil;
+  private boolean script;
+  // token state
+  private int tokenType;
+  private int cursor;
+  private String text;
+  private int nameStart;
+  private int nameLength;
+  private String name;
+  private int attribCount;
+  private Map<String, String> attributeMap;
 
   /**
    * Instantiates a new Default html tokenizer.
@@ -82,6 +77,12 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     // init parsing state
     this.reader = new PushbackReader(reader, 256);
     this.script = false;
+  }
+
+  private static int peek(PushbackReader reader) throws IOException {
+    int c = reader.read();
+    reader.unread(c);
+    return c;
   }
 
   @Override
@@ -157,6 +158,8 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     return text;
   }
 
+  // parser implementation -------------------------------------------------------------------------------------------
+
   /**
    * In case of non-tag tokens or empty tags, an empty map is returned.
    *
@@ -165,7 +168,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
   @Override
   public Map<String, String> attributes() {
     if (attributeMap == null) {
-      attributeMap = new OrderedMap<String, String>();
+      attributeMap = new OrderedMap<>();
       for (int i = 0; i < attribCount; i++) {
         String attribName = new String(textBuffer, attribNameFrom[i], attribNameUntil[i] - attribNameFrom[i]);
         attribName = attribName.intern();
@@ -178,8 +181,6 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     }
     return attributeMap;
   }
-
-  // parser implementation -------------------------------------------------------------------------------------------
 
   /**
    * parses anything that follows until it hits a &lt;/script&gt;
@@ -451,12 +452,6 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     if (c != -1) {
       reader.unread(c);
     }
-  }
-
-  private static int peek(PushbackReader reader) throws IOException {
-    int c = reader.read();
-    reader.unread(c);
-    return c;
   }
 
   private void assertChar(char expectedChar) throws ParseException, IOException {

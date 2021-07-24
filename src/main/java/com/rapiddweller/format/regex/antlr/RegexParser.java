@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 com/rapiddweller/regex/antlr/Regex.g 2011-02-06 17:18:16
-
+// CHECKSTYLE:OFF
 package com.rapiddweller.format.regex.antlr;
 
 

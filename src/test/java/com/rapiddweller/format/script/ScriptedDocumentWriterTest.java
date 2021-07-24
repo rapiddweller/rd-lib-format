@@ -45,7 +45,7 @@ public class ScriptedDocumentWriterTest {
   @Test
   public void test() throws IOException {
     StringWriter out = new StringWriter();
-    ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<String>(
+    ScriptedDocumentWriter<String> writer = new ScriptedDocumentWriter<>(
         out,
         new ConstantScript("header" + SEP),
         new ConstantScript("row" + SEP),
