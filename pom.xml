@@ -22,8 +22,7 @@
         <dependency_antlr-runtime.version>3.3</dependency_antlr-runtime.version>
         <dependency_freemarker.version>2.3.20</dependency_freemarker.version>
         <dependency_junit.version>4.13.2</dependency_junit.version>
-        <dependency_log4j-api.version>2.14.1</dependency_log4j-api.version>
-        <dependency_log4j-core.version>2.14.1</dependency_log4j-core.version>
+        <dependency_log4j.version>2.14.1</dependency_log4j.version>
         <dependency_poi.version>5.0.0</dependency_poi.version>
         <plugin_jacoco-maven-plugin.version>0.8.6</plugin_jacoco-maven-plugin.version>
         <plugin_maven-assembly-plugin.version>3.3.0</plugin_maven-assembly-plugin.version>
@@ -116,14 +115,20 @@
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${dependency_log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${dependency_log4j-api.version}</version>
+            <version>${dependency_log4j.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${dependency_log4j-core.version}</version>
-            <scope>runtime</scope>
+            <version>${dependency_log4j.version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- Excel -->
         <dependency>

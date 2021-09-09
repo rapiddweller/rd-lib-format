@@ -26,8 +26,8 @@ import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
 import com.rapiddweller.format.html.util.HTMLUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.w3c.dom.Document;
 
 import java.io.ByteArrayInputStream;
@@ -54,7 +54,7 @@ import java.util.Stack;
  */
 public class HTML2XML {
 
-  private static final Logger LOGGER = LogManager.getLogger(HTML2XML.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(HTML2XML.class);
   private static final Set<String> COMMON_CODES = CollectionUtil.toSet("lt", "gt", "amp");
 
   /**

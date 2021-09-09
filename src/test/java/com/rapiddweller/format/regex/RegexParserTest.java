@@ -19,8 +19,8 @@ import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SyntaxError;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertNull;
  */
 public class RegexParserTest {
 
-  private static final Logger logger = LogManager.getLogger(RegexParserTest.class);
+  private static final Logger logger = LoggerFactory.getLogger(RegexParserTest.class);
 
   /**
    * Test empty.

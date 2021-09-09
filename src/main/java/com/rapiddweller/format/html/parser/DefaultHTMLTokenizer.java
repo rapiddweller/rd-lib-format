@@ -17,8 +17,8 @@ package com.rapiddweller.format.html.parser;
 
 import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.OrderedMap;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.io.PushbackReader;
@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class DefaultHTMLTokenizer implements HTMLTokenizer {
 
-  private static final Logger logger = LogManager.getLogger(DefaultHTMLTokenizer.class);
+  private static final Logger logger = LoggerFactory.getLogger(DefaultHTMLTokenizer.class);
 
   private static final int TEXT_BUFFER_SIZE = 500000;
   private static final int ATTRIBUT_BUFFER_SIZE = 256;

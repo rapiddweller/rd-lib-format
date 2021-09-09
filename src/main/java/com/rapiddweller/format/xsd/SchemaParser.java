@@ -17,8 +17,8 @@ package com.rapiddweller.format.xsd;
 
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.xml.XMLUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
  */
 public class SchemaParser {
 
-  private static final Logger LOGGER = LogManager.getLogger(SchemaParser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SchemaParser.class);
 
   /**
    * Parse schema.

@@ -18,8 +18,8 @@ package com.rapiddweller.format.html;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class DefaultHTMLTokenizerTest {
 
-  private final Logger logger = LogManager.getLogger(DefaultHTMLTokenizerTest.class);
+  private final Logger logger = LoggerFactory.getLogger(DefaultHTMLTokenizerTest.class);
 
   private static final TestSetup DOCUMENT_TYPE = new TestSetup(
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">",

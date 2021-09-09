@@ -22,8 +22,8 @@ import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.converter.ThreadSafeConverter;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.csv.CSVLineIterator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
 
-  private static final Logger logger = LogManager.getLogger(DelocalizingConverter.class);
+  private static final Logger logger = LoggerFactory.getLogger(DelocalizingConverter.class);
 
   /** File that contains the character mapping */
   private static final String CONFIG_FILENAME = "com/rapiddweller/format/text/DelocalizingConverter.csv";

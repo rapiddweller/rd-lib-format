@@ -19,8 +19,8 @@ import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.Consumer;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,7 +42,7 @@ public class XLSBeanPersistor<E> {
   /**
    * The Logger.
    */
-  protected Logger logger = LogManager.getLogger(getClass());
+  protected Logger logger = LoggerFactory.getLogger(getClass());
 
   private final Class<E> beanClass;
   private final List<PropFormat> beanProperties;

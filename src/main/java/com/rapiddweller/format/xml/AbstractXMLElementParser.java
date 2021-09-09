@@ -23,8 +23,8 @@ import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SyntaxError;
 import com.rapiddweller.common.xml.XMLUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.w3c.dom.Element;
 
 import java.util.Collections;
@@ -44,7 +44,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   /**
    * The Logger.
    */
-  protected final Logger logger = LogManager.getLogger(getClass());
+  protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   /**
    * The Element name.

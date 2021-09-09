@@ -22,8 +22,8 @@ import com.rapiddweller.common.FileUtil;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.LogCategoriesConstants;
 import com.rapiddweller.common.StringUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,8 +40,8 @@ import java.util.WeakHashMap;
  */
 public class ScriptUtil {
 
-  private static final Logger CONFIG_LOGGER = LogManager.getLogger(LogCategoriesConstants.CONFIG);
-  private static final Logger SCRIPTUTIL_LOGGER = LogManager.getLogger(ScriptUtil.class);
+  private static final Logger CONFIG_LOGGER = LoggerFactory.getLogger(LogCategoriesConstants.CONFIG);
+  private static final Logger SCRIPTUTIL_LOGGER = LoggerFactory.getLogger(ScriptUtil.class);
 
   // extension mapping -----------------------------------------------------------------------------------------------
 
