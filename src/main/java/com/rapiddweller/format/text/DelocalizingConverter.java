@@ -31,47 +31,32 @@ import java.util.Map;
 
 /**
  * Delocalizes a String bye replacing local characters by international latin characters.
- * For example the umlaut 'ä' is replaced with 'ae'.
- * <p>
+ * For example the umlaut 'ä' is replaced with 'ae'.<br/><br/>
  * Created: 12.06.2006 18:53:55
- *
+ * @since 0.1
  * @author Volker Bergmann
  */
-public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
+public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
 
-  /**
-   * File that contains the character mapping
-   */
-  private static final String CONFIG_FILENAME = "com/rapiddweller/format/text/DelocalizingConverter.csv";
-
-  /**
-   * The logger
-   */
   private static final Logger logger = LogManager.getLogger(DelocalizingConverter.class);
 
-  /**
-   * a Map of replacements. The key indicates the character to replace,
-   * the value the character to use for replacement
-   */
+  /** File that contains the character mapping */
+  private static final String CONFIG_FILENAME = "com/rapiddweller/format/text/DelocalizingConverter.csv";
+
+  /** A Map of character replacements. The key indicates the character to replace,
+   * the value the character to use for replacement */
   private Map<Character, String> replacements;
 
-  /**
-   * Default constructor.
-   *
-   * @throws IOException if reading the configuration file fails
-   */
-  public DelocalizingConverter() throws IOException {
+  /** Default constructor.
+   *  @throws ConfigurationError if reading the configuration file fails */
+  public DelocalizingConverter() {
     super(String.class, String.class);
     init();
   }
 
   // Converter implementation ----------------------------------------------------------------------------------------
 
-  /**
-   * Implementation of the Converter interface.
-   *
-   * @see Converter
-   */
+  /** Implementation of the {@link Converter} interface */
   @Override
   public String convert(String source) {
     String product = source;
@@ -83,12 +68,9 @@ public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
 
   // private initializers --------------------------------------------------------------------------------------------
 
-  /**
-   * Initializes the instance by reading the definition file of replacements
-   *
-   * @throws IOException when file access fails.
-   */
-  private void init() throws IOException {
+  /** Initializes the instance by reading the definition file of replacements
+   *  @throws ConfigurationError when file processing fails. */
+  private void init() {
     replacements = new HashMap<>();
     CSVLineIterator iterator = null;
     try {
@@ -97,17 +79,15 @@ public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
       while ((tokens = iterator.next(tokens)) != null) {
         addReplacements(tokens.getData());
       }
+    } catch (Exception e) {
+      throw new ConfigurationError("Error initializing " + getClass(), e);
     } finally {
       IOUtil.close(iterator);
     }
   }
 
-  /**
-   * adds a line from the replacement definition file to the replacement map.
-   *
-   * @param tokens the tokens of one line in the file.
-   *               One line contains several replacement pairs.
-   */
+  /** adds a line from the replacement definition file to the replacement map.
+   *  @param tokens the tokens of one line in the file. One line contains several replacement pairs. */
   private void addReplacements(String[] tokens) {
     if (tokens.length < 2) {
       throw new ConfigurationError("At least two tokens needed to define a replacement");
@@ -122,12 +102,9 @@ public class DelocalizingConverter extends ThreadSafeConverter<String, String> {
     }
   }
 
-  /**
-   * Adds one replacement pair to the replacement map.
-   *
+  /** Adds one replacement pair to the replacement map.
    * @param original    the character to replace
-   * @param replacement the String to use as replacement
-   */
+   * @param replacement the String to use as replacement */
   private void addReplacement(char original, String replacement) {
     String preset = replacements.get(original);
     if (preset != null) {

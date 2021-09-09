@@ -22,21 +22,15 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests the {@link DelocalizingConverter}.
+ * Tests the {@link DelocalizingConverter}.<br/><br/>
  * Created: 03.09.2006 19:29:56
- *
  * @author Volker Bergmann
  * @since 0.1
  */
 public class DelocalizingConverterTest {
 
-  /**
-   * Test conversion.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testConversion() throws IOException {
+  public void testConversion() throws Exception {
     checkConversion("Abc", "Abc");
     checkConversion("ÄÖÜäöüß", "AeOeUeaeoeuess");
     checkConversion("áàâa", "aaaa");
@@ -46,7 +40,7 @@ public class DelocalizingConverterTest {
     checkConversion("úùûu", "uuuu");
   }
 
-  private static void checkConversion(String source, String expectedResult) throws IOException {
+  private static void checkConversion(String source, String expectedResult) throws Exception {
     DelocalizingConverter converter = new DelocalizingConverter();
     String result = converter.convert(source);
     assertEquals("Delocalization failed. ", expectedResult, result);
