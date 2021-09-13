@@ -21,29 +21,11 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Abstraction of a Script.
- * <p>
+ * Abstraction of a Script.<br/><br/>
  * Created: 03.02.2007 11:50:27
- *
  * @author Volker Bergmann
  */
 public interface Script {
-  /**
-   * Execute.
-   *
-   * @param context the context
-   * @param out     the out
-   * @throws ScriptException the script exception
-   * @throws IOException     the io exception
-   */
   void execute(Context context, Writer out) throws ScriptException, IOException;
-
-  /**
-   * Evaluate object.
-   *
-   * @param context the context
-   * @return the object
-   * @throws ScriptException the script exception
-   */
   Object evaluate(Context context) throws ScriptException;
 }
