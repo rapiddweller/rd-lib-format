@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,41 +26,22 @@ import java.util.List;
 /**
  * Factory method which provides {@link XMLElementParser}s.
  * Created: 05.12.2010 12:15:57
- *
  * @param <E> the type of elements to provide
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public class XMLElementParserFactory<E> {
 
-  /**
-   * The Parsers.
-   */
   protected List<XMLElementParser<E>> parsers;
 
-  /**
-   * Instantiates a new Xml element parser factory.
-   */
   public XMLElementParserFactory() {
     this.parsers = new ArrayList<>();
   }
 
-  /**
-   * Add parser.
-   *
-   * @param parser the parser
-   */
   public void addParser(XMLElementParser<E> parser) {
     this.parsers.add(parser);
   }
 
-  /**
-   * Gets parser.
-   *
-   * @param element    the element
-   * @param parentPath the parent path
-   * @return the parser
-   */
   public XMLElementParser<E> getParser(Element element, E[] parentPath) {
     for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
       XMLElementParser<E> parser = parsers.get(i);

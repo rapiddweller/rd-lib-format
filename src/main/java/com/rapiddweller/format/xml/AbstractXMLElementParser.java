@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,43 +34,19 @@ import java.util.Set;
 /**
  * Abstract implementation of the {@link XMLElementParser} interface.
  * Created: 05.12.2010 10:46:38
- *
  * @param <E> the type of the objects to provide
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E> {
 
-  /**
-   * The Logger.
-   */
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  /**
-   * The Element name.
-   */
   protected final String elementName;
-  /**
-   * The Supported parent types.
-   */
   protected final Set<Class<?>> supportedParentTypes;
-  /**
-   * The Required attributes.
-   */
   protected Set<String> requiredAttributes;
-  /**
-   * The Optional attributes.
-   */
   protected Set<String> optionalAttributes;
 
-  /**
-   * Instantiates a new Abstract xml element parser.
-   *
-   * @param elementName          the element name
-   * @param requiredAttributes   the required attributes
-   * @param optionalAttributes   the optional attributes
-   * @param supportedParentTypes the supported parent types
-   */
   public AbstractXMLElementParser(String elementName,
                                   Set<String> requiredAttributes,
                                   Set<String> optionalAttributes,
@@ -96,21 +72,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return doParse(element, parentPath, context);
   }
 
-  /**
-   * Do parse e.
-   *
-   * @param element    the element
-   * @param parentPath the parent path
-   * @param context    the context
-   * @return the e
-   */
   protected abstract E doParse(Element element, E[] parentPath, ParseContext<E> context);
 
-  /**
-   * Check attribute support.
-   *
-   * @param element the element
-   */
   protected void checkAttributeSupport(Element element) {
     for (String attribute : XMLUtil.getAttributes(element).keySet()) {
       if (!requiredAttributes.contains(attribute) && !optionalAttributes.contains(attribute)) {
@@ -124,12 +87,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Check supported attributes.
-   *
-   * @param element             the element
-   * @param supportedAttributes the supported attributes
-   */
   protected void checkSupportedAttributes(Element element, String... supportedAttributes) {
     for (String actualAttribute : XMLUtil.getAttributes(element).keySet()) {
       if (!ArrayUtil.contains(actualAttribute, supportedAttributes)) {
@@ -138,12 +95,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Assert element name.
-   *
-   * @param expectedName the expected name
-   * @param element      the element
-   */
   protected void assertElementName(String expectedName, Element element) {
     if (!element.getNodeName().equals(expectedName)) {
       throw new RuntimeException("Expected element name '" + expectedName + "', " +
@@ -151,12 +102,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Exclude attributes.
-   *
-   * @param element        the element
-   * @param attributeNames the attribute names
-   */
   protected void excludeAttributes(Element element, String... attributeNames) {
     String usedAttribute = null;
     for (String attributeName : attributeNames) {
@@ -171,12 +116,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Assert at least one attribute is set.
-   *
-   * @param element        the element
-   * @param attributeNames the attribute names
-   */
   protected void assertAtLeastOneAttributeIsSet(Element element, String... attributeNames) {
     boolean ok = false;
     for (String attributeName : attributeNames) {
@@ -189,36 +128,18 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Assert attribute is set.
-   *
-   * @param element       the element
-   * @param attributeName the attribute name
-   */
   protected void assertAttributeIsSet(Element element, String attributeName) {
     if (StringUtil.isEmpty(element.getAttribute(attributeName))) {
       throw createSyntaxError("Attribute '" + attributeName + "' is missing", element);
     }
   }
 
-  /**
-   * Assert attribute is not set.
-   *
-   * @param element       the element
-   * @param attributeName the attribute name
-   */
   protected void assertAttributeIsNotSet(Element element, String attributeName) {
     if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
       throw createSyntaxError("Attributes '" + attributeName + "' must not be set", element);
     }
   }
 
-  /**
-   * Parent object.
-   *
-   * @param parentPath the parent path
-   * @return the object
-   */
   protected Object parent(E[] parentPath) {
     if (ArrayUtil.isEmpty(parentPath)) {
       return null;
@@ -227,12 +148,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Parse required name string.
-   *
-   * @param element the element
-   * @return the string
-   */
   protected String parseRequiredName(Element element) {
     String name = parseOptionalName(element);
     if (StringUtil.isEmpty(name)) {
@@ -241,59 +156,25 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return name;
   }
 
-  /**
-   * Parse optional name string.
-   *
-   * @param element the element
-   * @return the string
-   */
   protected String parseOptionalName(Element element) {
     return getOptionalAttribute("name", element);
   }
 
-  /**
-   * Parse optional integer integer.
-   *
-   * @param attributeName the attribute name
-   * @param element       the element
-   * @return the integer
-   */
   protected Integer parseOptionalInteger(String attributeName, Element element) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? Integer.parseInt(spec) : null);
   }
 
-  /**
-   * Parse optional boolean boolean.
-   *
-   * @param attributeName the attribute name
-   * @param element       the element
-   * @return the boolean
-   */
   protected Boolean parseOptionalBoolean(String attributeName, Element element) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? ParseUtil.parseBoolean(spec) : null);
   }
 
-  /**
-   * Parse optional long long.
-   *
-   * @param attributeName the attribute name
-   * @param element       the element
-   * @return the long
-   */
   protected Long parseOptionalLong(String attributeName, Element element) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? Long.parseLong(spec) : null);
   }
 
-  /**
-   * Gets required attribute.
-   *
-   * @param name    the name
-   * @param element the element
-   * @return the required attribute
-   */
   public String getRequiredAttribute(String name, Element element) {
     String value = getOptionalAttribute(name, element);
     if (value == null) {
@@ -302,23 +183,10 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return value;
   }
 
-  /**
-   * Gets optional attribute.
-   *
-   * @param name    the name
-   * @param element the element
-   * @return the optional attribute
-   */
   protected String getOptionalAttribute(String name, Element element) {
     return StringUtil.emptyToNull(element.getAttribute(name));
   }
 
-  /**
-   * Check attributes.
-   *
-   * @param element             the element
-   * @param supportedAttributes the supported attributes
-   */
   protected void checkAttributes(Element element, Set<String> supportedAttributes) {
     for (Map.Entry<String, String> attribute : XMLUtil.getAttributes(element).entrySet()) {
       if (!supportedAttributes.contains(attribute.getKey())) {
@@ -327,35 +195,14 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  /**
-   * Create syntax error syntax error.
-   *
-   * @param message the message
-   * @param element the element
-   * @return the syntax error
-   */
   protected static SyntaxError createSyntaxError(String message, Element element) {
     return new SyntaxError("Syntax error: " + message, XMLUtil.format(element));
   }
 
-  /**
-   * Create syntax error syntax error.
-   *
-   * @param message the message
-   * @param element the element
-   * @param cause   the cause
-   * @return the syntax error
-   */
   protected static SyntaxError createSyntaxError(String message, Element element, Exception cause) {
     return new SyntaxError("Syntax error: " + message, cause, XMLUtil.format(element), -1, -1);
   }
 
-  /**
-   * Syntax error.
-   *
-   * @param message the message
-   * @param element the element
-   */
   protected static void syntaxError(String message, Element element) {
     throw new SyntaxError("Syntax error: " + message, XMLUtil.format(element));
   }
@@ -365,12 +212,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     throw createSyntaxError(message.toString(), element);
   }
 
-  /**
-   * Render unsupported attributes message string builder.
-   *
-   * @param attribute the attribute
-   * @return the string builder
-   */
   StringBuilder renderUnsupportedAttributesMessage(String attribute) {
     StringBuilder message = new StringBuilder("attribute '").append(attribute).append("' is not supported. ");
     message.append("The attributes supported by <" + elementName + "> are: ");
@@ -392,12 +233,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return first;
   }
 
-  /**
-   * Syntax warning.
-   *
-   * @param message the message
-   * @param element the element
-   */
   protected void syntaxWarning(String message, Element element) {
     logger.warn("Syntax warning: " + message + " in " + XMLUtil.format(element));
   }

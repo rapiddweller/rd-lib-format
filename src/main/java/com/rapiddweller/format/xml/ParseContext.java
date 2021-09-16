@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,72 +29,35 @@ import java.util.Set;
 /**
  * Provides context informations and operations for XML parsing.
  * Created: 05.12.2010 12:09:54
- *
  * @param <E> the type of components that constitute the path
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public class ParseContext<E> implements Context {
 
-  /**
-   * The Factory.
-   */
   protected XMLElementParserFactory<E> factory;
-  /**
-   * The Path component type.
-   */
   protected Class<E> pathComponentType;
   private final Context context;
 
-  /**
-   * Instantiates a new Parse context.
-   *
-   * @param pathComponentType the path component type
-   */
   public ParseContext(Class<E> pathComponentType) {
     this(pathComponentType, new XMLElementParserFactory<>());
   }
 
-  /**
-   * Instantiates a new Parse context.
-   *
-   * @param pathComponentType the path component type
-   * @param factory           the factory
-   */
   public ParseContext(Class<E> pathComponentType, XMLElementParserFactory<E> factory) {
     this.pathComponentType = pathComponentType;
     this.factory = factory;
     this.context = new DefaultContext();
   }
 
-  /**
-   * Add parser.
-   *
-   * @param parser the parser
-   */
   public void addParser(XMLElementParser<E> parser) {
     factory.addParser(parser);
   }
 
-  /**
-   * Parse element e.
-   *
-   * @param element    the element
-   * @param parentPath the parent path
-   * @return the e
-   */
   public E parseElement(Element element, E[] parentPath) {
     XMLElementParser<E> parser = factory.getParser(element, parentPath);
     return parser.parse(element, parentPath, this);
   }
 
-  /**
-   * Parse child elements of list.
-   *
-   * @param element     the element
-   * @param currentPath the current path
-   * @return the list
-   */
   public List<E> parseChildElementsOf(Element element, E[] currentPath) {
     List<E> result = new ArrayList<>();
     for (Element childElement : XMLUtil.getChildElements(element)) {
@@ -103,24 +66,10 @@ public class ParseContext<E> implements Context {
     return result;
   }
 
-  /**
-   * Parse child element e.
-   *
-   * @param childElement the child element
-   * @param currentPath  the current path
-   * @return the e
-   */
   public E parseChildElement(Element childElement, E[] currentPath) {
     return parseElement(childElement, currentPath);
   }
 
-  /**
-   * Create sub path e [ ].
-   *
-   * @param parentPath    the parent path
-   * @param currentObject the current object
-   * @return the e [ ]
-   */
   @SuppressWarnings("unchecked")
   public E[] createSubPath(E[] parentPath, E currentObject) {
     if (parentPath == null) {
