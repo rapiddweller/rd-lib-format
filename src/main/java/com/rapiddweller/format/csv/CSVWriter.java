@@ -15,6 +15,8 @@
 
 package com.rapiddweller.format.csv;
 
+import com.rapiddweller.common.ArrayUtil;
+import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
 
 import java.io.BufferedWriter;
@@ -38,52 +40,38 @@ public class CSVWriter implements Closeable {
   private final Writer out;
   private final char separator;
 
-  /**
-   * For file csv writer.
-   *
-   * @param file          the file
-   * @param separator     the separator
-   * @param append        the append
-   * @param columnHeaders the column headers
-   * @return the csv writer
-   * @throws IOException the io exception
-   */
+  public static void writeTable(String[] title, Object[][] table, File file, char separator) throws IOException {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+    CSVWriter csv = new CSVWriter(writer, separator, false);
+    for (String titleLine : title)
+      csv.writeRow(new String[] { titleLine });
+    for (Object[] tableRow : table) {
+      csv.writeRow(tableRow);
+    }
+    csv.close();
+  }
+
   public static CSVWriter forFile(File file, char separator, boolean append, String... columnHeaders) throws IOException {
     boolean exists = (file.exists() && file.length() > 0);
     BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
     return new CSVWriter(writer, separator, exists, columnHeaders);
   }
 
-  /**
-   * Instantiates a new Csv writer.
-   *
-   * @param writer        the writer
-   * @param separator     the separator
-   * @param append        the append
-   * @param columnHeaders the column headers
-   * @throws IOException the io exception
-   */
   public CSVWriter(Writer writer, char separator, boolean append, String... columnHeaders) throws IOException {
     this.separator = separator;
     this.out = writer;
-    if (!append) {
+    if (!append && !ArrayUtil.isEmpty(columnHeaders)) {
       writeRow(columnHeaders);
     }
   }
 
-  /**
-   * Write row.
-   *
-   * @param cells the cells
-   * @throws IOException the io exception
-   */
-  public synchronized void writeRow(String[] cells) throws IOException {
+  public synchronized void writeRow(Object[] cells) throws IOException {
     for (int i = 0; i < cells.length; i++) {
-      String cell = cells[i];
-      if (cell.indexOf(separator) >= 0) {
-        out.write('"' + cell + '"');
+      String cellString = (cells[i] != null ? String.valueOf(cells[i]) : "");
+      if (cellString.indexOf(separator) >= 0) {
+        out.write('"' + cellString + '"');
       } else {
-        out.write(cell);
+        out.write(cellString);
       }
       if (i < cells.length - 1) {
         out.write(separator);
