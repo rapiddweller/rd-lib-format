@@ -1,3 +1,14 @@
+# Release 1.1.4-jdk-11
+
+## Release Highlights
+
+* Removed IOException from the signature of the init() method
+* Upgraded to rd-lib-common 1.1.3-jdk-11
+* Switched back to slf4j
+* New static convenience method writeTable()
+
+---
+
 # Release 1.1.3-jdk-11
 
 ## Release Highlights
@@ -7,7 +18,6 @@
 * improve pom
 * refactor JDK 11
 * remove useless tests
-
 
 ---
 
