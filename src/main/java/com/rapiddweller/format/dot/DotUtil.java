@@ -20,20 +20,17 @@ import com.rapiddweller.common.StringUtil;
 import java.util.Collection;
 
 /**
- * Provides utility methods for formatting Fot files.
+ * Provides utility methods for formatting Dot files.
  * Created: 25.05.2014 05:59:44
- *
  * @author Volker Bergmann
  * @since 0.8.2
  */
 public class DotUtil {
 
-  /**
-   * Normalize id string.
-   *
-   * @param id the id
-   * @return the string
-   */
+  private DotUtil() {
+    // private constructor to prevent instantiation
+  }
+
   public static String normalizeId(String id) {
     if (id.startsWith("\"")) {
       return id;
@@ -44,12 +41,6 @@ public class DotUtil {
     }
   }
 
-  /**
-   * Normalize color string.
-   *
-   * @param color the color
-   * @return the string
-   */
   public static String normalizeColor(String color) {
     if (StringUtil.isEmpty(color)) {
       return null;
@@ -58,13 +49,6 @@ public class DotUtil {
     return (baseColor.contains("#") ? '"' + baseColor + '"' : baseColor);
   }
 
-  /**
-   * Segments to label string.
-   *
-   * @param segments the segments
-   * @param vertical the vertical
-   * @return the string
-   */
   public static String segmentsToLabel(Collection<?> segments, boolean vertical) {
     StringBuilder builder = new StringBuilder();
     boolean first = true;
@@ -88,12 +72,6 @@ public class DotUtil {
     }
   }
 
-  /**
-   * Format lines string.
-   *
-   * @param lines the lines
-   * @return the string
-   */
   public static String formatLines(String... lines) {
     StringBuilder builder = new StringBuilder();
     for (String line : lines) {
@@ -102,12 +80,6 @@ public class DotUtil {
     return builder.toString();
   }
 
-  /**
-   * Add line.
-   *
-   * @param line    the line
-   * @param builder the builder
-   */
   public static void addLine(String line, StringBuilder builder) {
     builder.append(line).append("\\l");
   }

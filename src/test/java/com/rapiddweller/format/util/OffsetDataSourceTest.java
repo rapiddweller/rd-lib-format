@@ -1,21 +1,23 @@
 package com.rapiddweller.format.util;
 
+import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.format.DataIterator;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
- * The type Offset data source test.
+ * Tests the {@link OffsetDataSource}.
+ * @author Volker Bergmann
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class OffsetDataSourceTest {
-  /**
-   * Test constructor.
-   */
+
   @Test
   public void testConstructor() {
     ArrayList<Object> source = new ArrayList<>();
@@ -29,9 +31,6 @@ public class OffsetDataSourceTest {
     assertSame(expectedType, actualOffsetDataSource.getType());
   }
 
-  /**
-   * Test iterator.
-   */
   @Test
   public void testIterator() {
     ArrayList<Object> source = new ArrayList<>();
@@ -42,9 +41,6 @@ public class OffsetDataSourceTest {
     assertSame(expectedType, actualIteratorResult.getType());
   }
 
-  /**
-   * Test iterator 2.
-   */
   @Test
   public void testIterator2() {
     ArrayList<Object> source = new ArrayList<>();
@@ -58,38 +54,28 @@ public class OffsetDataSourceTest {
     assertSame(expectedType, actualIteratorResult.getType());
   }
 
-  /**
-   * Test to string.
-   */
   @Test
   public void testToString() {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
-    ArrayList<Object> source = new ArrayList<>();
-    (new OffsetDataSource<Object>(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))), 2))
-        .toString();
+    List<Integer> source = CollectionUtil.toList(1, 2, 3, 4);
+    DataSourceProxy s1 = new DataSourceProxy(new DataSourceFromIterable<>(source, Integer.class));
+    DataSourceProxy s2 = new DataSourceProxy(s1);
+    OffsetDataSource<Object> s4 = new OffsetDataSource<Object>(s2, 2);
+    assertEquals("OffsetDataSource[2, DataSourceProxy(DataSourceProxy(DataSourceFromIterable[[1, 2, 3, 4]]))]",
+        s4.toString());
   }
 
-  /**
-   * Test to string 2.
-   */
   @Test
   public void testToString2() {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
     ArrayList<Object> source = new ArrayList<>();
-    (new OffsetDataSource<Object>(new OffsetDataSource(new DataSourceProxy(
-        new DataSourceProxy(new DataSourceProxy(new DataSourceFromIterable<>(source, Object.class)))), 2), 2))
-        .toString();
+    DataSourceFromIterable<Object> s0 = new DataSourceFromIterable<>(source, Object.class);
+    DataSourceProxy s1 = new DataSourceProxy(s0);
+    DataSourceProxy s2 = new DataSourceProxy(s1);
+    OffsetDataSource s3 = new OffsetDataSource(s2, 2);
+    OffsetDataSource<Object> s4 = new OffsetDataSource<Object>(s3, 2);
+    assertEquals(
+        "OffsetDataSource[2, OffsetDataSource[2, DataSourceProxy(DataSourceProxy(DataSourceFromIterable[[]]))]]",
+        s4.toString());
   }
+
 }
 

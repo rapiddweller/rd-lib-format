@@ -21,18 +21,12 @@ import com.rapiddweller.format.DataSource;
 /**
  * Proxy for a {@link DataSource}.
  * Created: 24.07.2011 10:02:59
- *
  * @param <E> the type of data to iterate
  * @author Volker Bergmann
  * @since 0.6.0
  */
 public class DataSourceProxy<E> extends DataSourceAdapter<E, E> {
 
-  /**
-   * Instantiates a new Data source proxy.
-   *
-   * @param source the source
-   */
   public DataSourceProxy(DataSource<E> source) {
     super(source, source.getType());
   }
@@ -40,6 +34,11 @@ public class DataSourceProxy<E> extends DataSourceAdapter<E, E> {
   @Override
   public DataIterator<E> iterator() {
     return source.iterator();
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "(" + source + ")";
   }
 
 }
