@@ -214,8 +214,11 @@ public class RegexParser {
         return convertCodedChar(node);
       case RegexLexer.ALPHANUM:
         return convertAlphanum(node);
-      default:
+      case RegexLexer.T__34: // local bug fix since I do not want to touch the ANTLR parser
+        return convertAlphanum(node);
+      default: {
         throw new SyntaxError("Not a supported token type: " + node.getToken(), node.toString(), node.getCharPositionInLine(), node.getLine());
+      }
     }
   }
 
