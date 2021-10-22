@@ -26,10 +26,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Describes a column of a flat file.
- * <p>
+ * Describes a column of a flat file.<br/><br/>
  * Created: 07.06.2007 13:06:39
- *
  * @author Volker Bergmann
  */
 public class FixedWidthColumnDescriptor {
@@ -41,83 +39,30 @@ public class FixedWidthColumnDescriptor {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param width     the width
-   * @param alignment the alignment
-   */
   public FixedWidthColumnDescriptor(int width, Alignment alignment) {
     this((String) null, width, alignment, ' ');
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param name      the name
-   * @param width     the width
-   * @param alignment the alignment
-   */
   public FixedWidthColumnDescriptor(String name, int width, Alignment alignment) {
     this(name, width, alignment, ' ');
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param width     the width
-   * @param alignment the alignment
-   * @param padChar   the pad char
-   */
   public FixedWidthColumnDescriptor(int width, Alignment alignment, char padChar) {
     this((String) null, width, alignment, padChar);
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param name      the name
-   * @param width     the width
-   * @param alignment the alignment
-   * @param padChar   the pad char
-   */
   public FixedWidthColumnDescriptor(String name, int width, Alignment alignment, char padChar) {
     this(name, null, "", width, alignment, padChar);
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param format    the format
-   * @param width     the width
-   * @param alignment the alignment
-   * @param padChar   the pad char
-   */
   public FixedWidthColumnDescriptor(Format format, int width, Alignment alignment, char padChar) {
     this(null, format, "", width, alignment, padChar);
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param name       the name
-   * @param format     the format
-   * @param nullString the null string
-   */
   public FixedWidthColumnDescriptor(String name, Format format, String nullString) {
     this(name, format, nullString, formatWidth(format), Alignment.LEFT, ' ');
   }
 
-  /**
-   * Instantiates a new Fixed width column descriptor.
-   *
-   * @param name       the name
-   * @param format     the format
-   * @param nullString the null string
-   * @param width      the width
-   * @param alignment  the alignment
-   * @param padChar    the pad char
-   */
   public FixedWidthColumnDescriptor(String name, Format format, String nullString, int width, Alignment alignment, char padChar) {
     this.name = name;
     this.width = width;
@@ -127,38 +72,18 @@ public class FixedWidthColumnDescriptor {
 
   // properties ------------------------------------------------------------------------------------------------------
 
-  /**
-   * Gets name.
-   *
-   * @return the name
-   */
   public String getName() {
     return name;
   }
 
-  /**
-   * Sets name.
-   *
-   * @param name the name
-   */
   public void setName(String name) {
     this.name = name;
   }
 
-  /**
-   * Gets width.
-   *
-   * @return the width
-   */
   public int getWidth() {
     return width;
   }
 
-  /**
-   * Gets format.
-   *
-   * @return the format
-   */
   public Format getFormat() {
     return format;
   }
@@ -166,12 +91,6 @@ public class FixedWidthColumnDescriptor {
 
   // functional interface --------------------------------------------------------------------------------------------
 
-  /**
-   * Format string.
-   *
-   * @param object the object
-   * @return the string
-   */
   public String format(Object object) {
     try {
       return format.format(object);
@@ -185,13 +104,6 @@ public class FixedWidthColumnDescriptor {
     }
   }
 
-  /**
-   * Parse object.
-   *
-   * @param text the text
-   * @return the object
-   * @throws ParseException the parse exception
-   */
   public Object parse(String text) throws ParseException {
     try {
       return format.parseObject(text);

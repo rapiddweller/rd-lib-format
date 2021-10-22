@@ -32,30 +32,22 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
- * Provides utility methods for processing flat files.
- * <p>
+ * Provides utility methods for processing flat files.<br/><br/>
  * Created: 03.09.2007 23:39:57
- *
  * @author Volker Bergmann
  */
 public class FixedWidthUtil {
 
-  /**
-   * Parse bean columns spec fixed width row type descriptor.
-   *
-   * @param properties  the properties
-   * @param rowTypeName the row type name
-   * @param nullString  the null string
-   * @param locale      the locale
-   * @return the fixed width row type descriptor
-   * @throws ParseException the parse exception
-   */
+  private FixedWidthUtil() {
+    // private constructor to prevent instantiation of this utility class
+  }
+
   public static FixedWidthRowTypeDescriptor parseBeanColumnsSpec(String properties, String rowTypeName, String nullString, Locale locale)
       throws ParseException {
     if (properties == null) {
       return null;
     }
-    String[] propertyFormats = StringUtil.tokenize(properties, ',');
+    String[] propertyFormats = StringUtil.trimAll(StringUtil.tokenize(properties, ','));
     FixedWidthColumnDescriptor[] columns = new FixedWidthColumnDescriptor[propertyFormats.length];
     for (int i = 0; i < propertyFormats.length; i++) {
       String propertyFormat = propertyFormats[i];
@@ -76,16 +68,6 @@ public class FixedWidthUtil {
     return new FixedWidthRowTypeDescriptor(rowTypeName, columns);
   }
 
-  /**
-   * Parse array columns spec fixed width row type descriptor.
-   *
-   * @param columnsSpec the columns spec
-   * @param rowTypeName the row type name
-   * @param nullString  the null string
-   * @param locale      the locale
-   * @return the fixed width row type descriptor
-   * @throws ParseException the parse exception
-   */
   public static FixedWidthRowTypeDescriptor parseArrayColumnsSpec(String columnsSpec, String rowTypeName, String nullString, Locale locale)
       throws ParseException {
     if (columnsSpec == null) {
@@ -99,15 +81,6 @@ public class FixedWidthUtil {
     return new FixedWidthRowTypeDescriptor(rowTypeName, columns);
   }
 
-  /**
-   * Parse column format fixed width column descriptor.
-   *
-   * @param formatSpec the format spec
-   * @param nullString the null string
-   * @param locale     the locale
-   * @return the fixed width column descriptor
-   * @throws ParseException the parse exception
-   */
   public static FixedWidthColumnDescriptor parseColumnFormat(String formatSpec, String nullString, Locale locale) throws ParseException {
     switch (formatSpec.charAt(0)) {
       case 'D':
@@ -148,15 +121,12 @@ public class FixedWidthUtil {
 
     // parse fractionDigits
     NumberFormat format = null;
-    int minFractionDigits = 0;
-    int maxFractionDigits = 2;
     if (pos.getIndex() < formatSpec.length() && formatSpec.charAt(pos.getIndex()) == '.') {
       pos.setIndex(pos.getIndex() + 1);
-      minFractionDigits = (int) ParseUtil.parseNonNegativeInteger(formatSpec, pos);
-      maxFractionDigits = minFractionDigits;
-      format = DecimalFormat.getInstance(Locale.US);
-      format.setMinimumFractionDigits(minFractionDigits);
-      format.setMaximumFractionDigits(maxFractionDigits);
+      int fractionDigits = (int) ParseUtil.parseNonNegativeInteger(formatSpec, pos);
+      format = NumberFormat.getInstance(Locale.US);
+      format.setMinimumFractionDigits(fractionDigits);
+      format.setMaximumFractionDigits(fractionDigits);
       format.setGroupingUsed(false);
     }
 
@@ -165,17 +135,11 @@ public class FixedWidthUtil {
     if (pos.getIndex() < formatSpec.length()) {
       char alignmentCode = formatSpec.charAt(pos.getIndex());
       switch (alignmentCode) {
-        case 'l':
-          alignment = Alignment.LEFT;
-          break;
-        case 'r':
-          alignment = Alignment.RIGHT;
-          break;
-        case 'c':
-          alignment = Alignment.CENTER;
-          break;
-        default:
-          throw new ConfigurationError("Illegal alignment code '" + alignmentCode + "' in format descriptor '" + formatSpec + "'");
+        case 'l': alignment = Alignment.LEFT; break;
+        case 'r': alignment = Alignment.RIGHT; break;
+        case 'c': alignment = Alignment.CENTER; break;
+        default: throw new ConfigurationError("Illegal alignment code '" + alignmentCode + "' " +
+            "in format descriptor '" + formatSpec + "'");
       }
       pos.setIndex(pos.getIndex() + 1);
     }
