@@ -22,7 +22,11 @@ import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,15 +39,12 @@ import static com.rapiddweller.format.csv.CSVTokenType.EOF;
 /**
  * Gives access to content of a CSV file by String arrays
  * that represent the CSV rows as specified in RFC 4180.
- *
  * @author Volker Bergmann
  * @see <a href="https://www.ietf.org/rfc/rfc4180.txt">https://www.ietf.org/rfc/rfc4180.txt</a>
  */
 public class CSVLineIterator implements DataIterator<String[]> {
 
-  /**
-   * The default separator to use
-   */
+  /** The default separator to use */
   public static final char DEFAULT_SEPARATOR = ',';
 
   private String stringRep;
@@ -62,84 +63,42 @@ public class CSVLineIterator implements DataIterator<String[]> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Creates a parser that reads from a uri
-   *
-   * @param uri the URL to read from
-   * @throws IOException if uri access failed
-   */
+  /** Creates a parser that reads from a uri
+   *  @param uri the URL to read from
+   *  @throws IOException if uri access failed */
   public CSVLineIterator(String uri) throws IOException {
     this(uri, DEFAULT_SEPARATOR);
   }
 
-  /**
-   * Creates a parser that reads from a uri
-   *
-   * @param uri       the URL to read from
-   * @param separator the cell separator character
-   * @throws IOException if stream access fails
-   */
+  /** Creates a parser that reads from a uri
+   *  @param uri       the URL to read from
+   *  @param separator the cell separator character
+   *  @throws IOException if stream access fails */
   public CSVLineIterator(String uri, char separator) throws IOException {
     this(uri, separator, false);
   }
 
-  /**
-   * Instantiates a new Csv line iterator.
-   *
-   * @param uri       the uri
-   * @param separator the separator
-   * @param encoding  the encoding
-   * @throws IOException the io exception
-   */
   public CSVLineIterator(String uri, char separator, String encoding) throws IOException {
     this(uri, separator, false, encoding);
   }
 
-  /**
-   * Instantiates a new Csv line iterator.
-   *
-   * @param uri              the uri
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @throws IOException the io exception
-   */
   public CSVLineIterator(String uri, char separator, boolean ignoreEmptyLines) throws IOException {
     this(uri, separator, ignoreEmptyLines, SystemInfo.getFileEncoding());
   }
 
-  /**
-   * Instantiates a new Csv line iterator.
-   *
-   * @param uri              the uri
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param encoding         the encoding
-   * @throws IOException the io exception
-   */
   public CSVLineIterator(String uri, char separator, boolean ignoreEmptyLines, String encoding) throws IOException {
     this(IOUtil.getReaderForURI(uri, encoding), separator, ignoreEmptyLines);
     this.stringRep = uri;
   }
 
-  /**
-   * Creates a parser that reads from a reader and used a special separator character
-   *
-   * @param reader    the reader to use
-   * @param separator the separator character
-   * @throws IOException if reader access fails
-   */
+  /** Creates a parser that reads from a reader and used a special separator character
+   *  @param reader the reader to use
+   *  @param separator the separator character
+   *  @throws IOException if reader access fails */
   public CSVLineIterator(Reader reader, char separator) throws IOException {
     this(reader, separator, false);
   }
 
-  /**
-   * Instantiates a new Csv line iterator.
-   *
-   * @param reader           the reader
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @throws IOException the io exception
-   */
   public CSVLineIterator(Reader reader, char separator, boolean ignoreEmptyLines) throws IOException {
     this.tokenizer = new CSVTokenizer(reader, separator);
     this.ignoreEmptyLines = ignoreEmptyLines;
@@ -150,30 +109,15 @@ public class CSVLineIterator implements DataIterator<String[]> {
 
   // interface -------------------------------------------------------------------------------------------------------
 
-  /**
-   * Parse headers.
-   *
-   * @throws IOException the io exception
-   */
   public void parseHeaders() throws IOException {
     setHeaders(nextLine);
     this.nextLine = parseNextLine();
   }
 
-  /**
-   * Get headers string [ ].
-   *
-   * @return the string [ ]
-   */
   public String[] getHeaders() {
     return this.headers;
   }
 
-  /**
-   * Sets headers.
-   *
-   * @param headers the headers
-   */
   public void setHeaders(String[] headers) {
     this.headers = Objects.requireNonNullElseGet(headers, () -> new String[0]);
     this.headerIndexes = new HashMap<>();
@@ -187,11 +131,8 @@ public class CSVLineIterator implements DataIterator<String[]> {
     return String[].class;
   }
 
-  /**
-   * Parses a CSV row into an array of Strings
-   *
-   * @return an array of Strings that represents a CSV row
-   */
+  /** Parses a CSV row into an array of Strings
+   *  @return an array of Strings that represents a CSV row */
   @Override
   public synchronized DataContainer<String[]> next(DataContainer<String[]> wrapper) {
     if (nextLine == null) {
@@ -211,13 +152,6 @@ public class CSVLineIterator implements DataIterator<String[]> {
     }
   }
 
-  /**
-   * Cells by headers string [ ].
-   *
-   * @param headers the headers
-   * @param data    the data
-   * @return the string [ ]
-   */
   public String[] cellsByHeaders(String[] headers, String[] data) {
     String[] result = new String[headers.length];
     for (int i = 0; i < headers.length; i++) {
@@ -226,31 +160,15 @@ public class CSVLineIterator implements DataIterator<String[]> {
     return result;
   }
 
-  /**
-   * Cell by header string.
-   *
-   * @param header the header
-   * @param data   the data
-   * @return the string
-   */
   public String cellByHeader(String header, String[] data) {
     Integer index = this.headerIndexes.get(header);
     return (index != null && index < data.length ? data[index] : null);
   }
 
-  /**
-   * Column index of header int.
-   *
-   * @param header the header
-   * @return the int
-   */
   public int columnIndexOfHeader(String header) {
     return this.headerIndexes.get(header);
   }
 
-  /**
-   * Closes the source
-   */
   @Override
   public synchronized void close() {
     if (tokenizer != null) {
@@ -260,38 +178,14 @@ public class CSVLineIterator implements DataIterator<String[]> {
     nextLine = null;
   }
 
-  /**
-   * Line count int.
-   *
-   * @return the int
-   */
   public synchronized int lineCount() {
     return lineCount;
   }
 
-  /**
-   * Process.
-   *
-   * @param uri              the uri
-   * @param separator        the separator
-   * @param encoding         the encoding
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param lineHandler      the line handler
-   * @throws IOException the io exception
-   */
   public static void process(String uri, char separator, String encoding, boolean ignoreEmptyLines, CSVLineHandler lineHandler) throws IOException {
     process(IOUtil.getReaderForURI(uri, encoding), separator, ignoreEmptyLines, lineHandler);
   }
 
-  /**
-   * Process.
-   *
-   * @param reader           the reader
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param lineHandler      the line handler
-   * @throws IOException the io exception
-   */
   public static void process(Reader reader, char separator, boolean ignoreEmptyLines, CSVLineHandler lineHandler) throws IOException {
     try (CSVLineIterator iterator = new CSVLineIterator(reader, separator, ignoreEmptyLines)) {
       DataContainer<String[]> row = new DataContainer<>();
@@ -301,33 +195,23 @@ public class CSVLineIterator implements DataIterator<String[]> {
     }
   }
 
-  /**
-   * Parse string [ ] [ ].
-   *
-   * @param uri              the uri
-   * @param separator        the separator
-   * @param encoding         the encoding
-   * @param ignoreEmptyLines the ignore empty lines
-   * @return the string [ ] [ ]
-   * @throws IOException the io exception
-   */
   public static String[][] parse(String uri, char separator, String encoding, boolean ignoreEmptyLines) throws IOException {
     return parse(IOUtil.getReaderForURI(uri, encoding), separator, ignoreEmptyLines);
   }
 
-  /**
-   * Parse string [ ] [ ].
-   *
-   * @param reader           the reader
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @return the string [ ] [ ]
-   * @throws IOException the io exception
-   */
+  public static String[][] parse(File file, char separator, String encoding, boolean ignoreEmptyLines) throws IOException {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding));
+      return parse(reader, separator, ignoreEmptyLines);
+    } finally {
+      IOUtil.close(reader);
+    }
+  }
+
   public static String[][] parse(Reader reader, char separator, boolean ignoreEmptyLines) throws IOException {
     final ArrayBuilder<String[]> builder = new ArrayBuilder<>(String[].class);
-    CSVLineHandler handler = cells -> builder.add(cells);
-    process(reader, separator, ignoreEmptyLines, handler);
+    process(reader, separator, ignoreEmptyLines, cells -> builder.add(cells));
     return builder.toArray();
   }
 
@@ -345,11 +229,11 @@ public class CSVLineIterator implements DataIterator<String[]> {
       while ((tokenType = tokenizer.next()) == CELL) {
         list.add(tokenizer.cell);
       }
-    } while (tokenType != EOF && ignoreEmptyLines && list.size() == 0);
+    } while (tokenType != EOF && ignoreEmptyLines && list.isEmpty());
     if (tokenType == EOF) {
       close();
     }
-    if (list.size() > 0) {
+    if (!list.isEmpty()) {
       String[] line = CollectionUtil.toArray(list, String.class);
       checkHeaders(line);
       return line;

@@ -18,45 +18,30 @@ package com.rapiddweller.format.html.model;
 /**
  * Represents an HTML table row.
  * Created: 06.01.2014 09:19:03
- *
  * @author Volker Bergmann
  * @since 0.7.1
  */
 public class TableRow extends HtmlElement<TableRow> {
 
-  /**
-   * Instantiates a new Table row.
-   */
   public TableRow() {
     super("tr", false);
   }
 
-  /**
-   * Add cell table row.
-   *
-   * @param cell the cell
-   * @return the table row
-   */
   public TableRow addCell(TableCell cell) {
     return addComponent(cell);
   }
 
-  /**
-   * New cell table cell.
-   *
-   * @param text the text
-   * @return the table cell
-   */
+  public TableCell[] newCells(String... texts) {
+    TableCell[] result = new TableCell[texts.length];
+    for (int i = 0; i < texts.length; i++)
+      result[i] = newCell(texts[i]);
+    return result;
+  }
+
   public TableCell newCell(String text) {
     return newCell(new TextComponent(text));
   }
 
-  /**
-   * New cell table cell.
-   *
-   * @param components the components
-   * @return the table cell
-   */
   public TableCell newCell(HtmlComponent... components) {
     TableCell cell = new TableCell(components);
     addCell(cell);
