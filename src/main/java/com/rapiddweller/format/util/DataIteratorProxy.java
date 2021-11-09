@@ -21,18 +21,12 @@ import com.rapiddweller.format.DataIterator;
 /**
  * Proxy for a {@link DataIterator}.
  * Created: 24.07.2011 09:59:52
- *
  * @param <E> the type of data to iterate
  * @author Volker Bergmann
  * @since 0.6.0
  */
 public class DataIteratorProxy<E> extends DataIteratorAdapter<E, E> {
 
-  /**
-   * Instantiates a new Data iterator proxy.
-   *
-   * @param source the source
-   */
   public DataIteratorProxy(DataIterator<E> source) {
     super(source);
   }
