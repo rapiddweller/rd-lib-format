@@ -126,7 +126,7 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
       try {
         Object[] cellsOfCurrentRow = (Object[]) context.get("part");
         String text = converter.convert(cellsOfCurrentRow[0]);
-        out.write(CSVUtil.renderCell(text, separator));
+        out.write(CSVUtil.renderCell(text, separator, true));
         for (int i = 1; i < cellsOfCurrentRow.length; i++) {
           out.write(separator);
           out.write(converter.convert(cellsOfCurrentRow[i]));

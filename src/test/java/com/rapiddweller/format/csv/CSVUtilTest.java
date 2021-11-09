@@ -35,9 +35,6 @@ import static org.junit.Assert.assertThrows;
  */
 public class CSVUtilTest {
 
-  /**
-   * Test parse header 2.
-   */
   @Test
   public void testParseHeader2() {
     assertThrows(ConfigurationError.class, () -> CSVUtil.parseHeader("string://", 'A', "UTF-8"));
@@ -86,17 +83,17 @@ public class CSVUtilTest {
   @Test
   public void testRenderCell() {
     // simple test
-    assertEquals("Alice", CSVUtil.renderCell("Alice", ','));
+    assertEquals("Alice", CSVUtil.renderCell("Alice", ',', true));
     // test cell with comma
-    assertEquals("\"Alice,Bob\"", CSVUtil.renderCell("Alice,Bob", ','));
+    assertEquals("\"Alice,Bob\"", CSVUtil.renderCell("Alice,Bob", ',', true));
     // test cell with quotes
-    assertEquals("\"\"\"Ha! Ha!\"\" Said the clown\"", CSVUtil.renderCell("\"Ha! Ha!\" Said the clown", ','));
+    assertEquals("\"\"\"Ha! Ha!\"\" Said the clown\"", CSVUtil.renderCell("\"Ha! Ha!\" Said the clown", ',', true));
     // test cell with quotes and comma
-    assertEquals("\"\"\"One, two, three\"\" and so\"", CSVUtil.renderCell("\"One, two, three\" and so", ','));
-    assertEquals("Text", CSVUtil.renderCell("Text", 'A'));
-    assertEquals("", CSVUtil.renderCell(null, 'A'));
-    assertEquals("\"java.lang.String\"", CSVUtil.renderCell("java.lang.String", 'a'));
-    assertEquals("\"\"\"\"", CSVUtil.renderCell("\"", 'a'));
+    assertEquals("\"\"\"One, two, three\"\" and so\"", CSVUtil.renderCell("\"One, two, three\" and so", ',', true));
+    assertEquals("Text", CSVUtil.renderCell("Text", 'A', true));
+    assertEquals("", CSVUtil.renderCell(null, 'A', true));
+    assertEquals("\"java.lang.String\"", CSVUtil.renderCell("java.lang.String", 'a', true));
+    assertEquals("\"\"\"\"", CSVUtil.renderCell("\"", 'a', true));
   }
 
   /**

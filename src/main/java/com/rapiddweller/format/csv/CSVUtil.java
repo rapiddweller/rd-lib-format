@@ -30,23 +30,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility methods for CSV processing.
- * <p>
+ * Utility methods for CSV processing.<br/><br/>
  * Created: 07.06.2007 07:44:28
- *
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public class CSVUtil {
 
-  /**
-   * Parse header string [ ].
-   *
-   * @param uri       the uri
-   * @param separator the separator
-   * @param encoding  the encoding
-   * @return the string [ ]
-   */
   public static String[] parseHeader(String uri, char separator, String encoding) {
     DataIterator<String[]> cellIterator = null;
     try {
@@ -64,27 +54,10 @@ public class CSVUtil {
     }
   }
 
-  /**
-   * Parse rows string [ ] [ ].
-   *
-   * @param url       the url
-   * @param separator the separator
-   * @return the string [ ] [ ]
-   * @throws IOException the io exception
-   */
   public static String[][] parseRows(String url, char separator) throws IOException {
     return parseRows(url, separator, SystemInfo.getFileEncoding());
   }
 
-  /**
-   * Parse rows string [ ] [ ].
-   *
-   * @param url       the url
-   * @param separator the separator
-   * @param encoding  the encoding
-   * @return the string [ ] [ ]
-   * @throws IOException the io exception
-   */
   public static String[][] parseRows(String url, char separator, String encoding) throws IOException {
     List<String[]> lines = new ArrayList<>();
     CSVLineIterator iterator = new CSVLineIterator(url, separator, encoding);
@@ -97,12 +70,6 @@ public class CSVUtil {
     return lines.toArray(result);
   }
 
-  /**
-   * Parse csv row string [ ].
-   *
-   * @param text the text
-   * @return the string [ ]
-   */
   public static String[] parseCSVRow(String text) {
     ArrayBuilder<String> builder = new ArrayBuilder<>(String.class);
     CSVTokenizer tokenizer = new CSVTokenizer(new StringReader(text));
@@ -119,50 +86,34 @@ public class CSVUtil {
     }
   }
 
-  /**
-   * Write row.
-   *
-   * @param out       the out
-   * @param separator the separator
-   * @param cells     the cells
-   * @throws IOException the io exception
-   */
   public static void writeRow(Writer out, char separator, String... cells) throws IOException {
     if (cells.length > 0) {
-      out.write(renderCell(cells[0], separator));
+      out.write(renderCell(cells[0], separator, true));
     }
     for (int i = 1; i < cells.length; i++) {
       out.write(separator);
-      out.write(renderCell(cells[i], separator));
+      out.write(renderCell(cells[i], separator, true));
     }
     out.write(SystemInfo.getLineSeparator());
   }
 
-  /**
-   * Render cell string.
-   *
-   * @param text      the text
-   * @param separator the separator
-   * @return the string
-   */
-  public static String renderCell(String text, char separator) {
+  public static String renderCell(String text, char separator, boolean quoteEmpty) {
     if (text == null) {
       return "";
-    }
-    if (text.indexOf(separator) < 0 && text.indexOf('"') < 0) {
+    } else if (text.length() == 0) {
+      if (quoteEmpty) {
+        return "\"\"";
+      } else {
+        return "";
+      }
+    } else if (text.indexOf(separator) < 0 && text.indexOf('"') < 0) {
       return text;
+    } else {
+      text = text.replace("\"", "\"\"");
+      return '"' + text + '"';
     }
-    text = text.replace("\"", "\"\"");
-    return '"' + text + '"';
   }
 
-  /**
-   * Format header with line feed string.
-   *
-   * @param separator     the separator
-   * @param propertyNames the property names
-   * @return the string
-   */
   public static String formatHeaderWithLineFeed(char separator, String... propertyNames) {
     return ArrayFormat.format(String.valueOf(separator), propertyNames) + SystemInfo.getLineSeparator();
   }
