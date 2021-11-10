@@ -24,32 +24,22 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests the {@link AbstractXMLElementParser}.
  * Created: 14.12.2012 20:24:54
- *
  * @author Volker Bergmann
  * @since 0.6.15
  */
 public class AbstractXMLElementParserTest {
 
-  /**
-   * Test render unsupported attributes message.
-   */
   @Test
   public void testRenderUnsupportedAttributesMessage() {
     MyXMLElementParser parser = new MyXMLElementParser();
-    StringBuilder message = parser.renderUnsupportedAttributesMessage("att1");
+    StringBuilder message = parser.renderUnsupportedAttributesMessage("elem", "att1");
     String expectedMessage = "attribute 'att1' is not supported. The attributes supported by <elem> are: " +
         "req1, req2, opt1, opt2";
     assertEquals(expectedMessage, message.toString());
   }
 
-  /**
-   * The type My xml element parser.
-   */
   static class MyXMLElementParser extends AbstractXMLElementParser<Object> {
 
-    /**
-     * Instantiates a new My xml element parser.
-     */
     public MyXMLElementParser() {
       super("elem", CollectionUtil.toSortedSet("req1", "req2"),
           CollectionUtil.toSortedSet("opt1", "opt2"));

@@ -212,11 +212,11 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   }
 
   private void unsupportedAttribute(Element element, String attribute) {
-    StringBuilder message = renderUnsupportedAttributesMessage(attribute);
+    StringBuilder message = renderUnsupportedAttributesMessage(element.getNodeName(), attribute);
     throw createSyntaxError(message.toString(), element);
   }
 
-  StringBuilder renderUnsupportedAttributesMessage(String attribute) {
+  StringBuilder renderUnsupportedAttributesMessage(String elementName, String attribute) {
     StringBuilder message = new StringBuilder("attribute '").append(attribute).append("' is not supported. ");
     message.append("The attributes supported by <" + elementName + "> are: ");
     boolean first = true;
