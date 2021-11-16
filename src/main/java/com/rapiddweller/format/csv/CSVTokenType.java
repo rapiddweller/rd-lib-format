@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,24 +16,18 @@
 package com.rapiddweller.format.csv;
 
 /**
- * Enumeration of the tokens of a CSV file.
- * <p>
+ * Enumeration of the tokens of a CSV file.<br/><br/>
  * Created: 26.08.2006 17:34:11
+ * @author Volker Bergmann
  */
 public enum CSVTokenType {
 
-  /**
-   * indicates a value from a cell in the CSV source
-   */
+  /** indicates a value from a cell in the CSV source */
   CELL,
 
-  /**
-   * Indicates the end of a line
-   */
+  /** Indicates the end of a line */
   EOL,
 
-  /**
-   * Indicates the end of the file
-   */
+  /** Indicates the end of the file */
   EOF
 }

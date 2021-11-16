@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,102 +31,72 @@ import static com.rapiddweller.format.csv.CSVTokenType.EOL;
 /**
  * Parses a CSV file token by token as specified in RFC 4180.
  * It returns parsed values as CSVTokensType of type CELL, EOL and EOF.
- * The current cell content is accessible by the public attribute 'cell'.
- * <p>
+ * The current cell content is accessible by the public attribute 'cell'.<br/><br/>
  * Created: 26.08.2006 17:19:35
- *
+ * @author Volker Bergmann
  * @see CSVTokenType
  */
 public class CSVTokenizer implements Closeable {
 
-  /**
-   * The default separator to use
-   */
+  /** The default separator to use */
   public static final char DEFAULT_SEPARATOR = ',';
 
   private static final char DEFAULT_LINE_COMMENT = '#';
 
-  /**
-   * the source to read from
-   */
+  /** The source to read from */
   private PushbackReader reader;
 
-  /**
-   * the actual separator
-   */
+  /** The actual separator */
   private final char separator;
 
-  /**
-   * The token at the cursor position
-   */
+  /** The token at the cursor position */
   public CSVTokenType ttype;
 
-  /**
-   * The Last type.
-   */
+  /** The Last type. */
   public CSVTokenType lastType;
 
-  /**
-   * String representation of the cell at the cursor position.
-   * If the cursor is at a EOL/EOF position, this is null
-   */
+  /** String representation of the cell at the cursor position.
+   *  If the cursor is at a EOL/EOF position, this is null. */
   public String cell;
 
-  /**
-   * The Line.
-   */
+  /** The Line. */
   public int line;
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Creates a tokenizer that reads from a URL.
-   *
-   * @param uri the URL to read from
-   * @throws IOException if stream access fails
-   */
+  /** Creates a tokenizer that reads from a URL.
+   *  @param uri the URL to read from
+   *  @throws IOException if stream access fails */
   public CSVTokenizer(String uri) throws IOException {
     this(uri, DEFAULT_SEPARATOR);
   }
 
-  /**
-   * Creates a tokenizer that reads from a uri.
-   *
-   * @param uri       the uri to read from
-   * @param separator character used for separating CSV cells
-   * @throws IOException if stream access fails
-   */
+  /** Creates a tokenizer that reads from a uri.
+   *  @param uri       the uri to read from
+   *  @param separator character used for separating CSV cells
+   *  @throws IOException if stream access fails */
   public CSVTokenizer(String uri, char separator) throws IOException {
     this(uri, separator, SystemInfo.getFileEncoding());
   }
 
-  /**
-   * Instantiates a new Csv tokenizer.
-   *
-   * @param uri       the uri
-   * @param separator the separator
-   * @param encoding  the encoding
-   * @throws IOException the io exception
-   */
+  /** Instantiates a new Csv tokenizer.
+   *  @param uri       the uri
+   *  @param separator the separator
+   *  @param encoding  the encoding
+   *  @throws IOException the io exception */
   public CSVTokenizer(String uri, char separator, String encoding) throws IOException {
     this(IOUtil.getReaderForURI(uri, encoding), separator);
   }
 
-  /**
-   * Creates a tokenizer that reads from a java.io.Reader.
-   *
-   * @param reader the reader to use as input
-   */
+  /** Creates a tokenizer that reads from a java.io.Reader.
+   * @param reader the reader to use as input */
   public CSVTokenizer(Reader reader) {
     this(reader, DEFAULT_SEPARATOR);
   }
 
-  /**
-   * Creates a tokenizer that reads from a java.io.Reader.
-   *
-   * @param reader    the reader to use as input
-   * @param separator character used for separating CSV cells
-   */
+  /** Creates a tokenizer that reads from a java.io.Reader.
+   *  @param reader    the reader to use as input
+   *  @param separator character used for separating CSV cells */
   public CSVTokenizer(Reader reader, char separator) {
     this.reader = new PushbackReader(new BufferedReader(reader));
     this.separator = separator;
@@ -135,12 +105,9 @@ public class CSVTokenizer implements Closeable {
 
   // interface -------------------------------------------------------------------------------------------------------
 
-  /**
-   * Returns the next token.
-   *
-   * @return the next token
-   * @throws IOException if source access fails
-   */
+  /** Returns the next token.
+   *  @return the next token
+   *  @throws IOException if source access fails */
   public CSVTokenType next() throws IOException {
     this.lastType = this.ttype;
     if (reader == null) // if closed, return EOF
@@ -182,11 +149,8 @@ public class CSVTokenizer implements Closeable {
     }
   }
 
-  /**
-   * Skip line.
-   *
-   * @throws IOException the io exception
-   */
+  /** Skip line.
+   * @throws IOException the io exception */
   public void skipLine() throws IOException {
     int c;
     // go to end of line
@@ -194,9 +158,7 @@ public class CSVTokenizer implements Closeable {
       // skip EOL characters
     }
     switch (c) {
-      case -1:
-        return;
-      case '\n':
+      case -1: case '\n':
         return;
       case '\r':
         int c2 = read();
@@ -209,9 +171,7 @@ public class CSVTokenizer implements Closeable {
     }
   }
 
-  /**
-   * Closes the source
-   */
+  /** Closes the source */
   @Override
   public void close() {
     if (reader != null) {
@@ -220,24 +180,18 @@ public class CSVTokenizer implements Closeable {
     reader = null;
   }
 
-  /**
-   * Last ttype csv token type.
-   *
-   * @return the csv token type
-   */
+  /** Last ttype csv token type.
+   *  @return the csv token type */
   public CSVTokenType lastTtype() {
     return lastType;
   }
 
   // private helpers -------------------------------------------------------------------------------------------------
 
-  /**
-   * sets the state of the tokenizer to the given tokenType and cell content.
-   *
-   * @param tokenType the tokenType to use
-   * @param cell      the cell content
-   * @return the token type
-   */
+  /** Sets the state of the tokenizer to the given tokenType and cell content.
+   *  @param tokenType the tokenType to use
+   *  @param cell      the cell content
+   *  @return the token type */
   private CSVTokenType setState(CSVTokenType tokenType, String cell) {
     this.cell = cell;
     this.ttype = tokenType;
@@ -249,8 +203,7 @@ public class CSVTokenizer implements Closeable {
   }
 
   private int read() throws IOException {
-    int c = reader.read();
-    return c;
+    return reader.read();
   }
 
   private CSVTokenType parseSimpleCell(int c) throws IOException {
@@ -270,7 +223,7 @@ public class CSVTokenizer implements Closeable {
       }
       buffer.append((char) c);
     }
-    if (c == '\r' || c == '\n' || c == separator) {
+    if (c == '\r' || c == '\n') {
       unread(c);
     }
     return setState(CELL, buffer.toString());

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,9 +28,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * Reads a CSV file and maps its columns to JavaBeans.
- *
- * @param <E> the type of the objects to write            Created: 21.07.2006 15:07:36
+ * Reads a CSV file and maps its columns to JavaBeans.<br/><br/>
+ * Created: 21.07.2006 15:07:36
+ * @param <E> the type of the objects to write
  * @author Volker Bergmann
  */
 public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
@@ -46,48 +46,22 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Csv to java bean mapper.
-   *
-   * @param reader the reader
-   * @param type   the type
-   * @throws IOException the io exception
-   */
   public CSVToJavaBeanMapper(Reader reader, Class<E> type) throws IOException {
     this(reader, type, ',', null);
   }
 
-  /**
-   * Instantiates a new Csv to java bean mapper.
-   *
-   * @param reader     the reader
-   * @param type       the type
-   * @param separator  the separator
-   * @param emptyValue the empty value
-   * @throws IOException the io exception
-   */
   public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue) throws IOException {
-    CSVLineIterator iterator = new CSVLineIterator(reader, separator, true);
-    DataContainer<String[]> tmp = iterator.next(dataContainer.get());
+    CSVLineIterator it = new CSVLineIterator(reader, separator, true);
+    DataContainer<String[]> tmp = it.next(dataContainer.get());
     if (tmp != null) {
       String[] attributeNames = tmp.getData();
-      init(iterator, type, emptyValue, attributeNames);
+      init(it, type, emptyValue, attributeNames);
     }
   }
 
-  /**
-   * Instantiates a new Csv to java bean mapper.
-   *
-   * @param reader         the reader
-   * @param type           the type
-   * @param separator      the separator
-   * @param emptyValue     the empty value
-   * @param attributeNames the attribute names
-   * @throws IOException the io exception
-   */
   public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue, String[] attributeNames) throws IOException {
-    CSVLineIterator iterator = new CSVLineIterator(reader, separator, true);
-    init(iterator, type, emptyValue, attributeNames);
+    CSVLineIterator it = new CSVLineIterator(reader, separator, true);
+    init(it, type, emptyValue, attributeNames);
   }
 
 
@@ -131,12 +105,6 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
     }
   }
 
-  /**
-   * Next raw data container.
-   *
-   * @param wrapper the wrapper
-   * @return the data container
-   */
   public DataContainer<String[]> nextRaw(DataContainer<String[]> wrapper) {
     if (iterator == null) {
       return null; // the file was empty and thus the iterator not initialized in init()
@@ -152,9 +120,6 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   // further public methods ------------------------------------------------------------------------------------------
 
-  /**
-   * Skip.
-   */
   public void skip() {
     iterator.next(dataContainer.get());
   }

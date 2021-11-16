@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,40 +31,20 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes arrays as CSV rows.
- * <p>
+ * Writes arrays as CSV rows.<br/><br/>
  * Created: 06.06.2007 19:35:29
- *
  * @author Volker Bergmann
  */
 public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
 
-  /**
-   * Instantiates a new Array csv writer.
-   *
-   * @param out the out
-   */
   public ArrayCSVWriter(Writer out) {
     this(out, ',');
   }
 
-  /**
-   * Instantiates a new Array csv writer.
-   *
-   * @param out       the out
-   * @param separator the separator
-   */
   public ArrayCSVWriter(Writer out, char separator) {
     this(out, separator, null, (Script) null);
   }
 
-  /**
-   * Instantiates a new Array csv writer.
-   *
-   * @param out         the out
-   * @param separator   the separator
-   * @param columnHeads the column heads
-   */
   public ArrayCSVWriter(Writer out, char separator, String... columnHeads) {
     this(
         out,
@@ -73,15 +53,6 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
         null);
   }
 
-  /**
-   * Instantiates a new Array csv writer.
-   *
-   * @param out             the out
-   * @param separator       the separator
-   * @param headerScriptUrl the header script url
-   * @param footerScriptUrl the footer script url
-   * @throws IOException the io exception
-   */
   public ArrayCSVWriter(Writer out, char separator, String headerScriptUrl, String footerScriptUrl)
       throws IOException {
     this(
@@ -92,14 +63,6 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
     );
   }
 
-  /**
-   * Instantiates a new Array csv writer.
-   *
-   * @param out          the out
-   * @param separator    the separator
-   * @param headerScript the header script
-   * @param footerScript the footer script
-   */
   public ArrayCSVWriter(Writer out, char separator, Script headerScript, Script footerScript) {
     super(out, headerScript, new ArrayCSVScript(separator), footerScript);
   }
@@ -111,11 +74,6 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
     private final Converter<Object, String> converter;
     private final char separator;
 
-    /**
-     * Instantiates a new Array csv script.
-     *
-     * @param separator the separator
-     */
     public ArrayCSVScript(char separator) {
       this.separator = separator;
       this.converter = new ToStringConverter();

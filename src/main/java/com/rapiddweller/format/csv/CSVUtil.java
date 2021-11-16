@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,6 @@ package com.rapiddweller.format.csv;
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.ArrayFormat;
 import com.rapiddweller.common.ConfigurationError;
-import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
@@ -37,10 +36,12 @@ import java.util.List;
  */
 public class CSVUtil {
 
+  private CSVUtil() {
+    // private constructor to prevent instantiation of this utility class
+  }
+
   public static String[] parseHeader(String uri, char separator, String encoding) {
-    DataIterator<String[]> cellIterator = null;
-    try {
-      cellIterator = new CSVLineIterator(uri, separator, true, encoding);
+    try (DataIterator<String[]> cellIterator = new CSVLineIterator(uri, separator, true, encoding)) {
       DataContainer<String[]> tmp = cellIterator.next(new DataContainer<>());
       if (tmp != null) {
         return tmp.getData();
@@ -49,8 +50,6 @@ public class CSVUtil {
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
-    } finally {
-      IOUtil.close(cellIterator);
     }
   }
 
@@ -72,8 +71,7 @@ public class CSVUtil {
 
   public static String[] parseCSVRow(String text) {
     ArrayBuilder<String> builder = new ArrayBuilder<>(String.class);
-    CSVTokenizer tokenizer = new CSVTokenizer(new StringReader(text));
-    try {
+    try (CSVTokenizer tokenizer = new CSVTokenizer(new StringReader(text))) {
       CSVTokenType type;
       while ((type = tokenizer.next()) != CSVTokenType.EOL && type != CSVTokenType.EOF) {
         builder.add(tokenizer.cell);
@@ -81,8 +79,6 @@ public class CSVUtil {
       return builder.toArray();
     } catch (IOException e) {
       throw new RuntimeException("Error parsing CSV row: " + text, e);
-    } finally {
-      IOUtil.close(tokenizer);
     }
   }
 

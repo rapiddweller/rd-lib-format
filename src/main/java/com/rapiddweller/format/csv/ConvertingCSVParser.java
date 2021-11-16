@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.Converter;
-import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.ThreadLocalDataContainer;
@@ -26,9 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Parses CSV files and converts the row to the desired target type.
+ * Parses CSV files and converts the row to the desired target type.<br/><br/>
  * Created at 25.04.2008 18:49:50
- *
  * @param <E> the type of the objects to provide
  * @author Volker Bergmann
  * @since 0.4.2
@@ -39,13 +37,6 @@ public class ConvertingCSVParser<E> implements DataIterator<E> {
   private final CSVLineIterator source;
   private final ThreadLocalDataContainer<String[]> dataContainer = new ThreadLocalDataContainer<>();
 
-  /**
-   * Instantiates a new Converting csv parser.
-   *
-   * @param uri          the uri
-   * @param rowConverter the row converter
-   * @throws IOException the io exception
-   */
   public ConvertingCSVParser(String uri, Converter<String[], E> rowConverter) throws IOException {
     this.source = new CSVLineIterator(uri);
     this.rowConverter = rowConverter;
@@ -70,40 +61,17 @@ public class ConvertingCSVParser<E> implements DataIterator<E> {
     source.close();
   }
 
-  /**
-   * Parse list.
-   *
-   * @param <T>          the type parameter
-   * @param uri          the uri
-   * @param rowConverter the row converter
-   * @return the list
-   * @throws IOException the io exception
-   */
   public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter) throws IOException {
     return parse(uri, rowConverter, new ArrayList<>());
   }
 
-  /**
-   * Parse list.
-   *
-   * @param <T>          the type parameter
-   * @param uri          the uri
-   * @param rowConverter the row converter
-   * @param list         the list
-   * @return the list
-   * @throws IOException the io exception
-   */
   public static <T> List<T> parse(String uri, Converter<String[], T> rowConverter, List<T> list) throws IOException {
-    ConvertingCSVParser<T> parser = null;
-    try {
-      parser = new ConvertingCSVParser<>(uri, rowConverter);
+    try (ConvertingCSVParser<T> parser = new ConvertingCSVParser<>(uri, rowConverter)) {
       DataContainer<T> container = new DataContainer<>();
       while ((container = parser.next(container)) != null) {
         list.add(container.getData());
       }
       return list;
-    } finally {
-      IOUtil.close(parser);
     }
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,15 +16,9 @@
 package com.rapiddweller.format.csv;
 
 /**
- * Callback interface for CSV parsing.
- * <p>
+ * Callback interface for CSV parsing.<br/><br/>
  * Created: 26.10.2007 12:53:01
  */
 public interface CSVLineHandler {
-  /**
-   * Handle.
-   *
-   * @param cells the cells
-   */
   void handle(String[] cells);
 }

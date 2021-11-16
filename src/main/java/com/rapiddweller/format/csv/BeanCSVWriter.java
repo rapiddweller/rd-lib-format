@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,44 +35,21 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes JavaBeans as CSV rows.
+ * Writes JavaBeans as CSV rows.<br/><br/>
  * Created: 06.06.2007 19:35:29
- *
  * @param <E> the type of the objects to write
  * @author Volker Bergmann
  */
 public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
 
-  /**
-   * Instantiates a new Bean csv writer.
-   *
-   * @param out       the out
-   * @param separator the separator
-   * @param beanClass the bean class
-   */
   public BeanCSVWriter(Writer out, char separator, Class<E> beanClass) {
     this(out, separator, true, defaultPropertyNames(beanClass));
   }
 
-  /**
-   * Instantiates a new Bean csv writer.
-   *
-   * @param out           the out
-   * @param separator     the separator
-   * @param propertyNames the property names
-   */
   public BeanCSVWriter(Writer out, char separator, String... propertyNames) {
     this(out, separator, true, propertyNames);
   }
 
-  /**
-   * Instantiates a new Bean csv writer.
-   *
-   * @param out           the out
-   * @param separator     the separator
-   * @param headed        the headed
-   * @param propertyNames the property names
-   */
   public BeanCSVWriter(Writer out, char separator, boolean headed, String... propertyNames) {
     this(out,
         separator,
@@ -81,15 +58,6 @@ public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
         propertyNames);
   }
 
-  /**
-   * Instantiates a new Bean csv writer.
-   *
-   * @param out           the out
-   * @param separator     the separator
-   * @param headerScript  the header script
-   * @param footerScript  the footer script
-   * @param propertyNames the property names
-   */
   public BeanCSVWriter(Writer out, char separator,
                        Script headerScript, Script footerScript, String... propertyNames) {
     super(out, headerScript, new BeanCSVScript(propertyNames, separator), footerScript);
@@ -107,12 +75,6 @@ public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
     private final char separator;
     private final Converter<Object, String[]> converter;
 
-    /**
-     * Instantiates a new Bean csv script.
-     *
-     * @param propertyNames the property names
-     * @param separator     the separator
-     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BeanCSVScript(String[] propertyNames, char separator) {
       this.separator = separator;
@@ -136,6 +98,6 @@ public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
         throw new ScriptException(e);
       }
     }
-
   }
+
 }

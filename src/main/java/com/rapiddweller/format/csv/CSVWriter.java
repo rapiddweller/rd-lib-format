@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ArrayUtil;
-import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
 
 import java.io.BufferedWriter;
@@ -42,13 +41,13 @@ public class CSVWriter implements Closeable {
 
   public static void writeTable(String[] title, Object[][] table, File file, char separator) throws IOException {
     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-    CSVWriter csv = new CSVWriter(writer, separator, false);
-    for (String titleLine : title)
-      csv.writeRow(new String[] { titleLine });
-    for (Object[] tableRow : table) {
-      csv.writeRow(tableRow);
+    try (CSVWriter csv = new CSVWriter(writer, separator, false)) {
+      for (String titleLine : title)
+        csv.writeRow(new String[] {titleLine});
+      for (Object[] tableRow : table) {
+        csv.writeRow(tableRow);
+      }
     }
-    csv.close();
   }
 
   public static CSVWriter forFile(File file, char separator, boolean append, String... columnHeaders) throws IOException {

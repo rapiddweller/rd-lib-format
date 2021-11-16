@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,9 +25,8 @@ import com.rapiddweller.format.util.ThreadLocalDataContainer;
 import java.io.IOException;
 
 /**
- * {@link HeavyweightIterator} that iterates through all cells of a single CSV column.
+ * {@link HeavyweightIterator} that iterates through all cells of a single CSV column.<br/><br/>
  * Created: 14.10.2009 11:42:49
- *
  * @author Volker Bergmann
  * @since 0.5.0
  */
@@ -36,32 +35,13 @@ public class CSVSingleColumIterator extends DataIteratorAdapter<String[], String
   private static final char DEFAULT_SEPARATOR = ',';
 
   private final int columnIndex;
-  /**
-   * The Row container.
-   */
+
   ThreadLocalDataContainer<String[]> rowContainer = new ThreadLocalDataContainer<>();
 
-  /**
-   * Instantiates a new Csv single colum iterator.
-   *
-   * @param uri         the uri
-   * @param columnIndex the column index
-   * @throws IOException the io exception
-   */
   public CSVSingleColumIterator(String uri, int columnIndex) throws IOException {
     this(uri, columnIndex, DEFAULT_SEPARATOR, false, Encodings.UTF_8);
   }
 
-  /**
-   * Instantiates a new Csv single colum iterator.
-   *
-   * @param uri              the uri
-   * @param columnIndex      the column index
-   * @param separator        the separator
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param encoding         the encoding
-   * @throws IOException the io exception
-   */
   public CSVSingleColumIterator(String uri, int columnIndex, char separator, boolean ignoreEmptyLines, String encoding) throws IOException {
     super(new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding));
     if (StringUtil.isEmpty(uri)) {

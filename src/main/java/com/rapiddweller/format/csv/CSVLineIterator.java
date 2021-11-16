@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -200,18 +200,14 @@ public class CSVLineIterator implements DataIterator<String[]> {
   }
 
   public static String[][] parse(File file, char separator, String encoding, boolean ignoreEmptyLines) throws IOException {
-    BufferedReader reader = null;
-    try {
-      reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding));
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))) {
       return parse(reader, separator, ignoreEmptyLines);
-    } finally {
-      IOUtil.close(reader);
     }
   }
 
   public static String[][] parse(Reader reader, char separator, boolean ignoreEmptyLines) throws IOException {
     final ArrayBuilder<String[]> builder = new ArrayBuilder<>(String[].class);
-    process(reader, separator, ignoreEmptyLines, cells -> builder.add(cells));
+    process(reader, separator, ignoreEmptyLines, builder::add);
     return builder.toArray();
   }
 

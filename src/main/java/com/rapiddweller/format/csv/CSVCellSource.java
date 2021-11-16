@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,10 +21,8 @@ import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
 
 /**
- * Creates Iterators that iterate through the cells of a CSV file.
- * <p>
+ * Creates Iterators that iterate through the cells of a CSV file.<br/><br/>>
  * Created: 01.09.2007 11:40:30
- *
  * @author Volker Bergmann
  */
 public class CSVCellSource extends AbstractDataSource<String> {
@@ -33,30 +31,14 @@ public class CSVCellSource extends AbstractDataSource<String> {
   private final char separator;
   private final String encoding;
 
-  /**
-   * Instantiates a new Csv cell source.
-   */
   public CSVCellSource() {
     this(null, ',');
   }
 
-  /**
-   * Instantiates a new Csv cell source.
-   *
-   * @param uri       the uri
-   * @param separator the separator
-   */
   public CSVCellSource(String uri, char separator) {
     this(uri, separator, SystemInfo.getFileEncoding());
   }
 
-  /**
-   * Instantiates a new Csv cell source.
-   *
-   * @param uri       the uri
-   * @param separator the separator
-   * @param encoding  the encoding
-   */
   public CSVCellSource(String uri, char separator, String encoding) {
     super(String.class);
     this.uri = uri;
@@ -64,11 +46,6 @@ public class CSVCellSource extends AbstractDataSource<String> {
     this.encoding = encoding;
   }
 
-  /**
-   * Sets uri.
-   *
-   * @param uri the uri
-   */
   public void setUri(String uri) {
     this.uri = uri;
   }
@@ -86,4 +63,5 @@ public class CSVCellSource extends AbstractDataSource<String> {
   public String toString() {
     return getClass().getSimpleName() + '[' + uri + ", '" + separator + "']";
   }
+
 }

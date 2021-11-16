@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,49 +23,25 @@ import java.io.IOException;
 
 /**
  * {@link DataSource} implementation that provides for
- * row-wise or column-wise iteration through CSV files.
+ * row-wise or column-wise iteration through CSV files.<br/><br/>
  * Created: 23.11.2011 11:14:54
- *
  * @author Volker Bergmann
  * @since 0.6.4
  */
 public class CSVSource implements DataSource<String[]> {
 
-  /**
-   * The default separator to use
-   */
+  /** The default separator to use */
   public static final char DEFAULT_SEPARATOR = ',';
 
-  /**
-   * The Uri.
-   */
   protected String uri;
-  /**
-   * The Separator.
-   */
   protected char separator;
-  /**
-   * The Encoding.
-   */
   protected String encoding;
-  /**
-   * The Ignore empty lines.
-   */
   protected boolean ignoreEmptyLines;
 
   private final boolean rowBased;
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Csv source.
-   *
-   * @param uri              the uri
-   * @param separator        the separator
-   * @param encoding         the encoding
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param rowBased         the row based
-   */
   public CSVSource(String uri, char separator, String encoding, boolean ignoreEmptyLines, boolean rowBased) {
     this.uri = uri;
     this.separator = separator;
