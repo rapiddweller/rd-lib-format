@@ -16,7 +16,6 @@
 package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.common.NullSafeComparator;
-import com.rapiddweller.common.ProgrammerError;
 import com.rapiddweller.common.xml.XPathUtil;
 import com.rapiddweller.format.compare.DiffDetailType;
 import com.rapiddweller.format.compare.LocalDiffType;
@@ -32,7 +31,6 @@ import java.util.Set;
  * Holds the information which diff types are accepted at which XPaths
  * and maps them to the related nodes of XML documents.
  * Created: 09.07.2014 10:27:00
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
@@ -40,25 +38,10 @@ public class ComparisonContext {
 
   private List<PathSetting> pathSettings;
 
-  /**
-   * Instantiates a new Comparison context.
-   */
-  public ComparisonContext() {
-    try {
-      init(null, null, null);
-    } catch (XPathExpressionException e) {
-      throw new ProgrammerError(e);
-    }
+  public ComparisonContext() throws XPathExpressionException {
+    init(null, null, null);
   }
 
-  /**
-   * Instantiates a new Comparison context.
-   *
-   * @param toleratedDiffs   the tolerated diffs
-   * @param expectedDocument the expected document
-   * @param actualDocument   the actual document
-   * @throws XPathExpressionException the x path expression exception
-   */
   public ComparisonContext(Set<LocalDiffType> toleratedDiffs, Document expectedDocument, Document actualDocument)
       throws XPathExpressionException {
     init(toleratedDiffs, expectedDocument, actualDocument);
@@ -77,12 +60,6 @@ public class ComparisonContext {
     }
   }
 
-  /**
-   * Is excluded boolean.
-   *
-   * @param node the node
-   * @return the boolean
-   */
   public boolean isExcluded(Object node) {
     for (PathSetting pathSetting : pathSettings) {
       if (pathSetting.isAffectedNode(node) && pathSetting.getDiffType() == null) {
@@ -92,14 +69,6 @@ public class ComparisonContext {
     return false;
   }
 
-  /**
-   * Is tolerated boolean.
-   *
-   * @param type     the type
-   * @param expected the expected
-   * @param actual   the actual
-   * @return the boolean
-   */
   public boolean isTolerated(DiffDetailType type, Object expected, Object actual) {
     for (PathSetting pathSetting : pathSettings) {
       Object diffType = pathSetting.getDiffType();
@@ -111,13 +80,6 @@ public class ComparisonContext {
     return false;
   }
 
-  /**
-   * Is tolerated boolean.
-   *
-   * @param diffType the diff type
-   * @param locator  the locator
-   * @return the boolean
-   */
   public boolean isTolerated(DiffDetailType diffType, String locator) {
     for (PathSetting pathSetting : pathSettings) {
       if (NullSafeComparator.equals(locator, pathSetting.getLocator())
@@ -131,9 +93,6 @@ public class ComparisonContext {
 
   // helper class ----------------------------------------------------------------------------------------------------
 
-  /**
-   * The type Path setting.
-   */
   static class PathSetting {
     private final String locator;
     private final DiffDetailType diffType;
@@ -145,30 +104,14 @@ public class ComparisonContext {
       this.affectedNodes = new ArrayList<>();
     }
 
-    /**
-     * Gets locator.
-     *
-     * @return the locator
-     */
     public String getLocator() {
       return locator;
     }
 
-    /**
-     * Gets diff type.
-     *
-     * @return the diff type
-     */
     public Object getDiffType() {
       return diffType;
     }
 
-    /**
-     * Is affected node boolean.
-     *
-     * @param node the node
-     * @return the boolean
-     */
     public boolean isAffectedNode(Object node) {
       if (locator == null) {
         return true;
@@ -181,12 +124,6 @@ public class ComparisonContext {
       return false;
     }
 
-    /**
-     * Collect affected nodes.
-     *
-     * @param document the document
-     * @throws XPathExpressionException the x path expression exception
-     */
     public void collectAffectedNodes(Document document) throws XPathExpressionException {
       if (this.locator != null && document != null) {
         NodeList foundNodes = XPathUtil.queryNodes(document, locator);

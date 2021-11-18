@@ -21,7 +21,7 @@ import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

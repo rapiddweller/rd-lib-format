@@ -20,7 +20,7 @@ import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.LocaleUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.format.regex.antlr.RegexLexer;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonToken;
@@ -38,10 +38,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Parses a regular expression into an object model.
- * <p>
+ * Parses a regular expression into an object model.<br/><br/>
  * Created: 18.08.2006 19:10:42
- *
  * @author Volker Bergmann
  * @since 0.1
  */
@@ -53,31 +51,16 @@ public class RegexParser {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Regex parser.
-   */
   public RegexParser() {
     this(LocaleUtil.getFallbackLocale());
   }
 
-  /**
-   * Instantiates a new Regex parser.
-   *
-   * @param locale the locale
-   */
   public RegexParser(Locale locale) {
     this.locale = locale;
   }
 
   // interface -------------------------------------------------------------------------------------------------------
 
-  /**
-   * Parse regex regex part.
-   *
-   * @param pattern the pattern
-   * @return the regex part
-   * @throws SyntaxError the syntax error
-   */
   public RegexPart parseRegex(String pattern) throws SyntaxError {
     if (pattern == null) {
       return null;
@@ -111,13 +94,6 @@ public class RegexParser {
     }
   }
 
-  /**
-   * Parse single char regex char class.
-   *
-   * @param pattern the pattern
-   * @return the regex char class
-   * @throws SyntaxError the syntax error
-   */
   public RegexCharClass parseSingleChar(String pattern) throws SyntaxError {
     if (pattern == null) {
       return null;

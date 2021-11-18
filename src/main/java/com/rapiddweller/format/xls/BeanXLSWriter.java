@@ -38,7 +38,6 @@ import java.util.List;
 /**
  * Saves JavaBeans in MS Excel(TM) files.
  * Created: 27.12.2015 07:40:49
- *
  * @param <E> the type parameter
  * @author Volker Bergmann
  * @since 1.0.7
@@ -56,43 +55,20 @@ public class BeanXLSWriter<E> implements Closeable {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Bean xls writer.
-   *
-   * @param out       the out
-   * @param sheetName the sheet name
-   */
   public BeanXLSWriter(OutputStream out, String sheetName) {
     this(out, sheetName, null);
   }
 
-  /**
-   * Instantiates a new Bean xls writer.
-   *
-   * @param out            the out
-   * @param sheetName      the sheet name
-   * @param beanProperties the bean properties
-   */
   public BeanXLSWriter(OutputStream out, String sheetName, List<PropFormat> beanProperties) {
     this.out = out;
     this.sheetName = sheetName;
     this.beanProperties = (beanProperties != null ? new ArrayList<>(beanProperties) : new ArrayList<>());
   }
 
-  /**
-   * Add property.
-   *
-   * @param property the property
-   */
   public void addProperty(PropFormat property) {
     this.beanProperties.add(property);
   }
 
-  /**
-   * Save.
-   *
-   * @param bean the bean
-   */
   public void save(E bean) {
     Sheet sheet = getOrCreateSheet(sheetName);
     Row row = sheet.createRow(sheet.getLastRowNum() + 1);
@@ -114,7 +90,7 @@ public class BeanXLSWriter<E> implements Closeable {
       // Write the output
       workbook.write(out);
     } catch (FileNotFoundException e) {
-      throw new ConfigurationError(e);
+      throw new ConfigurationError("Error writing XLS file", e);
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {

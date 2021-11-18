@@ -15,7 +15,7 @@
 
 package com.rapiddweller.format.script;
 
-import com.rapiddweller.common.ParseException;
+import com.rapiddweller.common.exception.ParseException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,15 +26,11 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests the {@link ScriptUtil} class.
  * Created: 09.08.2010 16:11:36
- *
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public class ScriptUtilTest {
 
-  /**
-   * Test combine scriptable parts.
-   */
   @Test
   public void testCombineScriptableParts() {
     ScriptUtil.addFactory("xyz", new XyzScriptFactory());
@@ -50,9 +46,6 @@ public class ScriptUtilTest {
         ScriptUtil.combineScriptableParts("SELECT * FROM TT", "{xyz:' WHERE ID = ' + n}"));
   }
 
-  /**
-   * Test describe.
-   */
   @Test
   public void testDescribe() {
     ScriptDescriptor[] descriptors = ScriptUtil.describe("alpha", "{ftl:${n}}");
@@ -61,9 +54,6 @@ public class ScriptUtilTest {
     checkDescriptor(descriptors[1], "ftl", "${n}", ScriptLevel.SCRIPT);
   }
 
-  /**
-   * Test get common script engine.
-   */
   @Test
   public void testGetCommonScriptEngine() {
     assertNull(ScriptUtil.getCommonScriptEngine("alpha", "123", "\n"));
@@ -71,9 +61,6 @@ public class ScriptUtilTest {
     assertEquals("ftl", ScriptUtil.getCommonScriptEngine("{ftl:alpha}", "{ftl:${n}}", "{ftl:\n}"));
   }
 
-  /**
-   * Test is script.
-   */
   @Test
   public void testIsScript() {
     assertTrue(ScriptUtil.isScript("{''}"));
@@ -82,9 +69,6 @@ public class ScriptUtilTest {
     assertFalse(ScriptUtil.isScript("sdfw}"));
   }
 
-  /**
-   * The type Xyz script factory.
-   */
   public class XyzScriptFactory implements ScriptFactory {
     @Override
     public Script parseText(String text) throws ParseException {

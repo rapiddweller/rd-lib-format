@@ -36,7 +36,6 @@ import org.w3c.dom.Text;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import java.util.Iterator;
 
 import static com.rapiddweller.format.xml.compare.XMLComparisonModel.ATTRIBUTE;
 import static com.rapiddweller.format.xml.compare.XMLComparisonModel.DOCUMENT_ENCODING;
@@ -48,7 +47,6 @@ import static com.rapiddweller.format.xml.compare.XMLComparisonModel.PROCESSING_
 /**
  * Compares two XML documents.
  * Created: 16.11.2015 14:31:12
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
@@ -57,68 +55,36 @@ public class XMLComparator {
   private final XMLComparisonSettings settings;
   private final DiffFactory diffFactory;
 
-  /**
-   * Instantiates a new Xml comparator.
-   */
   public XMLComparator() {
     this(new XMLComparisonSettings());
   }
 
-  /**
-   * Instantiates a new Xml comparator.
-   *
-   * @param settings the settings
-   */
   public XMLComparator(XMLComparisonSettings settings) {
     this.settings = settings;
     this.diffFactory = new DiffFactory(new XMLNode2StringConverter());
   }
 
-  /**
-   * Assert equals.
-   *
-   * @param expected the expected
-   * @param actual   the actual
-   * @throws XPathExpressionException the x path expression exception
-   */
   public void assertEquals(Document expected, Document actual) throws XPathExpressionException {
     AggregateDiff diffs = compare(expected, actual);
     if (diffs.getDetailCount() > 0) {
-      String LF = SystemInfo.getLineSeparator();
+      String lf = SystemInfo.getLineSeparator();
       StringBuilder message = new StringBuilder("Documents do not match. Found " + diffs.getDetailCount() + " difference");
       if (diffs.getDetailCount() > 1) {
         message.append('s');
       }
       for (DiffDetail diff : diffs.getDetails()) {
-        message.append(LF).append(diff);
+        message.append(lf).append(diff);
       }
       throw new AssertionError(message);
     }
   }
 
-  /**
-   * Compare aggregate diff.
-   *
-   * @param uriOfExpected the uri of expected
-   * @param uriOfActual   the uri of actual
-   * @return the aggregate diff
-   * @throws IOException              the io exception
-   * @throws XPathExpressionException the x path expression exception
-   */
   public AggregateDiff compare(String uriOfExpected, String uriOfActual) throws IOException, XPathExpressionException {
     Document expectedDoc = XMLUtil.parse(uriOfExpected);
     Document actualDoc = XMLUtil.parse(uriOfActual);
     return compare(expectedDoc, actualDoc);
   }
 
-  /**
-   * Compare aggregate diff.
-   *
-   * @param expectedDocument the expected document
-   * @param actualDocument   the actual document
-   * @return the aggregate diff
-   * @throws XPathExpressionException the x path expression exception
-   */
   public AggregateDiff compare(Document expectedDocument, Document actualDocument) throws XPathExpressionException {
     // prepare comparison
     ComparisonContext context = new ComparisonContext(settings.getToleratedDiffs(), expectedDocument, actualDocument);
@@ -144,17 +110,6 @@ public class XMLComparator {
 
   // private helpers -------------------------------------------------------------------------------------------------
 
-  /**
-   * Compare elements aggregate diff.
-   *
-   * @param expected             the expected
-   * @param actual               the actual
-   * @param context              the context
-   * @param parentPathOfExpected the parent path of expected
-   * @param parentPathOfActual   the parent path of actual
-   * @param diffs                the diffs
-   * @return the aggregate diff
-   */
   AggregateDiff compareElements(Element expected, Element actual, ComparisonContext context, String parentPathOfExpected, String parentPathOfActual,
                                 AggregateDiff diffs) {
     if (context.isExcluded(expected)) // if this is an excluded node then return without checking

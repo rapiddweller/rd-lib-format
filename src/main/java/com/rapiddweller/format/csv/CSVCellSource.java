@@ -55,7 +55,7 @@ public class CSVCellSource extends AbstractDataSource<String> {
     try {
       return new CSVCellIterator(uri, separator, encoding);
     } catch (Exception e) {
-      throw new ConfigurationError(e);
+      throw new ConfigurationError("Error creating iterator", e);
     }
   }
 

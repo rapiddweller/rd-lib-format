@@ -16,7 +16,8 @@
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
-import com.rapiddweller.common.ParseException;
+import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.exception.ParseException;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.w3c.dom.Element;
 
@@ -43,6 +44,7 @@ public class XMLElementParserFactory<E> {
   }
 
   public XMLElementParser<E> getParser(Element element, E[] parentPath) {
+    String uri = null; // TODO make uri a parameter
     for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
       XMLElementParser<E> parser = parsers.get(i);
       if (parser.supports(element, parentPath)) {
@@ -50,11 +52,9 @@ public class XMLElementParserFactory<E> {
       }
     }
     Object parent = (ArrayUtil.isEmpty(parentPath) ? null : ArrayUtil.lastElementOf(parentPath));
-    String message = "Syntax Error: Element '" + element.getNodeName() +
-        "' not supported " + (parent != null ?
-        "in the context of a " + parent.getClass().getSimpleName() :
-        "as top level element");
-    throw new ParseException(message, XMLUtil.format(element));
+    String message = "Element <" + element.getNodeName() + "> not supported "
+        + (parent != null ? "in the context of a " + parent.getClass().getSimpleName() : "as top level element");
+    throw ExceptionFactory.getInstance().syntaxError(uri, -1, -1, message);
   }
 
 }

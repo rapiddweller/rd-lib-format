@@ -15,33 +15,16 @@
 
 package com.rapiddweller.format.script;
 
-import com.rapiddweller.common.ParseException;
+import com.rapiddweller.common.exception.ParseException;
 
 import java.io.IOException;
 
 /**
  * Factory class for {@link Script} objects.
- *
  * @author Volker Bergmann
  * @since 0.3.0
  */
 public interface ScriptFactory {
-  /**
-   * Read file script.
-   *
-   * @param uri the uri
-   * @return the script
-   * @throws ParseException the parse exception
-   * @throws IOException    the io exception
-   */
   Script readFile(String uri) throws ParseException, IOException;
-
-  /**
-   * Parse text script.
-   *
-   * @param text the text
-   * @return the script
-   * @throws ParseException the parse exception
-   */
   Script parseText(String text) throws ParseException;
 }

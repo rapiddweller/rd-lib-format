@@ -149,16 +149,8 @@ public class HTML2XML {
     return builder.toString();
   }
 
-  /**
-   * Parse html text as xml document.
-   *
-   * @param html           the html
-   * @param namespaceAware the namespace aware
-   * @return the document
-   * @throws ParseException the parse exception
-   * @throws IOException    the io exception
-   */
-  public static Document parseHtmlTextAsXml(String html, boolean namespaceAware) throws ParseException, IOException {
+  /** Parses an HTML text as XML document. */
+  public static Document parseHtmlTextAsXml(String html, boolean namespaceAware) throws ParseException {
     String xml = convert(html);
     ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
     return XMLUtil.parse(in, namespaceAware, null, null, null, null);
@@ -365,38 +357,13 @@ public class HTML2XML {
 
   private static class ConversionContext {
 
-    /**
-     * The Encoding.
-     */
     public String encoding;
-    /**
-     * The Writer.
-     */
     Writer writer;
-    /**
-     * The Tokenizer.
-     */
     HTMLTokenizer tokenizer;
-    /**
-     * The Path.
-     */
     Stack<String> path;
-    /**
-     * The Xml header created.
-     */
     boolean xmlHeaderCreated;
-    /**
-     * The Root created.
-     */
     boolean rootCreated;
 
-    /**
-     * Instantiates a new Conversion context.
-     *
-     * @param reader   the reader
-     * @param writer   the writer
-     * @param encoding the encoding
-     */
     ConversionContext(Reader reader, Writer writer, String encoding) {
       this.tokenizer = new DefaultHTMLTokenizer(reader);
       this.path = new Stack<>();

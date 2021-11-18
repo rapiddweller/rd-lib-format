@@ -18,7 +18,7 @@ package com.rapiddweller.format.fixedwidth;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.format.Alignment;
 
 import java.text.DateFormatSymbols;

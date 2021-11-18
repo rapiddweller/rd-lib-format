@@ -17,7 +17,7 @@ package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.accessor.GraphAccessor;
 import com.rapiddweller.common.mutator.AnyMutator;
 
@@ -28,7 +28,6 @@ import java.text.ParsePosition;
  * Row type support for fixed-width files: formatting, parsing and verification
  * for array- and bean-type data.
  * Created: 28.03.2014 15:18:23
- *
  * @author Volker Bergmann
  * @since 0.7.3
  */
@@ -38,42 +37,20 @@ public class FixedWidthRowTypeDescriptor {
   private final FixedWidthColumnDescriptor[] columnDescriptors;
   private final int rowLength;
 
-  /**
-   * Instantiates a new Fixed width row type descriptor.
-   *
-   * @param name              the name
-   * @param columnDescriptors the column descriptors
-   */
   public FixedWidthRowTypeDescriptor(String name, FixedWidthColumnDescriptor[] columnDescriptors) {
     this.name = name;
     this.columnDescriptors = columnDescriptors;
     this.rowLength = totalLength(columnDescriptors);
   }
 
-  /**
-   * Gets name.
-   *
-   * @return the name
-   */
   public String getName() {
     return name;
   }
 
-  /**
-   * Get column descriptors fixed width column descriptor [ ].
-   *
-   * @return the fixed width column descriptor [ ]
-   */
   public FixedWidthColumnDescriptor[] getColumnDescriptors() {
     return columnDescriptors;
   }
 
-  /**
-   * Format bean string.
-   *
-   * @param rowBean the row bean
-   * @return the string
-   */
   public String formatBean(Object rowBean) {
     StringBuilder builder = new StringBuilder();
     for (FixedWidthColumnDescriptor columnDescriptor : columnDescriptors) {
@@ -84,12 +61,6 @@ public class FixedWidthRowTypeDescriptor {
     return builder.toString();
   }
 
-  /**
-   * Format array string.
-   *
-   * @param columnValues the column values
-   * @return the string
-   */
   public String formatArray(Object... columnValues) {
     if (columnValues.length != columnDescriptors.length) {
       throw new IllegalArgumentException("Row type '" + name + "' expects " + columnValues.length + " array elements " +
@@ -102,12 +73,6 @@ public class FixedWidthRowTypeDescriptor {
     return builder.toString();
   }
 
-  /**
-   * Parse as array object [ ].
-   *
-   * @param row the row
-   * @return the object [ ]
-   */
   public Object[] parseAsArray(String row) {
     if (row.length() != rowLength) {
       throw new SyntaxError("Row of type '" + name + "' has illegal length. " +
@@ -130,14 +95,6 @@ public class FixedWidthRowTypeDescriptor {
     return builder.toArray();
   }
 
-  /**
-   * Parse as bean t.
-   *
-   * @param <T>       the type parameter
-   * @param row       the row
-   * @param beanClass the bean class
-   * @return the t
-   */
   public <T> T parseAsBean(String row, Class<T> beanClass) {
     if (row.length() != rowLength) {
       throw new SyntaxError("Row of type '" + name + "' has illegal length. " +

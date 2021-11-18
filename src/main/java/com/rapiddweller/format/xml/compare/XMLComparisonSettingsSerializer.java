@@ -18,7 +18,7 @@ package com.rapiddweller.format.xml.compare;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.SimpleXMLWriter;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.format.compare.DiffDetailType;
@@ -38,7 +38,6 @@ import java.util.Map;
 /**
  * Loads and saves {@link XMLComparisonSettings}.
  * Created: 13.06.2016 14:42:32
- *
  * @author Volker Bergmann
  * @since 1.0.12
  */
@@ -65,12 +64,6 @@ public class XMLComparisonSettingsSerializer {
   private static final String KEY_EXPRESSION = "key-expression";
   private static final String DEFINITION = "definition";
 
-  /**
-   * Save.
-   *
-   * @param settings the settings
-   * @param stream   the stream
-   */
   public void save(XMLComparisonSettings settings, OutputStream stream) {
     SimpleXMLWriter writer = null;
     try {
@@ -89,13 +82,6 @@ public class XMLComparisonSettingsSerializer {
     }
   }
 
-  /**
-   * Load xml comparison settings.
-   *
-   * @param stream the stream
-   * @return the xml comparison settings
-   * @throws IOException the io exception
-   */
   public XMLComparisonSettings load(InputStream stream) throws IOException {
     Document document = XMLUtil.parse(stream);
     Element root = document.getDocumentElement();

@@ -18,7 +18,7 @@ package com.rapiddweller.format.xls;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.ObjectNotFoundException;
-import com.rapiddweller.common.ParseException;
+import com.rapiddweller.common.exception.ParseException;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.converter.ArrayTypeConverter;
 import com.rapiddweller.common.converter.NoOpConverter;
@@ -33,10 +33,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Iterates the lines of a sheet in an Excel document.
- * <p>
+ * Iterates the lines of a sheet in an Excel document.<br/><br/>
  * Created at 27.01.2009 22:04:47
- *
  * @author Volker Bergmann
  * @since 0.4.8
  */
@@ -52,84 +50,29 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param uri the uri
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public XLSLineIterator(String uri) throws IOException, ParseException {
     this(uri, 0);
   }
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param uri        the uri
-   * @param sheetIndex the sheet index
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public XLSLineIterator(String uri, int sheetIndex) throws IOException, ParseException {
     this(uri, sheetIndex, false, false, null);
   }
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param uri                the uri
-   * @param sheetIndex         the sheet index
-   * @param headersIncluded    the headers included
-   * @param formatted          the formatted
-   * @param stringPreprocessor the string preprocessor
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public XLSLineIterator(String uri, int sheetIndex, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor)
       throws IOException, ParseException {
     this(sheet(uri, sheetIndex), headersIncluded, formatted, stringPreprocessor);
   }
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param uri             the uri
-   * @param sheetName       the sheet name
-   * @param headersIncluded the headers included
-   * @param formatted       the formatted
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted)
       throws IOException, ParseException {
     this(uri, sheetName, headersIncluded, formatted, null);
   }
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param uri                the uri
-   * @param sheetName          the sheet name
-   * @param headersIncluded    the headers included
-   * @param formatted          the formatted
-   * @param stringPreprocessor the string preprocessor
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor)
       throws IOException, ParseException {
     this(sheet(uri, sheetName), headersIncluded, formatted, stringPreprocessor);
   }
 
-  /**
-   * Instantiates a new Xls line iterator.
-   *
-   * @param sheet              the sheet
-   * @param headersIncluded    the headers included
-   * @param formatted          the formatted
-   * @param stringPreprocessor the string preprocessor
-   */
   public XLSLineIterator(Sheet sheet, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor) {
     this.emptyMarker = "'";
     this.nullMarker = null;
@@ -151,74 +94,34 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 
   // properties ------------------------------------------------------------------------------------------------------
 
-  /**
-   * Gets empty marker.
-   *
-   * @return the empty marker
-   */
   public String getEmptyMarker() {
     return emptyMarker;
   }
 
-  /**
-   * Sets empty marker.
-   *
-   * @param emptyMarker the empty marker
-   */
   public void setEmptyMarker(String emptyMarker) {
     this.emptyMarker = emptyMarker;
   }
 
-  /**
-   * Gets null marker.
-   *
-   * @return the null marker
-   */
   public String getNullMarker() {
     return nullMarker;
   }
 
-  /**
-   * Sets null marker.
-   *
-   * @param nullMarker the null marker
-   */
   public void setNullMarker(String nullMarker) {
     this.nullMarker = nullMarker;
   }
 
-  /**
-   * Is formatted boolean.
-   *
-   * @return the boolean
-   */
   public boolean isFormatted() {
     return formatted;
   }
 
-  /**
-   * Sets formatted.
-   *
-   * @param formatted the formatted
-   */
   public void setFormatted(boolean formatted) {
     this.formatted = formatted;
   }
 
-  /**
-   * Get headers string [ ].
-   *
-   * @return the string [ ]
-   */
   public String[] getHeaders() {
     return headers;
   }
 
-  /**
-   * Sets headers.
-   *
-   * @param headers the headers
-   */
   public void setHeaders(String[] headers) {
     this.headers = headers;
   }
@@ -248,13 +151,6 @@ public class XLSLineIterator implements DataIterator<Object[]> {
     return wrapper.setData(result);
   }
 
-  /**
-   * Cell value for header object.
-   *
-   * @param header the header
-   * @param cells  the cells
-   * @return the object
-   */
   public Object cellValueForHeader(String header, Object[] cells) {
     String trimmedHeader = StringUtil.trim(header);
     for (int i = 0; i < headers.length; i++) {

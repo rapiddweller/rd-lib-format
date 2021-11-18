@@ -18,7 +18,7 @@ package com.rapiddweller.format.regex;
 import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.SyntaxError;
+import com.rapiddweller.common.exception.SyntaxError;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.junit.Test;
@@ -29,7 +29,6 @@ import static org.junit.Assert.assertNull;
 /**
  * Tests the {@link RegexParser}.
  * Created: 18.08.2006 21:56:01
- *
  * @author Volker Bergmann
  * @since 0.1
  */
@@ -37,22 +36,12 @@ public class RegexParserTest {
 
   private static final Logger logger = LoggerFactory.getLogger(RegexParserTest.class);
 
-  /**
-   * Test empty.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testEmpty() throws Exception {
     check(null, null, 0, 0);
     check("", new RegexString(""), 0, 0);
   }
 
-  /**
-   * Test special characters.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testSpecialCharacters() throws Exception {
     checkChar("\\+", '+');
@@ -74,42 +63,22 @@ public class RegexParserTest {
     checkChar("\\e", '\u001B');
   }
 
-  /**
-   * Test hex character.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testHexCharacter() throws Exception {
     checkChar("\\xfe", (char) 0xfe);
     checkChar("\\ufedc", (char) 0xfedc);
   }
 
-  /**
-   * Test octal character.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testOctalCharacter() throws Exception {
     checkChar("\\0123", (char) 0123);
   }
 
-  /**
-   * Test coded character.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testCodedCharacter() throws Exception {
     checkChar("\\cB", (char) 1);
   }
 
-  /**
-   * Test custom classes.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testCustomClasses() throws Exception {
     check("[a-c]", new CustomCharClass(CollectionUtil.toList(new CharRange("a-c", 'a', 'c'))), 1, 1);
@@ -121,19 +90,11 @@ public class RegexParserTest {
     ), 1, 1);
   }
 
-  /**
-   * Test invalid custom class.
-   */
   @Test(expected = SyntaxError.class)
   public void testInvalidCustomClass() {
     new RegexParser().parseRegex("[a-f");
   }
 
-  /**
-   * Test predef classes.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testPredefClasses() throws Exception {
     check(".", new SimpleCharSet(".", new CharSet().addAnyCharacters().getSet()), 1, 1);
@@ -142,19 +103,11 @@ public class RegexParserTest {
     check("\\w", new SimpleCharSet("\\w", new CharSet().addWordChars().getSet()), 1, 1);
   }
 
-  /**
-   * Test invalid predef class.
-   */
   @Test(expected = SyntaxError.class)
   public void testInvalidPredefClass() {
     new RegexParser().parseRegex("\\X");
   }
 
-  /**
-   * Test quantifiers.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testQuantifiers() throws Exception {
     check("a", new RegexChar('a'), 1, 1);
@@ -167,21 +120,11 @@ public class RegexParserTest {
     check("a{3,5}", new Factor(new RegexChar('a'), 3, 5), 3, 5);
   }
 
-  /**
-   * Test invalid quantifier.
-   *
-   * @throws Exception the exception
-   */
   @Test(expected = SyntaxError.class)
   public void testInvalidQuantifier() throws Exception {
     new RegexParser().parseRegex("a{,4}");
   }
 
-  /**
-   * Test class and quantifier sequences.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testClassAndQuantifierSequences() throws Exception {
     check("\\w+\\d+", new Sequence(
@@ -221,11 +164,6 @@ public class RegexParserTest {
     ), 7, 15);
   }
 
-  /**
-   * Test groups.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testGroups() throws Exception {
     check("(a)", new Group(new RegexChar('a')), 1, 1);
@@ -252,11 +190,6 @@ public class RegexParserTest {
     );
   }
 
-  /**
-   * Test choices.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testChoices() throws Exception {
     check("(a|b)", new Group(new Choice(new RegexChar('a'), new RegexChar('b'))), 1, 1);
@@ -275,11 +208,6 @@ public class RegexParserTest {
         ), 1, 2);
   }
 
-  /**
-   * Test recursion.
-   *
-   * @throws Exception the exception
-   */
   @Test
   public void testRecursion() throws Exception {
     check("(a{1,2}|b){1,3}",

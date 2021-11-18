@@ -16,12 +16,11 @@
 package com.rapiddweller.format.compare;
 
 import com.rapiddweller.common.Assert;
-import com.rapiddweller.common.ProgrammerError;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 /**
  * Compares arrays of objects using a {@link ComparisonModel}.
  * Created: 20.11.2013 17:40:38
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
@@ -32,17 +31,6 @@ public class ArrayComparator {
   private static final int REMOVED = 2;
   private static final int ADDED = 3;
 
-  /**
-   * Compare array comparison result.
-   *
-   * @param array1         the array 1
-   * @param array2         the array 2
-   * @param model          the model
-   * @param parentLocator1 the parent locator 1
-   * @param parentLocator2 the parent locator 2
-   * @param diffFactory    the diff factory
-   * @return the array comparison result
-   */
   public static ArrayComparisonResult compare(Object[] array1, Object[] array2, ComparisonModel model,
                                               String parentLocator1, String parentLocator2, DiffFactory diffFactory) {
     return new ArrayComparator(array1, array2, model, parentLocator1, parentLocator2, diffFactory).compare();
@@ -57,8 +45,8 @@ public class ArrayComparator {
   private final Match[] matches2;
   private final DiffFactory diffFactory;
 
-  private ArrayComparator(Object[] array1, Object[] array2, ComparisonModel model, String parentLocator1, String parentLocator2,
-                          DiffFactory diffFactory) {
+  private ArrayComparator(Object[] array1, Object[] array2, ComparisonModel model,
+                          String parentLocator1, String parentLocator2, DiffFactory diffFactory) {
     this.array1 = array1;
     this.array2 = array2;
     this.model = model;
@@ -148,7 +136,7 @@ public class ArrayComparator {
             }
             break;
           default:
-            throw new ProgrammerError();
+            throw ExceptionFactory.getInstance().programmerStateError("Unexpected state in array comparison");
         }
         match1.consume();
         matches2[match1.i2].consume();
@@ -194,33 +182,13 @@ public class ArrayComparator {
   }
 
 
-  /**
-   * The type Match.
-   */
   static class Match {
-    /**
-     * The 1.
-     */
-    public int i1, /**
-     * The 2.
-     */
+    public int i1,
     i2;
-    /**
-     * The Type.
-     */
+
     public int type;
-    /**
-     * The Consumed.
-     */
     public boolean consumed;
 
-    /**
-     * Instantiates a new Match.
-     *
-     * @param i1   the 1
-     * @param i2   the 2
-     * @param type the type
-     */
     public Match(int i1, int i2, int type) {
       this.i1 = i1;
       this.i2 = i2;
@@ -228,9 +196,6 @@ public class ArrayComparator {
       this.consumed = false;
     }
 
-    /**
-     * Consume.
-     */
     void consume() {
       this.consumed = true;
     }
