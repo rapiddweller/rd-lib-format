@@ -78,8 +78,6 @@ public class CSVUtil {
         builder.add(tokenizer.cell);
       }
       return builder.toArray();
-    } catch (IOException e) {
-      throw ExceptionFactory.getInstance().fileAccessException("Error parsing CSV row: " + text, e);
     }
   }
 
