@@ -18,8 +18,6 @@ package com.rapiddweller.format.csv;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
-import java.io.IOException;
-
 /**
  * Iterates through cells of a CSV file.<br/><br/>
  * Created: 26.08.2006 18:52:08
@@ -37,7 +35,7 @@ public class CSVCellIterator implements DataIterator<String> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  public CSVCellIterator(String uri, char separator, String encoding) throws IOException {
+  public CSVCellIterator(String uri, char separator, String encoding) {
     this.uri = uri;
     this.separator = separator;
     this.tokenizer = new CSVTokenizer(uri, separator, encoding);
@@ -89,13 +87,9 @@ public class CSVCellIterator implements DataIterator<String> {
   // private helpers -------------------------------------------------------------------------------------------------
 
   private void skipEOLs() {
-    try {
-      do {
-        tokenizer.next();
-      } while (tokenizer.ttype == CSVTokenType.EOL);
-    } catch (IOException e) {
-      throw new IllegalStateException(e);
-    }
+    do {
+      tokenizer.next();
+    } while (tokenizer.ttype == CSVTokenType.EOL);
   }
 
 }
