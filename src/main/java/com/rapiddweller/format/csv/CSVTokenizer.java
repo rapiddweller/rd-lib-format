@@ -17,6 +17,7 @@ package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -66,16 +67,16 @@ public class CSVTokenizer implements Closeable {
 
   /** Creates a tokenizer that reads from a URL.
    *  @param uri the URL to read from
-   *  @throws IOException if stream access fails */
-  public CSVTokenizer(String uri) throws IOException {
+   *  @if stream access fails */
+  public CSVTokenizer(String uri) {
     this(uri, DEFAULT_SEPARATOR);
   }
 
   /** Creates a tokenizer that reads from a uri.
    *  @param uri       the uri to read from
    *  @param separator character used for separating CSV cells
-   *  @throws IOException if stream access fails */
-  public CSVTokenizer(String uri, char separator) throws IOException {
+   *  @if stream access fails */
+  public CSVTokenizer(String uri, char separator) {
     this(uri, separator, SystemInfo.getFileEncoding());
   }
 
@@ -83,8 +84,8 @@ public class CSVTokenizer implements Closeable {
    *  @param uri       the uri
    *  @param separator the separator
    *  @param encoding  the encoding
-   *  @throws IOException the io exception */
-  public CSVTokenizer(String uri, char separator, String encoding) throws IOException {
+   *  @the io exception */
+  public CSVTokenizer(String uri, char separator, String encoding) {
     this(IOUtil.getReaderForURI(uri, encoding), separator);
   }
 
@@ -106,9 +107,8 @@ public class CSVTokenizer implements Closeable {
   // interface -------------------------------------------------------------------------------------------------------
 
   /** Returns the next token.
-   *  @return the next token
-   *  @throws IOException if source access fails */
-  public CSVTokenType next() throws IOException {
+   *  @return the next token */
+  public CSVTokenType next() {
     this.lastType = this.ttype;
     if (reader == null) // if closed, return EOF
     {
@@ -150,8 +150,8 @@ public class CSVTokenizer implements Closeable {
   }
 
   /** Skip line.
-   * @throws IOException the io exception */
-  public void skipLine() throws IOException {
+   * @the io exception */
+  public void skipLine() {
     int c;
     // go to end of line
     while ((c = read()) != -1 && c != '\r' && c != '\n') {
@@ -198,15 +198,23 @@ public class CSVTokenizer implements Closeable {
     return this.ttype;
   }
 
-  private void unread(int c) throws IOException {
-    reader.unread(c);
+  private void unread(int c) {
+    try {
+      reader.unread(c);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().internalError("Failed to unread", e);
+    }
   }
 
-  private int read() throws IOException {
-    return reader.read();
+  private int read() {
+    try {
+      return reader.read();
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().internalError("Failed to read", e);
+    }
   }
 
-  private CSVTokenType parseSimpleCell(int c) throws IOException {
+  private CSVTokenType parseSimpleCell(int c) {
     StringBuilder buffer = new StringBuilder().append((char) c);
     boolean escapeMode = false;
     while ((c = read()) != -1 && c != '\r' && c != '\n') {
@@ -242,7 +250,7 @@ public class CSVTokenizer implements Closeable {
     }
   }
 
-  private CSVTokenType parseQuotes() throws IOException {
+  private CSVTokenType parseQuotes() {
     read(); // skip leading quote
     StringBuilder buffer = new StringBuilder();
     int c;

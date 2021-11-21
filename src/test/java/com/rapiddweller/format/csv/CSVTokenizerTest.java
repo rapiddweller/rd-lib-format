@@ -17,7 +17,6 @@ package com.rapiddweller.format.csv;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -30,71 +29,19 @@ import static org.junit.Assert.assertNull;
 /**
  * Tests the {@link CSVTokenizer}.
  * Created: 26.08.2006 17:51:14
- *
  * @author Volker Bergmann
  */
 public class CSVTokenizerTest {
 
-  /**
-   * Test constructor.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testConstructor() throws IOException {
-    assertEquals(1, (new CSVTokenizer(Reader.nullReader())).line);
-    assertEquals(1, (new CSVTokenizer(Reader.nullReader(), 'A')).line);
-    assertEquals(1, (new CSVTokenizer(Reader.nullReader(), '\u0000')).line);
-    assertEquals(1, (new CSVTokenizer("string://")).line);
-    assertEquals(1, (new CSVTokenizer("string://", 'A')).line);
-    assertEquals(1, (new CSVTokenizer("string://", 'A', "UTF-8")).line);
-  }
-
-  /**
-   * Test constructor 2.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testConstructor2() throws IOException {
-    Reader nullReaderResult = Reader.nullReader();
-    nullReaderResult.skip(0L);
-    assertEquals(1, (new CSVTokenizer(nullReaderResult)).line);
-  }
-
-
-  /**
-   * Test empty.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testEmpty() throws IOException {
+  public void testEmpty() {
     CSVTokenizer tokenizer = createTokenizer("");
     assertNextToken(tokenizer, EOF, null);
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test a.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testA() throws IOException {
-    CSVTokenizer tokenizer = createTokenizer("A");
-    assertNextToken(tokenizer, CELL, "A");
-    assertNextToken(tokenizer, EOF, null);
-    assertNextToken(tokenizer, EOF, null);
-  }
-
-  /**
-   * Test ab.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testAB() throws IOException {
+  public void testAB() {
     CSVTokenizer tokenizer = createTokenizer("A\tv,B");
     assertNextToken(tokenizer, CELL, "A\tv");
     assertNextToken(tokenizer, CELL, "B");
@@ -102,13 +49,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test empty and null.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testEmptyAndNull() throws IOException {
+  public void testEmptyAndNull() {
     CSVTokenizer tokenizer = createTokenizer("\"\",,A,,");
     assertNextToken(tokenizer, CELL, "");
     assertNextToken(tokenizer, CELL, null);
@@ -119,13 +61,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test empty first cell.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testEmptyFirstCell() throws IOException {
+  public void testEmptyFirstCell() {
     CSVTokenizer tokenizer = createTokenizer(",,A");
     assertNextToken(tokenizer, CELL, null);
     assertNextToken(tokenizer, CELL, null);
@@ -134,13 +71,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test ab tab.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testABTab() throws IOException {
+  public void testABTab() {
     CSVTokenizer tokenizer = createTokenizer("A\tB", '\t');
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, "B");
@@ -148,13 +80,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test abl.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testABL() throws IOException {
+  public void testABL() {
     CSVTokenizer tokenizer = createTokenizer("A,B\n");
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, "B");
@@ -163,13 +90,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test ablc.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testABLC() throws IOException {
+  public void testABLC() {
     CSVTokenizer tokenizer = createTokenizer("A,B\nC");
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, "B");
@@ -179,13 +101,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test ablcl.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testABLCL() throws IOException {
+  public void testABLCL() {
     CSVTokenizer tokenizer = createTokenizer("A,B\nC\n");
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, "B");
@@ -196,13 +113,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test quotes.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testQuotes() throws IOException {
+  public void testQuotes() {
     CSVTokenizer tokenizer = createTokenizer("\"A\",B\n\"C\"\n");
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, "B");
@@ -213,13 +125,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test quote escaping.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testQuoteEscaping() throws IOException {
+  public void testQuoteEscaping() {
     CSVTokenizer tokenizer = createTokenizer("\"A\"\"A\",\"\"\"B\"\" is B\"\n" +
         "\"C was \"\"C\"\"\",\"\"\"D\"\" is \"\"D\"\"\"\n");
     assertNextToken(tokenizer, CELL, "A\"A");
@@ -232,13 +139,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test quote then empty.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testQuoteThenEmpty() throws IOException {
+  public void testQuoteThenEmpty() {
     CSVTokenizer tokenizer = createTokenizer("\"A\";;X", ';');
     assertNextToken(tokenizer, CELL, "A");
     assertNextToken(tokenizer, CELL, null);
@@ -246,26 +148,16 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test lf in quote.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testLFInQuote() throws IOException {
+  public void testLFInQuote() {
     CSVTokenizer tokenizer = createTokenizer("\"A\nB\"");
     assertNextToken(tokenizer, CELL, "A\nB");
     assertNextToken(tokenizer, EOF, null);
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test file.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testFile() throws IOException {
+  public void testFile() {
     CSVTokenizer tokenizer = new CSVTokenizer("file://com/rapiddweller/format/csv/names.csv", ',');
     assertNextToken(tokenizer, CELL, "Alice");
     assertNextToken(tokenizer, CELL, "Bob");
@@ -280,13 +172,8 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test skip line.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testSkipLine() throws IOException {
+  public void testSkipLine() {
     // testing \r
     CSVTokenizer tokenizer = createTokenizer("1\r2");
     tokenizer.skipLine();
@@ -304,71 +191,6 @@ public class CSVTokenizerTest {
     assertNextToken(tokenizer, EOF, null);
   }
 
-  /**
-   * Test skip line 2.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testSkipLine2() throws IOException {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
-    (new CSVTokenizer(Reader.nullReader())).skipLine();
-  }
-
-  /**
-   * Test skip line 3.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testSkipLine3() throws IOException {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
-    (new CSVTokenizer(new StringReader("S"))).skipLine();
-  }
-
-  /**
-   * Test skip line 4.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void testSkipLine4() throws IOException {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
-    (new CSVTokenizer("")).skipLine();
-  }
-
-  /**
-   * Test close.
-   */
-  @Test
-  public void testClose() {
-    // TODO: This test is incomplete.
-    //   Reason: No meaningful assertions found.
-    //   To help Diffblue Cover to find assertions, please add getters to the
-    //   class under test that return fields written by the method under test.
-    //   See https://diff.blue/R004
-
-    (new CSVTokenizer(Reader.nullReader())).close();
-  }
-
-  /**
-   * Test last ttype.
-   */
   @Test
   public void testLastTtype() {
     assertNull((new CSVTokenizer(Reader.nullReader())).lastTtype());
@@ -385,20 +207,15 @@ public class CSVTokenizerTest {
     return new CSVTokenizer(reader, separator);
   }
 
-  private static void assertNextToken(CSVTokenizer tokenizer, CSVTokenType tokenType, String cell) throws IOException {
+  private static void assertNextToken(CSVTokenizer tokenizer, CSVTokenType tokenType, String cell) {
     CSVTokenType found = tokenizer.next();
     assertEquals(tokenType, found);
     assertEquals(tokenType, tokenizer.ttype);
     assertEquals(cell, tokenizer.cell);
   }
 
-  /**
-   * Test next.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testNext() throws IOException {
+  public void testNext() {
     CSVTokenizer csvTokenizer = new CSVTokenizer(Reader.nullReader());
     assertEquals(CSVTokenType.EOF, csvTokenizer.next());
     assertNull(csvTokenizer.cell);
@@ -406,13 +223,8 @@ public class CSVTokenizerTest {
     assertEquals(CSVTokenType.EOF, csvTokenizer.ttype);
   }
 
-  /**
-   * Test next 2.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testNext2() throws IOException {
+  public void testNext2() {
     CSVTokenizer csvTokenizer = new CSVTokenizer(new StringReader("S"));
     assertEquals(CSVTokenType.CELL, csvTokenizer.next());
     assertEquals("S", csvTokenizer.cell);
@@ -420,17 +232,13 @@ public class CSVTokenizerTest {
     assertEquals(CSVTokenType.CELL, csvTokenizer.ttype);
   }
 
-  /**
-   * Test next 3.
-   *
-   * @throws IOException the io exception
-   */
   @Test
-  public void testNext3() throws IOException {
+  public void testNext3() {
     CSVTokenizer csvTokenizer = new CSVTokenizer("");
     assertEquals(CSVTokenType.CELL, csvTokenizer.next());
     assertEquals("com", csvTokenizer.cell);
     assertNull(csvTokenizer.lastType);
     assertEquals(CSVTokenType.CELL, csvTokenizer.ttype);
   }
+
 }
