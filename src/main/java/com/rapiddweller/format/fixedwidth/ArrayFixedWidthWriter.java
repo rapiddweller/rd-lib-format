@@ -28,35 +28,18 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes arrays as flat file columns.
+ * Writes arrays as flat file columns.<br/><br/>
  * Created: 07.06.2007 13:05:38
- *
  * @param <E> the type of the objects to write
  * @author Volker Bergmann
  */
 public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
 
-  /**
-   * Instantiates a new Array fixed width writer.
-   *
-   * @param out        the out
-   * @param descriptor the descriptor
-   */
   public ArrayFixedWidthWriter(Writer out, FixedWidthRowTypeDescriptor descriptor) {
     this(out, null, (Script) null, descriptor);
   }
 
-  /**
-   * Instantiates a new Array fixed width writer.
-   *
-   * @param out             the out
-   * @param headerScriptUrl the header script url
-   * @param footerScriptUrl the footer script url
-   * @param descriptor      the descriptor
-   * @throws IOException the io exception
-   */
-  public ArrayFixedWidthWriter(Writer out, String headerScriptUrl, String footerScriptUrl, FixedWidthRowTypeDescriptor descriptor)
-      throws IOException {
+  public ArrayFixedWidthWriter(Writer out, String headerScriptUrl, String footerScriptUrl, FixedWidthRowTypeDescriptor descriptor) {
     this(
         out,
         (headerScriptUrl != null ? ScriptUtil.readFile(headerScriptUrl) : null),
@@ -65,14 +48,6 @@ public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
     );
   }
 
-  /**
-   * Instantiates a new Array fixed width writer.
-   *
-   * @param out          the out
-   * @param headerScript the header script
-   * @param footerScript the footer script
-   * @param descriptors  the descriptors
-   */
   public ArrayFixedWidthWriter(Writer out, Script headerScript, Script footerScript, FixedWidthRowTypeDescriptor descriptors) {
     super(
         out,
@@ -88,11 +63,6 @@ public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
 
     private final FixedWidthRowTypeDescriptor descriptor;
 
-    /**
-     * Instantiates a new Array fixed width script.
-     *
-     * @param descriptor the descriptor
-     */
     public ArrayFixedWidthScript(FixedWidthRowTypeDescriptor descriptor) {
       this.descriptor = descriptor;
     }
@@ -104,7 +74,7 @@ public class ArrayFixedWidthWriter<E> extends ScriptedDocumentWriter<E[]> {
         out.write(descriptor.formatArray(cellsOfCurrentRow));
         out.write(SystemInfo.getLineSeparator());
       } catch (ConversionException e) {
-        throw new ScriptException(e);
+        throw new ScriptException("Error writing fixed width file", e);
       }
     }
   }

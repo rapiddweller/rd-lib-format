@@ -19,6 +19,7 @@ import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.ArrayFormat;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
@@ -49,7 +50,7 @@ public class CSVUtil {
         throw new ConfigurationError("empty CSV file");
       }
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw ExceptionFactory.getInstance().fileAccessException("Error reading " + uri, e);
     }
   }
 
@@ -78,7 +79,7 @@ public class CSVUtil {
       }
       return builder.toArray();
     } catch (IOException e) {
-      throw new RuntimeException("Error parsing CSV row: " + text, e);
+      throw ExceptionFactory.getInstance().fileAccessException("Error parsing CSV row: " + text, e);
     }
   }
 

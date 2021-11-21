@@ -15,6 +15,7 @@
 
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.DataSource;
 import com.rapiddweller.format.util.OrthogonalArrayIterator;
@@ -73,7 +74,7 @@ public class XLSSource implements DataSource<Object[]> {
         return iterator;
       }
     } catch (Exception e) {
-      throw new RuntimeException("Error creating iterator for " + uri, e);
+      throw ExceptionFactory.getInstance().fileAccessException("Error creating iterator for " + uri, e);
     }
   }
 

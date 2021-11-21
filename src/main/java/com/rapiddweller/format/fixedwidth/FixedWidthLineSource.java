@@ -19,13 +19,9 @@ import com.rapiddweller.common.format.PadFormat;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
 
-import java.io.IOException;
-
 /**
- * Creates Iterators that iterate through the lines of a flat file and returns each line as array of Strings.
- * <p>
+ * Creates Iterators that iterate through the lines of a flat file and returns each line as array of Strings.<br/><br/>
  * Created: 27.08.2007 19:16:26
- *
  * @author Volker Bergmann
  */
 public class FixedWidthLineSource extends AbstractDataSource<String[]> {
@@ -36,15 +32,6 @@ public class FixedWidthLineSource extends AbstractDataSource<String[]> {
   private final String encoding;
   private final String lineFilter;
 
-  /**
-   * Instantiates a new Fixed width line source.
-   *
-   * @param uri              the uri
-   * @param formats          the formats
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param encoding         the encoding
-   * @param lineFilter       the line filter
-   */
   public FixedWidthLineSource(String uri, PadFormat[] formats, boolean ignoreEmptyLines, String encoding, String lineFilter) {
     super(String[].class);
     this.uri = uri;
@@ -56,11 +43,7 @@ public class FixedWidthLineSource extends AbstractDataSource<String[]> {
 
   @Override
   public DataIterator<String[]> iterator() {
-    try {
-      return new FixedWidthLineIterator(uri, formats, ignoreEmptyLines, encoding, lineFilter);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return new FixedWidthLineIterator(uri, formats, ignoreEmptyLines, encoding, lineFilter);
   }
 
 }

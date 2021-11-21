@@ -21,6 +21,7 @@ import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected Set<String> requiredAttributes;
   protected Set<String> optionalAttributes;
 
-  public AbstractXMLElementParser(String elementName,
+  protected AbstractXMLElementParser(String elementName,
                                   Set<String> requiredAttributes,
                                   Set<String> optionalAttributes,
                                   Class<?>... supportedParentTypes) {
@@ -97,8 +98,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
 
   protected void assertElementName(String expectedName, Element element) {
     if (!element.getNodeName().equals(expectedName)) {
-      throw new RuntimeException("Expected element name '" + expectedName + "', " +
-          "found: '" + element.getNodeName());
+      throw ExceptionFactory.getInstance().syntaxError("Expected element name '" + expectedName + "', " +
+          "found: '" + element.getNodeName(), null);
     }
   }
 

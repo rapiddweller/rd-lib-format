@@ -15,48 +15,22 @@
 
 package com.rapiddweller.format.script;
 
+import com.rapiddweller.common.exception.ApplicationException;
+import com.rapiddweller.common.exception.ExitCodes;
+
 /**
- * Indicates the failure of a {@link Script} execution.
- * <p>
+ * Indicates the failure of a {@link Script} execution.<br/><br/>
  * Created: 03.02.2007 12:19:00
- *
  * @author Volker Bergmann
  */
-public class ScriptException extends RuntimeException {
+public class ScriptException extends ApplicationException {
 
-  private static final long serialVersionUID = 837802417051369136L;
-
-  /**
-   * Instantiates a new Script exception.
-   */
-  public ScriptException() {
-  }
-
-  /**
-   * Instantiates a new Script exception.
-   *
-   * @param message the message
-   */
   public ScriptException(String message) {
-    super(message);
+    this(message, null);
   }
 
-  /**
-   * Instantiates a new Script exception.
-   *
-   * @param message the message
-   * @param cause   the cause
-   */
   public ScriptException(String message, Throwable cause) {
-    super(message, cause);
+    super(null, ExitCodes.MISCELLANEOUS_ERROR, message, cause);
   }
 
-  /**
-   * Instantiates a new Script exception.
-   *
-   * @param cause the cause
-   */
-  public ScriptException(Throwable cause) {
-    super(cause);
-  }
 }

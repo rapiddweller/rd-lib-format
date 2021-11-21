@@ -16,11 +16,12 @@
 package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.FileUtil;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.file.FileResourceNotFoundException;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -37,7 +38,7 @@ import java.util.WeakHashMap;
  */
 public class ScriptUtil {
 
-  private static final Logger SCRIPTUTIL_LOGGER = LoggerFactory.getLogger(ScriptUtil.class);
+  private static final Logger logger = LoggerFactory.getLogger(ScriptUtil.class);
 
   // extension mapping -----------------------------------------------------------------------------------------------
 
@@ -77,13 +78,19 @@ public class ScriptUtil {
 
   private static final Map<String, Script> scriptsByName = new WeakHashMap<>();
 
-  public static Script readFile(String uri) throws IOException {
-    Script script = scriptsByName.get(uri);
-    if (script == null) {
-      script = factoryForUri(uri).readFile(uri);
-      scriptsByName.put(uri, script);
+  public static Script readFile(String uri) {
+    try {
+      Script script = scriptsByName.get(uri);
+      if (script == null) {
+        script = factoryForUri(uri).readFile(uri);
+        scriptsByName.put(uri, script);
+      }
+      return script;
+    } catch (FileNotFoundException e) {
+      throw ExceptionFactory.getInstance().fileNotFound(uri, e);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().fileAccessException("Failed to read file " + uri, e);
     }
-    return script;
   }
 
   public static Script parseUnspecificText(String text) {
@@ -124,7 +131,7 @@ public class ScriptUtil {
 
   public static Script parseScriptText(String text, String engineId) {
     if (engineId == null) {
-      throw new IllegalArgumentException("engineId is null");
+      throw ExceptionFactory.getInstance().illegalArgument("engineId is null");
     }
     ScriptFactory factory = getFactory(engineId, false);
     if (factory != null) {
@@ -144,7 +151,7 @@ public class ScriptUtil {
 
   public static void setDefaultScriptEngine(String defaultScriptEngine) {
     if (factories.get(defaultScriptEngine) == null) {
-      throw new RuntimeException("Unknown script engine id: " + defaultScriptEngine);
+      throw ExceptionFactory.getInstance().illegalArgument("Unknown script engine id: " + defaultScriptEngine);
     }
     ScriptUtil.defaultScriptEngine = defaultScriptEngine;
   }
@@ -204,7 +211,7 @@ public class ScriptUtil {
   static ScriptFactory getFactory(String engineId, boolean required) {
     ScriptFactory factory = factories.get(engineId);
     if (factory == null && required) {
-      throw new ConfigurationError("Not a supported script engine: " + engineId);
+      throw ExceptionFactory.getInstance().illegalArgument("Not a supported script engine: " + engineId);
     }
     return factory;
   }
@@ -214,18 +221,21 @@ public class ScriptUtil {
     try {
       factories = new HashMap<>();
       // read config file
-      SCRIPTUTIL_LOGGER.debug("Initializing Script mapping from file " + SETUP_FILE_NAME);
+      logger.debug("Initializing Script mapping from file " + SETUP_FILE_NAME);
       Map<String, String> properties = IOUtil.readProperties(SETUP_FILE_NAME);
       for (Map.Entry<String, String> entry : properties.entrySet()) {
         className = entry.getValue();
         ScriptFactory factory = (ScriptFactory) BeanUtil.newInstance(className);
         addFactory(entry.getKey(), factory);
       }
-    } catch (FileNotFoundException e) {
-      throw new ConfigurationError("Setup file not found: " + SETUP_FILE_NAME, e);
-    } catch (IOException e) {
-      throw new ConfigurationError("I/O Error while reading file: " + SETUP_FILE_NAME, e);
+    } catch (FileResourceNotFoundException e) {
+      throw ExceptionFactory.getInstance().configurationError(
+          "Script engine definition file not found: " + SETUP_FILE_NAME, e);
+    } catch (Exception e) {
+      throw ExceptionFactory.getInstance().configurationError(
+          "I/O Error while reading script engine definition file: " + SETUP_FILE_NAME, e);
     }
+
   }
 
 }

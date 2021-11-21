@@ -25,20 +25,13 @@ import org.w3c.dom.Element;
 /**
  * Parses XML schemas and provides an representation by a {@link Schema} obejct.
  * Created: 16.05.2014 18:29:01
- *
  * @author Volker Bergmann
  * @since 0.8.2
  */
 public class SchemaParser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(SchemaParser.class);
+  private static final Logger logger = LoggerFactory.getLogger(SchemaParser.class);
 
-  /**
-   * Parse schema.
-   *
-   * @param document the document
-   * @return the schema
-   */
   public Schema parse(Document document) {
     Element root = document.getDocumentElement();
     return parseSchema(root);
@@ -113,7 +106,7 @@ public class SchemaParser {
       if ("restriction".equals(childName)) {
         parseRestriction(child, type);
       } else {
-        LOGGER.warn("Not a supported child of '" + element.getNodeName() + "': " + childName);
+        logger.warn("Not a supported child of '" + element.getNodeName() + "': " + childName);
       }
     }
   }

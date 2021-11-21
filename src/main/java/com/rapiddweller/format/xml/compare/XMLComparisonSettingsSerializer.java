@@ -17,7 +17,7 @@ package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.Encodings;
-import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.SimpleXMLWriter;
 import com.rapiddweller.common.xml.XMLUtil;
@@ -65,9 +65,7 @@ public class XMLComparisonSettingsSerializer {
   private static final String DEFINITION = "definition";
 
   public void save(XMLComparisonSettings settings, OutputStream stream) {
-    SimpleXMLWriter writer = null;
-    try {
-      writer = new SimpleXMLWriter(stream, Encodings.UTF_8, true);
+    try (SimpleXMLWriter writer = new SimpleXMLWriter(stream, Encodings.UTF_8, true)) {
       writer.startDocument();
       writer.startElement(COMPARISON_SETTINGS, MODEL_CLASS, settings.getModel().getClass().getName());
       saveXmlElementSettings(writer, settings);
@@ -76,9 +74,7 @@ public class XMLComparisonSettingsSerializer {
       writer.endElement(COMPARISON_SETTINGS);
       writer.endDocument();
     } catch (SAXException e) {
-      throw new RuntimeException("Error saving settings", e);
-    } finally {
-      IOUtil.close(writer);
+      throw ExceptionFactory.getInstance().conversionFailed("Error saving settings", e);
     }
   }
 

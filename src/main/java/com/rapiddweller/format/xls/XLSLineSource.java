@@ -15,6 +15,7 @@
 
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
 
@@ -24,7 +25,6 @@ import java.util.Iterator;
  * {@link Iterable} implementation which creates {@link Iterator}s
  * that provide lines of XLS files as array objects.
  * Created: 19.07.2011 08:36:18
- *
  * @author Volker Bergmann
  * @since 0.6.5
  */
@@ -34,22 +34,10 @@ public class XLSLineSource extends AbstractDataSource<Object[]> {
   private final String sheetName;
   private final boolean formatted;
 
-  /**
-   * Instantiates a new Xls line source.
-   *
-   * @param uri the uri
-   */
   public XLSLineSource(String uri) {
     this(uri, null, false);
   }
 
-  /**
-   * Instantiates a new Xls line source.
-   *
-   * @param uri       the uri
-   * @param sheetName the sheet name
-   * @param formatted the formatted
-   */
   public XLSLineSource(String uri, String sheetName, boolean formatted) {
     super(Object[].class);
     this.uri = uri;
@@ -62,7 +50,7 @@ public class XLSLineSource extends AbstractDataSource<Object[]> {
     try {
       return new XLSLineIterator(uri, sheetName, false, formatted, null);
     } catch (Exception e) {
-      throw new RuntimeException("Unable to create iterator for URI " + uri, e);
+      throw ExceptionFactory.getInstance().fileAccessException("Unable to create iterator for URI " + uri, e);
     }
   }
 

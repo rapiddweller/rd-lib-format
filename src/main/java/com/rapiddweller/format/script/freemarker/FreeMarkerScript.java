@@ -27,10 +27,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * {@link Script} implementation that uses the FreeMarker engine.
- * <p>
+ * {@link Script} implementation that uses the FreeMarker engine.<br/><br/>
  * Created: 31.01.2007 19:56:20
- *
  * @author Volker Bergmann
  */
 public class FreeMarkerScript extends AbstractScript {
@@ -39,22 +37,10 @@ public class FreeMarkerScript extends AbstractScript {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Free marker script.
-   *
-   * @param filename the filename
-   * @param cfg      the cfg
-   * @throws IOException the io exception
-   */
   public FreeMarkerScript(String filename, Configuration cfg) throws IOException {
     this(cfg.getTemplate(filename));
   }
 
-  /**
-   * Instantiates a new Free marker script.
-   *
-   * @param template the template
-   */
   public FreeMarkerScript(Template template) {
     this.template = template;
   }
@@ -66,7 +52,7 @@ public class FreeMarkerScript extends AbstractScript {
     try {
       template.process(context, out);
     } catch (TemplateException e) {
-      throw new ScriptException(e);
+      throw new ScriptException("FreeMarker script processing failed", e);
     }
   }
 
@@ -77,17 +63,13 @@ public class FreeMarkerScript extends AbstractScript {
     return template.toString();
   }
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
+  /**  @see java.lang.Object#hashCode() */
   @Override
   public int hashCode() {
     return template.hashCode();
   }
 
-  /**
-   * @see java.lang.Object#equals(Object)
-   */
+  /**  @see java.lang.Object#equals(Object) */
   @Override
   public boolean equals(Object obj) {
     return template.equals(obj);

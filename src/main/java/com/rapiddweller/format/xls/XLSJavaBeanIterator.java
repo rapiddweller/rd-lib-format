@@ -20,17 +20,16 @@ import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
-import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.context.DefaultContext;
 import com.rapiddweller.common.converter.PropertyArray2JavaBeanConverter;
 import com.rapiddweller.common.converter.util.ClassProvider;
 import com.rapiddweller.common.converter.util.ConstantClassProvider;
 import com.rapiddweller.common.converter.util.ReferenceResolver;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.script.ScriptConverterForStrings;
 import com.rapiddweller.format.util.ConvertingDataIterator;
-import org.apache.commons.compress.archivers.dump.InvalidFormatException;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
@@ -45,7 +44,6 @@ import java.util.List;
 /**
  * Iterates XLS sheets and provides each row as JavaBean instance.
  * Created: 18.09.2014 15:49:49
- *
  * @param <E> the type parameter
  * @author Volker Bergmann
  * @since 1.0.0
@@ -55,30 +53,10 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
   private final String uri;
   private final boolean formatted;
 
-  /**
-   * Instantiates a new Xls java bean iterator.
-   *
-   * @param uri       the uri
-   * @param sheetName the sheet name
-   * @param formatted the formatted
-   * @param beanClass the bean class
-   * @throws IOException the io exception
-   */
   public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, Class<?> beanClass) throws IOException {
     this(uri, sheetName, formatted, null, "", new ConstantClassProvider<>(beanClass));
   }
 
-  /**
-   * Instantiates a new Xls java bean iterator.
-   *
-   * @param uri               the uri
-   * @param sheetName         the sheet name
-   * @param formatted         the formatted
-   * @param nullMarker        the null marker
-   * @param emptyMarker       the empty marker
-   * @param beanClassProvider the bean class provider
-   * @throws IOException the io exception
-   */
   @SuppressWarnings("unchecked")
   public XLSJavaBeanIterator(String uri, String sheetName, boolean formatted, String nullMarker, String emptyMarker,
                              ClassProvider<Object> beanClassProvider)
@@ -95,41 +73,18 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
     this.converter = (Converter<Object[], E>) new PropertyArray2JavaBeanConverter(beanClassProvider, headers, new RefResolver());
   }
 
-  /**
-   * Parse all list.
-   *
-   * @param <T>       the type parameter
-   * @param uri       the uri
-   * @param sheetName the sheet name
-   * @param formatted the formatted
-   * @param type      the type
-   * @return the list
-   * @throws InvalidFormatException the invalid format exception
-   * @throws IOException            the io exception
-   */
   public static <T> List<T> parseAll(String uri, String sheetName, boolean formatted, Class<T> type)
-      throws InvalidFormatException, IOException {
-    XLSJavaBeanIterator<T> iterator = null;
+      throws IOException {
     List<T> result = new ArrayList<>();
-    try {
-      iterator = new XLSJavaBeanIterator<>(uri, sheetName, formatted, type);
+    try (XLSJavaBeanIterator<T> iterator = new XLSJavaBeanIterator<>(uri, sheetName, formatted, type)) {
       DataContainer<T> container = new DataContainer<>();
       while (iterator.next(container) != null) {
         result.add(container.getData());
       }
-    } finally {
-      IOUtil.close(iterator);
     }
     return result;
   }
 
-  /**
-   * Gets feature component type.
-   *
-   * @param ownerClass  the owner class
-   * @param featureName the feature name
-   * @return the feature component type
-   */
   public static Class<?> getFeatureComponentType(Class<?> ownerClass, String featureName) {
     // try JavaBean property
     PropertyDescriptor propertyDescriptor = BeanUtil.getPropertyDescriptor(ownerClass, featureName);
@@ -187,9 +142,6 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
     return ArrayUtil.copyOfRange(headers, 0, headerCount);
   }
 
-  /**
-   * The type Ref resolver.
-   */
   class RefResolver implements ReferenceResolver {
     @Override
     public Object resolveReferences(Object value, Object target, String localFeatureName) {
@@ -201,7 +153,7 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
             Class<?> targetType = getFeatureComponentType(target.getClass(), localFeatureName);
             return parseAll(uri, targetSheetName, formatted, targetType);
           } catch (Exception e) {
-            throw new RuntimeException("Error parsing XLS sheet '" + targetSheetName + "' of " + uri, e);
+            throw ExceptionFactory.getInstance().fileAccessException("Error parsing XLS sheet '" + targetSheetName + "' of " + uri, e);
           }
         }
       }

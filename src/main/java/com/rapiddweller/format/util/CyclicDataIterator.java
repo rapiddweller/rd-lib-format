@@ -16,32 +16,23 @@
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
 import java.io.IOException;
 
 /**
- * Allows repeated iteration through a {@link DataIterator}.
+ * Allows repeated iteration through a {@link DataIterator}.<br/><br/>
  * Created: 22.05.2012 08:58:16
- *
  * @param <E> the type of data to iterate
  * @author Volker Bergmann
  * @since 0.6.9
  */
 public class CyclicDataIterator<E> extends DataIteratorProxy<E> {
 
-  /**
-   * The Creator.
-   */
   protected Creator<E> creator;
 
-  /**
-   * Instantiates a new Cyclic data iterator.
-   *
-   * @param creator the creator
-   * @throws IOException the io exception
-   */
   public CyclicDataIterator(Creator<E> creator) throws IOException {
     super(creator.create());
     this.creator = creator;
@@ -57,30 +48,16 @@ public class CyclicDataIterator<E> extends DataIteratorProxy<E> {
     return result;
   }
 
-  /**
-   * Reset.
-   */
   public synchronized void reset() {
     IOUtil.close(source);
     try {
       source = creator.create();
     } catch (IOException e) {
-      throw new RuntimeException("Error creating DataIterator", e);
+      throw ExceptionFactory.getInstance().internalError("Error creating DataIterator", e);
     }
   }
 
-  /**
-   * The interface Creator.
-   *
-   * @param <E> the type parameter
-   */
   public interface Creator<E> {
-    /**
-     * Create data iterator.
-     *
-     * @return the data iterator
-     * @throws IOException the io exception
-     */
     DataIterator<E> create() throws IOException;
   }
 

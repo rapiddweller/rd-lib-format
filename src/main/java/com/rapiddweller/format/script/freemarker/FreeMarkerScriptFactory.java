@@ -16,6 +16,7 @@
 package com.rapiddweller.format.script.freemarker;
 
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.script.Script;
 import com.rapiddweller.format.script.ScriptFactory;
 import freemarker.template.Configuration;
@@ -29,9 +30,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 /**
- * Creates {@link FreeMarkerScript}s.
+ * Creates {@link FreeMarkerScript}s.<br/><br/>
  * Created: 27.01.2008 16:47:21
- *
  * @author Volker Bergmann
  * @since 0.3.0
  */
@@ -39,18 +39,10 @@ public class FreeMarkerScriptFactory implements ScriptFactory {
 
   private final Configuration config;
 
-  /**
-   * Instantiates a new Free marker script factory.
-   */
   public FreeMarkerScriptFactory() {
     this(Locale.getDefault());
   }
 
-  /**
-   * Instantiates a new Free marker script factory.
-   *
-   * @param locale the locale
-   */
   public FreeMarkerScriptFactory(Locale locale) {
     config = new Configuration();
     config.setClassForTemplateLoading(FreeMarkerScript.class, "/");
@@ -66,7 +58,7 @@ public class FreeMarkerScriptFactory implements ScriptFactory {
       Template template = new Template(text, reader, config);
       return new FreeMarkerScript(template);
     } catch (IOException e) {
-      throw new RuntimeException(e); // This is not supposed to happen
+      throw ExceptionFactory.getInstance().internalError("Error parsing text", e); // This is not supposed to happen
     }
   }
 

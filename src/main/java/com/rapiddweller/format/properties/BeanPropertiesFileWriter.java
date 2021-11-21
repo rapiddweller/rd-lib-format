@@ -41,32 +41,15 @@ import java.text.MessageFormat;
 /**
  * Writes JavaBeans to property files.
  * Created: 07.06.2007 13:05:38
- *
  * @param <E> the type of the objects to write
  * @author Volker Bergmann
  */
 public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
 
-  /**
-   * Instantiates a new Bean properties file writer.
-   *
-   * @param out           the out
-   * @param propertyNames the property names
-   */
   public BeanPropertiesFileWriter(Writer out, String... propertyNames) {
     this(out, null, null, (Script) null, propertyNames);
   }
 
-  /**
-   * Instantiates a new Bean properties file writer.
-   *
-   * @param out             the out
-   * @param prefixPattern   the prefix pattern
-   * @param headerScriptUrl the header script url
-   * @param footerScriptUrl the footer script url
-   * @param propertyNames   the property names
-   * @throws IOException the io exception
-   */
   public BeanPropertiesFileWriter(Writer out, String prefixPattern, String headerScriptUrl, String footerScriptUrl,
                                   String... propertyNames)
       throws IOException {
@@ -79,28 +62,11 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
     );
   }
 
-  /**
-   * Instantiates a new Bean properties file writer.
-   *
-   * @param out           the out
-   * @param prefixPattern the prefix pattern
-   * @param headerScript  the header script
-   * @param footerScript  the footer script
-   * @param propertyNames the property names
-   */
   public BeanPropertiesFileWriter(Writer out, String prefixPattern, Script headerScript, Script footerScript,
                                   String... propertyNames) {
     super(out, headerScript, new PartScript(prefixPattern, propertyNames), footerScript);
   }
 
-  /**
-   * Persist.
-   *
-   * @param <T>      the type parameter
-   * @param bean     the bean
-   * @param filename the filename
-   * @throws IOException the io exception
-   */
   public static <T> void persist(T bean, String filename) throws IOException {
     FileWriter out = new FileWriter(filename);
     BeanPropertiesFileWriter<T> writer = new BeanPropertiesFileWriter<>(out, getPropertyNames(bean.getClass()));
@@ -131,17 +97,8 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
 
     private int elementCount;
     private final StringBuffer buffer;
-    /**
-     * The Pos 0.
-     */
     FieldPosition pos0 = new FieldPosition(0);
 
-    /**
-     * Instantiates a new Part script.
-     *
-     * @param prefixPattern the prefix pattern
-     * @param propertyNames the property names
-     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public PartScript(String prefixPattern, String... propertyNames) {
       this.prefixFormat = (prefixPattern != null ? new MessageFormat(prefixPattern) : null);
@@ -178,9 +135,9 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
           out.write(LINE_SEPARATOR);
         }
       } catch (ConversionException e) {
-        throw new ScriptException(e);
+        throw new ScriptException("Error writing properties file", e);
       }
     }
-
   }
+
 }

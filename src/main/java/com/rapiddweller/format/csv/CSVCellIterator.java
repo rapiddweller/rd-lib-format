@@ -15,7 +15,6 @@
 
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
@@ -28,7 +27,7 @@ import java.io.IOException;
  */
 public class CSVCellIterator implements DataIterator<String> {
 
-  /** The source uri */
+
   private final String uri;
 
   private final char separator;
@@ -67,16 +66,12 @@ public class CSVCellIterator implements DataIterator<String> {
     if (tokenizer == null) {
       return null;
     }
-    try {
-      String result = tokenizer.cell;
-      skipEOLs();
-      if (tokenizer.ttype == CSVTokenType.EOF) {
-        close();
-      }
-      return wrapper.setData(result);
-    } catch (ConversionException e) {
-      throw new RuntimeException(e);
+    String result = tokenizer.cell;
+    skipEOLs();
+    if (tokenizer.ttype == CSVTokenType.EOF) {
+      close();
     }
+    return wrapper.setData(result);
   }
 
   public void remove() {

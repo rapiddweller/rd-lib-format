@@ -127,7 +127,7 @@ public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
         }
         out.write(SystemInfo.getLineSeparator());
       } catch (ConversionException e) {
-        throw new ScriptException(e);
+        throw new ScriptException("Fixed width file creation failed", e);
       }
     }
   }

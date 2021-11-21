@@ -53,8 +53,7 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
         null);
   }
 
-  public ArrayCSVWriter(Writer out, char separator, String headerScriptUrl, String footerScriptUrl)
-      throws IOException {
+  public ArrayCSVWriter(Writer out, char separator, String headerScriptUrl, String footerScriptUrl) {
     this(
         out,
         separator,
@@ -91,7 +90,7 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
         }
         out.write(SystemInfo.getLineSeparator());
       } catch (ConversionException e) {
-        throw new ScriptException(e);
+        throw new ScriptException("Error writing CSV file", e);
       }
     }
   }

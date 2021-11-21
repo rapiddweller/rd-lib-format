@@ -45,7 +45,7 @@ import java.util.Locale;
  */
 public class RegexParser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(RegexParser.class);
+  private static final Logger logger = LoggerFactory.getLogger(RegexParser.class);
 
   private final Locale locale;
 
@@ -76,7 +76,7 @@ public class RegexParser {
       checkForSyntaxErrors(pattern, "regex", parser, r);
       if (r != null) {
         CommonTree tree = (CommonTree) r.getTree();
-        LOGGER.debug("parsed {} to {}", pattern, tree.toStringTree());
+        logger.debug("parsed {} to {}", pattern, tree.toStringTree());
         return convertRegexPart(tree);
       } else {
         return null;
@@ -111,7 +111,7 @@ public class RegexParser {
       }
       if (r != null) {
         CommonTree tree = (CommonTree) r.getTree();
-        LOGGER.debug("parsed {} to {}", pattern, tree.toStringTree());
+        logger.debug("parsed {} to {}", pattern, tree.toStringTree());
         RegexPart regex = convertRegexPart(tree);
         if (!(regex instanceof RegexCharClass)) {
           throw new IllegalArgumentException("Not a character class pattern: '" + pattern + "'");
@@ -366,8 +366,7 @@ public class RegexParser {
     if (children.size() > 1) {
       max = convertInt(children.get(1));
     }
-    Quantifier result = new Quantifier(min, max);
-    return result;
+    return new Quantifier(min, max);
   }
 
   private static Integer convertInt(CommonTree node) {

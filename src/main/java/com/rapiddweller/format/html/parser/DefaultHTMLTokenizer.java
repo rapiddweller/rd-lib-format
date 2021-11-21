@@ -17,6 +17,7 @@ package com.rapiddweller.format.html.parser;
 
 import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.OrderedMap;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -27,11 +28,10 @@ import java.text.ParseException;
 import java.util.Map;
 
 /**
- * Default implementation of an {@link HTMLTokenizer}.
- * <p>
+ * Default implementation of an {@link HTMLTokenizer}.<br/><br/>
  * Created: 15.06.2007 05:56:21
- *
  * @author Volker Bergmann
+ * @since 0.1
  */
 public class DefaultHTMLTokenizer implements HTMLTokenizer {
 
@@ -62,11 +62,6 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
   private int attribCount;
   private Map<String, String> attributeMap;
 
-  /**
-   * Instantiates a new Default html tokenizer.
-   *
-   * @param reader the reader
-   */
   public DefaultHTMLTokenizer(Reader reader) {
     // create buffers
     textBuffer = new char[TEXT_BUFFER_SIZE];
@@ -131,9 +126,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     return this.tokenType;
   }
 
-  /**
-   * @return if it's a kind of tag then the tag name, else null
-   */
+  /** @return if it's a kind of tag then the tag name, else null */
   @Override
   public int tokenType() {
     return this.tokenType;
@@ -147,9 +140,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     return name;
   }
 
-  /**
-   * @return the text that constitutes the current token as read from the source
-   */
+  /** @return the text that constitutes the current token as read from the source */
   @Override
   public String text() {
     if (text == null) {
@@ -160,11 +151,8 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
 
   // parser implementation -------------------------------------------------------------------------------------------
 
-  /**
-   * In case of non-tag tokens or empty tags, an empty map is returned.
-   *
-   * @return a map with all attributes of the token.
-   */
+  /** In case of non-tag tokens or empty tags, an empty map is returned.
+   *  @return a map with all attributes of the token. */
   @Override
   public Map<String, String> attributes() {
     if (attributeMap == null) {
@@ -182,11 +170,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     return attributeMap;
   }
 
-  /**
-   * parses anything that follows until it hits a &lt;/script&gt;
-   *
-   * @throws IOException
-   */
+  /** parses anything that follows until it hits a &lt;/script&gt; */
   private void parseScript() throws IOException {
     readUntil("</script>", false, false);
     this.script = false;
@@ -349,40 +333,19 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
           textBuffer[cursor++] = (char) next;
         }
       } else {
-        throw new RuntimeException("Unexpected token: " + (char) c);
+        throw ExceptionFactory.getInstance().programmerUnsupported("Unexpected token: " + (char) c);
       }
     } while (!end);
   }
 
-  /**
-   * Read until.
-   *
-   * @param endText the end text
-   * @throws IOException the io exception
-   */
   public void readUntil(String endText) throws IOException {
     readUntil(endText, false);
   }
 
-  /**
-   * Read until.
-   *
-   * @param delimiter        the delimiter
-   * @param includeDelimiter the include delimiter
-   * @throws IOException the io exception
-   */
   public void readUntil(String delimiter, boolean includeDelimiter) throws IOException {
     readUntil(delimiter, true, includeDelimiter);
   }
 
-  /**
-   * Read until.
-   *
-   * @param delimiter        the delimiter
-   * @param caseSensitive    the case sensitive
-   * @param includeDelimiter the include delimiter
-   * @throws IOException the io exception
-   */
   public void readUntil(String delimiter, boolean caseSensitive, boolean includeDelimiter) throws IOException {
     String cmp = (caseSensitive ? delimiter : delimiter.toUpperCase());
     char[] endChars = new char[cmp.length()];
@@ -391,7 +354,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
       int c;
       while ((c = reader.read()) != -1 && (caseSensitive ? c : Character.toUpperCase(c)) != endChars[0]) {
         if (cursor >= textBuffer.length) {
-          throw new RuntimeException("Buffer to small: " + textBuffer.length);
+          throw ExceptionFactory.getInstance().programmerConfig("Buffer to small: " + textBuffer.length, null);
         }
         textBuffer[cursor++] = (char) c;
       }

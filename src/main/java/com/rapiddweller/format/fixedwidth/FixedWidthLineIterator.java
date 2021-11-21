@@ -19,23 +19,23 @@ import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.ReaderLineIterator;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.format.PadFormat;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
 import java.util.regex.Pattern;
 
 /**
- * Tests the FlatFileLineIterator.
- * <p>
+ * Tests the FlatFileLineIterator.<br/><br/>
  * Created: 27.08.2007 06:43:50
- *
  * @author Volker Bergmann
  */
 public class FixedWidthLineIterator implements DataIterator<String[]> {
+
+  private static final String[] END_OF_FILE = null;
 
   private final boolean ignoreEmptyLines;
 
@@ -46,53 +46,22 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  /**
-   * Instantiates a new Fixed width line iterator.
-   *
-   * @param uri     the uri
-   * @param formats the formats
-   * @throws IOException the io exception
-   */
-  public FixedWidthLineIterator(String uri, PadFormat[] formats) throws IOException {
+  public FixedWidthLineIterator(String uri, PadFormat[] formats) {
     this(uri, formats, false, SystemInfo.getFileEncoding(), null);
   }
 
-  /**
-   * Instantiates a new Fixed width line iterator.
-   *
-   * @param uri              the uri
-   * @param formats          the formats
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param encoding         the encoding
-   * @param lineFilter       the line filter
-   * @throws IOException the io exception
-   */
   public FixedWidthLineIterator(String uri, PadFormat[] formats, boolean ignoreEmptyLines, String encoding,
-                                String lineFilter) throws IOException {
+                                String lineFilter) {
     this(IOUtil.getReaderForURI(uri, encoding), formats, ignoreEmptyLines, lineFilter);
   }
 
-  /**
-   * Instantiates a new Fixed width line iterator.
-   *
-   * @param reader  the reader
-   * @param formats the formats
-   */
   public FixedWidthLineIterator(Reader reader, PadFormat[] formats) {
     this(reader, formats, false, null);
   }
 
-  /**
-   * Instantiates a new Fixed width line iterator.
-   *
-   * @param reader           the reader
-   * @param formats          the formats
-   * @param ignoreEmptyLines the ignore empty lines
-   * @param lineFilter       the line filter
-   */
   public FixedWidthLineIterator(Reader reader, PadFormat[] formats, boolean ignoreEmptyLines, String lineFilter) {
     this.lineIterator = new ReaderLineIterator(reader);
-    parser = new FixedWidthLineParser(formats);
+    this.parser = new FixedWidthLineParser(formats);
     this.ignoreEmptyLines = ignoreEmptyLines;
     this.lineCount = 0;
     this.lineFilter = (lineFilter != null ? Pattern.compile(lineFilter) : null);
@@ -105,11 +74,8 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
     return String[].class;
   }
 
-  /**
-   * Parses a CSV row into an array of Strings
-   *
-   * @return an array of Strings that represents a CSV row
-   */
+  /** Parses a CSV row into an array of Strings
+   *  @return an array of Strings that represents a CSV row */
   @Override
   public DataContainer<String[]> next(DataContainer<String[]> wrapper) {
     String[] result = fetchNextLine();
@@ -121,9 +87,7 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
     }
   }
 
-  /**
-   * Closes the source
-   */
+  /** Closes the source */
   @Override
   public void close() {
     if (lineIterator != null) {
@@ -132,11 +96,8 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
     lineIterator = null;
   }
 
-  /**
-   * Returns the number of lines iterated so far.
-   *
-   * @return the number of lines iterated so far
-   */
+  /** Returns the number of lines iterated so far.
+   * @return the number of lines iterated so far */
   public int lineCount() {
     return lineCount;
   }
@@ -146,7 +107,7 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
   private String[] fetchNextLine() {
     try {
       if (lineIterator == null) {
-        return null;
+        return END_OF_FILE;
       }
       String line = null;
       boolean success = false;
@@ -163,14 +124,14 @@ public class FixedWidthLineIterator implements DataIterator<String[]> {
       }
       if (!success) {
         close();
-        return null;
+        return END_OF_FILE;
       } else if (StringUtil.isEmpty(line)) {
         return new String[0];
       } else {
         return parser.parse(line);
       }
     } catch (ParseException e) {
-      throw new RuntimeException("Unexpected error. ", e);
+      throw ExceptionFactory.getInstance().fileAccessException("Unexpected error. ", e);
     }
   }
 

@@ -19,6 +19,7 @@ import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.bean.PropertyGraphAccessor;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -92,7 +93,7 @@ public class BeanXLSWriter<E> implements Closeable {
     } catch (FileNotFoundException e) {
       throw new ConfigurationError("Error writing XLS file", e);
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw ExceptionFactory.getInstance().fileCreationFailed("Error writing XLS file", e);
     } finally {
       IOUtil.close(out);
     }

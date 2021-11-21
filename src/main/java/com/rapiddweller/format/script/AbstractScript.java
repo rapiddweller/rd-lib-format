@@ -25,10 +25,8 @@ import java.io.Writer;
 /**
  * Abstract implementation of the Script interface.
  * When inheriting from it, you must overwrite at least one of the methods
- * <code>evaluate()</code> and <code>execute()</code>.
- * <p>
+ * <code>evaluate()</code> and <code>execute()</code>.<br/><br/>
  * Created at 23.12.2008 07:15:39
- *
  * @author Volker Bergmann
  * @since 0.4.7
  */
@@ -41,7 +39,7 @@ public abstract class AbstractScript implements Script {
       execute(context, writer);
       return writer.toString();
     } catch (IOException e) {
-      throw new ScriptException(e);
+      throw new ScriptException("Script execution failed: " + this, e);
     }
   }
 

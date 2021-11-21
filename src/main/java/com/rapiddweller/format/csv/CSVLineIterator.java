@@ -19,6 +19,7 @@ import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
@@ -46,6 +47,8 @@ public class CSVLineIterator implements DataIterator<String[]> {
 
   /** The default separator to use */
   public static final char DEFAULT_SEPARATOR = ',';
+
+  private static final String[] END_OF_FILE = null;
 
   private String stringRep;
 
@@ -148,7 +151,7 @@ public class CSVLineIterator implements DataIterator<String[]> {
       }
       return wrapper.setData(result);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw ExceptionFactory.getInstance().fileAccessException("Error reading CSV data", e);
     }
   }
 
@@ -216,7 +219,7 @@ public class CSVLineIterator implements DataIterator<String[]> {
 
   private String[] parseNextLine() throws IOException {
     if (tokenizer == null) {
-      return null;
+      return END_OF_FILE;
     }
     List<String> list;
     CSVTokenType tokenType;
@@ -240,7 +243,7 @@ public class CSVLineIterator implements DataIterator<String[]> {
         return line;
       }
     }
-    return null;
+    return END_OF_FILE;
   }
 
   private void checkHeaders(String[] line) {

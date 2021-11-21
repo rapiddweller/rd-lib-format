@@ -22,6 +22,7 @@ import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringCharacterIterator;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.format.html.parser.DefaultHTMLTokenizer;
 import com.rapiddweller.format.html.parser.HTMLTokenizer;
@@ -41,88 +42,56 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 /**
- * Provides utility methods for converting HTML to XML.
- * <p>
+ * Provides utility methods for converting HTML to XML.<br/><br/>
  * Created: 25.01.2007 17:10:37
- *
  * @author Volker Bergmann
  */
 public class HTML2XML {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(HTML2XML.class);
+  private static final Logger logger = LoggerFactory.getLogger(HTML2XML.class);
+
   private static final Set<String> COMMON_CODES = CollectionUtil.toSet("lt", "gt", "amp");
 
-  /**
-   * Convert string.
-   *
-   * @param html the html
-   * @return the string
-   * @throws ParseException the parse exception
-   */
+  private HTML2XML() {
+    // private constructor to prevent instantiation of this utility class
+  }
+
   public static String convert(String html) throws ParseException {
-    Reader reader = new StringReader(html);
     StringWriter writer = new StringWriter();
-    try {
+    try (Reader reader = new StringReader(html)) {
       ConversionContext context = new ConversionContext(reader, writer, "UTF-8");
       convert(context);
       return writer.getBuffer().toString();
     } catch (IOException e) {
-      throw new RuntimeException(e); // this is not supposed to happen
-    } finally {
-      IOUtil.close(reader);
+      throw ExceptionFactory.getInstance().internalError("Error converting HTML to XML", e); // this is not supposed to happen
     }
   }
 
-  /**
-   * Convert.
-   *
-   * @param reader   the reader
-   * @param out      the out
-   * @param encoding the encoding
-   * @throws ParseException               the parse exception
-   * @throws UnsupportedEncodingException the unsupported encoding exception
-   */
   public static void convert(Reader reader, OutputStream out, String encoding)
       throws ParseException, UnsupportedEncodingException {
-    Writer writer = new OutputStreamWriter(out, encoding);
-    try {
+    try (Writer writer = new OutputStreamWriter(out, encoding)) {
       ConversionContext context = new ConversionContext(reader, writer, encoding);
       convert(context);
     } catch (IOException e) {
-      throw new RuntimeException(e); // this is not supposed to happen
+      throw ExceptionFactory.getInstance().conversionFailed(
+          "Failed to convert data", e); // this is not supposed to happen
     } finally {
       IOUtil.close(reader);
-      IOUtil.close(writer);
     }
   }
 
-  /**
-   * Parse html as xml document.
-   *
-   * @param url            the url
-   * @param namespaceAware the namespace aware
-   * @return the document
-   * @throws IOException    the io exception
-   * @throws ParseException the parse exception
-   */
   public static Document parseHtmlAsXml(String url, boolean namespaceAware)
       throws IOException, ParseException {
     String htmlText = downloadHtml(url);
     return parseHtmlTextAsXml(htmlText, namespaceAware);
   }
 
-  /**
-   * Download html string.
-   *
-   * @param url the url
-   * @return the string
-   * @throws IOException the io exception
-   */
   public static String downloadHtml(String url) throws IOException {
     byte[] bytes = IOUtil.getBinaryContentOfUri(url);
     String encoding = getEncoding(bytes);
@@ -132,7 +101,7 @@ public class HTML2XML {
     return new String(bytes, encoding);
   }
 
-  private static String getEncoding(byte[] bytes) throws UnsupportedEncodingException {
+  private static String getEncoding(byte[] bytes) {
     String tmp = new String(bytes, StandardCharsets.ISO_8859_1);
     int startIndex = tmp.indexOf("charset=");
     if (startIndex < 0) {
@@ -176,10 +145,10 @@ public class HTML2XML {
             ensureRootElement(context);
           } else if ("html".equals(lcTagName) && context.rootCreated) {
             // ignore html element if there already was one
-            LOGGER.warn("Malformed HTML document: misplaced <HTML> element");
+            logger.warn("Malformed HTML document: misplaced <HTML> element");
             break;
           } else {
-            if (context.path.size() > 0) {
+            if (!context.path.isEmpty()) {
               String lastTagName = context.path.peek();
               if (HTMLUtil.isEmptyTag(lastTagName) && !context.tokenizer.name().equals(lastTagName)) {
                 context.writer.write("</" + lastTagName + '>');
@@ -253,7 +222,7 @@ public class HTML2XML {
           throw new UnsupportedOperationException("Unsupported token type: " + token);
       }
     }
-    while (context.path.size() > 0) {
+    while (!context.path.isEmpty()) {
       String tagName = context.path.pop();
       context.writer.write("</" + tagName + '>');
     }
@@ -279,7 +248,7 @@ public class HTML2XML {
     }
   }
 
-  private static boolean contains(Stack<String> path, String name) {
+  private static boolean contains(Deque<String> path, String name) {
     for (String tagName : path) {
       if (tagName.equals(name)) {
         return true;
@@ -357,16 +326,16 @@ public class HTML2XML {
 
   private static class ConversionContext {
 
-    public String encoding;
+    public final String encoding;
     Writer writer;
     HTMLTokenizer tokenizer;
-    Stack<String> path;
+    Deque<String> path;
     boolean xmlHeaderCreated;
     boolean rootCreated;
 
     ConversionContext(Reader reader, Writer writer, String encoding) {
       this.tokenizer = new DefaultHTMLTokenizer(reader);
-      this.path = new Stack<>();
+      this.path = new ArrayDeque<>();
       this.xmlHeaderCreated = false;
       this.rootCreated = false;
       this.writer = writer;

@@ -95,7 +95,7 @@ public class BeanCSVWriter<E> extends ScriptedDocumentWriter<E> {
         String[] cells = converter.convert(context.get("part"));
         CSVUtil.writeRow(out, separator, cells);
       } catch (ConversionException e) {
-        throw new ScriptException(e);
+        throw new ScriptException("CSV file creation failed", e);
       }
     }
   }

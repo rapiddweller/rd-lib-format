@@ -18,6 +18,7 @@ package com.rapiddweller.format.html.util;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.html.HtmlEntity;
 
 import java.awt.Color;
@@ -29,32 +30,23 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Provides utility methods for HTML processing.
- * <p>
+ * Provides utility methods for HTML processing.<br/><br/>
  * Created: 15.06.2007 19:42:19
- *
  * @author Volker Bergmann
  */
 public class HTMLUtil {
 
   private static final String LF = SystemInfo.getLineSeparator();
   private static final Set<String> EMPTY_TAGS = CollectionUtil.toSet("br", "img", "meta", "link");
-  /**
-   * The constant DOCTYPE_401.
-   */
   public static final String DOCTYPE_401 = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-  /**
-   * The Browsers.
-   */
   static final String[] BROWSERS = {
       "google-chrome", "firefox", "opera", "epiphany", "konqueror", "conkeror", "midori", "kazehakase", "mozilla", "netscape", "links", "lynx"};
 
-  /**
-   * Open browser.
-   *
-   * @param url the url
-   */
+  private HTMLUtil() {
+    // private constructor to prevent instantiation of this utility class
+  }
+
   public static void openBrowser(String url) {
     try {
       // On JDK 1.6+, I can use java.awt.Desktop.getDesktop().browse().
@@ -87,31 +79,19 @@ public class HTMLUtil {
             }
           }
           if (browser == null) {
-            throw new RuntimeException("No browser found");
+            throw ExceptionFactory.getInstance().objectNotFound("No browser found");
           }
         }
       } catch (Exception e) {
-        throw new RuntimeException("Error opening web browser with URL: " + url, e);
+        throw ExceptionFactory.getInstance().operationFailed("Error opening web browser with URL: " + url, e);
       }
     }
   }
 
-  /**
-   * Is empty tag boolean.
-   *
-   * @param tagName the tag name
-   * @return the boolean
-   */
   public static boolean isEmptyTag(String tagName) {
     return EMPTY_TAGS.contains(tagName.toLowerCase());
   }
 
-  /**
-   * Unescape string.
-   *
-   * @param text the text
-   * @return the string
-   */
   public static String unescape(String text) {
     StringBuilder result = new StringBuilder(text.length());
     int i;
@@ -137,12 +117,6 @@ public class HTMLUtil {
     return result.toString();
   }
 
-  /**
-   * Escape string.
-   *
-   * @param value the value
-   * @return the string
-   */
   public static String escape(String value) {
     if (value == null) {
       return "";
@@ -156,12 +130,6 @@ public class HTMLUtil {
     return value;
   }
 
-  /**
-   * Parse cgi parameters map.
-   *
-   * @param url the url
-   * @return the map
-   */
   public static Map<String, String> parseCGIParameters(String url) {
     Map<String, String> result = new HashMap<>();
     int qmIndex = url.indexOf('?');
@@ -176,35 +144,14 @@ public class HTMLUtil {
     return result;
   }
 
-  /**
-   * Td string.
-   *
-   * @param text the text
-   * @return the string
-   */
   public static String td(String text) {
     return td(text, null, null);
   }
 
-  /**
-   * Td string.
-   *
-   * @param text      the text
-   * @param alignment the alignment
-   * @return the string
-   */
   public static String td(String text, String alignment) {
     return td(text, alignment);
   }
 
-  /**
-   * Td string.
-   *
-   * @param text      the text
-   * @param alignment the alignment
-   * @param style     the style
-   * @return the string
-   */
   public static String td(String text, String alignment, String style) {
     StringBuilder builder = new StringBuilder("<td");
     if (alignment != null) {
@@ -217,45 +164,19 @@ public class HTMLUtil {
     return builder.toString();
   }
 
-  /**
-   * A string.
-   *
-   * @param href the href
-   * @param text the text
-   * @return the string
-   */
   public static String a(String href, String text) {
     return "<a href='" + href + "'>" + text + "</a>";
   }
 
-  /**
-   * A new window string.
-   *
-   * @param href the href
-   * @param text the text
-   * @return the string
-   */
   public static String aNewWindow(String href, String text) {
     return "<a href='" + href + "' target='_blank'>" + text + "</a>";
   }
 
-  /**
-   * Hex color code string.
-   *
-   * @param color the color
-   * @return the string
-   */
   public static String hexColorCode(Color color) {
     String colorCode = Integer.toHexString(color.getRGB() & 0xffffff);
     return "000000".substring(colorCode.length()) + colorCode; // pad left to six characters
   }
 
-  /**
-   * Convert line feeds string.
-   *
-   * @param text the text
-   * @return the string
-   */
   public static String convertLineFeeds(String text) {
     List<String> lines = StringUtil.splitLines(text);
     StringBuilder builder = new StringBuilder();

@@ -15,6 +15,7 @@
 
 package com.rapiddweller.format.csv;
 
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.DataSource;
 import com.rapiddweller.format.util.OrthogonalArrayIterator;
@@ -29,9 +30,6 @@ import java.io.IOException;
  * @since 0.6.4
  */
 public class CSVSource implements DataSource<String[]> {
-
-  /** The default separator to use */
-  public static final char DEFAULT_SEPARATOR = ',';
 
   protected String uri;
   protected char separator;
@@ -66,7 +64,7 @@ public class CSVSource implements DataSource<String[]> {
       }
       return result;
     } catch (IOException e) {
-      throw new RuntimeException("Error creating iterator for " + uri, e);
+      throw ExceptionFactory.getInstance().fileAccessException("Error creating iterator for " + uri, e);
     }
   }
 
