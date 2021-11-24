@@ -16,6 +16,7 @@
 package com.rapiddweller.format.xsd;
 
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class SchemaParser {
       } else if ("element".equals(childName)) {
         schema.setMember(parseElement(child, schema));
       } else {
-        throw new UnsupportedOperationException("Not a supported child of 'schema': " + childName);
+        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'schema': " + childName, null);
       }
     }
     return schema;
@@ -81,7 +82,7 @@ public class SchemaParser {
     if (sequence != null) {
       return parseComplexTypeWithSequence(element, schema);
     }
-    throw new UnsupportedOperationException("Not a supported kind of 'complexType': " + element.getAttribute("name"));
+    throw ExceptionFactory.getInstance().syntaxError("Not a supported kind of 'complexType': " + element.getAttribute("name"), null);
   }
 
   private static ComplexType parseComplexTypeWithSimpleContent(Element element) {
@@ -94,7 +95,7 @@ public class SchemaParser {
       } else if ("attribute".equals(childName)) {
         type.addAttribute(parseAttribute(child));
       } else {
-        throw new UnsupportedOperationException("Not a supported child of '" + element.getNodeName() + "': " + childName);
+        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of '" + element.getNodeName() + "': " + childName, null);
       }
     }
     return type;
@@ -132,7 +133,7 @@ public class SchemaParser {
       } else if ("attribute".equals(childName)) {
         type.addAttribute(parseAttribute(child));
       } else {
-        throw new UnsupportedOperationException("Not a supported child of '" + element.getNodeName() + "': " + childName);
+        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of '" + element.getNodeName() + "': " + childName, null);
       }
     }
     return type;
@@ -144,7 +145,7 @@ public class SchemaParser {
       if ("element".equals(childName)) {
         complexType.addMember(parseElement(child, schema));
       } else {
-        throw new UnsupportedOperationException("Not a supported child of 'element': " + childName);
+        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'element': " + childName, null);
       }
     }
   }
@@ -165,7 +166,7 @@ public class SchemaParser {
       } else if ("annotation".equals(childName)) {
         member.setDocumentation(parseAnnotationDocumentation(child));
       } else {
-        throw new UnsupportedOperationException("Not a supported child of 'element': " + childName);
+        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'element': " + childName, null);
       }
     }
     if (type == null) {

@@ -15,12 +15,9 @@
 
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.DataSource;
 import com.rapiddweller.format.util.OrthogonalArrayIterator;
-
-import java.io.IOException;
 
 /**
  * {@link DataSource} implementation that provides for
@@ -57,15 +54,11 @@ public class CSVSource implements DataSource<String[]> {
 
   @Override
   public DataIterator<String[]> iterator() {
-    try {
-      DataIterator<String[]> result = new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
-      if (!rowBased) {
-        result = new OrthogonalArrayIterator<>(result);
-      }
-      return result;
-    } catch (IOException e) {
-      throw ExceptionFactory.getInstance().fileAccessException("Error creating iterator for " + uri, e);
+    DataIterator<String[]> result = new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding);
+    if (!rowBased) {
+      result = new OrthogonalArrayIterator<>(result);
     }
+    return result;
   }
 
   @Override

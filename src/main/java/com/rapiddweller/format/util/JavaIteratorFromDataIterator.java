@@ -17,10 +17,12 @@ package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.HeavyweightIterator;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Adapter class that provides Java-SDK-style {@link Iterator} access to a {@link DataIterator}.
@@ -59,7 +61,7 @@ public class JavaIteratorFromDataIterator<E> implements HeavyweightIterator<E> {
   @Override
   public E next() {
     if (!hasNext()) {
-      throw new IllegalStateException("Not available. Check hasNext() before calling next()");
+      throw new NoSuchElementException("Not available. Check hasNext() before calling next()");
     }
     E result = next.getData();
     next = source.next(next);
@@ -71,7 +73,7 @@ public class JavaIteratorFromDataIterator<E> implements HeavyweightIterator<E> {
 
   @Override
   public void remove() {
-    throw new UnsupportedOperationException("Iterator<E>.remove() is not supported");
+    throw ExceptionFactory.getInstance().illegalOperation("Iterator<E>.remove() is not supported");
   }
 
   @Override

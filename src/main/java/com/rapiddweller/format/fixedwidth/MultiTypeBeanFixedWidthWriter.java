@@ -17,6 +17,7 @@ package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class MultiTypeBeanFixedWidthWriter implements Closeable {
     Assert.notNull(bean, "bean");
     FixedWidthRowTypeDescriptor cellFormats = rowDescriptors.get(bean.getClass().getSimpleName());
     if (cellFormats == null) {
-      throw new IllegalArgumentException("Bean class not configured: " + bean.getClass().getSimpleName());
+      throw ExceptionFactory.getInstance().illegalArgument("Bean class not configured: " + bean.getClass().getSimpleName());
     }
     // format row
     out.write(cellFormats.formatBean(bean));

@@ -19,6 +19,7 @@ import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.converter.ThreadSafeConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.text.MessageFormat;
 
@@ -26,7 +27,6 @@ import java.text.MessageFormat;
  * {@link Converter} that transforms an object into its hexadecimal representation.
  * It works with integral numbers, characters and strings.
  * Created: 29.10.2009 08:44:53
- *
  * @author Volker Bergmann
  * @since 0.5.0
  */
@@ -36,39 +36,18 @@ public class ToHexConverter extends ThreadSafeConverter<Object, String> {
   private final String pattern;
   private final int length;
 
-  /**
-   * Instantiates a new To hex converter.
-   */
   public ToHexConverter() {
     this(false);
   }
 
-  /**
-   * Instantiates a new To hex converter.
-   *
-   * @param upperCase the upper case
-   */
   public ToHexConverter(boolean upperCase) {
     this(upperCase, null);
   }
 
-  /**
-   * Instantiates a new To hex converter.
-   *
-   * @param upperCase the upper case
-   * @param pattern   the pattern
-   */
   public ToHexConverter(boolean upperCase, String pattern) {
     this(upperCase, pattern, -1);
   }
 
-  /**
-   * Instantiates a new To hex converter.
-   *
-   * @param upperCase the upper case
-   * @param pattern   the pattern
-   * @param length    the length
-   */
   public ToHexConverter(boolean upperCase, String pattern, int length) {
     super(Object.class, String.class);
     this.upperCase = upperCase;
@@ -95,47 +74,20 @@ public class ToHexConverter extends ThreadSafeConverter<Object, String> {
     } else if (sourceType == String.class) {
       return convertString((String) sourceValue, upperCase, pattern, length);
     } else {
-      throw new IllegalArgumentException("Can't render '" + sourceType + "' in hex format.");
+      throw ExceptionFactory.getInstance().illegalArgument("Can't render '" + sourceType + "' in hex format.");
     }
   }
 
-  /**
-   * Convert long string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertLong(Long sourceValue, boolean upperCase, String pattern, int length) {
     String base = Long.toHexString(sourceValue);
     return postProcess(base, upperCase, pattern, length);
   }
 
-  /**
-   * Convert int string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertInt(int sourceValue, boolean upperCase, String pattern, int length) {
     String base = Integer.toHexString(sourceValue);
     return postProcess(base, upperCase, pattern, length);
   }
 
-  /**
-   * Convert short string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertShort(short sourceValue, boolean upperCase, String pattern, int length) {
     String base = Integer.toHexString(sourceValue);
     if (base.length() == 8) {
@@ -144,15 +96,6 @@ public class ToHexConverter extends ThreadSafeConverter<Object, String> {
     return postProcess(base, upperCase, pattern, length);
   }
 
-  /**
-   * Convert byte string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertByte(byte sourceValue, boolean upperCase, String pattern, int length) {
     String base = Integer.toHexString(sourceValue);
     if (base.length() == 8) {
@@ -161,29 +104,11 @@ public class ToHexConverter extends ThreadSafeConverter<Object, String> {
     return postProcess(base, upperCase, pattern, length);
   }
 
-  /**
-   * Convert char string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertChar(Character sourceValue, boolean upperCase, String pattern, int length) {
     String base = convertInt(sourceValue, upperCase, null, 2);
     return postProcess(base, upperCase, pattern, length);
   }
 
-  /**
-   * Convert string string.
-   *
-   * @param sourceValue the source value
-   * @param upperCase   the upper case
-   * @param pattern     the pattern
-   * @param length      the length
-   * @return the string
-   */
   public static String convertString(String sourceValue, boolean upperCase, String pattern, int length) {
     StringBuilder builder = new StringBuilder(sourceValue.length() * 2);
     for (int i = 0; i < sourceValue.length(); i++) {

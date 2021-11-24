@@ -18,6 +18,7 @@ package com.rapiddweller.format.text;
 import com.rapiddweller.common.LocaleUtil;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.text.FieldPosition;
 import java.text.NumberFormat;
@@ -29,9 +30,9 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Formats and parses numbers with abbreviations, e.g. 5Mio for 5,000,000.
- * <p>
+ * Formats and parses numbers with abbreviations, e.g. 5Mio for 5,000,000.<br/><br/>
  * Created: 16.05.2005 21:41:17
+ * @author Volker Bergmann
  */
 public class AbbreviatedNumberFormat extends NumberFormat {
 
@@ -68,37 +69,18 @@ public class AbbreviatedNumberFormat extends NumberFormat {
   private final List<AbbreviatedScale> abbreviations;
   private final NumberFormat snf;
 
-  /**
-   * Instantiates a new Abbreviated number format.
-   */
   public AbbreviatedNumberFormat() {
     this(1);
   }
 
-  /**
-   * Instantiates a new Abbreviated number format.
-   *
-   * @param scale the scale
-   */
   public AbbreviatedNumberFormat(double scale) {
     this(scale, Locale.getDefault());
   }
 
-  /**
-   * Instantiates a new Abbreviated number format.
-   *
-   * @param locale the locale
-   */
   public AbbreviatedNumberFormat(Locale locale) {
     this(1, locale);
   }
 
-  /**
-   * Instantiates a new Abbreviated number format.
-   *
-   * @param scale  the scale
-   * @param locale the locale
-   */
   public AbbreviatedNumberFormat(double scale, Locale locale) {
     abbreviations = abbreviationsForLocale(locale);
     defaultScale = scale;
@@ -124,14 +106,6 @@ public class AbbreviatedNumberFormat extends NumberFormat {
     }
   }
 
-  /**
-   * Format fixed string buffer.
-   *
-   * @param number     the number
-   * @param toAppendTo the to append to
-   * @param pos        the pos
-   * @return the string buffer
-   */
   public StringBuffer formatFixed(double number, StringBuffer toAppendTo, FieldPosition pos) {
     snf.format(number / defaultScale, toAppendTo, pos);
     if (!StringUtil.isEmpty(defaultScaleId)) {
@@ -190,26 +164,13 @@ public class AbbreviatedNumberFormat extends NumberFormat {
       }
       tmp = LocaleUtil.parent(tmp);
     } while (tmp != null);
-    throw new UnsupportedOperationException("Locale not supported: " + locale);
+    throw ExceptionFactory.getInstance().programmerUnsupported("Locale not supported: " + locale);
   }
 
   private static class AbbreviatedScale {
+    public final String code;
+    public final double factor;
 
-    /**
-     * The Code.
-     */
-    public String code;
-    /**
-     * The Factor.
-     */
-    public double factor;
-
-    /**
-     * Instantiates a new Abbreviated scale.
-     *
-     * @param code   the code
-     * @param factor the factor
-     */
     public AbbreviatedScale(String code, double factor) {
       this.code = code;
       this.factor = factor;

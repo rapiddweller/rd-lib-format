@@ -15,12 +15,12 @@
 
 package com.rapiddweller.format.xls;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.JavaTimeUtil;
 import com.rapiddweller.common.MathUtil;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellValue;
@@ -96,11 +96,11 @@ public class XLSUtil {
           case ERROR:
             return null;
           default:
-            throw new IllegalStateException("Unexpected cell type: " + cellValue.getCellType());
+            throw ExceptionFactory.getInstance().syntaxError("Unexpected cell type: " + cellValue.getCellType(), null);
             // CELL_TYPE_FORMULA is not supposed to be encountered here
         }
       default:
-        throw new ConfigurationError("Not a supported cell type: " + cell.getCellType());
+        throw ExceptionFactory.getInstance().configurationError("Not a supported cell type: " + cell.getCellType());
     }
   }
 
@@ -205,26 +205,27 @@ public class XLSUtil {
 
   private static Cell createCell(Row row, int colnum, Object value) {
     Cell cell = row.createCell(colnum);
-    if (value == null)
-      ;
-    else if (value instanceof String)
-      cell.setCellValue((String) value);
-    else if (value instanceof Number)
-      cell.setCellValue(((Number) value).doubleValue());
-    else if (value instanceof LocalDate)
-      cell.setCellValue(JavaTimeUtil.toDate((LocalDate) value));
-    else if (value instanceof LocalDateTime)
-      cell.setCellValue(JavaTimeUtil.toDate((LocalDateTime) value));
-    else if (value instanceof ZonedDateTime)
-      cell.setCellValue(JavaTimeUtil.toDate((ZonedDateTime) value));
-    else if (value instanceof Boolean)
-      cell.setCellValue((Boolean) value);
-    else if (value instanceof Date)
-      cell.setCellValue((Date) value);
-    else if (value instanceof Calendar)
-      cell.setCellValue((Calendar) value);
-    else
-      cell.setCellValue(ToStringConverter.convert(value, null));
+    if (value != null) {
+      if (value instanceof String) {
+        cell.setCellValue((String) value);
+      } else if (value instanceof Number) {
+        cell.setCellValue(((Number) value).doubleValue());
+      } else if (value instanceof LocalDate) {
+        cell.setCellValue(JavaTimeUtil.toDate((LocalDate) value));
+      } else if (value instanceof LocalDateTime) {
+        cell.setCellValue(JavaTimeUtil.toDate((LocalDateTime) value));
+      } else if (value instanceof ZonedDateTime) {
+        cell.setCellValue(JavaTimeUtil.toDate((ZonedDateTime) value));
+      } else if (value instanceof Boolean) {
+        cell.setCellValue((Boolean) value);
+      } else if (value instanceof Date) {
+        cell.setCellValue((Date) value);
+      } else if (value instanceof Calendar) {
+        cell.setCellValue((Calendar) value);
+      } else {
+        cell.setCellValue(ToStringConverter.convert(value, null));
+      }
+    }
     return cell;
   }
 

@@ -15,6 +15,7 @@
 
 package com.rapiddweller.format.csv;
 
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 
@@ -73,7 +74,7 @@ public class CSVCellIterator implements DataIterator<String> {
   }
 
   public void remove() {
-    throw new UnsupportedOperationException("Operation not supported: remove()");
+    throw ExceptionFactory.getInstance().illegalOperation("Operation not supported: remove()");
   }
 
   @Override

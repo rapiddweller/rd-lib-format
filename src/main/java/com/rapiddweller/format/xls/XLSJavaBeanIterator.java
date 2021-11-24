@@ -18,7 +18,6 @@ package com.rapiddweller.format.xls;
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.context.DefaultContext;
@@ -110,7 +109,7 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
           return field.getType();
         }
       } else {
-        throw new ConfigurationError("Feature '" + featureName + "' not found in class " + ownerClass.getName());
+        throw ExceptionFactory.getInstance().configurationError("Feature '" + featureName + "' not found in class " + ownerClass.getName());
       }
     }
   }
@@ -133,7 +132,7 @@ public class XLSJavaBeanIterator<E> extends ConvertingDataIterator<Object[], E> 
     }
     // verify the regular headers
     if (headerCount == 0) {
-      throw new IllegalArgumentException("No headers in XLS sheet '" + sheetName + "' of document " + uri);
+      throw ExceptionFactory.getInstance().illegalArgument("No headers in XLS sheet '" + sheetName + "' of document " + uri);
     }
     for (int i = 0; i < headerCount; i++) {
       Assert.notNull(headers[i], "Empty header in column #" + i + " of sheet '" + sheetName + "' of file '" + uri + "'");

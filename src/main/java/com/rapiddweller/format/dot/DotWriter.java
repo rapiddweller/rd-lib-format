@@ -19,6 +19,7 @@ import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.collection.OrderedNameMap;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -29,29 +30,15 @@ import java.util.Map;
 /**
  * Writes Dot files.
  * Created: 24.05.2014 09:29:45
- *
  * @author Volker Bergmann
  * @since 0.8.2
  */
 public class DotWriter {
 
-  /**
-   * Persist.
-   *
-   * @param model the model
-   * @param os    the os
-   */
   public static void persist(DotGraphModel model, OutputStream os) {
     persist(model, os, Encodings.UTF_8);
   }
 
-  /**
-   * Persist.
-   *
-   * @param model    the model
-   * @param os       the os
-   * @param encoding the encoding
-   */
   public static void persist(DotGraphModel model, OutputStream os, String encoding) {
     PrintWriter out = null;
     try {
@@ -99,7 +86,7 @@ public class DotWriter {
       // end
       out.println("}");
     } catch (UnsupportedEncodingException e) {
-      throw new UnsupportedOperationException("Not a supported encoding: " + encoding, e);
+      throw ExceptionFactory.getInstance().operationFailed("Not a supported encoding: " + encoding, e);
     } finally {
       IOUtil.close(out);
     }
@@ -136,43 +123,19 @@ public class DotWriter {
         .write(out);
   }
 
-  /**
-   * The type Attributes writer.
-   */
   static class AttributesWriter {
-    /**
-     * The Label.
-     */
     String label;
-    /**
-     * The Map.
-     */
     OrderedNameMap<Object> map;
 
-    /**
-     * Instantiates a new Attributes writer.
-     */
     public AttributesWriter() {
       this(null);
     }
 
-    /**
-     * Instantiates a new Attributes writer.
-     *
-     * @param label the label
-     */
     public AttributesWriter(String label) {
       this.label = label;
       this.map = new OrderedNameMap<>();
     }
 
-    /**
-     * Add attributes writer.
-     *
-     * @param name  the name
-     * @param value the value
-     * @return the attributes writer
-     */
     public AttributesWriter add(String name, Object value) {
       if (value != null) {
         map.put(name, value);
@@ -180,11 +143,6 @@ public class DotWriter {
       return this;
     }
 
-    /**
-     * Write.
-     *
-     * @param out the out
-     */
     public void write(PrintWriter out) {
       if (!map.isEmpty()) {
         if (label != null) {

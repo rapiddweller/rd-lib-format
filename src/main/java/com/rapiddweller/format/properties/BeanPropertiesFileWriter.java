@@ -25,6 +25,7 @@ import com.rapiddweller.common.bean.BeanToPropertyArrayConverter;
 import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.Script;
 import com.rapiddweller.format.script.ScriptException;
@@ -50,9 +51,8 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
     this(out, null, null, (Script) null, propertyNames);
   }
 
-  public BeanPropertiesFileWriter(Writer out, String prefixPattern, String headerScriptUrl, String footerScriptUrl,
-                                  String... propertyNames)
-      throws IOException {
+  public BeanPropertiesFileWriter(
+      Writer out, String prefixPattern, String headerScriptUrl, String footerScriptUrl, String... propertyNames) {
     this(
         out,
         prefixPattern,
@@ -68,12 +68,13 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
   }
 
   public static <T> void persist(T bean, String filename) throws IOException {
-    FileWriter out = new FileWriter(filename);
-    BeanPropertiesFileWriter<T> writer = new BeanPropertiesFileWriter<>(out, getPropertyNames(bean.getClass()));
-    writer.writeHeader();
-    writer.writeElement(bean);
-    writer.close();
-    out.close();
+    try (FileWriter out = new FileWriter(filename)) {
+      try (BeanPropertiesFileWriter<T> writer
+               = new BeanPropertiesFileWriter<>(out, getPropertyNames(bean.getClass()))) {
+        writer.writeHeader();
+        writer.writeElement(bean);
+      }
+    }
   }
 
   private static String[] getPropertyNames(Class<?> beanType) {
@@ -135,7 +136,7 @@ public class BeanPropertiesFileWriter<E> extends ScriptedDocumentWriter<E> {
           out.write(LINE_SEPARATOR);
         }
       } catch (ConversionException e) {
-        throw new ScriptException("Error writing properties file", e);
+        throw ExceptionFactory.getInstance().fileCreationFailed("Error writing properties file", e);
       }
     }
   }

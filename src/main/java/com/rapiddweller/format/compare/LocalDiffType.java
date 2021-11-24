@@ -15,14 +15,13 @@
 
 package com.rapiddweller.format.compare;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.NullSafeComparator;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 /**
  * Assigns a DiffType with a locator for special comparison configurations.
  * Created: 08.07.2014 18:14:36
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
@@ -31,34 +30,18 @@ public class LocalDiffType {
   private final String locator;
   private final DiffDetailType type;
 
-  /**
-   * Instantiates a new Local diff type.
-   *
-   * @param type    the type
-   * @param locator the locator
-   */
   public LocalDiffType(DiffDetailType type, String locator) {
     if (StringUtil.isEmpty(locator) && type == null) {
-      throw new ConfigurationError("At least one of the argument 'locator' and 'type' must be not empty");
+      throw ExceptionFactory.getInstance().configurationError("At least one of the argument 'locator' and 'type' must be not empty");
     }
     this.locator = locator;
     this.type = type;
   }
 
-  /**
-   * Gets locator.
-   *
-   * @return the locator
-   */
   public String getLocator() {
     return locator;
   }
 
-  /**
-   * Gets type.
-   *
-   * @return the type
-   */
   public DiffDetailType getType() {
     return type;
   }

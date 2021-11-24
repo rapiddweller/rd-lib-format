@@ -15,11 +15,11 @@
 
 package com.rapiddweller.format.text;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.Encodings;
-import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.converter.ThreadSafeConverter;
+import com.rapiddweller.common.exception.ComponentInitializationFailure;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.csv.CSVLineIterator;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,8 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
   private Map<Character, String> replacements;
 
   /** Default constructor.
-   *  @throws ConfigurationError if reading the configuration file fails */
+   *  @throws ComponentInitializationFailure
+   *  if reading the configuration file fails */
   public DelocalizingConverter() {
     super(String.class, String.class);
     init();
@@ -68,20 +69,17 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
   // private initializers --------------------------------------------------------------------------------------------
 
   /** Initializes the instance by reading the definition file of replacements
-   *  @throws ConfigurationError when file processing fails. */
+   *  @throws ComponentInitializationFailure when file processing fails. */
   private void init() {
     replacements = new HashMap<>();
-    CSVLineIterator iterator = null;
-    try {
-      iterator = new CSVLineIterator(CONFIG_FILENAME, ',', true, Encodings.UTF_8);
+    try (CSVLineIterator iterator = new CSVLineIterator(CONFIG_FILENAME, ',', true, Encodings.UTF_8)) {
       DataContainer<String[]> tokens = new DataContainer<>();
       while ((tokens = iterator.next(tokens)) != null) {
         addReplacements(tokens.getData());
       }
     } catch (Exception e) {
-      throw new ConfigurationError("Error initializing " + getClass(), e);
-    } finally {
-      IOUtil.close(iterator);
+      throw ExceptionFactory.getInstance().componentInitializationFailed(
+          "Error initializing " + getClass(), e);
     }
   }
 
@@ -89,13 +87,13 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
    *  @param tokens the tokens of one line in the file. One line contains several replacement pairs. */
   private void addReplacements(String[] tokens) {
     if (tokens.length < 2) {
-      throw new ConfigurationError("At least two tokens needed to define a replacement");
+      throw ExceptionFactory.getInstance().configurationError("At least two tokens needed to define a replacement");
     }
     String replacement = tokens[tokens.length - 1];
     for (int i = 0; i < tokens.length - 1; i++) {
       String token = tokens[i];
       if (token.length() != 1) {
-        throw new ConfigurationError("Source token length must be 1, wrong for token: " + token);
+        throw ExceptionFactory.getInstance().configurationError("Source token length must be 1, wrong for token: " + token);
       }
       addReplacement(token.charAt(0), replacement);
     }
@@ -108,9 +106,9 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
     String preset = replacements.get(original);
     if (preset != null) {
       if (preset.equals(replacement)) {
-        logger.warn("double definition of replacement: " + original + " -> " + replacement);
+        logger.warn("double definition of replacement: {} -> {}", original, replacement);
       } else {
-        logger.error("ambiguous definition of replacement: " + original + " -> " + replacement + " / " + preset);
+        logger.error("ambiguous definition of replacement: {} -> {} / {}", original, replacement, preset);
       }
     }
     replacements.put(original, replacement);

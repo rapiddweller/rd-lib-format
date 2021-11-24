@@ -17,7 +17,6 @@ package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.ArrayFormat;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
@@ -47,18 +46,16 @@ public class CSVUtil {
       if (tmp != null) {
         return tmp.getData();
       } else {
-        throw new ConfigurationError("empty CSV file");
+        throw ExceptionFactory.getInstance().configurationError("empty CSV file");
       }
-    } catch (IOException e) {
-      throw ExceptionFactory.getInstance().fileAccessException("Error reading " + uri, e);
     }
   }
 
-  public static String[][] parseRows(String url, char separator) throws IOException {
+  public static String[][] parseRows(String url, char separator) {
     return parseRows(url, separator, SystemInfo.getFileEncoding());
   }
 
-  public static String[][] parseRows(String url, char separator, String encoding) throws IOException {
+  public static String[][] parseRows(String url, char separator, String encoding) {
     List<String[]> lines = new ArrayList<>();
     CSVLineIterator iterator = new CSVLineIterator(url, separator, encoding);
     DataContainer<String[]> container = new DataContainer<>();
@@ -81,15 +78,19 @@ public class CSVUtil {
     }
   }
 
-  public static void writeRow(Writer out, char separator, String... cells) throws IOException {
-    if (cells.length > 0) {
-      out.write(renderCell(cells[0], separator, true));
+  public static void writeRow(Writer out, char separator, String... cells) {
+    try {
+      if (cells.length > 0) {
+        out.write(renderCell(cells[0], separator, true));
+      }
+      for (int i = 1; i < cells.length; i++) {
+        out.write(separator);
+        out.write(renderCell(cells[i], separator, true));
+      }
+      out.write(SystemInfo.getLineSeparator());
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().fileAccessException("Failed to write CSV row", e);
     }
-    for (int i = 1; i < cells.length; i++) {
-      out.write(separator);
-      out.write(renderCell(cells[i], separator, true));
-    }
-    out.write(SystemInfo.getLineSeparator());
   }
 
   public static String renderCell(String text, char separator, boolean quoteEmpty) {

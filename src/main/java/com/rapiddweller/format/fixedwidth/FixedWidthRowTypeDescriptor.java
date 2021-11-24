@@ -17,7 +17,7 @@ package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.ArrayBuilder;
 import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.exception.SyntaxError;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.accessor.GraphAccessor;
 import com.rapiddweller.common.mutator.AnyMutator;
 
@@ -63,7 +63,7 @@ public class FixedWidthRowTypeDescriptor {
 
   public String formatArray(Object... columnValues) {
     if (columnValues.length != columnDescriptors.length) {
-      throw new IllegalArgumentException("Row type '" + name + "' expects " + columnValues.length + " array elements " +
+      throw ExceptionFactory.getInstance().illegalArgument("Row type '" + name + "' expects " + columnValues.length + " array elements " +
           ", but found: " + columnValues.length);
     }
     StringBuilder builder = new StringBuilder();
@@ -75,8 +75,8 @@ public class FixedWidthRowTypeDescriptor {
 
   public Object[] parseAsArray(String row) {
     if (row.length() != rowLength) {
-      throw new SyntaxError("Row of type '" + name + "' has illegal length. " +
-          "Expected: " + rowLength + ", found: " + row.length(), "'" + row + "'");
+      throw ExceptionFactory.getInstance().syntaxErrorForText("'" + row + "'", "Row of type '" + name + "' has illegal length. " +
+          "Expected: " + rowLength + ", found: " + row.length());
     }
     ArrayBuilder<Object> builder = new ArrayBuilder<>(Object.class);
     ParsePosition pos = new ParsePosition(0);
@@ -88,7 +88,7 @@ public class FixedWidthRowTypeDescriptor {
         Object cellObject = columnDescriptor.parse(cellContent);
         builder.add(cellObject);
       } catch (ParseException e) {
-        throw new SyntaxError("Error parsing column '" + descriptorName(columnDescriptor, i) + "'. " + e.getMessage(), cellContent);
+        throw ExceptionFactory.getInstance().syntaxError("Error parsing column '" + descriptorName(columnDescriptor, i) + "'. ", e);
       }
       pos.setIndex(endIndex);
     }
@@ -97,8 +97,9 @@ public class FixedWidthRowTypeDescriptor {
 
   public <T> T parseAsBean(String row, Class<T> beanClass) {
     if (row.length() != rowLength) {
-      throw new SyntaxError("Row of type '" + name + "' has illegal length. " +
-          "Expected: " + rowLength + ", found: " + row.length(), "'" + row + "'");
+      throw ExceptionFactory.getInstance().syntaxErrorForText("'" + row + "'",
+          "Row of type '" + name + "' has illegal length. " +
+          "Expected: " + rowLength + ", found: " + row.length());
     }
     T bean = BeanUtil.newInstance(beanClass);
     ParsePosition pos = new ParsePosition(0);
@@ -109,7 +110,8 @@ public class FixedWidthRowTypeDescriptor {
         Object cellObject = columnDescriptor.parse(cellContent);
         AnyMutator.setValue(bean, columnDescriptor.getName(), cellObject, true, true);
       } catch (ParseException e) {
-        throw new SyntaxError("Error parsing column '" + columnDescriptor + "'. " + e.getMessage(), cellContent);
+        throw ExceptionFactory.getInstance().syntaxErrorForText(cellContent,
+            "Error parsing column '" + columnDescriptor + "'. " + e.getMessage());
       }
       pos.setIndex(endIndex);
     }

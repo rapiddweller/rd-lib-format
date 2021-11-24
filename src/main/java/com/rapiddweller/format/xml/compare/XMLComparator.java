@@ -19,6 +19,7 @@ import com.rapiddweller.common.NullSafeComparator;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.converter.XMLNode2StringConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.format.compare.AggregateDiff;
 import com.rapiddweller.format.compare.ArrayComparator;
@@ -75,7 +76,7 @@ public class XMLComparator {
       for (DiffDetail diff : diffs.getDetails()) {
         message.append(lf).append(diff);
       }
-      throw new AssertionError(message);
+      throw ExceptionFactory.getInstance().assertionFailed(message.toString());
     }
   }
 

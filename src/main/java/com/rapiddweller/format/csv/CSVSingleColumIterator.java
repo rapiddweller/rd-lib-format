@@ -18,11 +18,10 @@ package com.rapiddweller.format.csv;
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.HeavyweightIterator;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.util.DataIteratorAdapter;
 import com.rapiddweller.format.util.ThreadLocalDataContainer;
-
-import java.io.IOException;
 
 /**
  * {@link HeavyweightIterator} that iterates through all cells of a single CSV column.<br/><br/>
@@ -38,17 +37,18 @@ public class CSVSingleColumIterator extends DataIteratorAdapter<String[], String
 
   ThreadLocalDataContainer<String[]> rowContainer = new ThreadLocalDataContainer<>();
 
-  public CSVSingleColumIterator(String uri, int columnIndex) throws IOException {
+  public CSVSingleColumIterator(String uri, int columnIndex) {
     this(uri, columnIndex, DEFAULT_SEPARATOR, false, Encodings.UTF_8);
   }
 
-  public CSVSingleColumIterator(String uri, int columnIndex, char separator, boolean ignoreEmptyLines, String encoding) throws IOException {
+  public CSVSingleColumIterator(String uri, int columnIndex, char separator,
+                                boolean ignoreEmptyLines, String encoding) {
     super(new CSVLineIterator(uri, separator, ignoreEmptyLines, encoding));
     if (StringUtil.isEmpty(uri)) {
-      throw new IllegalArgumentException("URI is empty");
+      throw ExceptionFactory.getInstance().illegalArgument("URI is empty");
     }
     if (columnIndex < 0) {
-      throw new IllegalArgumentException("Negative column index: " + columnIndex);
+      throw ExceptionFactory.getInstance().illegalArgument("Negative column index: " + columnIndex);
     }
     this.columnIndex = columnIndex;
   }

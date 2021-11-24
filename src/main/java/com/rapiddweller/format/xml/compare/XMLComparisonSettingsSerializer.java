@@ -18,7 +18,6 @@ package com.rapiddweller.format.xml.compare;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.Encodings;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.SimpleXMLWriter;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.format.compare.DiffDetailType;
@@ -168,7 +167,7 @@ public class XMLComparisonSettingsSerializer {
   private void assertElementName(String name, Element element) {
     if (!name.equals(element.getNodeName())) {
       String message = "Expected element <" + name + ">, but found <" + element.getNodeName() + ">";
-      throw new SyntaxError(message, XMLUtil.formatShort(element));
+      throw ExceptionFactory.getInstance().syntaxErrorForText(XMLUtil.formatShort(element), message);
     }
   }
 

@@ -219,7 +219,7 @@ public class HTML2XML {
           // ignore this
           break;
         default:
-          throw new UnsupportedOperationException("Unsupported token type: " + token);
+          throw ExceptionFactory.getInstance().programmerUnsupported("Unsupported token type: " + token);
       }
     }
     while (!context.path.isEmpty()) {

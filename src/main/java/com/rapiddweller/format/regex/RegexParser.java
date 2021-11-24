@@ -20,6 +20,7 @@ import com.rapiddweller.common.CharSet;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.LocaleUtil;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.format.regex.antlr.RegexLexer;
 import org.antlr.runtime.ANTLRReaderStream;
@@ -74,13 +75,9 @@ public class RegexParser {
       com.rapiddweller.format.regex.antlr.RegexParser parser = new com.rapiddweller.format.regex.antlr.RegexParser(tokens);
       com.rapiddweller.format.regex.antlr.RegexParser.expression_return r = parser.expression();
       checkForSyntaxErrors(pattern, "regex", parser, r);
-      if (r != null) {
-        CommonTree tree = (CommonTree) r.getTree();
-        logger.debug("parsed {} to {}", pattern, tree.toStringTree());
-        return convertRegexPart(tree);
-      } else {
-        return null;
-      }
+      CommonTree tree = (CommonTree) r.getTree();
+      logParseResult(pattern, tree);
+      return convertRegexPart(tree);
     } catch (RuntimeException e) {
       if (e.getCause() instanceof RecognitionException) {
         throw mapToSyntaxError((RecognitionException) e.getCause(), pattern);
@@ -88,9 +85,15 @@ public class RegexParser {
         throw e;
       }
     } catch (IOException e) {
-      throw new IllegalStateException("Encountered illegal state in regex parsing", e);
+      throw ExceptionFactory.getInstance().internalError("Encountered illegal state in regex parsing", e);
     } catch (RecognitionException e) {
       throw mapToSyntaxError(e, pattern);
+    }
+  }
+
+  private void logParseResult(String pattern, CommonTree tree) {
+    if (logger.isDebugEnabled()) {
+      logger.debug("parsed {} to {}", pattern, tree.toStringTree());
     }
   }
 
@@ -99,7 +102,7 @@ public class RegexParser {
       return null;
     }
     if (pattern.length() == 0) {
-      throw new IllegalArgumentException("Not a character class pattern: '" + pattern + "'");
+      throw ExceptionFactory.getInstance().illegalArgument("Not a character class pattern: '" + pattern + "'");
     }
     try {
       RegexLexer lex = new RegexLexer(new ANTLRReaderStream(new StringReader(pattern)));
@@ -107,14 +110,14 @@ public class RegexParser {
       com.rapiddweller.format.regex.antlr.RegexParser parser = new com.rapiddweller.format.regex.antlr.RegexParser(tokens);
       com.rapiddweller.format.regex.antlr.RegexParser.singlechar_return r = parser.singlechar();
       if (parser.getNumberOfSyntaxErrors() > 0) {
-        throw new SyntaxError("Illegal regex", pattern);
+        throw ExceptionFactory.getInstance().syntaxErrorForText(pattern, "Illegal regex");
       }
       if (r != null) {
         CommonTree tree = (CommonTree) r.getTree();
-        logger.debug("parsed {} to {}", pattern, tree.toStringTree());
+        logParseResult(pattern, tree);
         RegexPart regex = convertRegexPart(tree);
         if (!(regex instanceof RegexCharClass)) {
-          throw new IllegalArgumentException("Not a character class pattern: '" + pattern + "'");
+          throw ExceptionFactory.getInstance().illegalArgument("Not a character class pattern: '" + pattern + "'");
         }
         return (RegexCharClass) regex;
       } else {
@@ -127,7 +130,7 @@ public class RegexParser {
         throw e;
       }
     } catch (IOException e) {
-      throw new IllegalStateException("Encountered illegal state in regex parsing", e);
+      throw ExceptionFactory.getInstance().syntaxErrorForText(pattern, "Encountered illegal state in regex parsing");
     } catch (RecognitionException e) {
       throw mapToSyntaxError(e, pattern);
     }
@@ -142,7 +145,7 @@ public class RegexParser {
 		else if (o instanceof CustomCharClass)
 			return ((CustomCharClass) o).getCharSet();
 		else
-			throw new IllegalArgumentException("Not a supported character regex type: " + o.getClass());
+			throw ExceptionFactory.getInstance().illegalArgument("Not a supported character regex type: " + o.getClass());
 	}
 
     public static Set<Character> toSet(RegexCharSet regex) {
@@ -151,7 +154,8 @@ public class RegexParser {
      */
 
   private static SyntaxError mapToSyntaxError(RecognitionException e, String parsedText) {
-    return new SyntaxError("Error parsing regular expression: " + e.getMessage(), parsedText, e.charPositionInLine, e.line);
+    return ExceptionFactory.getInstance().syntaxErrorForText(
+        parsedText, "Error parsing regular expression: " + e.getMessage(), e.line, e.charPositionInLine);
   }
 
   private RegexPart convertRegexPart(CommonTree node) throws SyntaxError {
@@ -193,11 +197,11 @@ public class RegexParser {
       case RegexLexer.T__34: // local bug fix since I do not want to touch the ANTLR parser
         return convertAlphanum(node);
       default: {
-        throw new SyntaxError("Not a supported token type: " + node.getToken(), node.toString(), node.getCharPositionInLine(), node.getLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText(node.toString(),
+            "Not a supported token type: " + node.getToken(), node.getLine(), node.getCharPositionInLine());
       }
     }
   }
-
 
   @SuppressWarnings("unchecked")
   private Group convertGroup(CommonTree node) throws SyntaxError {
@@ -234,7 +238,7 @@ public class RegexParser {
   private Factor convertFactor(CommonTree tree) throws SyntaxError {
     List<CommonTree> children = tree.getChildren();
     RegexPart subPattern = convertRegexPart(children.get(0));
-    Quantifier quantifier = null;
+    Quantifier quantifier;
     if (children.size() > 1) {
       quantifier = convertQuantifier(children.get(1));
     } else {
@@ -291,7 +295,8 @@ public class RegexParser {
       case 'e':
         return new RegexChar('\u001B'); // the escape character
       default:
-        throw new SyntaxError("invalid non-typeable char", node.getText(), node.getCharPositionInLine(), node.getLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
+            "invalid non-typeable char", node.getLine(), node.getCharPositionInLine());
     }
   }
 
@@ -327,7 +332,8 @@ public class RegexParser {
       case 'W':
         return new SimpleCharSet("\\W", CharSet.getNonWordChars());
       default:
-        throw new SyntaxError("Unsupported character class", text, node.getCharPositionInLine(), node.getLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText(
+            text, "Unsupported character class", node.getLine(), node.getCharPositionInLine());
     }
   }
 
@@ -353,13 +359,14 @@ public class RegexParser {
       case RegexLexer.QUANT:
         return convertExplicitQuantifier(node);
       default:
-        throw new SyntaxError("Error parsing quantifier", node.getText(), node.getCharPositionInLine(), node.getLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
+            "Error parsing quantifier", node.getLine(), node.getCharPositionInLine());
     }
   }
 
   @SuppressWarnings("unchecked")
   private static Quantifier convertExplicitQuantifier(CommonTree tree) {
-    int min = 0;
+    int min;
     Integer max = null;
     List<CommonTree> children = tree.getChildren();
     min = convertInt(children.get(0));
@@ -385,21 +392,22 @@ public class RegexParser {
       case '+':
         return new Quantifier(1, null);
       default:
-        throw new SyntaxError("Error parsing simple quantifier", node.getText(), node.getCharPositionInLine(), node.getLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
+            "Error parsing simple quantifier", node.getLine(), node.getCharPositionInLine());
     }
   }
 
-  private static void checkForSyntaxErrors(String text, String type,
-                                           com.rapiddweller.format.regex.antlr.RegexParser parser, ParserRuleReturnScope r) {
+  private static void checkForSyntaxErrors(
+      String text, String type, com.rapiddweller.format.regex.antlr.RegexParser parser, ParserRuleReturnScope r) {
     if (parser.getNumberOfSyntaxErrors() > 0) {
-      throw new SyntaxError("Illegal " + type, text, -1, -1);
+      throw ExceptionFactory.getInstance().syntaxErrorForText(text, "Illegal " + type, -1, -1);
     }
     CommonToken stop = (CommonToken) r.stop;
     if (stop.getStopIndex() < StringUtil.trimRight(text).length() - 1) {
       if (stop.getStopIndex() == 0) {
-        throw new SyntaxError("Syntax error after " + stop.getText(), text);
+        throw ExceptionFactory.getInstance().syntaxErrorForText(text, "Syntax error after " + stop.getText());
       } else {
-        throw new SyntaxError("Syntax error", text);
+        throw ExceptionFactory.getInstance().syntaxErrorForText(text, "Syntax error");
       }
     }
   }

@@ -15,6 +15,7 @@
 
 package com.rapiddweller.format.xml.compare;
 
+import com.rapiddweller.common.exception.ExceptionFactory;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -118,7 +119,7 @@ public abstract class AbstractXMLComparisonModel implements XMLComparisonModel {
     } else if (object instanceof ProcessingInstruction) {
       return PROCESSING_INSTRUCTION;
     }
-    throw new UnsupportedOperationException("Not a supported type: " + object.getClass());
+    throw ExceptionFactory.getInstance().programmerUnsupported("Not a supported type: " + object.getClass());
   }
 
 }

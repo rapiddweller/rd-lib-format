@@ -18,6 +18,7 @@ package com.rapiddweller.format.csv;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.mutator.AnyMutator;
 import com.rapiddweller.common.mutator.NamedMutator;
 import com.rapiddweller.format.DataContainer;
@@ -50,7 +51,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
     this(reader, type, ',', null);
   }
 
-  public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue) throws IOException {
+  public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue) {
     CSVLineIterator it = new CSVLineIterator(reader, separator, true);
     DataContainer<String[]> tmp = it.next(dataContainer.get());
     if (tmp != null) {
@@ -59,7 +60,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
     }
   }
 
-  public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue, String[] attributeNames) throws IOException {
+  public CSVToJavaBeanMapper(Reader reader, Class<E> type, char separator, String emptyValue, String[] attributeNames) {
     CSVLineIterator it = new CSVLineIterator(reader, separator, true);
     init(it, type, emptyValue, attributeNames);
   }
@@ -100,7 +101,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
       }
       return wrapper.setData(bean);
     } catch (Exception e) {
-      throw new ConfigurationError("Failed to set property '" +
+      throw ExceptionFactory.getInstance().configurationError("Failed to set property '" +
           mutators[i].getName() + "' to '" + value + "' on class " + type, e);
     }
   }

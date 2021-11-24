@@ -15,7 +15,6 @@
 
 package com.rapiddweller.format.xls;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.bean.PropertyGraphAccessor;
 import com.rapiddweller.common.converter.ToStringConverter;
@@ -91,7 +90,7 @@ public class BeanXLSWriter<E> implements Closeable {
       // Write the output
       workbook.write(out);
     } catch (FileNotFoundException e) {
-      throw new ConfigurationError("Error writing XLS file", e);
+      throw ExceptionFactory.getInstance().configurationError("Error writing XLS file", e);
     } catch (Exception e) {
       throw ExceptionFactory.getInstance().fileCreationFailed("Error writing XLS file", e);
     } finally {

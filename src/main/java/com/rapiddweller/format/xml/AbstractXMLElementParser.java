@@ -18,7 +18,6 @@ package com.rapiddweller.format.xml;
 import com.rapiddweller.common.ArrayFormat;
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.CollectionUtil;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
@@ -195,7 +194,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected void checkAttributes(Element element, Set<String> supportedAttributes) {
     for (Map.Entry<String, String> attribute : XMLUtil.getAttributes(element).entrySet()) {
       if (!supportedAttributes.contains(attribute.getKey())) {
-        throw new ConfigurationError("Not a supported import attribute: " + attribute.getKey());
+        throw ExceptionFactory.getInstance().configurationError("Not a supported import attribute: " + attribute.getKey());
       }
     }
   }
@@ -209,7 +208,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   }
 
   protected static void syntaxError(String message, Element element) {
-    throw new SyntaxError("Syntax error: " + message, XMLUtil.format(element));
+    throw ExceptionFactory.getInstance().syntaxErrorForText(XMLUtil.format(element), "Syntax error: " + message);
   }
 
   private void unsupportedAttribute(Element element, String attribute) {

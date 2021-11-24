@@ -15,8 +15,8 @@
 
 package com.rapiddweller.format.csv;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
 
@@ -55,7 +55,7 @@ public class CSVCellSource extends AbstractDataSource<String> {
     try {
       return new CSVCellIterator(uri, separator, encoding);
     } catch (Exception e) {
-      throw new ConfigurationError("Error creating iterator", e);
+      throw ExceptionFactory.getInstance().configurationError("Error creating iterator", e);
     }
   }
 

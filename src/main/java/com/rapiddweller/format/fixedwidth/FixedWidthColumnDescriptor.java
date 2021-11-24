@@ -16,6 +16,7 @@
 package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.format.Alignment;
 import com.rapiddweller.common.format.PadFormat;
 
@@ -97,7 +98,7 @@ public class FixedWidthColumnDescriptor {
     } catch (IllegalArgumentException e) {
       // enrich error message from PadFormat with the name of the column - if available
       if (StringUtil.isEmpty(this.name)) {
-        throw new IllegalArgumentException("Error parsing column '" + this.name + "'. ", e);
+        throw ExceptionFactory.getInstance().illegalArgument("Error parsing column '" + this.name + "'. ", e);
       } else {
         throw e;
       }
@@ -110,7 +111,7 @@ public class FixedWidthColumnDescriptor {
     } catch (IllegalArgumentException e) {
       // enrich error message from PadFormat with the name of the column - if available
       if (StringUtil.isEmpty(this.name)) {
-        throw new IllegalArgumentException("Error parsing column '" + this.name + "'. ", e);
+        throw ExceptionFactory.getInstance().illegalArgument("Error parsing column '" + this.name + "'. ", e);
       } else {
         throw e;
       }

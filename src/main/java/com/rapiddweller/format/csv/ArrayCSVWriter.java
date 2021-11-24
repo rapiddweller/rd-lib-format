@@ -20,6 +20,7 @@ import com.rapiddweller.common.ConversionException;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.ConstantScript;
 import com.rapiddweller.format.script.Script;
@@ -90,7 +91,7 @@ public class ArrayCSVWriter extends ScriptedDocumentWriter<Object[]> {
         }
         out.write(SystemInfo.getLineSeparator());
       } catch (ConversionException e) {
-        throw new ScriptException("Error writing CSV file", e);
+        throw ExceptionFactory.getInstance().fileCreationFailed("Error writing CSV file", e);
       }
     }
   }

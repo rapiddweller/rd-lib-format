@@ -16,9 +16,9 @@
 package com.rapiddweller.format.xml.compare;
 
 import com.rapiddweller.common.ArrayBuilder;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.NullSafeComparator;
 import com.rapiddweller.common.StringUtil;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.xml.XMLUtil;
 import com.rapiddweller.common.xml.XPathUtil;
 import com.rapiddweller.format.compare.KeyExpression;
@@ -40,7 +40,6 @@ import java.util.Map;
 /**
  * XML comparison model based on element names.
  * Created: 03.06.2014 13:46:59
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
@@ -50,9 +49,6 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
   private final Map<Element, String> keys;
   private boolean initialized;
 
-  /**
-   * Instantiates a new Default xml comparison model.
-   */
   public DefaultXMLComparisonModel() {
     this.keyExpressions = new ArrayList<>();
     this.keys = new HashMap<>();
@@ -92,7 +88,7 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
       this.initialized = true;
     } catch (XPathExpressionException e) {
       this.keys.clear();
-      throw new ConfigurationError("Error evaluating key expression", e);
+      throw ExceptionFactory.getInstance().configurationError("Error evaluating key expression", e);
     }
   }
 
@@ -157,13 +153,6 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
     }
   }
 
-  /**
-   * Equal nodes boolean.
-   *
-   * @param n1 the n 1
-   * @param n2 the n 2
-   * @return the boolean
-   */
   public boolean equalNodes(Node n1, Node n2) {
     assertInitialized();
     // compare node names
@@ -239,7 +228,8 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
           builder.add(child);
         }
       } else {
-        throw new UnsupportedOperationException("Unsupported node type: " + child.getClass().getName());
+        throw ExceptionFactory.getInstance().programmerUnsupported(
+            "Unsupported node type: " + child.getClass().getName());
       }
     }
     return builder.toArray();
@@ -247,7 +237,8 @@ public class DefaultXMLComparisonModel extends AbstractXMLComparisonModel {
 
   private void assertInitialized() {
     if (!initialized) {
-      throw new IllegalStateException(getClass().getName() + " is not initialized, call the init() method before using it");
+      throw ExceptionFactory.getInstance().programmerStateError(
+          getClass().getName() + " is not initialized, call the init() method before using it");
     }
   }
 

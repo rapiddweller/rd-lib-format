@@ -149,8 +149,7 @@ public class CSVTokenizer implements Closeable {
     }
   }
 
-  /** Skip line.
-   * @the io exception */
+  /** Skip line. */
   public void skipLine() {
     int c;
     // go to end of line
@@ -167,7 +166,7 @@ public class CSVTokenizer implements Closeable {
         }
         return;
       default:
-        throw new IllegalStateException();
+        throw ExceptionFactory.getInstance().internalError("Unexpected state", null);
     }
   }
 

@@ -17,7 +17,7 @@ package com.rapiddweller.format.xls;
 
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
-import com.rapiddweller.common.ObjectNotFoundException;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.exception.ParseException;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.converter.ArrayTypeConverter;
@@ -85,7 +85,6 @@ public class XLSLineIterator implements DataIterator<Object[]> {
     rowIterator = sheet.rowIterator();
     if (!rowIterator.hasNext()) {
       close();
-      return;
     } else if (headersIncluded) {
       parseHeaders();
     }
@@ -158,7 +157,7 @@ public class XLSLineIterator implements DataIterator<Object[]> {
         return cells[i];
       }
     }
-    throw new ObjectNotFoundException("Undefined header: '" + trimmedHeader + "'");
+    throw ExceptionFactory.getInstance().objectNotFound("Undefined header: '" + trimmedHeader + "'");
   }
 
 
@@ -173,7 +172,7 @@ public class XLSLineIterator implements DataIterator<Object[]> {
     Workbook workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
     Sheet sheet = sheetName != null ? workbook.getSheet(sheetName) : workbook.getSheetAt(0);
     if (sheet == null) {
-      throw new IllegalArgumentException("Sheet '" + sheetName + "' not found in file " + uri);
+      throw ExceptionFactory.getInstance().illegalArgument("Sheet '" + sheetName + "' not found in file " + uri);
     }
     return sheet;
   }

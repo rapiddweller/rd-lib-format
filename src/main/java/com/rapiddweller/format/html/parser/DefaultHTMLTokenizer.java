@@ -290,7 +290,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     int quoteChar = reader.read();
     attribValueFrom[attribCount] = cursor;
     if (quoteChars.indexOf(quoteChar) < 0) {
-      throw new ParseException("Expected quotation like " + quoteChars + ", found: " + quoteChar, 0);
+      throw ExceptionFactory.getInstance().syntaxError("Expected quotation like " + quoteChars + ", found: " + quoteChar, null);
     }
     readUntil((char) quoteChar);
     attribValueUntil[attribCount] = cursor;
@@ -417,10 +417,10 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     }
   }
 
-  private void assertChar(char expectedChar) throws ParseException, IOException {
+  private void assertChar(char expectedChar) throws IOException {
     int c = reader.read();
     if (c != expectedChar) {
-      throw new ParseException("Expected: '" + expectedChar + "', found: '" + (char) c + "'", 0);
+      throw ExceptionFactory.getInstance().syntaxError("Expected: '" + expectedChar + "', found: '" + (char) c + "'", null);
     }
     textBuffer[cursor++] = expectedChar;
   }
@@ -435,7 +435,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     textBuffer[cursor++] = expectedChar;
   }
 
-  private void assertChar(char expectedChar, boolean skipSpace) throws ParseException, IOException {
+  private void assertChar(char expectedChar, boolean skipSpace) throws IOException {
     int c;
     do {
       c = reader.read();
@@ -444,7 +444,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
       }
     } while (c != -1 && skipSpace && Character.isWhitespace(c));
     if (c != expectedChar) {
-      throw new ParseException("Expected: '" + expectedChar + "', found: '" + (char) c + "'", 0);
+      throw ExceptionFactory.getInstance().syntaxError("Expected: '" + expectedChar + "', found: '" + (char) c + "'", null);
     }
   }
 

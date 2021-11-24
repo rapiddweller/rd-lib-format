@@ -17,6 +17,7 @@ package com.rapiddweller.format.fixedwidth;
 
 import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class MultiTypeArrayFixedWidthWriter implements Closeable {
     Assert.notNull(values, "array");
     FixedWidthRowTypeDescriptor rowType = rowDescriptors.get(rowTypeName);
     if (rowType == null) {
-      throw new IllegalArgumentException("Illegal row type: " + rowTypeName);
+      throw ExceptionFactory.getInstance().illegalArgument("Illegal row type: " + rowTypeName);
     }
     // format array
     out.write(rowType.formatArray(values));

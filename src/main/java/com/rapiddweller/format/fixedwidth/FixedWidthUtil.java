@@ -15,10 +15,9 @@
 
 package com.rapiddweller.format.fixedwidth;
 
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
-import com.rapiddweller.common.exception.SyntaxError;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.format.Alignment;
 
 import java.text.DateFormatSymbols;
@@ -53,11 +52,11 @@ public class FixedWidthUtil {
       String propertyFormat = propertyFormats[i];
       int lbIndex = propertyFormat.indexOf('[');
       if (lbIndex < 0) {
-        throw new ConfigurationError("'[' expected in property format descriptor '" + propertyFormat + "'");
+        throw ExceptionFactory.getInstance().configurationError("'[' expected in property format descriptor '" + propertyFormat + "'");
       }
       int rbIndex = propertyFormat.indexOf(']');
       if (rbIndex < 0) {
-        throw new ConfigurationError("']' expected in property format descriptor '" + propertyFormat + "'");
+        throw ExceptionFactory.getInstance().configurationError("']' expected in property format descriptor '" + propertyFormat + "'");
       }
       String propertyName = propertyFormat.substring(0, lbIndex);
       String formatSpec = propertyFormat.substring(lbIndex + 1, rbIndex);
@@ -97,7 +96,7 @@ public class FixedWidthUtil {
 
   private static FixedWidthColumnDescriptor parseDatePattern(String formatSpec, String nullString, Locale locale) {
     if (!formatSpec.startsWith("D")) {
-      throw new SyntaxError("Illegal date/time pattern", formatSpec);
+      throw ExceptionFactory.getInstance().syntaxErrorForText(formatSpec, "Illegal date/time pattern");
     }
     String pattern = formatSpec.substring(1);
     Format format = new SimpleDateFormat(pattern, DateFormatSymbols.getInstance(locale));
@@ -106,7 +105,7 @@ public class FixedWidthUtil {
 
   private static FixedWidthColumnDescriptor parseNumberPattern(String formatSpec, String nullString, Locale locale) {
     if (!formatSpec.startsWith("N")) {
-      throw new SyntaxError("Illegal number pattern", formatSpec);
+      throw ExceptionFactory.getInstance().syntaxErrorForText(formatSpec, "Illegal number pattern");
     }
     String pattern = formatSpec.substring(1);
     Format format = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(locale));
@@ -138,7 +137,7 @@ public class FixedWidthUtil {
         case 'l': alignment = Alignment.LEFT; break;
         case 'r': alignment = Alignment.RIGHT; break;
         case 'c': alignment = Alignment.CENTER; break;
-        default: throw new ConfigurationError("Illegal alignment code '" + alignmentCode + "' " +
+        default: throw ExceptionFactory.getInstance().configurationError("Illegal alignment code '" + alignmentCode + "' " +
             "in format descriptor '" + formatSpec + "'");
       }
       pos.setIndex(pos.getIndex() + 1);
@@ -149,7 +148,7 @@ public class FixedWidthUtil {
       pos.setIndex(pos.getIndex() + 1);
     }
     if (pos.getIndex() != formatSpec.length()) {
-      throw new SyntaxError("Illegal column format", formatSpec);
+      throw ExceptionFactory.getInstance().syntaxErrorForText(formatSpec, "Illegal column format");
     }
     return new FixedWidthColumnDescriptor(null, format, nullString, width, alignment, padChar);
   }
