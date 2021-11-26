@@ -21,7 +21,6 @@ import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.exception.SyntaxError;
 import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -82,7 +81,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
     for (String requiredAttribute : requiredAttributes) {
       if (StringUtil.isEmpty(element.getAttribute(requiredAttribute))) {
-        syntaxError("Required attribute '" + requiredAttribute + "' is missing", element);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Required attribute '" + requiredAttribute + "' is missing", element);
       }
     }
   }
@@ -97,8 +97,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
 
   protected void assertElementName(String expectedName, Element element) {
     if (!element.getNodeName().equals(expectedName)) {
-      throw ExceptionFactory.getInstance().syntaxError("Expected element name '" + expectedName + "', " +
-          "found: '" + element.getNodeName(), null);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "Expected element name '" + expectedName + "', " + "found: '" + element.getNodeName(), element);
     }
   }
 
@@ -109,7 +109,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
         if (usedAttribute == null) {
           usedAttribute = attributeName;
         } else {
-          syntaxError("The attributes '" + usedAttribute + "' and '" + attributeName + "' " +
+          throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+              "The attributes '" + usedAttribute + "' and '" + attributeName + "' " +
               "exclude each other", element);
         }
       }
@@ -124,19 +125,22 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       }
     }
     if (!ok) {
-      throw createSyntaxError("At least one of these attributes must be set: " + ArrayFormat.format(attributeNames), element);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "At least one of these attributes must be set: " + ArrayFormat.format(attributeNames), element);
     }
   }
 
   protected void assertAttributeIsSet(Element element, String attributeName) {
     if (StringUtil.isEmpty(element.getAttribute(attributeName))) {
-      throw createSyntaxError("Attribute '" + attributeName + "' is missing", element);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "Attribute '" + attributeName + "' is missing", element);
     }
   }
 
   protected void assertAttributeIsNotSet(Element element, String attributeName) {
     if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
-      throw createSyntaxError("Attributes '" + attributeName + "' must not be set", element);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "Attributes '" + attributeName + "' must not be set", element);
     }
   }
 
@@ -151,7 +155,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected String parseRequiredName(Element element) {
     String name = parseOptionalName(element);
     if (StringUtil.isEmpty(name)) {
-      throw createSyntaxError("'name' attribute is missing", element);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "'name' attribute is missing", element);
     }
     return name;
   }
@@ -182,7 +187,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   public String getRequiredAttribute(String name, Element element) {
     String value = getOptionalAttribute(name, element);
     if (value == null) {
-      syntaxError("'" + name + "' attribute expected", element);
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "'" + name + "' attribute expected", element);
     }
     return value;
   }
@@ -198,9 +204,9 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       }
     }
   }
-
+/* TODO remove
   protected static SyntaxError createSyntaxError(String message, Element element) {
-    return new SyntaxError("Syntax error: " + message, XMLUtil.format(element));
+    return new SyntaxError(message, XMLUtil.format(element));
   }
 
   protected static SyntaxError createSyntaxError(String message, Element element, Exception cause) {
@@ -210,10 +216,10 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected static void syntaxError(String message, Element element) {
     throw ExceptionFactory.getInstance().syntaxErrorForText(XMLUtil.format(element), "Syntax error: " + message);
   }
-
+*/
   private void unsupportedAttribute(Element element, String attribute) {
     StringBuilder message = renderUnsupportedAttributesMessage(element.getNodeName(), attribute);
-    throw createSyntaxError(message.toString(), element);
+    throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(message.toString(), element);
   }
 
   StringBuilder renderUnsupportedAttributesMessage(String elementName, String attribute) {

@@ -39,6 +39,8 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
 
   private static final Logger logger = LoggerFactory.getLogger(DelocalizingConverter.class);
 
+  public static final String COMPONENT_NAME = "DelocalizingConverter";
+
   /** File that contains the character mapping */
   private static final String CONFIG_FILENAME = "com/rapiddweller/format/text/DelocalizingConverter.csv";
 
@@ -78,8 +80,7 @@ public class DelocalizingConverter extends ThreadSafeConverter<String,String> {
         addReplacements(tokens.getData());
       }
     } catch (Exception e) {
-      throw ExceptionFactory.getInstance().componentInitializationFailed(
-          "Error initializing " + getClass(), e);
+      throw ExceptionFactory.getInstance().componentInitializationFailed(COMPONENT_NAME, e);
     }
   }
 

@@ -40,6 +40,8 @@ public class ScriptUtil {
 
   private static final Logger logger = LoggerFactory.getLogger(ScriptUtil.class);
 
+  public static final String COMPONENT_NAME = "rd-lib-script";
+
   // extension mapping -----------------------------------------------------------------------------------------------
 
   private static String defaultScriptEngine = "ftl";
@@ -228,12 +230,8 @@ public class ScriptUtil {
         ScriptFactory factory = (ScriptFactory) BeanUtil.newInstance(className);
         addFactory(entry.getKey(), factory);
       }
-    } catch (FileResourceNotFoundException e) {
-      throw ExceptionFactory.getInstance().configurationError(
-          "Script engine definition file not found: " + SETUP_FILE_NAME, e);
     } catch (Exception e) {
-      throw ExceptionFactory.getInstance().configurationError(
-          "I/O Error while reading script engine definition file: " + SETUP_FILE_NAME, e);
+      throw ExceptionFactory.getInstance().componentInitializationFailed(COMPONENT_NAME, e);
     }
 
   }

@@ -96,7 +96,7 @@ public class XLSUtil {
           case ERROR:
             return null;
           default:
-            throw ExceptionFactory.getInstance().syntaxError("Unexpected cell type: " + cellValue.getCellType(), null);
+            throw ExceptionFactory.getInstance().syntaxErrorForNothing("Unexpected cell type: " + cellValue.getCellType(), null);
             // CELL_TYPE_FORMULA is not supposed to be encountered here
         }
       default:

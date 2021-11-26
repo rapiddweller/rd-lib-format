@@ -155,7 +155,7 @@ public class RegexParser {
 
   private static SyntaxError mapToSyntaxError(RecognitionException e, String parsedText) {
     return ExceptionFactory.getInstance().syntaxErrorForText(
-        parsedText, "Error parsing regular expression: " + e.getMessage(), e.line, e.charPositionInLine);
+        "Error parsing regular expression: " + e.getMessage(), parsedText, e.line, e.charPositionInLine);
   }
 
   private RegexPart convertRegexPart(CommonTree node) throws SyntaxError {
@@ -197,8 +197,8 @@ public class RegexParser {
       case RegexLexer.T__34: // local bug fix since I do not want to touch the ANTLR parser
         return convertAlphanum(node);
       default: {
-        throw ExceptionFactory.getInstance().syntaxErrorForText(node.toString(),
-            "Not a supported token type: " + node.getToken(), node.getLine(), node.getCharPositionInLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText("Not a supported token type: " + node.getToken(), node.toString(),
+            node.getLine(), node.getCharPositionInLine());
       }
     }
   }
@@ -295,8 +295,8 @@ public class RegexParser {
       case 'e':
         return new RegexChar('\u001B'); // the escape character
       default:
-        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
-            "invalid non-typeable char", node.getLine(), node.getCharPositionInLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText("invalid non-typeable char", node.getText(),
+            node.getLine(), node.getCharPositionInLine());
     }
   }
 
@@ -333,7 +333,7 @@ public class RegexParser {
         return new SimpleCharSet("\\W", CharSet.getNonWordChars());
       default:
         throw ExceptionFactory.getInstance().syntaxErrorForText(
-            text, "Unsupported character class", node.getLine(), node.getCharPositionInLine());
+            "Unsupported character class", text, node.getLine(), node.getCharPositionInLine());
     }
   }
 
@@ -359,8 +359,8 @@ public class RegexParser {
       case RegexLexer.QUANT:
         return convertExplicitQuantifier(node);
       default:
-        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
-            "Error parsing quantifier", node.getLine(), node.getCharPositionInLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText("Error parsing quantifier", node.getText(),
+            node.getLine(), node.getCharPositionInLine());
     }
   }
 
@@ -392,15 +392,15 @@ public class RegexParser {
       case '+':
         return new Quantifier(1, null);
       default:
-        throw ExceptionFactory.getInstance().syntaxErrorForText(node.getText(),
-            "Error parsing simple quantifier", node.getLine(), node.getCharPositionInLine());
+        throw ExceptionFactory.getInstance().syntaxErrorForText("Error parsing simple quantifier", node.getText(),
+            node.getLine(), node.getCharPositionInLine());
     }
   }
 
   private static void checkForSyntaxErrors(
       String text, String type, com.rapiddweller.format.regex.antlr.RegexParser parser, ParserRuleReturnScope r) {
     if (parser.getNumberOfSyntaxErrors() > 0) {
-      throw ExceptionFactory.getInstance().syntaxErrorForText(text, "Illegal " + type, -1, -1);
+      throw ExceptionFactory.getInstance().syntaxErrorForText("Illegal " + type, text, -1, -1);
     }
     CommonToken stop = (CommonToken) r.stop;
     if (stop.getStopIndex() < StringUtil.trimRight(text).length() - 1) {

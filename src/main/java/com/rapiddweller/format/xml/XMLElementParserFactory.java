@@ -17,8 +17,6 @@ package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.exception.ParseException;
-import com.rapiddweller.common.xml.XMLUtil;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class XMLElementParserFactory<E> {
     Object parent = (ArrayUtil.isEmpty(parentPath) ? null : ArrayUtil.lastElementOf(parentPath));
     String message = "Element <" + element.getNodeName() + "> not supported "
         + (parent != null ? "in the context of a " + parent.getClass().getSimpleName() : "as top level element");
-    throw ExceptionFactory.getInstance().syntaxError(uri, -1, -1, message);
+    throw ExceptionFactory.getInstance().syntaxErrorForUri(message, null, uri);
   }
 
 }

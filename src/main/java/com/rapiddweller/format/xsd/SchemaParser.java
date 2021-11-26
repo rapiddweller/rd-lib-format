@@ -51,7 +51,8 @@ public class SchemaParser {
       } else if ("element".equals(childName)) {
         schema.setMember(parseElement(child, schema));
       } else {
-        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'schema': " + childName, null);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Not a supported child of <schema>", child);
       }
     }
     return schema;
@@ -82,7 +83,8 @@ public class SchemaParser {
     if (sequence != null) {
       return parseComplexTypeWithSequence(element, schema);
     }
-    throw ExceptionFactory.getInstance().syntaxError("Not a supported kind of 'complexType': " + element.getAttribute("name"), null);
+    throw ExceptionFactory.getInstance().syntaxErrorForAttribute(
+        "Not a supported kind of 'complexType'", element.getAttributeNode("name"));
   }
 
   private static ComplexType parseComplexTypeWithSimpleContent(Element element) {
@@ -95,7 +97,8 @@ public class SchemaParser {
       } else if ("attribute".equals(childName)) {
         type.addAttribute(parseAttribute(child));
       } else {
-        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of '" + element.getNodeName() + "': " + childName, null);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Not a supported child of '" + element.getNodeName() + "'", child);
       }
     }
     return type;
@@ -133,7 +136,8 @@ public class SchemaParser {
       } else if ("attribute".equals(childName)) {
         type.addAttribute(parseAttribute(child));
       } else {
-        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of '" + element.getNodeName() + "': " + childName, null);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Not a supported child of '" + element.getNodeName() + "'", child);
       }
     }
     return type;
@@ -145,7 +149,8 @@ public class SchemaParser {
       if ("element".equals(childName)) {
         complexType.addMember(parseElement(child, schema));
       } else {
-        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'element': " + childName, null);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Not a supported child of 'element'", child);
       }
     }
   }
@@ -166,7 +171,8 @@ public class SchemaParser {
       } else if ("annotation".equals(childName)) {
         member.setDocumentation(parseAnnotationDocumentation(child));
       } else {
-        throw ExceptionFactory.getInstance().syntaxError("Not a supported child of 'element': " + childName, null);
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Not a supported child of 'element'", child);
       }
     }
     if (type == null) {
