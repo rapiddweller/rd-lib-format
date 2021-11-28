@@ -83,7 +83,7 @@ public class SchemaParser {
     if (sequence != null) {
       return parseComplexTypeWithSequence(element, schema);
     }
-    throw ExceptionFactory.getInstance().syntaxErrorForAttribute(
+    throw ExceptionFactory.getInstance().syntaxErrorForXmlAttribute(
         "Not a supported kind of 'complexType'", element.getAttributeNode("name"));
   }
 

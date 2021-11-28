@@ -53,21 +53,21 @@ public class ParseContext<E> implements Context {
     factory.addParser(parser);
   }
 
-  public E parseElement(Element element, E[] parentPath) {
-    XMLElementParser<E> parser = factory.getParser(element, parentPath);
-    return parser.parse(element, parentPath, this);
+  public E parseElement(Element element, Element[] parentXmlPath, E[] parentComponentPath) {
+    XMLElementParser<E> parser = factory.getParser(element, parentXmlPath, parentComponentPath);
+    return parser.parse(element, parentXmlPath, parentComponentPath, this);
   }
 
-  public List<E> parseChildElementsOf(Element element, E[] currentPath) {
+  public List<E> parseChildElementsOf(Element element, Element[] currentXmlPath, E[] currentComponentPath) {
     List<E> result = new ArrayList<>();
     for (Element childElement : XMLUtil.getChildElements(element)) {
-      result.add(parseChildElement(childElement, currentPath));
+      result.add(parseChildElement(childElement, currentXmlPath, currentComponentPath));
     }
     return result;
   }
 
-  public E parseChildElement(Element childElement, E[] currentPath) {
-    return parseElement(childElement, currentPath);
+  public E parseChildElement(Element childElement, Element[] currentXmlPath, E[] currentComponentPath) {
+    return parseElement(childElement, currentXmlPath, currentComponentPath);
   }
 
   @SuppressWarnings("unchecked")

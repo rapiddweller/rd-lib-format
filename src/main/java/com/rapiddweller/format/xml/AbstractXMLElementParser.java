@@ -39,17 +39,19 @@ import java.util.Set;
  */
 public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E> {
 
+  public static final String ATTRIBUTE_IS_MISSING = "Attribute is missing";
+  public static final String ATTRIBUTE_ILLEGAL_FOR_ELEMENT = "Illegal attribute for element";
+
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   protected final String elementName;
   protected final Set<Class<?>> supportedParentTypes;
-  protected Set<String> requiredAttributes;
-  protected Set<String> optionalAttributes;
+  protected final Set<String> requiredAttributes;
+  protected final Set<String> optionalAttributes;
 
-  protected AbstractXMLElementParser(String elementName,
-                                  Set<String> requiredAttributes,
-                                  Set<String> optionalAttributes,
-                                  Class<?>... supportedParentTypes) {
+  protected AbstractXMLElementParser(
+      String elementName, Set<String> requiredAttributes, Set<String> optionalAttributes,
+      Class<?>... supportedParentTypes) {
     this.elementName = elementName;
     this.requiredAttributes = (requiredAttributes != null ? requiredAttributes : Collections.emptySet());
     this.optionalAttributes = (optionalAttributes != null ? optionalAttributes : Collections.emptySet());
@@ -57,32 +59,37 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   }
 
   @Override
-  public boolean supports(Element element, E[] parentPath) {
-    if (!this.elementName.equals(element.getNodeName())) {
-      return false;
-    }
-    return CollectionUtil.isEmpty(this.supportedParentTypes) || parentPath == null ||
-        this.supportedParentTypes.contains(ArrayUtil.lastElementOf(parentPath).getClass());
+  public boolean supportsElementName(String elementName) {
+    return (this.elementName != null && this.elementName.equals(elementName));
   }
 
   @Override
-  public final E parse(Element element, E[] parentPath, com.rapiddweller.format.xml.ParseContext<E> context) {
-    checkAttributeSupport(element);
-    return doParse(element, parentPath, context);
+  public boolean supports(Element element, Element[] parentXmlPath, E[] parentComponentPath) {
+    if (!supportsElementName(element.getNodeName())) {
+      return false;
+    }
+    return CollectionUtil.isEmpty(this.supportedParentTypes) || parentComponentPath == null ||
+        this.supportedParentTypes.contains(ArrayUtil.lastElementOf(parentComponentPath).getClass());
   }
 
-  protected abstract E doParse(Element element, E[] parentPath, ParseContext<E> context);
+  @Override
+  public final E parse(Element element, Element[] parentXmlPath, E[] parentPath, ParseContext<E> context) {
+    checkAttributeSupport(element);
+    return doParse(element, parentXmlPath, parentPath, context);
+  }
+
+  protected abstract E doParse(Element element, Element[] parentXmlPath, E[] parentPath, ParseContext<E> context);
 
   protected void checkAttributeSupport(Element element) {
     for (String attribute : XMLUtil.getAttributes(element).keySet()) {
       if (!requiredAttributes.contains(attribute) && !optionalAttributes.contains(attribute)) {
-        unsupportedAttribute(element, attribute);
+        attributeIsNotSupported(element, attribute);
       }
     }
     for (String requiredAttribute : requiredAttributes) {
       if (StringUtil.isEmpty(element.getAttribute(requiredAttribute))) {
-        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-            "Required attribute '" + requiredAttribute + "' is missing", element);
+        attributeIsMissing(element, requiredAttribute);
+        return;
       }
     }
   }
@@ -90,7 +97,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected void checkSupportedAttributes(Element element, String... supportedAttributes) {
     for (String actualAttribute : XMLUtil.getAttributes(element).keySet()) {
       if (!ArrayUtil.contains(actualAttribute, supportedAttributes)) {
-        unsupportedAttribute(element, actualAttribute);
+        attributeIsNotSupported(element, actualAttribute);
       }
     }
   }
@@ -204,27 +211,22 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       }
     }
   }
-/* TODO remove
-  protected static SyntaxError createSyntaxError(String message, Element element) {
-    return new SyntaxError(message, XMLUtil.format(element));
+
+  protected void attributeIsMissing(Element element, String requiredAttribute) {
+    throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+        ATTRIBUTE_IS_MISSING + ": '" + requiredAttribute + "' in <" + element.getNodeName() + ">",
+        element);
   }
 
-  protected static SyntaxError createSyntaxError(String message, Element element, Exception cause) {
-    return new SyntaxError("Syntax error: " + message, cause, XMLUtil.format(element), -1, -1);
-  }
-
-  protected static void syntaxError(String message, Element element) {
-    throw ExceptionFactory.getInstance().syntaxErrorForText(XMLUtil.format(element), "Syntax error: " + message);
-  }
-*/
-  private void unsupportedAttribute(Element element, String attribute) {
+  protected void attributeIsNotSupported(Element element, String attribute) {
     StringBuilder message = renderUnsupportedAttributesMessage(element.getNodeName(), attribute);
     throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(message.toString(), element);
   }
 
-  StringBuilder renderUnsupportedAttributesMessage(String elementName, String attribute) {
-    StringBuilder message = new StringBuilder("attribute '").append(attribute).append("' is not supported. ");
-    message.append("The attributes supported by <" + elementName + "> are: ");
+  protected StringBuilder renderUnsupportedAttributesMessage(String elementName, String attribute) {
+    StringBuilder message = new StringBuilder(ATTRIBUTE_ILLEGAL_FOR_ELEMENT).append(" <").append(elementName)
+        .append(">: ").append(attribute).append(". ");
+    message.append("Supported attributes are: ");
     boolean first = true;
     first = listAttributes(requiredAttributes, message, first);
     listAttributes(optionalAttributes, message, first);

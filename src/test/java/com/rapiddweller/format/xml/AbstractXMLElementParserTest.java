@@ -33,7 +33,7 @@ public class AbstractXMLElementParserTest {
   public void testRenderUnsupportedAttributesMessage() {
     MyXMLElementParser parser = new MyXMLElementParser();
     StringBuilder message = parser.renderUnsupportedAttributesMessage("elem", "att1");
-    String expectedMessage = "attribute 'att1' is not supported. The attributes supported by <elem> are: " +
+    String expectedMessage = "Illegal attribute for element <elem>: att1. Supported attributes are: " +
         "req1, req2, opt1, opt2";
     assertEquals(expectedMessage, message.toString());
   }
@@ -46,10 +46,14 @@ public class AbstractXMLElementParserTest {
     }
 
     @Override
-    protected Object doParse(Element element, Object[] parentPath, ParseContext<Object> context) {
+    protected Object doParse(Element element, Element[] parentXmlPath,  Object[] parentComponentPath, ParseContext<Object> context) {
       return null;
     }
 
+    @Override
+    public boolean supportsElementName(String elementName) {
+      return "elem".equals(elementName);
+    }
   }
 
 }

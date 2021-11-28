@@ -17,6 +17,7 @@ package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.exception.SyntaxError;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -31,28 +32,65 @@ import java.util.List;
  */
 public class XMLElementParserFactory<E> {
 
+  public static final String ILLEGAL_ROOT_ELEMENT = "Illegal root element";
+  public static final String ILLEGAL_CHILD_ELEMENT = "Illegal child element";
+  private static final String ILLEGAL_ELEMENT = "Illegal element";
+
   protected List<XMLElementParser<E>> parsers;
 
   public XMLElementParserFactory() {
     this.parsers = new ArrayList<>();
   }
 
+  // interface -------------------------------------------------------------------------------------------------------
+
   public void addParser(XMLElementParser<E> parser) {
     this.parsers.add(parser);
   }
 
-  public XMLElementParser<E> getParser(Element element, E[] parentPath) {
-    String uri = null; // TODO make uri a parameter
+  public XMLElementParser<E> getParser(Element element, Element[] parentXmlPath, E[] parentComponentPath) {
+    XMLElementParser<E> parser = findParser(element, parentXmlPath, parentComponentPath);
+    if (parser != null) {
+      return parser;
+    } else {
+      throw checkUnsupportedElement(element, parentXmlPath);
+    }
+  }
+
+  // private helpers -------------------------------------------------------------------------------------------------
+
+  private XMLElementParser<E> findParser(Element element, Element[] parentXmlPath, E[] parentComponentPath) {
     for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
       XMLElementParser<E> parser = parsers.get(i);
-      if (parser.supports(element, parentPath)) {
+      if (parser.supports(element, parentXmlPath, parentComponentPath)) {
         return parser;
       }
     }
-    Object parent = (ArrayUtil.isEmpty(parentPath) ? null : ArrayUtil.lastElementOf(parentPath));
-    String message = "Element <" + element.getNodeName() + "> not supported "
-        + (parent != null ? "in the context of a " + parent.getClass().getSimpleName() : "as top level element");
-    throw ExceptionFactory.getInstance().syntaxErrorForUri(message, null, uri);
+    return null;
+  }
+
+  private SyntaxError checkUnsupportedElement(Element element, Element[] parentXmlPath) {
+    boolean nameSupported = elementNameSupported(element.getNodeName());
+    Element parent = ArrayUtil.lastElementOf(parentXmlPath);
+    String message;
+    if (parent == null) {
+      message = ILLEGAL_ROOT_ELEMENT + ": " + element.getNodeName();
+    } else if (nameSupported){
+      message = ILLEGAL_CHILD_ELEMENT + " of <" + parent.getNodeName() + ">: <" + element.getNodeName() + ">";
+    } else {
+      message = ILLEGAL_ELEMENT + ": <" + element.getNodeName() + ">";
+    }
+    return ExceptionFactory.getInstance().syntaxErrorForXmlElement(message, element, null);
+  }
+
+  private boolean elementNameSupported(String name) {
+    for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
+      XMLElementParser<E> parser = parsers.get(i);
+      if (parser.supportsElementName(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
