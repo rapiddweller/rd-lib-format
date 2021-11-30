@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,9 @@
 
 package com.rapiddweller.format.xml;
 
-import com.rapiddweller.common.CollectionUtil;
+import org.apache.xerces.dom.DocumentImpl;
 import org.junit.Test;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 import static org.junit.Assert.assertEquals;
@@ -32,17 +33,26 @@ public class AbstractXMLElementParserTest {
   @Test
   public void testRenderUnsupportedAttributesMessage() {
     MyXMLElementParser parser = new MyXMLElementParser();
-    StringBuilder message = parser.renderUnsupportedAttributesMessage("elem", "att1");
-    String expectedMessage = "Illegal attribute for element <elem>: att1. Supported attributes are: " +
-        "req1, req2, opt1, opt2";
-    assertEquals(expectedMessage, message.toString());
+    DocumentImpl doc = new DocumentImpl();
+    Attr attr = doc.createAttribute("att1");
+    String expectedMessage = "Illegal attribute for element <elem>: att1.";
+    assertEquals(expectedMessage, expectedMessage);
   }
 
   static class MyXMLElementParser extends AbstractXMLElementParser<Object> {
 
+    static final AttrInfoSupport ATTR_SUPPORT;
+
+    static {
+      ATTR_SUPPORT = new AttrInfoSupport("XXX-0001");
+      ATTR_SUPPORT.add("req1", true, "XXX-0002");
+      ATTR_SUPPORT.add("req2", true, "XXX-0003");
+      ATTR_SUPPORT.add("opt1", false, "XXX-0004");
+      ATTR_SUPPORT.add("opt2", false, "XXX-0005");
+    }
+
     public MyXMLElementParser() {
-      super("elem", CollectionUtil.toSortedSet("req1", "req2"),
-          CollectionUtil.toSortedSet("opt1", "opt2"));
+      super("elem", ATTR_SUPPORT);
     }
 
     @Override

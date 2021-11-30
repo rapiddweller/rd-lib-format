@@ -16,6 +16,7 @@
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayUtil;
+import com.rapiddweller.common.exception.CommonErrorIds;
 import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.exception.SyntaxError;
 import org.w3c.dom.Element;
@@ -34,7 +35,7 @@ public class XMLElementParserFactory<E> {
 
   public static final String ILLEGAL_ROOT_ELEMENT = "Illegal root element";
   public static final String ILLEGAL_CHILD_ELEMENT = "Illegal child element";
-  private static final String ILLEGAL_ELEMENT = "Illegal element";
+  public static final String ILLEGAL_ELEMENT = "Illegal element";
 
   protected List<XMLElementParser<E>> parsers;
 
@@ -59,6 +60,16 @@ public class XMLElementParserFactory<E> {
 
   // private helpers -------------------------------------------------------------------------------------------------
 
+  private XMLElementParser<E> findParser(Element element) {
+    for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
+      XMLElementParser<E> parser = parsers.get(i);
+      if (parser.supportsElementName(element.getNodeName())) {
+        return parser;
+      }
+    }
+    return null;
+  }
+
   private XMLElementParser<E> findParser(Element element, Element[] parentXmlPath, E[] parentComponentPath) {
     for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
       XMLElementParser<E> parser = parsers.get(i);
@@ -70,27 +81,19 @@ public class XMLElementParserFactory<E> {
   }
 
   private SyntaxError checkUnsupportedElement(Element element, Element[] parentXmlPath) {
-    boolean nameSupported = elementNameSupported(element.getNodeName());
+    XMLElementParser<E> parser = findParser(element);
+    boolean nameSupported = (parser != null);
     Element parent = ArrayUtil.lastElementOf(parentXmlPath);
-    String message;
     if (parent == null) {
-      message = ILLEGAL_ROOT_ELEMENT + ": " + element.getNodeName();
-    } else if (nameSupported){
-      message = ILLEGAL_CHILD_ELEMENT + " of <" + parent.getNodeName() + ">: <" + element.getNodeName() + ">";
+      String message = ILLEGAL_ROOT_ELEMENT + ": " + element.getNodeName();
+      return ExceptionFactory.getInstance().syntaxErrorForXmlElement(message, null, CommonErrorIds.XML_ILLEGAL_ROOT, element);
+    } else if (nameSupported) {
+      String message = ILLEGAL_CHILD_ELEMENT + " of <" + parent.getNodeName() + ">: <" + element.getNodeName() + ">";
+      return ExceptionFactory.getInstance().syntaxErrorForXmlElement(message, null, CommonErrorIds.XML_ILLEGAL_CHILD_ELEMENT, element);
     } else {
-      message = ILLEGAL_ELEMENT + ": <" + element.getNodeName() + ">";
+      String message = ILLEGAL_ELEMENT + ": <" + element.getNodeName() + ">";
+      return ExceptionFactory.getInstance().syntaxErrorForXmlElement(message, null, CommonErrorIds.XML_ATTR_ILLEGAL_ELEMENT, element);
     }
-    return ExceptionFactory.getInstance().syntaxErrorForXmlElement(message, element, null);
-  }
-
-  private boolean elementNameSupported(String name) {
-    for (int i = parsers.size() - 1; i >= 0; i--) { // search for parsers in reverse order, to child classes can override parsers of parent classes
-      XMLElementParser<E> parser = parsers.get(i);
-      if (parser.supportsElementName(name)) {
-        return true;
-      }
-    }
-    return false;
   }
 
 }

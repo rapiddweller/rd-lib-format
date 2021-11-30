@@ -17,17 +17,18 @@ package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.ArrayFormat;
 import com.rapiddweller.common.ArrayUtil;
+import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -39,23 +40,25 @@ import java.util.Set;
  */
 public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E> {
 
-  public static final String ATTRIBUTE_IS_MISSING = "Attribute is missing";
-  public static final String ATTRIBUTE_ILLEGAL_FOR_ELEMENT = "Illegal attribute for element";
+  private static final Set<String> STD_XML_ROOT_ATTRIBUTES = CollectionUtil.toSet(
+      "xmlns", "xmlns:xsi", "xsi:schemaLocation"
+  );
 
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   protected final String elementName;
   protected final Set<Class<?>> supportedParentTypes;
-  protected final Set<String> requiredAttributes;
-  protected final Set<String> optionalAttributes;
+  protected final AttrInfoSupport attrSupport;
 
-  protected AbstractXMLElementParser(
-      String elementName, Set<String> requiredAttributes, Set<String> optionalAttributes,
-      Class<?>... supportedParentTypes) {
+  protected AbstractXMLElementParser(String elementName, AttrInfoSupport attrSupport,
+                                     Class<?>... supportedParentTypes) {
     this.elementName = elementName;
-    this.requiredAttributes = (requiredAttributes != null ? requiredAttributes : Collections.emptySet());
-    this.optionalAttributes = (optionalAttributes != null ? optionalAttributes : Collections.emptySet());
-    this.supportedParentTypes = CollectionUtil.toSet(supportedParentTypes);
+    this.attrSupport = Assert.notNull(attrSupport, "attrSupport");
+    for (Class<?> c : supportedParentTypes) {
+      Assert.notNull(c, "supportedParentType");
+    }
+    this.supportedParentTypes = (ArrayUtil.isEmpty(supportedParentTypes) ?
+        new HashSet<>() : CollectionUtil.toSet(supportedParentTypes));
   }
 
   @Override
@@ -68,36 +71,58 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     if (!supportsElementName(element.getNodeName())) {
       return false;
     }
-    return CollectionUtil.isEmpty(this.supportedParentTypes) || parentComponentPath == null ||
-        this.supportedParentTypes.contains(ArrayUtil.lastElementOf(parentComponentPath).getClass());
+    if (!CollectionUtil.isEmpty(this.supportedParentTypes) && parentComponentPath != null) {
+      E parentComponent = ArrayUtil.lastElementOf(parentComponentPath);
+      if (parentComponent == null) {
+        return supportedParentTypes.isEmpty();
+      } else {
+        return this.supportedParentTypes.contains(parentComponent.getClass());
+      }
+    }
+    return true;
   }
 
   @Override
   public final E parse(Element element, Element[] parentXmlPath, E[] parentPath, ParseContext<E> context) {
-    checkAttributeSupport(element);
+    checkAttributeSupport(element, ArrayUtil.isEmpty(parentXmlPath));
     return doParse(element, parentXmlPath, parentPath, context);
   }
 
   protected abstract E doParse(Element element, Element[] parentXmlPath, E[] parentPath, ParseContext<E> context);
 
-  protected void checkAttributeSupport(Element element) {
-    for (String attribute : XMLUtil.getAttributes(element).keySet()) {
-      if (!requiredAttributes.contains(attribute) && !optionalAttributes.contains(attribute)) {
-        attributeIsNotSupported(element, attribute);
+  protected void checkAttributeSupport(Element element, boolean ignoreStandardXmlRootElements) {
+    // Check each attribute of the element if it is allowed
+    NamedNodeMap attributes = element.getAttributes();
+    for (int i = 0; i < attributes.getLength(); i++) {
+      Attr attr = (Attr) attributes.item(i);
+      String attrName = attr.getName();
+      if (!isStandardXmlRootAttribute(attrName) || !ignoreStandardXmlRootElements) {
+        AttributeInfo attrInfo = attrSupport.get(attrName);
+        if (attrInfo == null) {
+          illegalAttribute(attr);
+        }
       }
     }
-    for (String requiredAttribute : requiredAttributes) {
-      if (StringUtil.isEmpty(element.getAttribute(requiredAttribute))) {
-        attributeIsMissing(element, requiredAttribute);
+    // Check if each required attribute is set
+    for (AttributeInfo attrInfo : attrSupport.getAll()) {
+      String attrName = attrInfo.getName();
+      if (attrInfo.isRequired() && StringUtil.isEmpty(element.getAttribute(attrName))) {
+        attributeIsMissing(element, attrName);
         return;
       }
     }
   }
 
+  protected static boolean isStandardXmlRootAttribute(String key) {
+    return (STD_XML_ROOT_ATTRIBUTES.contains(key) || key.contains(":"));
+  }
+
   protected void checkSupportedAttributes(Element element, String... supportedAttributes) {
-    for (String actualAttribute : XMLUtil.getAttributes(element).keySet()) {
-      if (!ArrayUtil.contains(actualAttribute, supportedAttributes)) {
-        attributeIsNotSupported(element, actualAttribute);
+    NamedNodeMap attributes = element.getAttributes();
+    for (int i = 0; i < attributes.getLength(); i++) {
+      Attr attr = (Attr) attributes.item(i);
+      if (!ArrayUtil.contains(attr.getName(), supportedAttributes)) {
+        illegalAttribute(attr);
       }
     }
   }
@@ -204,49 +229,14 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return StringUtil.emptyToNull(element.getAttribute(name));
   }
 
-  protected void checkAttributes(Element element, Set<String> supportedAttributes) {
-    for (Map.Entry<String, String> attribute : XMLUtil.getAttributes(element).entrySet()) {
-      if (!supportedAttributes.contains(attribute.getKey())) {
-        throw ExceptionFactory.getInstance().configurationError("Not a supported import attribute: " + attribute.getKey());
-      }
-    }
-  }
-
   protected void attributeIsMissing(Element element, String requiredAttribute) {
-    throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-        ATTRIBUTE_IS_MISSING + ": '" + requiredAttribute + "' in <" + element.getNodeName() + ">",
-        element);
+    throw ExceptionFactory.getInstance().missingXmlAttribute(
+        null, attrSupport.getErrorId(requiredAttribute), requiredAttribute, element);
   }
 
-  protected void attributeIsNotSupported(Element element, String attribute) {
-    StringBuilder message = renderUnsupportedAttributesMessage(element.getNodeName(), attribute);
-    throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(message.toString(), element);
-  }
-
-  protected StringBuilder renderUnsupportedAttributesMessage(String elementName, String attribute) {
-    StringBuilder message = new StringBuilder(ATTRIBUTE_ILLEGAL_FOR_ELEMENT).append(" <").append(elementName)
-        .append(">: ").append(attribute).append(". ");
-    message.append("Supported attributes are: ");
-    boolean first = true;
-    first = listAttributes(requiredAttributes, message, first);
-    listAttributes(optionalAttributes, message, first);
-    return message;
-  }
-
-  private static boolean listAttributes(Set<String> supportedAttributes, StringBuilder message, boolean first) {
-    for (String supportedAttribute : supportedAttributes) {
-      if (first) {
-        first = false;
-      } else {
-        message.append(", ");
-      }
-      message.append(supportedAttribute);
-    }
-    return first;
-  }
-
-  protected void syntaxWarning(String message, Element element) {
-    logger.warn("Syntax warning: " + message + " in " + XMLUtil.format(element));
+  protected void illegalAttribute(Attr attribute) {
+    throw ExceptionFactory.getInstance().illegalXmlAttributeName(
+        null, null, attrSupport.getErrorIdForIllegalAttribute(), attribute, attrSupport);
   }
 
 }
