@@ -3,6 +3,8 @@
 package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.Named;
+import com.rapiddweller.common.exception.ExceptionFactory;
+import org.w3c.dom.Element;
 
 /**
  * Defines the properties and requirements of an XML element's attribute.<br/><br/>
@@ -33,6 +35,12 @@ public class AttributeInfo implements Named {
 
   public String getErrorId() {
     return errorId;
+  }
+
+  public void validate(Element element) {
+    if (required && !element.hasAttribute(name)) {
+      throw ExceptionFactory.getInstance().missingXmlAttribute(null, errorId, name, element);
+    }
   }
 
 }

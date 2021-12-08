@@ -4,6 +4,7 @@ package com.rapiddweller.format.xml;
 
 import com.rapiddweller.common.collection.OrderedNameMap;
 import com.rapiddweller.common.exception.ExceptionFactory;
+import org.w3c.dom.Element;
 
 import java.util.Collection;
 
@@ -46,6 +47,12 @@ public class AttrInfoSupport {
           "Requested info for an illegal attribute", null);
     }
     return tmp.getErrorId();
+  }
+
+  public void validate(Element element) {
+    for (AttributeInfo info : map.values()) {
+      info.validate(element);
+    }
   }
 
 }
