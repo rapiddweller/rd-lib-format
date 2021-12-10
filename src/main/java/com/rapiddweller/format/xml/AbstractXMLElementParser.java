@@ -147,7 +147,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  protected void mutuallyExcludeAttributes(Element element, String... attributeNames) {
+  public static void mutuallyExcludeAttributes(Element element, String... attributeNames) {
     String usedAttribute = null;
     for (String attributeName : attributeNames) {
       if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {

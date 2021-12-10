@@ -38,11 +38,11 @@ public class AttrInfoSupport {
   }
 
   public void add(String name, boolean required, String errorId) {
-    map.put(name, new AttributeInfo<>(name, required, errorId, null, null));
+    map.put(name, new AttributeInfo<>(name, required, errorId, null));
   }
 
   public <T> AttributeInfo<T> add(String name, boolean required, String errorId, String defaultValue, Parser<T> parser) {
-    AttributeInfo<T> attributeInfo = new AttributeInfo<>(name, required, errorId, defaultValue, parser);
+    AttributeInfo<T> attributeInfo = new AttributeInfo<>(name, required, errorId, parser, defaultValue);
     map.put(name, attributeInfo);
     return attributeInfo;
   }

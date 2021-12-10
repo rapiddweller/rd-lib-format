@@ -19,18 +19,23 @@ public class AttributeInfo<E> implements Named {
   private final String name;
   private final boolean required;
   private final String errorId;
-  private final String defaultValue;
+  private final E defaultValue;
   private final Parser<E> parser;
 
-  public AttributeInfo(String name, boolean required, String errorId, String defaultValue, Parser<E> parser) {
+  public AttributeInfo(String name, boolean required, String errorId, Parser<E> parser) {
+    this(name, required, errorId, parser, (String) null);
+  }
+
+  public AttributeInfo(String name, boolean required, String errorId, Parser<E> parser, String defaultValue) {
+    this(name, required, errorId, parser, parseDefaultValue(defaultValue, parser));
+  }
+
+  protected AttributeInfo(String name, boolean required, String errorId, Parser<E> parser, E defaultValue) {
     this.name = name;
     this.required = required;
     this.errorId = errorId;
     this.defaultValue = defaultValue;
     this.parser = parser;
-    if (parser != null && defaultValue != null) {
-      parser.parse(defaultValue); // check if the defaultValue is legal
-    }
   }
 
   @Override
@@ -42,7 +47,7 @@ public class AttributeInfo<E> implements Named {
     return required;
   }
 
-  public String getDefaultValue() {
+  public E getDefaultValue() {
     return defaultValue;
   }
 
@@ -66,7 +71,7 @@ public class AttributeInfo<E> implements Named {
     } else if (required) {
       throw ExceptionFactory.getInstance().missingXmlAttribute(null, errorId, name, element);
     } else if (defaultValue != null) {
-      return parser.parse(defaultValue);
+      return defaultValue;
     } else {
       return null;
     }
@@ -74,6 +79,10 @@ public class AttributeInfo<E> implements Named {
 
   public boolean isDefinedIn(Element element) {
     return element.hasAttribute(name);
+  }
+
+  private static <T> T parseDefaultValue(String defaultValue, Parser<T> parser) {
+    return (parser != null && defaultValue != null ? parser.parse(defaultValue) : null);
   }
 
 }
