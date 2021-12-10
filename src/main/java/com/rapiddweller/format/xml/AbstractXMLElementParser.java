@@ -22,6 +22,7 @@ import com.rapiddweller.common.CollectionUtil;
 import com.rapiddweller.common.ParseUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.xml.XMLUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.w3c.dom.Attr;
@@ -90,6 +91,15 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
 
   protected abstract E doParse(Element element, Element[] parentXmlPath, E[] parentPath, ParseContext<E> context);
 
+  protected Object parent(E[] parentPath) {
+    if (ArrayUtil.isEmpty(parentPath)) {
+      return null;
+    } else {
+      return ArrayUtil.lastElementOf(parentPath);
+    }
+  }
+
+
   protected void checkAttributeSupport(Element element, boolean ignoreStandardXmlRootElements) {
     // Check each attribute of the element if it is allowed
     NamedNodeMap attributes = element.getAttributes();
@@ -97,21 +107,24 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       Attr attr = (Attr) attributes.item(i);
       String attrName = attr.getName();
       if (!isStandardXmlRootAttribute(attrName) || !ignoreStandardXmlRootElements) {
-        AttributeInfo attrInfo = attrSupport.get(attrName);
+        AttributeInfo<?> attrInfo = attrSupport.get(attrName);
         if (attrInfo == null) {
           illegalAttribute(attr);
         }
       }
     }
     // Check if each required attribute is set
-    for (AttributeInfo attrInfo : attrSupport.getAll()) {
+    for (AttributeInfo<?> attrInfo : attrSupport.getAll()) {
       String attrName = attrInfo.getName();
       if (attrInfo.isRequired() && StringUtil.isEmpty(element.getAttribute(attrName))) {
         attributeIsMissing(element, attrName);
         return;
       }
     }
+    attrSupport.validate(element);
   }
+
+  // static helper methods for child classes -------------------------------------------------------------------------
 
   protected static boolean isStandardXmlRootAttribute(String key) {
     return (STD_XML_ROOT_ATTRIBUTES.contains(key) || key.contains(":"));
@@ -134,7 +147,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  protected void excludeAttributes(Element element, String... attributeNames) {
+  protected void mutuallyExcludeAttributes(Element element, String... attributeNames) {
     String usedAttribute = null;
     for (String attributeName : attributeNames) {
       if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
@@ -143,13 +156,32 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
         } else {
           throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
               "The attributes '" + usedAttribute + "' and '" + attributeName + "' " +
-              "exclude each other", element);
+                  "exclude each other", element);
         }
       }
     }
   }
 
-  protected void assertAtLeastOneAttributeIsSet(Element element, String... attributeNames) {
+  protected static void mutuallyExcludeAttrGroups(Element element, String errorId, String[] group1, String[] group2) {
+    // check which attributes of group #1 are used
+    Set<String> set1 = CollectionUtil.toSet(group1);
+    Set<String> used1 = XMLUtil.getAttributes(element).keySet();
+    used1.retainAll(set1);
+
+    // check which attributes of group #2 are used
+    Set<String> set2 = CollectionUtil.toSet(group2);
+    Set<String> used2 = XMLUtil.getAttributes(element).keySet();
+    used2.retainAll(set2);
+
+    // if attributes of both groups where used, then throw a SyntaxError
+    if (!used1.isEmpty() && !used2.isEmpty()) {
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "<" + element.getNodeName() +">'s attributes '" + used1.iterator().next() + "' and '"
+          + used2.iterator().next() + "' mutually exclude each other", null, errorId, element);
+    }
+  }
+
+  protected static void assertAtLeastOneAttributeIsSet(Element element, String... attributeNames) {
     boolean ok = false;
     for (String attributeName : attributeNames) {
       if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
@@ -162,29 +194,21 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
   }
 
-  protected void assertAttributeIsSet(Element element, String attributeName) {
+  protected static void assertAttributeIsSet(Element element, String attributeName) {
     if (StringUtil.isEmpty(element.getAttribute(attributeName))) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
           "Attribute '" + attributeName + "' is missing", element);
     }
   }
 
-  protected void assertAttributeIsNotSet(Element element, String attributeName) {
+  protected static void assertAttributeIsNotSet(Element element, String attributeName) {
     if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
           "Attributes '" + attributeName + "' must not be set", element);
     }
   }
 
-  protected Object parent(E[] parentPath) {
-    if (ArrayUtil.isEmpty(parentPath)) {
-      return null;
-    } else {
-      return ArrayUtil.lastElementOf(parentPath);
-    }
-  }
-
-  protected String parseRequiredName(Element element) {
+  protected static String parseRequiredName(Element element) {
     String name = parseOptionalName(element);
     if (StringUtil.isEmpty(name)) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
@@ -193,30 +217,30 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return name;
   }
 
-  protected String parseOptionalName(Element element) {
+  protected static String parseOptionalName(Element element) {
     return getOptionalAttribute("name", element);
   }
 
-  protected Integer parseOptionalInteger(String attributeName, Element element) {
+  protected static Integer parseOptionalInteger(String attributeName, Element element) {
     return parseOptionalInteger(attributeName, element, null);
   }
 
-  protected Integer parseOptionalInteger(String attributeName, Element element, Integer defaultValue) {
+  protected static Integer parseOptionalInteger(String attributeName, Element element, Integer defaultValue) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? Integer.parseInt(spec) : defaultValue);
   }
 
-  protected Boolean parseOptionalBoolean(String attributeName, Element element) {
+  protected static Boolean parseOptionalBoolean(String attributeName, Element element) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? ParseUtil.parseBoolean(spec) : null);
   }
 
-  protected Long parseOptionalLong(String attributeName, Element element) {
+  protected static Long parseOptionalLong(String attributeName, Element element) {
     String spec = getOptionalAttribute(attributeName, element);
     return (spec != null ? Long.parseLong(spec) : null);
   }
 
-  public String getRequiredAttribute(String name, Element element) {
+  public static String getRequiredAttribute(String name, Element element) {
     String value = getOptionalAttribute(name, element);
     if (value == null) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
@@ -225,7 +249,7 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     return value;
   }
 
-  protected String getOptionalAttribute(String name, Element element) {
+  protected static String getOptionalAttribute(String name, Element element) {
     return StringUtil.emptyToNull(element.getAttribute(name));
   }
 
@@ -237,6 +261,32 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
   protected void illegalAttribute(Attr attribute) {
     throw ExceptionFactory.getInstance().illegalXmlAttributeName(
         null, null, attrSupport.getErrorIdForIllegalAttribute(), attribute, attrSupport);
+  }
+
+  protected static Element getUniqueChild(Element parent, String childName, boolean required) {
+    Element[] children = XMLUtil.getChildElements(parent, false, childName);
+    if (children.length > 1) {
+      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+          "Multiple <" + childName + "> elements", parent);
+    }
+    if (children.length == 0) {
+      if (required) {
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+            "Required child element <" + childName + "> is missing", parent);
+      } else {
+        return null;
+      }
+    }
+    return children[0];
+  }
+
+  protected static void assertOnlyTheseChildNames(Element ifElement, String... allowedChildNames) {
+    for (Element child : XMLUtil.getChildElements(ifElement)) {
+      String childName = child.getNodeName();
+      if (!ArrayUtil.contains(childName, allowedChildNames)) {
+        throw ExceptionFactory.getInstance().syntaxErrorForXmlElement("Illegal child element", child);
+      }
+    }
   }
 
 }
