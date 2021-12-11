@@ -143,6 +143,10 @@ public class ScriptUtil {
     }
   }
 
+  public static boolean supportsEngine(String engineId) {
+    return (getFactory(engineId, false) != null);
+  }
+
   public static void addFactory(String name, ScriptFactory factory) {
     factories.put(name, factory);
   }
