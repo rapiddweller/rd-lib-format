@@ -22,6 +22,10 @@ public class AttrInfoSupport {
   private final OrderedNameMap<AttributeInfo<?>> map;
   private final Validator<Element> validator;
 
+  public AttrInfoSupport(String errorIdForIllegalAttribute) {
+    this(errorIdForIllegalAttribute, new AttributeInfo<?>[0]);
+  }
+
   public AttrInfoSupport(String errorIdForIllegalAttribute, AttributeInfo<?>... attrInfos) {
     this(errorIdForIllegalAttribute, null, attrInfos);
   }
