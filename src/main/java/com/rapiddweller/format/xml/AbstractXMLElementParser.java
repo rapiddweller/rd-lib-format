@@ -177,11 +177,33 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     if (!used1.isEmpty() && !used2.isEmpty()) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
           "<" + element.getNodeName() +">'s attributes '" + used1.iterator().next() + "' and '"
-          + used2.iterator().next() + "' mutually exclude each other", null, errorId, element);
+              + used2.iterator().next() + "' mutually exclude each other", null, errorId, element);
     }
   }
 
-  protected static void assertAtLeastOneAttributeIsSet(Element element, String... attributeNames) {
+  protected static void assertGroupComplete(Element element, String errorId, String... group) {
+    // check which attributes of group #1 are used
+    Set<String> groupAttrs = CollectionUtil.toSet(group);
+    Set<String> usedAttrs = XMLUtil.getAttributes(element).keySet();
+    usedAttrs.retainAll(groupAttrs);
+
+    if (!usedAttrs.isEmpty()) {
+      // if any of the group's elements is used, then require usage of each group element
+      for (String groupElem : group) {
+        if (!usedAttrs.contains(groupElem)) {
+          Set<String> unusedAttrs = new HashSet<>(groupAttrs);
+          unusedAttrs.removeAll(usedAttrs);
+          String unused = unusedAttrs.toString();
+          unused = unused.substring(1, unused.length() - 1);
+          throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
+              "if <" + element.getNodeName() +"> has the attribute '" + usedAttrs.iterator().next() +
+                  "' then it must have '" + unused + "' too", null, errorId, element);
+        }
+      }
+    }
+  }
+
+  protected static void assertAtLeastOneAttributeIsSet(Element element, String errorId, String... attributeNames) {
     boolean ok = false;
     for (String attributeName : attributeNames) {
       if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
@@ -190,7 +212,8 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
     }
     if (!ok) {
       throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "At least one of these attributes must be set: " + ArrayFormat.format(attributeNames), element);
+          "At least one of these attributes must be set: " + ArrayFormat.format(attributeNames),
+          null, errorId, element);
     }
   }
 
