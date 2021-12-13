@@ -15,7 +15,6 @@
 
 package com.rapiddweller.format.xml;
 
-import com.rapiddweller.common.ArrayFormat;
 import com.rapiddweller.common.ArrayUtil;
 import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.CollectionUtil;
@@ -137,97 +136,6 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       if (!ArrayUtil.contains(attr.getName(), supportedAttributes)) {
         illegalAttribute(attr);
       }
-    }
-  }
-
-  protected void assertElementName(String expectedName, Element element) {
-    if (!element.getNodeName().equals(expectedName)) {
-      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "Expected element name '" + expectedName + "', " + "found: '" + element.getNodeName(), element);
-    }
-  }
-
-  public static void mutuallyExcludeAttributes(Element element, String... attributeNames) {
-    String usedAttribute = null;
-    for (String attributeName : attributeNames) {
-      if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
-        if (usedAttribute == null) {
-          usedAttribute = attributeName;
-        } else {
-          throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-              "The attributes '" + usedAttribute + "' and '" + attributeName + "' " +
-                  "exclude each other", element);
-        }
-      }
-    }
-  }
-
-  protected static void mutuallyExcludeAttrGroups(Element element, String errorId, String[] group1, String[] group2) {
-    // check which attributes of group #1 are used
-    Set<String> set1 = CollectionUtil.toSet(group1);
-    Set<String> used1 = XMLUtil.getAttributes(element).keySet();
-    used1.retainAll(set1);
-
-    // check which attributes of group #2 are used
-    Set<String> set2 = CollectionUtil.toSet(group2);
-    Set<String> used2 = XMLUtil.getAttributes(element).keySet();
-    used2.retainAll(set2);
-
-    // if attributes of both groups where used, then throw a SyntaxError
-    if (!used1.isEmpty() && !used2.isEmpty()) {
-      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "<" + element.getNodeName() +">'s attributes '" + used1.iterator().next() + "' and '"
-              + used2.iterator().next() + "' mutually exclude each other", null, errorId, element);
-    }
-  }
-
-  protected static void assertGroupComplete(Element element, String errorId, String... group) {
-    // check which attributes of group #1 are used
-    Set<String> groupAttrs = CollectionUtil.toSet(group);
-    Set<String> usedAttrs = XMLUtil.getAttributes(element).keySet();
-    usedAttrs.retainAll(groupAttrs);
-
-    if (!usedAttrs.isEmpty()) {
-      // if any of the group's elements is used, then require usage of each group element
-      for (String groupElem : group) {
-        if (!usedAttrs.contains(groupElem)) {
-          Set<String> unusedAttrs = new HashSet<>(groupAttrs);
-          unusedAttrs.removeAll(usedAttrs);
-          String unused = unusedAttrs.toString();
-          unused = unused.substring(1, unused.length() - 1);
-          throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-              "if <" + element.getNodeName() +"> has the attribute '" + usedAttrs.iterator().next() +
-                  "' then it must have '" + unused + "' too", null, errorId, element);
-        }
-      }
-    }
-  }
-
-  protected static void assertAtLeastOneAttributeIsSet(Element element, String errorId, String... attributeNames) {
-    boolean ok = false;
-    for (String attributeName : attributeNames) {
-      if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
-        ok = true;
-      }
-    }
-    if (!ok) {
-      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "At least one of these attributes must be set: " + ArrayFormat.format(attributeNames),
-          null, errorId, element);
-    }
-  }
-
-  protected static void assertAttributeIsSet(Element element, String attributeName) {
-    if (StringUtil.isEmpty(element.getAttribute(attributeName))) {
-      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "Attribute '" + attributeName + "' is missing", element);
-    }
-  }
-
-  protected static void assertAttributeIsNotSet(Element element, String attributeName) {
-    if (!StringUtil.isEmpty(element.getAttribute(attributeName))) {
-      throw ExceptionFactory.getInstance().syntaxErrorForXmlElement(
-          "Attributes '" + attributeName + "' must not be set", element);
     }
   }
 
