@@ -14,23 +14,23 @@ import org.w3c.dom.Element;
  * @author Volker Bergmann
  * @since 2.1.0
  */
-public class AttributeInfo<E> implements Named {
+public class AttrInfo<E> implements Named {
 
   private final String name;
-  private final boolean required;
+  private boolean required;
   private final String errorId;
   private final E defaultValue;
   private final Parser<E> parser;
 
-  public AttributeInfo(String name, boolean required, String errorId, Parser<E> parser) {
+  public AttrInfo(String name, boolean required, String errorId, Parser<E> parser) {
     this(name, required, errorId, parser, (String) null);
   }
 
-  public AttributeInfo(String name, boolean required, String errorId, Parser<E> parser, String defaultValue) {
+  public AttrInfo(String name, boolean required, String errorId, Parser<E> parser, String defaultValue) {
     this(name, required, errorId, parser, parseDefaultValue(defaultValue, parser));
   }
 
-  protected AttributeInfo(String name, boolean required, String errorId, Parser<E> parser, E defaultValue) {
+  protected AttrInfo(String name, boolean required, String errorId, Parser<E> parser, E defaultValue) {
     this.name = name;
     this.required = required;
     this.errorId = errorId;
@@ -45,6 +45,10 @@ public class AttributeInfo<E> implements Named {
 
   public boolean isRequired() {
     return required;
+  }
+
+  public void setRequired(boolean required) {
+    this.required = required;
   }
 
   public E getDefaultValue() {

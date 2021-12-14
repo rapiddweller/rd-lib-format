@@ -106,14 +106,14 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
       Attr attr = (Attr) attributes.item(i);
       String attrName = attr.getName();
       if (!isStandardXmlRootAttribute(attrName) || !ignoreStandardXmlRootElements) {
-        AttributeInfo<?> attrInfo = attrSupport.get(attrName);
+        AttrInfo<?> attrInfo = attrSupport.get(attrName);
         if (attrInfo == null) {
           illegalAttribute(attr);
         }
       }
     }
     // Check if each required attribute is set
-    for (AttributeInfo<?> attrInfo : attrSupport.getAll()) {
+    for (AttrInfo<?> attrInfo : attrSupport.getAll()) {
       String attrName = attrInfo.getName();
       if (attrInfo.isRequired() && StringUtil.isEmpty(element.getAttribute(attrName))) {
         attributeIsMissing(element, attrName);
