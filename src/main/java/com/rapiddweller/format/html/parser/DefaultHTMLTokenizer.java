@@ -290,7 +290,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
     int quoteChar = reader.read();
     attribValueFrom[attribCount] = cursor;
     if (quoteChars.indexOf(quoteChar) < 0) {
-      throw ExceptionFactory.getInstance().syntaxErrorForNothing("Expected quotation like " + quoteChars + ", found: " + quoteChar, null);
+      throw ExceptionFactory.getInstance().syntaxErrorForText("Expected quotation like " + quoteChars, String.valueOf(quoteChar));
     }
     readUntil((char) quoteChar);
     attribValueUntil[attribCount] = cursor;
@@ -420,7 +420,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
   private void assertChar(char expectedChar) throws IOException {
     int c = reader.read();
     if (c != expectedChar) {
-      throw ExceptionFactory.getInstance().syntaxErrorForNothing("Expected: '" + expectedChar + "', found: '" + (char) c + "'", null);
+      throw ExceptionFactory.getInstance().syntaxErrorForText("Expected: '" + expectedChar + "'", String.valueOf((char) c));
     }
     textBuffer[cursor++] = expectedChar;
   }
@@ -444,7 +444,7 @@ public class DefaultHTMLTokenizer implements HTMLTokenizer {
       }
     } while (c != -1 && skipSpace && Character.isWhitespace(c));
     if (c != expectedChar) {
-      throw ExceptionFactory.getInstance().syntaxErrorForNothing("Expected: '" + expectedChar + "', found: '" + (char) c + "'", null);
+      throw ExceptionFactory.getInstance().syntaxErrorForText("Expected: '" + expectedChar + "'", String.valueOf((char) c));
     }
   }
 

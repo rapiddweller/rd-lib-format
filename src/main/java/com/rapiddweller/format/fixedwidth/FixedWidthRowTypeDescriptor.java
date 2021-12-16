@@ -88,7 +88,7 @@ public class FixedWidthRowTypeDescriptor {
         Object cellObject = columnDescriptor.parse(cellContent);
         builder.add(cellObject);
       } catch (ParseException e) {
-        throw ExceptionFactory.getInstance().syntaxErrorForNothing(
+        throw ExceptionFactory.getInstance().parsingError(
             "Error parsing column '" + descriptorName(columnDescriptor, i) + "'. ", e);
       }
       pos.setIndex(endIndex);
