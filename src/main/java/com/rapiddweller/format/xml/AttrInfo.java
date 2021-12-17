@@ -2,6 +2,7 @@
 
 package com.rapiddweller.format.xml;
 
+import com.rapiddweller.common.Expression;
 import com.rapiddweller.common.Named;
 import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.common.parser.Parser;
@@ -62,15 +63,14 @@ public class AttrInfo<E> implements Named {
   public E parse(Element element) {
     Attr attr = element.getAttributeNode(name);
     if (attr != null) {
-      String value = attr.getValue();
       if (parser != null) {
         try {
-          return parser.parse(value);
+          return parseImpl(attr);
         } catch (Exception e) {
           throw ExceptionFactory.getInstance().illegalXmlAttributeValue(null, e, errorId, attr);
         }
       } else {
-        return (E) value;
+        return (E) attr.getValue();
       }
     } else if (required) {
       throw ExceptionFactory.getInstance().missingXmlAttribute(null, errorId, name, element);
@@ -78,6 +78,16 @@ public class AttrInfo<E> implements Named {
       return defaultValue;
     } else {
       return null;
+    }
+  }
+
+  private E parseImpl(Attr attr) {
+    String value = attr.getValue();
+    E result = parser.parse(value);
+    if (result instanceof Expression) {
+      return (E) new AttrExpression((Expression) result, attr, errorId);
+    } else {
+      return result;
     }
   }
 
