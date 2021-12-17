@@ -21,31 +21,18 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Script implementation that evaluates to a String constant.
- * <p>
+ * Script implementation that evaluates to a String constant.<br/><br/>
  * Created: 16.06.2007 06:15:32
- *
  * @author Volker Bergmann
  */
 public class ConstantScript extends AbstractScript {
 
   private final String text;
 
-  /**
-   * Instantiates a new Constant script.
-   *
-   * @param text the text
-   */
   public ConstantScript(String text) {
     this.text = text;
   }
 
-  /**
-   * Sets variable.
-   *
-   * @param variableName  the variable name
-   * @param variableValue the variable value
-   */
   public void setVariable(String variableName, Object variableValue) {
     // nothing to do
   }
@@ -54,4 +41,5 @@ public class ConstantScript extends AbstractScript {
   public void execute(Context context, Writer out) throws IOException, ScriptException {
     out.write(text);
   }
+
 }

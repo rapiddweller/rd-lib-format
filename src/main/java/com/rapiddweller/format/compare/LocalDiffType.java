@@ -20,7 +20,7 @@ import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
 
 /**
- * Assigns a DiffType with a locator for special comparison configurations.
+ * Assigns a DiffType with a locator for special comparison configurations.<br/><br/>
  * Created: 08.07.2014 18:14:36
  * @author Volker Bergmann
  * @since 1.0.5

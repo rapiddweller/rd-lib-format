@@ -18,32 +18,17 @@ package com.rapiddweller.format.script;
 import com.rapiddweller.common.StringUtil;
 
 /**
- * Describes a script.
+ * Describes a script.<br/><br/>
  * Created: 09.08.2010 16:40:50
- *
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public class ScriptDescriptor {
 
-  /**
-   * The Script engine.
-   */
   public final String scriptEngine;
-  /**
-   * The Level.
-   */
   public final ScriptLevel level;
-  /**
-   * The Text.
-   */
   public final String text;
 
-  /**
-   * Instantiates a new Script descriptor.
-   *
-   * @param text the text
-   */
   public ScriptDescriptor(String text) {
     if (text != null && text.startsWith("{") && text.endsWith("}")) {
       text = text.substring(1, text.length() - 1);

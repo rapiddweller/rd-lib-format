@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2021 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,6 @@ import com.rapiddweller.common.FileUtil;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.file.FileResourceNotFoundException;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -32,7 +31,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * Utility class for scripting.
+ * Utility class for scripting.<br/><br/>
  * @author Volker Bergmann
  * @since 0.3.0
  */

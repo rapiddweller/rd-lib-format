@@ -16,19 +16,12 @@
 package com.rapiddweller.format.script;
 
 /**
- * Describes if a text is a script text or plain text.
+ * Describes if a text is a script text or plain text.<br/><br/>
  * Created: 09.08.2010 16:42:33
- *
  * @author Volker Bergmann
  * @since 0.5.4
  */
 public enum ScriptLevel {
-  /**
-   * None script level.
-   */
   NONE,
-  /**
-   * Script script level.
-   */
   SCRIPT
 }

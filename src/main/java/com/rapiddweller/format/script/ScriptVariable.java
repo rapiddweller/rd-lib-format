@@ -16,10 +16,8 @@
 package com.rapiddweller.format.script;
 
 /**
- * Name-value-pair that represents a variable in a Script.
- * <p>
+ * Name-value-pair that represents a variable in a Script.<br/><br/>
  * Created: 07.06.2007 11:43:01
- *
  * @author Volker Bergmann
  */
 public class ScriptVariable {
@@ -27,31 +25,15 @@ public class ScriptVariable {
   private final String name;
   private final Object value;
 
-  /**
-   * Instantiates a new Script variable.
-   *
-   * @param name  the name
-   * @param value the value
-   */
   public ScriptVariable(String name, Object value) {
     this.name = name;
     this.value = value;
   }
 
-  /**
-   * Gets name.
-   *
-   * @return the name
-   */
   public String getName() {
     return name;
   }
 
-  /**
-   * Gets value.
-   *
-   * @return the value
-   */
   public Object getValue() {
     return value;
   }

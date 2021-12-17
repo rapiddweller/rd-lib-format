@@ -18,60 +18,16 @@ package com.rapiddweller.format.compare;
 import java.util.List;
 
 /**
- * Provides comparison for equality and comparison for objects of a given parameterized type E.
+ * Provides comparison for equality and comparison for objects of a given parameterized type E.<br/><br/>
  * Created: 20.11.2013 17:40:05
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
 public interface ComparisonModel {
-  /**
-   * Classifier of string.
-   *
-   * @param object the object
-   * @return the string
-   */
   String classifierOf(Object object);
-
-  /**
-   * Add key expression.
-   *
-   * @param locator       the locator
-   * @param keyExpression the key expression
-   */
   void addKeyExpression(String locator, String keyExpression);
-
-  /**
-   * Gets key expressions.
-   *
-   * @return the key expressions
-   */
   List<KeyExpression> getKeyExpressions();
-
-  /**
-   * Equal boolean.
-   *
-   * @param o1 the o 1
-   * @param o2 the o 2
-   * @return the boolean
-   */
   boolean equal(Object o1, Object o2);
-
-  /**
-   * Correspond boolean.
-   *
-   * @param o1 the o 1
-   * @param o2 the o 2
-   * @return the boolean
-   */
   boolean correspond(Object o1, Object o2);
-
-  /**
-   * Sub path string.
-   *
-   * @param array the array
-   * @param index the index
-   * @return the string
-   */
   String subPath(Object[] array, int index);
 }

@@ -21,9 +21,8 @@ import com.rapiddweller.common.NullSafeComparator;
  * Provides a key definition for an object based on a {@link #locator} expression
  * for the related object and a {@link KeyExpression} to derive a key from the object.
  * The syntax of the locator and the keyExpression depends on the type of the related
- * object structure and comparator implementation, e.g. XPath expressions for XML.
+ * object structure and comparator implementation, e.g. XPath expressions for XML.<br/><br/>
  * Created: 13.06.2016 18:31:01
- *
  * @author Volker Bergmann
  * @since 1.0.11
  */
@@ -32,31 +31,15 @@ public class KeyExpression {
   private final String locator;
   private final String expression;
 
-  /**
-   * Instantiates a new Key expression.
-   *
-   * @param locator    the locator
-   * @param expression the expression
-   */
   public KeyExpression(String locator, String expression) {
     this.locator = locator;
     this.expression = expression;
   }
 
-  /**
-   * Gets locator.
-   *
-   * @return the locator
-   */
   public String getLocator() {
     return locator;
   }
 
-  /**
-   * Gets expression.
-   *
-   * @return the expression
-   */
   public String getExpression() {
     return expression;
   }

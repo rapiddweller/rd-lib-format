@@ -25,9 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A DocumentWriter that uses {@link Script}s for rendering head, body parts and footer.
+ * A DocumentWriter that uses {@link Script}s for rendering head, body parts and footer.<br/><br/>
  * Created: 07.06.2007 11:32:09
- *
  * @param <E> the type of objects to write
  * @author Volker Bergmann
  */
@@ -42,17 +41,7 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
 
   private boolean writeHeader;
 
-  /**
-   * Instantiates a new Scripted document writer.
-   *
-   * @param out               the out
-   * @param headerScriptUrl   the header script url
-   * @param bodyPartScriptUrl the body part script url
-   * @param footerScriptUrl   the footer script url
-   * @throws IOException the io exception
-   */
-  public ScriptedDocumentWriter(Writer out, String headerScriptUrl, String bodyPartScriptUrl, String footerScriptUrl)
-      throws IOException {
+  public ScriptedDocumentWriter(Writer out, String headerScriptUrl, String bodyPartScriptUrl, String footerScriptUrl) {
     this(out,
         (headerScriptUrl != null ? ScriptUtil.readFile(headerScriptUrl) : null),
         (bodyPartScriptUrl != null ? ScriptUtil.readFile(bodyPartScriptUrl) : null),
@@ -60,14 +49,6 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
     );
   }
 
-  /**
-   * Instantiates a new Scripted document writer.
-   *
-   * @param out            the out
-   * @param headerScript   the header script
-   * @param bodyPartScript the body part script
-   * @param footerScript   the footer script
-   */
   public ScriptedDocumentWriter(Writer out, Script headerScript, Script bodyPartScript, Script footerScript) {
     this.out = out;
     this.headerScript = headerScript;
@@ -77,47 +58,22 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
     this.writeHeader = true;
   }
 
-  /**
-   * Gets header script.
-   *
-   * @return the header script
-   */
   public Script getHeaderScript() {
     return headerScript;
   }
 
-  /**
-   * Sets header script.
-   *
-   * @param headerScript the header script
-   */
   public void setHeaderScript(Script headerScript) {
     this.headerScript = headerScript;
   }
 
-  /**
-   * Gets footer script.
-   *
-   * @return the footer script
-   */
   public Script getFooterScript() {
     return footerScript;
   }
 
-  /**
-   * Sets footer script.
-   *
-   * @param footerScript the footer script
-   */
   public void setFooterScript(Script footerScript) {
     this.footerScript = footerScript;
   }
 
-  /**
-   * Sets write header.
-   *
-   * @param writeHeader the write header
-   */
   public void setWriteHeader(boolean writeHeader) {
     this.writeHeader = writeHeader;
   }
@@ -151,11 +107,6 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
 
   // helpers ---------------------------------------------------------------------------------------------------------
 
-  /**
-   * Write header.
-   *
-   * @throws IOException the io exception
-   */
   protected void writeHeader() throws IOException {
     if (headerScript != null) {
       Context context = new DefaultContext();
@@ -164,11 +115,6 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
     }
   }
 
-  /**
-   * Write footer.
-   *
-   * @throws IOException the io exception
-   */
   protected void writeFooter() throws IOException {
     if (footerScript != null) {
       Context context = new DefaultContext();
@@ -176,4 +122,5 @@ public class ScriptedDocumentWriter<E> implements DocumentWriter<E> {
       footerScript.execute(context, out);
     }
   }
+
 }

@@ -19,67 +19,25 @@ import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.NullSafeComparator;
 
 /**
- * Represents a difference between the state of two objects.
+ * Represents a difference between the state of two objects.<br/><br/>
  * Created: 21.11.2013 11:29:35
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
 public class DiffDetail {
 
-  /**
-   * The Expected.
-   */
   protected final Object expected;
-  /**
-   * The Actual.
-   */
   protected final Object actual;
-  /**
-   * The Object classifier.
-   */
   protected final String objectClassifier;
-  /**
-   * The Type.
-   */
   protected final DiffDetailType type;
-  /**
-   * The Locator of expected.
-   */
   protected final String locatorOfExpected;
-  /**
-   * The Locator of actual.
-   */
   protected final String locatorOfActual;
-  /**
-   * The Formatter.
-   */
   protected final Converter<Object, String> formatter;
 
-  /**
-   * Instantiates a new Diff detail.
-   *
-   * @param expected         the expected
-   * @param actual           the actual
-   * @param objectClassifier the object classifier
-   * @param type             the type
-   * @param formatter        the formatter
-   */
   public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, Converter<Object, String> formatter) {
     this(expected, actual, objectClassifier, type, null, null, formatter);
   }
 
-  /**
-   * Instantiates a new Diff detail.
-   *
-   * @param expected          the expected
-   * @param actual            the actual
-   * @param objectClassifier  the object classifier
-   * @param type              the type
-   * @param locatorOfExpected the locator of expected
-   * @param locatorOfActual   the locator of actual
-   * @param formatter         the formatter
-   */
   public DiffDetail(Object expected, Object actual, String objectClassifier, DiffDetailType type, String locatorOfExpected, String locatorOfActual,
                     Converter<Object, String> formatter) {
     this.expected = expected;
@@ -91,65 +49,30 @@ public class DiffDetail {
     this.formatter = formatter;
   }
 
-  /**
-   * Gets expected.
-   *
-   * @return the expected
-   */
   public Object getExpected() {
     return expected;
   }
 
-  /**
-   * Gets actual.
-   *
-   * @return the actual
-   */
   public Object getActual() {
     return actual;
   }
 
-  /**
-   * Gets object classifier.
-   *
-   * @return the object classifier
-   */
   public String getObjectClassifier() {
     return objectClassifier;
   }
 
-  /**
-   * Gets type.
-   *
-   * @return the type
-   */
   public DiffDetailType getType() {
     return type;
   }
 
-  /**
-   * Gets locator of expected.
-   *
-   * @return the locator of expected
-   */
   public String getLocatorOfExpected() {
     return locatorOfExpected;
   }
 
-  /**
-   * Gets locator of actual.
-   *
-   * @return the locator of actual
-   */
   public String getLocatorOfActual() {
     return locatorOfActual;
   }
 
-  /**
-   * Gets formatter.
-   *
-   * @return the formatter
-   */
   public Converter<Object, String> getFormatter() {
     return formatter;
   }

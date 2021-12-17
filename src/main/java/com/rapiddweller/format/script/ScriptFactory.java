@@ -20,7 +20,7 @@ import com.rapiddweller.common.exception.ParseException;
 import java.io.IOException;
 
 /**
- * Factory class for {@link Script} objects.
+ * Factory class for {@link Script} objects.<br/><br/>
  * @author Volker Bergmann
  * @since 0.3.0
  */

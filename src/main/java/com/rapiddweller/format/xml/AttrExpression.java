@@ -31,7 +31,7 @@ public class AttrExpression<E> implements Expression<E> {
       return realExpression.evaluate(context);
     } catch (Exception e) {
       throw ExceptionFactory.getInstance().illegalXmlAttributeValue(
-          "Error resolving expression " + realExpression, e, errorId, attr);
+          "Error resolving expression '" + realExpression + "'", e, errorId, attr);
     }
   }
 

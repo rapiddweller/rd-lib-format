@@ -22,7 +22,6 @@ import com.rapiddweller.common.converter.ThreadSafeConverter;
 
 /**
  * {@link Converter} can recognize and resolve script expressions in strings.
- *
  * @author Volker Bergmann
  * @since 0.3.0
  */
@@ -30,11 +29,6 @@ public class ScriptConverterForStrings extends ThreadSafeConverter<String, Objec
 
   private final Context context;
 
-  /**
-   * Instantiates a new Script converter for strings.
-   *
-   * @param context the context
-   */
   public ScriptConverterForStrings(Context context) {
     super(String.class, Object.class);
     this.context = context;
@@ -42,6 +36,10 @@ public class ScriptConverterForStrings extends ThreadSafeConverter<String, Objec
 
   @Override
   public Object convert(String sourceValue) throws ConversionException {
+    return convert(sourceValue, context);
+  }
+
+  public static Object convert(String sourceValue, Context context) throws ConversionException {
     if (sourceValue != null) {
       return ScriptUtil.evaluate(sourceValue, context);
     } else {

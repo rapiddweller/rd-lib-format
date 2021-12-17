@@ -24,18 +24,12 @@ import com.rapiddweller.common.converter.ConverterWrapper;
  * {@link Converter} can recognize and resolve script expressions in {@link String} values,
  * forwarding values of other Java type 'as is'.
  * Created: 07.08.2011 08:27:27
- *
  * @author Volker Bergmann
  * @since 0.5.9
  */
 public class ScriptConverterForObjects extends ConverterWrapper<String, Object>
     implements Converter<Object, Object> {
 
-  /**
-   * Instantiates a new Script converter for objects.
-   *
-   * @param context the context
-   */
   public ScriptConverterForObjects(Context context) {
     super(new ScriptConverterForStrings(context));
   }

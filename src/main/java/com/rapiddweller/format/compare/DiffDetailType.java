@@ -16,32 +16,23 @@
 package com.rapiddweller.format.compare;
 
 /**
- * Enumerates the kinds of difference that may be diagnosed on the lowest level of comparison, the {@link DiffDetail}.
+ * Enumerates the kinds of difference that may be diagnosed on the lowest level of comparison, the {@link DiffDetail}.<br/><br/>
  * Created: 21.11.2013 11:33:30
- *
  * @author Volker Bergmann
  * @since 1.0.5
  */
 public enum DiffDetailType {
 
-  /**
-   * An expected element was found but differs in some way.
-   */
+  /** An expected element was found but differs in some way. */
   DIFFERENT,
 
-  /**
-   * An element was which was not expected at this place.
-   */
+  /** An element was which was not expected at this place. */
   UNEXPECTED,
 
-  /**
-   * An expected element was not found.
-   */
+  /** An expected element was not found. */
   MISSING,
 
-  /**
-   * An expected element was found at an unexpected place.
-   */
+  /** An expected element was found at an unexpected place. */
   MOVED
 
 }

@@ -19,7 +19,7 @@ import com.rapiddweller.common.Assert;
 import com.rapiddweller.common.exception.ExceptionFactory;
 
 /**
- * Compares arrays of objects using a {@link ComparisonModel}.
+ * Compares arrays of objects using a {@link ComparisonModel}.<br/><br/>
  * Created: 20.11.2013 17:40:38
  * @author Volker Bergmann
  * @since 1.0.5
