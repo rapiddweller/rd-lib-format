@@ -22,26 +22,16 @@ import com.rapiddweller.format.DataSource;
 import java.io.Closeable;
 
 /**
- * Provides {@link DataSource}-style access to a Java-SDK-{@link Iterable}.
+ * Provides {@link DataSource}-style access to a Java-SDK-{@link Iterable}.<br/><br/>
  * Created: 24.07.2011 11:07:04
- *
  * @param <E> the type of data to iterate
  * @author Volker Bergmann
  * @since 0.6.0
  */
 public class DataSourceFromIterable<E> extends AbstractDataSource<E> {
 
-  /**
-   * The Source.
-   */
   protected Iterable<E> source;
 
-  /**
-   * Instantiates a new Data source from iterable.
-   *
-   * @param source the source
-   * @param type   the type
-   */
   public DataSourceFromIterable(Iterable<E> source, Class<E> type) {
     super(type);
     this.source = source;

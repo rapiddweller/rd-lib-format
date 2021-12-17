@@ -17,6 +17,7 @@ package com.rapiddweller.format.script;
 
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ScriptException;
 
 import java.io.IOException;
 import java.io.StringWriter;

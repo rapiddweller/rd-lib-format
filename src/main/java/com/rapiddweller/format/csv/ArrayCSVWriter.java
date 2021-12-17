@@ -21,10 +21,10 @@ import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.SystemInfo;
 import com.rapiddweller.common.converter.ToStringConverter;
 import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.exception.ScriptException;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.ConstantScript;
 import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
 import com.rapiddweller.format.script.ScriptUtil;
 import com.rapiddweller.format.script.ScriptedDocumentWriter;
 

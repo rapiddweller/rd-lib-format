@@ -16,9 +16,9 @@
 package com.rapiddweller.format.script.freemarker;
 
 import com.rapiddweller.common.Context;
+import com.rapiddweller.common.exception.ScriptException;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

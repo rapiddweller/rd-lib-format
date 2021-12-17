@@ -26,9 +26,9 @@ import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.ToStringConverter;
 import com.rapiddweller.common.exception.ExceptionFactory;
+import com.rapiddweller.common.exception.ScriptException;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
 import com.rapiddweller.format.script.ScriptUtil;
 import com.rapiddweller.format.script.ScriptedDocumentWriter;
 

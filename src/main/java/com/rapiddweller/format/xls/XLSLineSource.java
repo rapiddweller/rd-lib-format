@@ -15,10 +15,12 @@
 
 package com.rapiddweller.format.xls;
 
+import com.rapiddweller.common.ExceptionUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.AbstractDataSource;
 
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 /**
@@ -47,11 +49,7 @@ public class XLSLineSource extends AbstractDataSource<Object[]> {
 
   @Override
   public DataIterator<Object[]> iterator() {
-    try {
-      return new XLSLineIterator(uri, sheetName, false, formatted, null);
-    } catch (Exception e) {
-      throw ExceptionFactory.getInstance().fileAccessException("Unable to create iterator for URI " + uri, e);
-    }
+    return new XLSLineIterator(uri, sheetName, false, formatted, null);
   }
 
 }

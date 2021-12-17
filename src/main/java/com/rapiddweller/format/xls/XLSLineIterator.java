@@ -18,7 +18,6 @@ package com.rapiddweller.format.xls;
 import com.rapiddweller.common.Converter;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.exception.ParseException;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.converter.ArrayTypeConverter;
 import com.rapiddweller.common.converter.NoOpConverter;
@@ -30,6 +29,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 /**
@@ -50,26 +50,24 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  public XLSLineIterator(String uri) throws IOException, ParseException {
+  public XLSLineIterator(String uri) {
     this(uri, 0);
   }
 
-  public XLSLineIterator(String uri, int sheetIndex) throws IOException, ParseException {
+  public XLSLineIterator(String uri, int sheetIndex) {
     this(uri, sheetIndex, false, false, null);
   }
 
-  public XLSLineIterator(String uri, int sheetIndex, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor)
-      throws IOException, ParseException {
+  public XLSLineIterator(String uri, int sheetIndex, boolean headersIncluded, boolean formatted,
+                         Converter<String, ?> stringPreprocessor) {
     this(sheet(uri, sheetIndex), headersIncluded, formatted, stringPreprocessor);
   }
 
-  public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted)
-      throws IOException, ParseException {
+  public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted) {
     this(uri, sheetName, headersIncluded, formatted, null);
   }
 
-  public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor)
-      throws IOException, ParseException {
+  public XLSLineIterator(String uri, String sheetName, boolean headersIncluded, boolean formatted, Converter<String, ?> stringPreprocessor) {
     this(sheet(uri, sheetName), headersIncluded, formatted, stringPreprocessor);
   }
 
@@ -168,18 +166,18 @@ public class XLSLineIterator implements DataIterator<Object[]> {
 
   // helper methods --------------------------------------------------------------------------------------------------
 
-  private static Sheet sheet(String uri, String sheetName) throws IOException, ParseException {
-    Workbook workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
+  private static Sheet sheet(String uri, String sheetName) {
+    Workbook workbook = readWorkbook(uri);
     Sheet sheet = sheetName != null ? workbook.getSheet(sheetName) : workbook.getSheetAt(0);
-    if (sheet == null) {
-      throw ExceptionFactory.getInstance().illegalArgument("Sheet '" + sheetName + "' not found in file " + uri);
+    if (sheet != null) {
+      return sheet;
+    } else {
+      throw ExceptionFactory.getInstance().sheetNotFound(uri, sheetName);
     }
-    return sheet;
   }
 
-  private static Sheet sheet(String uri, int sheetIndex) throws IOException {
-    Workbook workbook;
-    workbook = WorkbookFactory.create(IOUtil.getInputStreamForURI(uri));
+  private static Sheet sheet(String uri, int sheetIndex) {
+    Workbook workbook = readWorkbook(uri);
     return workbook.getSheetAt(sheetIndex);
   }
 
@@ -190,6 +188,15 @@ public class XLSLineIterator implements DataIterator<Object[]> {
     } else {
       this.headers = null;
       close();
+    }
+  }
+
+  private static Workbook readWorkbook(String uri) {
+    InputStream in = IOUtil.getInputStreamForURI(uri);
+    try {
+      return WorkbookFactory.create(in);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().parsingError("Failed to read " + uri, e);
     }
   }
 

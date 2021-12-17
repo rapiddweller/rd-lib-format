@@ -24,9 +24,9 @@ import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.FormatFormatConverter;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ScriptException;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
 import com.rapiddweller.format.script.ScriptUtil;
 import com.rapiddweller.format.script.ScriptedDocumentWriter;
 
@@ -34,33 +34,17 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes JavaBeans as flat file columns.
+ * Writes JavaBeans as flat file columns.<br/><br/>
  * Created: 07.06.2007 13:05:38
- *
  * @param <E> the type of the objects to write
  * @author Volker Bergmann
  */
 public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
 
-  /**
-   * Instantiates a new Bean fixed width writer.
-   *
-   * @param out         the out
-   * @param descriptors the descriptors
-   */
   public BeanFixedWidthWriter(Writer out, FixedWidthColumnDescriptor... descriptors) {
     this(out, null, (Script) null, descriptors);
   }
 
-  /**
-   * Instantiates a new Bean fixed width writer.
-   *
-   * @param out             the out
-   * @param headerScriptUrl the header script url
-   * @param footerScriptUrl the footer script url
-   * @param descriptors     the descriptors
-   * @throws IOException the io exception
-   */
   public BeanFixedWidthWriter(Writer out, String headerScriptUrl, String footerScriptUrl,
                               FixedWidthColumnDescriptor... descriptors)
       throws IOException {
@@ -72,14 +56,6 @@ public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
     );
   }
 
-  /**
-   * Instantiates a new Bean fixed width writer.
-   *
-   * @param out          the out
-   * @param headerScript the header script
-   * @param footerScript the footer script
-   * @param descriptors  the descriptors
-   */
   public BeanFixedWidthWriter(Writer out, Script headerScript, Script footerScript,
                               FixedWidthColumnDescriptor... descriptors) {
     super(out, headerScript, new BeanFixedWidthScript(descriptors), footerScript);
@@ -91,11 +67,6 @@ public class BeanFixedWidthWriter<E> extends ScriptedDocumentWriter<E> {
 
     private final Converter<Object, String[]> converter;
 
-    /**
-     * Instantiates a new Bean fixed width script.
-     *
-     * @param descriptors the descriptors
-     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BeanFixedWidthScript(FixedWidthColumnDescriptor[] descriptors) {
       int length = descriptors.length;

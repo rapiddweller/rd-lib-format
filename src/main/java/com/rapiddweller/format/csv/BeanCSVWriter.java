@@ -24,10 +24,10 @@ import com.rapiddweller.common.bean.BeanToPropertyArrayConverter;
 import com.rapiddweller.common.converter.ArrayConverter;
 import com.rapiddweller.common.converter.ConverterChain;
 import com.rapiddweller.common.converter.ToStringConverter;
+import com.rapiddweller.common.exception.ScriptException;
 import com.rapiddweller.format.script.AbstractScript;
 import com.rapiddweller.format.script.ConstantScript;
 import com.rapiddweller.format.script.Script;
-import com.rapiddweller.format.script.ScriptException;
 import com.rapiddweller.format.script.ScriptedDocumentWriter;
 
 import java.beans.PropertyDescriptor;
