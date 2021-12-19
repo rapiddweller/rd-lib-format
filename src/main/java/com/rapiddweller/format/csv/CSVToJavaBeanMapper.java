@@ -18,8 +18,8 @@ package com.rapiddweller.format.csv;
 import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.bean.NamedMutatorFactory;
 import com.rapiddweller.common.exception.ExceptionFactory;
-import com.rapiddweller.common.mutator.AnyMutator;
 import com.rapiddweller.common.mutator.NamedMutator;
 import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
@@ -142,7 +142,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
         mutators[i] = null;
         this.classIndex = i;
       } else {
-        mutators[i] = new AnyMutator(attributeName, false, true);
+        mutators[i] = NamedMutatorFactory.create(type, attributeName, false, true);
       }
     }
   }
