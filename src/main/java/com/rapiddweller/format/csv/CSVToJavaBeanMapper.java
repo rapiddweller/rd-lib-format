@@ -16,7 +16,6 @@
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.BeanUtil;
-import com.rapiddweller.common.ConfigurationError;
 import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.bean.NamedMutatorFactory;
 import com.rapiddweller.common.exception.ExceptionFactory;
@@ -25,7 +24,6 @@ import com.rapiddweller.format.DataContainer;
 import com.rapiddweller.format.DataIterator;
 import com.rapiddweller.format.util.ThreadLocalDataContainer;
 
-import java.io.IOException;
 import java.io.Reader;
 
 /**
@@ -47,7 +45,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   // constructors ----------------------------------------------------------------------------------------------------
 
-  public CSVToJavaBeanMapper(Reader reader, Class<E> type) throws IOException {
+  public CSVToJavaBeanMapper(Reader reader, Class<E> type) {
     this(reader, type, ',', null);
   }
 
@@ -75,7 +73,7 @@ public class CSVToJavaBeanMapper<E> implements DataIterator<E> {
 
   @SuppressWarnings("unchecked")
   @Override
-  public DataContainer<E> next(DataContainer<E> wrapper) throws ConfigurationError {
+  public DataContainer<E> next(DataContainer<E> wrapper) {
     int i = 0;
     String value = null;
     try {
