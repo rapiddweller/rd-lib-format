@@ -19,7 +19,7 @@ public class AttrInfo<E> implements Named {
 
   private final String name;
   private boolean required;
-  private final String errorId;
+  private String errorId;
   private final E defaultValue;
   private final Parser<E> parser;
 
@@ -58,6 +58,10 @@ public class AttrInfo<E> implements Named {
 
   public String getErrorId() {
     return errorId;
+  }
+
+  public void setErrorId(String errorId) {
+    this.errorId = errorId;
   }
 
   public E parse(Element element) {

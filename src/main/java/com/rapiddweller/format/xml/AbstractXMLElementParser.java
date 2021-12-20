@@ -48,12 +48,12 @@ public abstract class AbstractXMLElementParser<E> implements XMLElementParser<E>
 
   protected final String elementName;
   protected final Set<Class<?>> supportedParentTypes;
-  protected final AttrInfoSupport attrSupport;
+  protected AttrInfoSupport attrSupport;
 
   protected AbstractXMLElementParser(String elementName, AttrInfoSupport attrSupport,
                                      Class<?>... supportedParentTypes) {
     this.elementName = elementName;
-    this.attrSupport = Assert.notNull(attrSupport, "attrSupport");
+    this.attrSupport = attrSupport;
     for (Class<?> c : supportedParentTypes) {
       Assert.notNull(c, "supportedParentType");
     }
