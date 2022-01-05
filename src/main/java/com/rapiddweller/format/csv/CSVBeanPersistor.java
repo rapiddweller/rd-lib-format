@@ -4,6 +4,8 @@ package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.Consumer;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.Validatable;
+import com.rapiddweller.common.exception.ExceptionFactory;
 import com.rapiddweller.format.DataContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +34,23 @@ public class CSVBeanPersistor<E> {
 		Reader reader = null;
 		try {
 			reader = IOUtil.getReaderForURI(uri, encoding);
-			persistor.load(reader, t -> result.add(t));
+			persistor.load(reader, result::add);
 		} finally {
 			IOUtil.close(reader);
 		}
 		return result;
 	}
+
+	public static <T> void export(String uri, List<T> beans, char separator, String[] headers) {
+		try {
+			Class<T> type = (Class<T>) beans.get(0).getClass();
+			CSVBeanPersistor<T> persistor = new CSVBeanPersistor<>(type, separator, headers);
+			persistor.save(new File(uri), beans.iterator());
+		} catch (IOException e) {
+			throw ExceptionFactory.getInstance().fileCreationFailed(e.getMessage(), e);
+		}
+	}
+
 
 	// instance attributes -------------------------------------------------------------------------------------------
 	
@@ -65,7 +78,9 @@ public class CSVBeanPersistor<E> {
 		try (CSVToJavaBeanMapper<E> mapper = new CSVToJavaBeanMapper<>(reader, beanClass, separator, null)) {
 			DataContainer<E> wrapper = new DataContainer<>();
 			while (mapper.next(wrapper) != null) {
-				consumer.consume(wrapper.getData());
+				E bean = wrapper.getData();
+				checkValidatable(bean);
+				consumer.consume(bean);
 			}
 		}
 	}
@@ -75,6 +90,12 @@ public class CSVBeanPersistor<E> {
 			while (beanIterator.hasNext()) {
 				out.writeElement(beanIterator.next());
 			}
+		}
+	}
+
+	private static <T> void checkValidatable(T t) {
+		if (t instanceof Validatable) {
+			((Validatable) t).validate();
 		}
 	}
 
