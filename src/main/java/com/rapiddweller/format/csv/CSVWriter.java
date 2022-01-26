@@ -16,7 +16,9 @@
 package com.rapiddweller.format.csv;
 
 import com.rapiddweller.common.ArrayUtil;
+import com.rapiddweller.common.IOUtil;
 import com.rapiddweller.common.SystemInfo;
+import com.rapiddweller.common.exception.ExceptionFactory;
 
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -39,24 +41,32 @@ public class CSVWriter implements Closeable {
   private final Writer out;
   private final char separator;
 
-  public static void writeTable(String[] title, Object[][] table, File file, char separator) throws IOException {
-    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-    try (CSVWriter csv = new CSVWriter(writer, separator, false)) {
-      for (String titleLine : title)
-        csv.writeRow(new String[] {titleLine});
-      for (Object[] tableRow : table) {
-        csv.writeRow(tableRow);
+  public static void writeTable(String[] title, Object[][] table, File file, char separator) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+      try (CSVWriter csv = new CSVWriter(writer, separator, false)) {
+        for (String titleLine : title)
+          csv.writeRow(new String[] {titleLine});
+        for (Object[] tableRow : table) {
+          csv.writeRow(tableRow);
+        }
       }
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().fileCreationFailed("Creation of CSV file '" + file + "' failed", e);
     }
   }
 
-  public static CSVWriter forFile(File file, char separator, boolean append, String... columnHeaders) throws IOException {
-    boolean exists = (file.exists() && file.length() > 0);
-    BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
-    return new CSVWriter(writer, separator, exists, columnHeaders);
+  public static CSVWriter forFile(File file, char separator, boolean append, String... columnHeaders) {
+    try {
+      boolean exists = (file.exists() && file.length() > 0);
+      BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
+      return new CSVWriter(writer, separator, exists, columnHeaders);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().fileCreationFailed("Creation of CSV file '" + file + "' failed", e);
+    }
   }
 
-  public CSVWriter(Writer writer, char separator, boolean append, String... columnHeaders) throws IOException {
+  public CSVWriter(Writer writer, char separator, boolean append, String... columnHeaders) {
     this.separator = separator;
     this.out = writer;
     if (!append && !ArrayUtil.isEmpty(columnHeaders)) {
@@ -64,24 +74,34 @@ public class CSVWriter implements Closeable {
     }
   }
 
-  public synchronized void writeRow(Object[] cells) throws IOException {
-    for (int i = 0; i < cells.length; i++) {
-      String cellString = (cells[i] != null ? String.valueOf(cells[i]) : "");
-      if (cellString.indexOf(separator) >= 0) {
-        out.write('"' + cellString + '"');
-      } else {
-        out.write(cellString);
+  public void writeEmptyRow() {
+    writeRow(null);
+  }
+
+  public synchronized void writeRow(Object[] cells) {
+    try {
+      if (cells != null) {
+        for (int i = 0; i < cells.length; i++) {
+          String cellString = (cells[i] != null ? String.valueOf(cells[i]) : "");
+          if (cellString.indexOf(separator) >= 0) {
+            out.write('"' + cellString + '"');
+          } else {
+            out.write(cellString);
+          }
+          if (i < cells.length - 1) {
+            out.write(separator);
+          }
+        }
       }
-      if (i < cells.length - 1) {
-        out.write(separator);
-      }
+      out.write(LF);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().operationFailed(e.getMessage(), e);
     }
-    out.write(LF);
   }
 
   @Override
-  public synchronized void close() throws IOException {
-    out.close();
+  public synchronized void close() {
+    IOUtil.close(out);
   }
 
 }
