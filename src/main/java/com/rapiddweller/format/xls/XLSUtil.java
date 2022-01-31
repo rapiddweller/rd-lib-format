@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 Volker Bergmann (volker.bergmann@bergmann-it.de).
+ * Copyright (C) 2011-2022 Volker Bergmann (volker.bergmann@bergmann-it.de).
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -256,10 +256,14 @@ public class XLSUtil {
     }
   }
 
-  public static void saveAs(String fileName, Workbook workbook) throws IOException {
-    FileOutputStream out = new FileOutputStream(fileName);
-    workbook.write(out);
-    IOUtil.close(out);
+  public static void saveAs(String fileName, Workbook workbook) {
+    try {
+      FileOutputStream out = new FileOutputStream(fileName);
+      workbook.write(out);
+      IOUtil.close(out);
+    } catch (IOException e) {
+      throw ExceptionFactory.getInstance().fileCreationFailed(e.getMessage(), e);
+    }
   }
 
 
