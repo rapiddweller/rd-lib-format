@@ -83,7 +83,7 @@ public class CSVWriter implements Closeable {
       if (cells != null) {
         for (int i = 0; i < cells.length; i++) {
           String cellString = (cells[i] != null ? String.valueOf(cells[i]) : "");
-          if (cellString.indexOf(separator) >= 0) {
+          if (cellString.indexOf(separator) >= 0 && !(cellString.startsWith("\"") && cellString.endsWith("\""))) {
             out.write('"' + cellString + '"');
           } else {
             out.write(cellString);
