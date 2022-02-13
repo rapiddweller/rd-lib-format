@@ -44,13 +44,17 @@ public class AttrInfoSupport {
   }
 
   public void add(String name, boolean required, String errorId) {
-    map.put(name, new AttrInfo<>(name, required, errorId, null));
+    add(new AttrInfo<>(name, required, errorId, null));
   }
 
   public <T> AttrInfo<T> add(String name, boolean required, String errorId, String defaultValue, Parser<T> parser) {
     AttrInfo<T> attrInfo = new AttrInfo<>(name, required, errorId, parser, defaultValue);
-    map.put(name, attrInfo);
+    add(attrInfo);
     return attrInfo;
+  }
+
+  public void add(AttrInfo<?> attrInfo) {
+    map.put(attrInfo.getName(), attrInfo);
   }
 
   public AttrInfo<?> get(String name) {
