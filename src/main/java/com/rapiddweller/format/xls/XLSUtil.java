@@ -203,6 +203,13 @@ public class XLSUtil {
     return row;
   }
 
+  public static Row addRow(Sheet sheet, Object... cells) {
+    Row row = sheet.createRow(sheet.getLastRowNum() + 1);
+    for (int i = 0; i < cells.length; i++)
+      createCell(row, i, cells[i]);
+    return row;
+  }
+
   private static Cell createCell(Row row, int colnum, Object value) {
     Cell cell = row.createCell(colnum);
     if (value != null) {
@@ -227,13 +234,6 @@ public class XLSUtil {
       }
     }
     return cell;
-  }
-
-  public static Row addRow(String[] cells, Sheet sheet) {
-    Row row = sheet.createRow(sheet.getLastRowNum() + 1);
-    for (int i = 0; i < cells.length; i++)
-      row.createCell(i).setCellValue(cells[i]);
-    return row;
   }
 
   public static void formatColumsWithHeader(String header, Workbook workbook, String format) {
