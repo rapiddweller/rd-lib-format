@@ -16,6 +16,8 @@
 package com.rapiddweller.format.util;
 
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.ThreadAware;
+import com.rapiddweller.common.ThreadUtil;
 import com.rapiddweller.format.DataSource;
 
 /**
@@ -27,22 +29,23 @@ import com.rapiddweller.format.DataSource;
  * @author Volker Bergmann
  * @since 0.6.0
  */
-public abstract class DataSourceAdapter<S, T> extends AbstractDataSource<T> {
+public abstract class DataSourceAdapter<S, T> extends AbstractDataSource<T> implements ThreadAware {
 
-  /**
-   * The Source.
-   */
   protected DataSource<S> source;
 
-  /**
-   * Instantiates a new Data source adapter.
-   *
-   * @param source the source
-   * @param type   the type
-   */
-  public DataSourceAdapter(DataSource<S> source, Class<T> type) {
+  protected DataSourceAdapter(DataSource<S> source, Class<T> type) {
     super(type);
     this.source = source;
+  }
+
+  @Override
+  public boolean isThreadSafe() {
+    return ThreadUtil.isThreadSafe(source);
+  }
+
+  @Override
+  public boolean isParallelizable() {
+    return ThreadUtil.isParallelizable(source);
   }
 
   @Override
