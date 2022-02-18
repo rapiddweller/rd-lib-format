@@ -32,6 +32,13 @@ public class AttrInfo<E> implements Named {
   }
 
   protected AttrInfo(String name, boolean required, String errorId, Parser<E> parser, E defaultValue) {
+    this(name, required, errorId, parser, defaultValue, null);
+  }
+
+  /** @param dummyArg is necessary as a workaround to resolve constructor matching issues
+   *                 for instances that use String for the generic parameter E */
+  @SuppressWarnings("unused")
+  protected AttrInfo(String name, boolean required, String errorId, Parser<E> parser, E defaultValue, String dummyArg) {
     this.name = name;
     this.required = required;
     this.errorId = errorId;
@@ -64,6 +71,7 @@ public class AttrInfo<E> implements Named {
     this.errorId = errorId;
   }
 
+  @SuppressWarnings("unchecked")
   public E parse(Element element) {
     Attr attr = element.getAttributeNode(name);
     if (attr != null) {
@@ -78,13 +86,12 @@ public class AttrInfo<E> implements Named {
       }
     } else if (required) {
       throw ExceptionFactory.getInstance().missingXmlAttribute(null, errorId, name, element);
-    } else if (defaultValue != null) {
-      return defaultValue;
     } else {
-      return null;
+      return defaultValue;
     }
   }
 
+  @SuppressWarnings({"unchecked", "raw"})
   private E parseImpl(Attr attr) {
     String value = attr.getValue();
     E result = parser.parse(value);
