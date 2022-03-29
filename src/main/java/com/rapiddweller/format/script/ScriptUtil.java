@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 /**
@@ -58,6 +59,10 @@ public class ScriptUtil {
   }
 
   // utility methods -------------------------------------------------------------------------------------------------
+
+  public static Set<String> getFactoryIds() {
+    return factories.keySet();
+  }
 
   public static Object execute(Script script, Context context) {
     return script.evaluate(context);
