@@ -27,4 +27,5 @@ import java.io.IOException;
 public interface ScriptFactory {
   Script readFile(String uri) throws ParseException, IOException;
   Script parseText(String text) throws ParseException;
+  boolean isTemplateEngine();
 }

@@ -52,6 +52,11 @@ public class FreeMarkerScriptFactory implements ScriptFactory {
   }
 
   @Override
+  public boolean isTemplateEngine() {
+    return true;
+  }
+
+  @Override
   public Script parseText(String text) {
     try {
       StringReader reader = new StringReader(text);

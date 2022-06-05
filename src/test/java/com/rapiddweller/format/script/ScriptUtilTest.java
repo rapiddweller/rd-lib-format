@@ -79,6 +79,11 @@ public class ScriptUtilTest {
     public Script readFile(String uri) throws ParseException {
       return null;
     }
+
+    @Override
+    public boolean isTemplateEngine() {
+      return false;
+    }
   }
 
   private static void checkDescriptor(ScriptDescriptor scriptDescriptor,

@@ -19,6 +19,7 @@ import com.rapiddweller.common.BeanUtil;
 import com.rapiddweller.common.Context;
 import com.rapiddweller.common.FileUtil;
 import com.rapiddweller.common.IOUtil;
+import com.rapiddweller.common.RegexUtil;
 import com.rapiddweller.common.StringUtil;
 import com.rapiddweller.common.exception.ExceptionFactory;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class ScriptUtil {
   private static final Logger logger = LoggerFactory.getLogger(ScriptUtil.class);
 
   public static final String COMPONENT_NAME = "rd-lib-script";
+  public static final String ENGINE_ID_REGEX = "[A-Za-z][A-Za-z0-0_]*";
 
   // extension mapping -----------------------------------------------------------------------------------------------
 
@@ -78,6 +80,34 @@ public class ScriptUtil {
     } else {
       return text;
     }
+  }
+
+  public static ScriptSpec parseSpec(String text) {
+    if (StringUtil.isEmpty(text)) {
+      return new ScriptSpec(null, text, false);
+    } else if (text.startsWith("{{") && text.endsWith("}}")) {
+      return parseIdAndScript(text.substring(2, text.length() - 2), true);
+    } else if (text.startsWith("{") && text.endsWith("}")) {
+      return parseIdAndScript(text.substring(1, text.length() - 1), true);
+    } else {
+      return new ScriptSpec(null, text, false);
+    }
+  }
+
+  /** Parses a text of which it is already known as script in the format <engineId> ':' <scriptText> */
+  private static ScriptSpec parseIdAndScript(String text, boolean dynamic) {
+    int sepIndex = text.indexOf(':');
+    if (sepIndex >= 0) {
+      String engineId = text.substring(0, sepIndex);
+      if (RegexUtil.matches(ENGINE_ID_REGEX, engineId)) {
+        String scriptText = text.substring(sepIndex + 1);
+        return new ScriptSpec(engineId, scriptText, dynamic);
+      } else {
+        throw ExceptionFactory.getInstance().syntaxErrorForText(
+            "Not a script engine id: '" + engineId + "'", text);
+      }
+    }
+    return new ScriptSpec(getDefaultScriptEngine(), text, dynamic);
   }
 
   // static factory methods ------------------------------------------------------------------------------------------
@@ -218,7 +248,7 @@ public class ScriptUtil {
     return descriptors;
   }
 
-  static ScriptFactory getFactory(String engineId, boolean required) {
+  public static ScriptFactory getFactory(String engineId, boolean required) {
     ScriptFactory factory = factories.get(engineId);
     if (factory == null && required) {
       throw ExceptionFactory.getInstance().illegalArgument("Not a supported script engine: " + engineId);
