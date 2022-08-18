@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.rapiddweller</groupId>
     <artifactId>rd-lib-format</artifactId>
-    <version>1.1.5-jdk-11-SNAPSHOT</version>
+    <version>1.1.5-jdk-11</version>
     <packaging>jar</packaging>
     <name>rapiddweller Format</name>
     <description>'rapiddweller Format' is an open source software library
@@ -18,7 +18,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <_rd_common_version>2.0.0-jdk-11-SNAPSHOT</_rd_common_version>
+        <_rd_common_version>2.0.0-jdk-11</_rd_common_version>
         <dependency_antlr-runtime.version>3.3</dependency_antlr-runtime.version>
         <dependency_freemarker.version>2.3.20</dependency_freemarker.version>
         <dependency_junit.version>4.13.2</dependency_junit.version>
