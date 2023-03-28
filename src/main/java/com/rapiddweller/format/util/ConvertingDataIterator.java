@@ -55,7 +55,7 @@ public class ConvertingDataIterator<S, T> extends DataIteratorAdapter<S, T> {
   }
 
   @Override
-  public DataContainer<T> next(DataContainer<T> container) {
+  public synchronized DataContainer<T> next(DataContainer<T> container) {
     DataContainer<S> sourceWrapper = nextOfSource();
     if (sourceWrapper == null) {
       return null;
